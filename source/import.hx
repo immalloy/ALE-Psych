@@ -24,6 +24,7 @@ import js.html.*;
 import backend.Paths;
 import backend.Controls;
 import backend.CoolUtil;
+import backend.CoolVars;
 import backend.MusicBeatState;
 import backend.MusicBeatSubstate;
 import backend.CustomFadeTransition;

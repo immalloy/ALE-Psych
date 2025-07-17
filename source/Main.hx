@@ -4,7 +4,7 @@ package;
 import android.content.Context;
 #end
 
-import debug.FPSCounter;
+import debug.DebugCounter;
 
 import flixel.graphics.FlxGraphic;
 import flixel.FlxGame;
@@ -29,8 +29,24 @@ import haxe.CallStack;
 import haxe.io.Path;
 #end
 
+#if (windows && cpp)
+@:buildXml('
+<target id="haxe">
+	<lib name="wininet.lib" if="windows" />
+	<lib name="dwmapi.lib" if="windows" />
+</target>
+')
+
+@:cppFileCode('
+#include <windows.h>
+#include <winuser.h>
+#pragma comment(lib, "Shell32.lib")
+extern "C" HRESULT WINAPI SetCurrentProcessExplicitAppUserModelID(PCWSTR AppID);
+')
+#end
+
 #if linux
-@:cppInclude('./external/gamemode_client.h')
+@:cppInclude('./cpp/gamemode_client.h')
 @:cppFileCode('
 	#define GAMEMODE_AUTO
 ')
@@ -48,7 +64,7 @@ class Main extends Sprite
 		startFullscreen: false // if the game should start at fullscreen mode
 	};
 
-	public static var fpsVar:FPSCounter;
+	public static var fpsVar:DebugCounter;
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
@@ -66,6 +82,16 @@ class Main extends Sprite
 		Sys.setCwd(Path.addTrailingSlash(Context.getExternalFilesDir()));
 		#elseif ios
 		Sys.setCwd(lime.system.System.applicationStorageDirectory);
+		#end
+
+		#if (windows && cpp)
+		untyped __cpp__("SetProcessDPIAware();");
+
+		FlxG.stage.window.borderless = true;
+		FlxG.stage.window.borderless = false;
+
+		Application.current.window.x = Std.int((Application.current.window.display.bounds.width - Application.current.window.width) / 2);
+		Application.current.window.y = Std.int((Application.current.window.display.bounds.height - Application.current.window.height) / 2);
 		#end
 
 		if (stage != null)
@@ -105,18 +131,15 @@ class Main extends Sprite
 		#if LUA_ALLOWED Lua.set_callbacks_function(cpp.Callable.fromStaticFunction(psychlua.CallbackHandler.call)); #end
 		Controls.instance = new Controls();
 		ClientPrefs.loadDefaultKeys();
-		#if ACHIEVEMENTS_ALLOWED Achievements.load(); #end
+		
 		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 
-		#if !mobile
-		fpsVar = new FPSCounter(10, 3, 0xFFFFFF);
+		fpsVar = new DebugCounter();
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
-		if(fpsVar != null) {
+		if(fpsVar != null)
 			fpsVar.visible = ClientPrefs.data.showFPS;
-		}
-		#end
 
 		#if linux
 		var icon = Image.fromFile("icon.png");
@@ -163,14 +186,11 @@ class Main extends Sprite
 	function onCrash(e:UncaughtErrorEvent):Void
 	{
 		var errMsg:String = "";
-		var path:String;
 		var callStack:Array<StackItem> = CallStack.exceptionStack(true);
 		var dateNow:String = Date.now().toString();
 
 		dateNow = dateNow.replace(" ", "_");
 		dateNow = dateNow.replace(":", "'");
-
-		path = "./crash/" + "PsychEngine_" + dateNow + ".txt";
 
 		for (stackItem in callStack)
 		{
@@ -185,13 +205,7 @@ class Main extends Sprite
 
 		errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/ShadowMario/FNF-PsychEngine\n\n> Crash Handler written by: sqirra-rng";
 
-		if (!FileSystem.exists("./crash/"))
-			FileSystem.createDirectory("./crash/");
-
-		File.saveContent(path, errMsg + "\n");
-
 		Sys.println(errMsg);
-		Sys.println("Crash dump saved in " + Path.normalize(path));
 
 		Application.current.window.alert(errMsg, "Error!");
 		#if DISCORD_ALLOWED

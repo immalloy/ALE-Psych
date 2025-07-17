@@ -7,11 +7,13 @@ import backend.PsychCamera;
 
 class MusicBeatState extends FlxUIState
 {
-	private var curSection:Int = 0;
-	private var stepsToDo:Int = 0;
+	@:allow(debug.ConductorField) private var curSection:Int = 0;
+	@:allow(debug.ConductorField) private var curStep:Int = 0;
+	@:allow(debug.ConductorField) private var curBeat:Int = 0;
 
-	private var curStep:Int = 0;
-	private var curBeat:Int = 0;
+	public static var instance:MusicBeatState;
+
+	private var stepsToDo:Int = 0;
 
 	private var curDecStep:Float = 0;
 	private var curDecBeat:Float = 0;
@@ -31,11 +33,20 @@ class MusicBeatState extends FlxUIState
 
 		super.create();
 
+		MusicBeatState.instance = this;
+
 		if(!skip) {
 			openSubState(new CustomFadeTransition(0.6, true));
 		}
 		FlxTransitionableState.skipNextTransOut = false;
 		timePassedOnState = 0;
+	}
+
+	override function destroy()
+	{
+		MusicBeatState.instance = null;
+
+		super.destroy();
 	}
 
 	public function initPsychCamera():PsychCamera
