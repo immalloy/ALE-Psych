@@ -1,8 +1,6 @@
 package states.editors;
 
 import flash.geom.Rectangle;
-import haxe.Json;
-import haxe.format.JsonParser;
 import haxe.io.Bytes;
 
 import flixel.FlxObject;
@@ -3139,7 +3137,7 @@ class ChartingState extends MusicBeatState
 
 	function autosaveSong():Void
 	{
-		FlxG.save.data.autosave = haxe.Json.stringify({
+		FlxG.save.data.autosave = Json.stringify({
 			"song": _song
 		});
 		FlxG.save.flush();
@@ -3157,7 +3155,7 @@ class ChartingState extends MusicBeatState
 			"song": _song
 		};
 
-		var data:String = haxe.Json.stringify(json, "\t");
+		var data:String = Json.stringify(json, "\t");
 
 		if ((data != null) && (data.length > 0))
 		{
@@ -3184,7 +3182,7 @@ class ChartingState extends MusicBeatState
 			"song": eventsSong
 		}
 
-		var data:String = haxe.Json.stringify(json, "\t");
+		var data:String = Json.stringify(json, "\t");
 
 		if ((data != null) && (data.length > 0))
 		{

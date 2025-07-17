@@ -1,4 +1,4 @@
-package backend;
+package utils;
 
 import flixel.graphics.frames.FlxFrame.FlxFrameAngle;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -14,6 +14,8 @@ import openfl.geom.Rectangle;
 
 import lime.utils.Assets;
 import flash.media.Sound;
+
+import haxe.Json;
 
 #if MODS_ALLOWED
 import backend.Mods;

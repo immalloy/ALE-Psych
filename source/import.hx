@@ -17,10 +17,7 @@ import sys.io.*;
 import js.html.*;
 #end
 
-import backend.Paths;
 import backend.Controls;
-import backend.CoolUtil;
-import backend.CoolVars;
 import backend.MusicBeatState;
 import backend.MusicBeatSubstate;
 import backend.CustomFadeTransition;
@@ -29,6 +26,11 @@ import backend.Conductor;
 import backend.BaseStage;
 import backend.Difficulty;
 import backend.Mods;
+
+import utils.CoolUtil;
+import utils.CoolVars;
+import utils.Paths;
+import utils.ALEJson as Json;
 
 import objects.Alphabet;
 import objects.BGSprite;

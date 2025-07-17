@@ -1,6 +1,5 @@
 package backend;
 
-import haxe.Json;
 import lime.utils.Assets;
 
 import backend.Section;

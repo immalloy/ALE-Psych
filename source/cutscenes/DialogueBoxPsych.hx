@@ -1,6 +1,5 @@
 package cutscenes;
 
-import haxe.Json;
 import openfl.utils.Assets;
 
 import objects.TypedAlphabet;
