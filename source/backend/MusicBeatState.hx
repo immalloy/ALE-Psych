@@ -5,6 +5,12 @@ import flixel.addons.transition.FlxTransitionableState;
 import flixel.FlxState;
 import backend.PsychCamera;
 
+#if cpp
+import cpp.vm.Gc;
+#elseif hl
+import hl.Gc;
+#end
+
 class MusicBeatState extends FlxUIState
 {
 	@:allow(debug.ConductorField) private var curSection:Int = 0;
@@ -42,12 +48,52 @@ class MusicBeatState extends FlxUIState
 		timePassedOnState = 0;
 	}
 
+    public var shouldClearMemory:Bool = true;
+
 	override function destroy()
 	{
 		MusicBeatState.instance = null;
 
+        if (shouldClearMemory)
+            cleanMemory();
+        
 		super.destroy();
 	}
+
+    private function cleanMemory()
+    {
+        Paths.clearUnusedMemory();
+		Paths.clearStoredMemory();
+
+        #if cpp
+        var killZombies:Bool = true;
+        
+        while (killZombies)
+		{
+            var zombie = Gc.getNextZombie();
+        
+            if (zombie == null)
+			{
+                killZombies = false;
+            } else {
+                var closeMethod = Reflect.field(zombie, "close");
+        
+                if (closeMethod != null && Reflect.isFunction(closeMethod))
+                    closeMethod.call(zombie, []);
+            }
+        }
+        
+        Gc.run(true);
+        Gc.compact();
+        #end
+
+        #if hl
+        Gc.major();
+        #end
+        
+        FlxG.bitmap.clearUnused();
+        FlxG.bitmap.clearCache();
+    }
 
 	public function initPsychCamera():PsychCamera
 	{
