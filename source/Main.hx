@@ -159,6 +159,8 @@ class Main extends Sprite
 		DiscordClient.prepare();
 		#end
 
+		openalFix();
+
 		// shader coords fix
 		FlxG.signals.gameResized.add(function (w, h) {
 		     if (FlxG.cameras != null) {
@@ -180,8 +182,25 @@ class Main extends Sprite
 		}
 	}
 
-	// Code was entirely made by sqirra-rng for their fnf engine named "Izzy Engine", big props to them!!!
-	// very cool person for real they don't get enough credit for their work
+    function openalFix()
+    {
+		#if desktop
+		var origin:String = #if hl Sys.getCwd() #else Sys.programPath() #end;
+
+		var configPath:String = Path.directory(Path.withoutExtension(origin));
+
+		#if windows
+		configPath += "/plugins/alsoft.ini";
+		#elseif mac
+		configPath = Path.directory(configPath) + "/Resources/plugins/alsoft.conf";
+		#else
+		configPath += "/plugins/alsoft.conf";
+		#end
+
+		Sys.putEnv("ALSOFT_CONF", configPath);
+		#end	
+    }
+
 	#if CRASH_HANDLER
 	function onCrash(e:UncaughtErrorEvent):Void
 	{
