@@ -2,7 +2,7 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Friday Night Funkin': ALE Psych" file="ALEPsych" packageName="com.alejogdofficial.alepsych" package="com.alejogdofficial.alepsych" main="Main" version="0.1.0" company="AlejoGDOfficial" />
+	<app title="Friday Night Funkin': ALE Psych" file="ALEPsych" packageName="com.alejogdofficial.alepsych" package="com.alejogdofficial.alepsych" main="core.Main" version="0.1.0" company="AlejoGDOfficial" />
 
 	<set name="APP_ID" value="0x0100f6c013bbc000" />
 
@@ -104,6 +104,8 @@
 	</section>
 
 	<haxedef name='no-deprecation-warnings' />
+
+	<haxedef name="message.reporting" value="pretty"/>
 
 	<!-- ______________________________ Application Icon ______________________________ -->
 

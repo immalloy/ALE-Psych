@@ -1,9 +1,9 @@
 #if LUA_ALLOWED
 package psychlua;
 
-import backend.WeekData;
-import backend.Highscore;
-import backend.Song;
+import utils.WeekData;
+import utils.Highscore;
+import utils.Song;
 
 import openfl.Lib;
 import openfl.utils.Assets;
@@ -16,19 +16,19 @@ import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.display.FlxRuntimeShader;
 #end
 
-import cutscenes.DialogueBoxPsych;
+import funkin.visuals.cutscenes.DialogueBoxPsych;
 
-import objects.StrumNote;
-import objects.Note;
-import objects.NoteSplash;
-import objects.Character;
+import funkin.visuals.game.StrumNote;
+import funkin.visuals.game.Note;
+import funkin.visuals.game.NoteSplash;
+import funkin.visuals.game.Character;
 
-import states.MainMenuState;
-import states.StoryMenuState;
-import states.FreeplayState;
+import funkin.states.MainMenuState;
+import funkin.states.StoryMenuState;
+import funkin.states.FreeplayState;
 
-import substates.PauseSubState;
-import substates.GameOverSubstate;
+import funkin.substates.PauseSubState;
+import funkin.substates.GameOverSubstate;
 
 import psychlua.LuaUtils;
 import psychlua.LuaUtils.LuaTweenOptions;
@@ -40,8 +40,6 @@ import psychlua.ModchartSprite;
 
 import flixel.input.keyboard.FlxKey;
 import flixel.input.gamepad.FlxGamepadInputID;
-
-import haxe.Json;
 
 class FunkinLua {
 	public var lua:State = null;

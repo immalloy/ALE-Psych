@@ -15,10 +15,8 @@ import openfl.geom.Rectangle;
 import lime.utils.Assets;
 import flash.media.Sound;
 
-import haxe.Json;
-
 #if MODS_ALLOWED
-import backend.Mods;
+import core.backend.Mods;
 #end
 
 class Paths

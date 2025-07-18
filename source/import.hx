@@ -1,10 +1,9 @@
 #if !macro
-//Discord API
+
 #if DISCORD_ALLOWED
-import backend.Discord;
+import core.config.DiscordRPC;
 #end
 
-//Psych
 #if LUA_ALLOWED
 import llua.*;
 import llua.Lua;
@@ -17,32 +16,34 @@ import sys.io.*;
 import js.html.*;
 #end
 
-import backend.Controls;
-import backend.MusicBeatState;
-import backend.MusicBeatSubstate;
-import backend.CustomFadeTransition;
-import backend.ClientPrefs;
-import backend.Conductor;
-import backend.BaseStage;
-import backend.Difficulty;
-import backend.Mods;
+import core.backend.Controls;
+import core.backend.MusicBeatState;
+import core.backend.MusicBeatSubstate;
+import core.backend.Conductor;
+import core.backend.Mods;
 
+import funkin.substates.CustomFadeTransition;
+
+import core.config.ClientPrefs;
+
+import funkin.visuals.stages.BaseStage;
+
+import utils.Difficulty;
 import utils.CoolUtil;
 import utils.CoolVars;
 import utils.Paths;
 import utils.ALEJson as Json;
 
-import objects.Alphabet;
-import objects.BGSprite;
+import funkin.visuals.objects.Alphabet;
+import funkin.visuals.stages.BGSprite;
 
-import states.PlayState;
-import states.LoadingState;
+import funkin.states.PlayState;
+import funkin.states.LoadingState;
 
 #if flxanimate
 import flxanimate.*;
 #end
 
-//Flixel
 import flixel.sound.FlxSound;
 import flixel.FlxG;
 import flixel.FlxSprite;

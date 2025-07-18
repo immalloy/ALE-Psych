@@ -1,7 +1,7 @@
 package psychlua;
 
 import flixel.FlxBasic;
-import objects.Character;
+import funkin.visuals.game.Character;
 import psychlua.LuaUtils;
 import psychlua.CustomSubstate;
 
@@ -88,19 +88,19 @@ class HScript extends SScript
 		set('FlxMath', flixel.math.FlxMath);
 		set('FlxSprite', flixel.FlxSprite);
 		set('FlxCamera', flixel.FlxCamera);
-		set('PsychCamera', backend.PsychCamera);
+		set('PsychCamera', funkin.visuals.PsychCamera);
 		set('FlxTimer', flixel.util.FlxTimer);
 		set('FlxTween', flixel.tweens.FlxTween);
 		set('FlxEase', flixel.tweens.FlxEase);
 		set('FlxColor', CustomFlxColor);
-		set('Countdown', backend.BaseStage.Countdown);
+		set('Countdown', funkin.visuals.stages.BaseStage.Countdown);
 		set('PlayState', PlayState);
 		set('Paths', Paths);
 		set('Conductor', Conductor);
 		set('ClientPrefs', ClientPrefs);
 		set('Character', Character);
 		set('Alphabet', Alphabet);
-		set('Note', objects.Note);
+		set('Note', funkin.visuals.game.Note);
 		set('CustomSubstate', CustomSubstate);
 		#if (!flash && sys)
 		set('FlxRuntimeShader', flixel.addons.display.FlxRuntimeShader);
