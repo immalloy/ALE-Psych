@@ -212,7 +212,7 @@ class ChartingState extends MusicBeatState
 
 		#if DISCORD_ALLOWED
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Chart Editor", StringTools.replace(_song.song, '-', ' '));
+		DiscordRPC.changePresence("Chart Editor", StringTools.replace(_song.song, '-', ' '));
 		#end
 
 		vortex = FlxG.save.data.chart_vortex;
@@ -427,16 +427,16 @@ class ChartingState extends MusicBeatState
 		var loadAutosaveBtn:FlxButton = new FlxButton(reloadSongJson.x, reloadSongJson.y + 30, 'Load Autosave', function()
 		{
 			PlayState.SONG = Song.parseJSONshit(FlxG.save.data.autosave);
-			MusicBeatState.resetState();
+			CoolUtil.resetState();
 		});
 
 		var loadEventJson:FlxButton = new FlxButton(loadAutosaveBtn.x, loadAutosaveBtn.y + 30, 'Load Events', function()
 		{
 
 			var songName:String = Paths.formatToSongPath(_song.song);
-			var file:String = Paths.json(songName + '/events');
+			var file:String = Paths.getPath(songName + '/events.json');
 			#if sys
-			if (#if MODS_ALLOWED FileSystem.exists(Paths.modsJson(songName + '/events')) || #end FileSystem.exists(file))
+			if (#if MODS_ALLOWED FileSystem.exists(Paths.getPath(songName + '/events.json')) || #end FileSystem.exists(file))
 			#else
 			if (OpenFlAssets.exists(file))
 			#end
@@ -482,15 +482,13 @@ class ChartingState extends MusicBeatState
 		stepperSpeed.name = 'song_speed';
 		blockPressWhileTypingOnStepper.push(stepperSpeed);
 		#if MODS_ALLOWED
-		var directories:Array<String> = [Paths.mods('characters/'), Paths.mods(Mods.currentModDirectory + '/characters/'), Paths.getSharedPath('characters/')];
-		for(mod in Mods.getGlobalMods())
-			directories.push(Paths.mods(mod + '/characters/'));
+		var directories:Array<String> = [Paths.getPath('characters/')];
 		#else
-		var directories:Array<String> = [Paths.getSharedPath('characters/')];
+		var directories:Array<String> = [Paths.getPath('characters/')];
 		#end
 
 		var tempArray:Array<String> = [];
-		var characters:Array<String> = Mods.mergeAllTextsNamed('data/characterList.txt', Paths.getSharedPath());
+		var characters:Array<String> = File.getContent(Paths.getPath('data/characterList.txt')).split('\n');
 		for (character in characters)
 		{
 			if(character.trim().length > 0)
@@ -543,15 +541,9 @@ class ChartingState extends MusicBeatState
 		player2DropDown.selectedLabel = _song.player2;
 		blockPressWhileScrolling.push(player2DropDown);
 
-		#if MODS_ALLOWED
-		var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Mods.currentModDirectory + '/stages/'), Paths.getSharedPath('stages/')];
-		for(mod in Mods.getGlobalMods())
-			directories.push(Paths.mods(mod + '/stages/'));
-		#else
-		var directories:Array<String> = [Paths.getSharedPath('stages/')];
-		#end
+		var directories:Array<String> = [Paths.getPath('stages')];
 
-		var stageFile:Array<String> = Mods.mergeAllTextsNamed('data/stageList.txt', Paths.getSharedPath());
+		var stageFile:Array<String> = File.getContent(Paths.getPath('data/stageList.txt')).split('\n');
 		var stages:Array<String> = [];
 		for (stage in stageFile) {
 			if(stage.trim().length > 0) {
@@ -913,7 +905,7 @@ class ChartingState extends MusicBeatState
 		}
 
 		#if sys
-		var foldersToCheck:Array<String> = Mods.directoriesWithFile(Paths.getSharedPath(), 'custom_notetypes/');
+		var foldersToCheck:Array<String> = FileSystem.readDirectory(Paths.getPath('custom_notetypes'));
 		for (folder in foldersToCheck)
 			for (file in FileSystem.readDirectory(folder))
 			{
@@ -969,14 +961,7 @@ class ChartingState extends MusicBeatState
 
 		#if LUA_ALLOWED
 		var eventPushedMap:Map<String, Bool> = new Map<String, Bool>();
-		var directories:Array<String> = [];
-
-		#if MODS_ALLOWED
-		directories.push(Paths.mods('custom_events/'));
-		directories.push(Paths.mods(Mods.currentModDirectory + '/custom_events/'));
-		for(mod in Mods.getGlobalMods())
-			directories.push(Paths.mods(mod + '/custom_events/'));
-		#end
+		var directories:Array<String> = [Paths.getPath('custom_events/')];
 
 		for (i in 0...directories.length) {
 			var directory:String =  directories[i];
@@ -1495,7 +1480,7 @@ class ChartingState extends MusicBeatState
 
 			#if DISCORD_ALLOWED
 			// Updating Discord Rich Presence
-			DiscordClient.changePresence("Chart Editor", StringTools.replace(_song.song, '-', ' '));
+			DiscordRPC.changePresence("Chart Editor", StringTools.replace(_song.song, '-', ' '));
 			#end
 		}
 		super.closeSubState();
@@ -1870,7 +1855,7 @@ class ChartingState extends MusicBeatState
 				// Protect against lost data when quickly leaving the chart editor.
 				autosaveSong();
 				PlayState.chartingMode = false;
-				MusicBeatState.switchState(new funkin.editors.MasterEditorMenu());
+				CoolUtil.switchState(new funkin.editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				FlxG.mouse.visible = false;
 				return;
@@ -2652,18 +2637,18 @@ class ChartingState extends MusicBeatState
 		characterFailed = false;
 		var characterPath:String = 'characters/' + char + '.json';
 		#if MODS_ALLOWED
-		var path:String = Paths.modFolders(characterPath);
+		var path:String = Paths.getPath(characterPath);
 		if (!FileSystem.exists(path)) {
-			path = Paths.getSharedPath(characterPath);
+			path = Paths.getPath(characterPath);
 		}
 
 		if (!FileSystem.exists(path))
 		#else
-		var path:String = Paths.getSharedPath(characterPath);
+		var path:String = Paths.getPath(characterPath);
 		if (!OpenFlAssets.exists(path))
 		#end
 		{
-			path = Paths.getSharedPath('characters/' + Character.DEFAULT_CHARACTER + '.json'); //If a character couldn't be found, change him to BF just to prevent a crash
+			path = Paths.getPath('characters/' + Character.DEFAULT_CHARACTER + '.json'); //If a character couldn't be found, change him to BF just to prevent a crash
 			characterFailed = true;
 		}
 
@@ -3105,7 +3090,7 @@ class ChartingState extends MusicBeatState
 				}
 			}
 			else PlayState.SONG = Song.loadFromJson(song.toLowerCase(), song.toLowerCase());
-			MusicBeatState.resetState();
+			CoolUtil.resetState();
 		}
 		catch(e)
 		{

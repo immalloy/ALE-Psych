@@ -5,7 +5,6 @@ import flixel.graphics.FlxGraphic;
 
 import flixel.animation.FlxAnimation;
 import flixel.system.debug.interaction.tools.Pointer.GraphicCursorCross;
-import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.ui.*;
 import flixel.ui.FlxButton;
 import flixel.util.FlxDestroyUtil;
@@ -66,8 +65,6 @@ class CharacterEditorState extends MusicBeatState
 
 	override function create()
 	{
-		if(ClientPrefs.data.cacheOnGPU) Paths.clearStoredMemory();
-
 		FlxG.sound.music.stop();
 		camEditor = initPsychCamera();
 
@@ -154,8 +151,6 @@ class CharacterEditorState extends MusicBeatState
 		updatePointerPos();
 		updateHealthBar();
 		character.finishAnimation();
-
-		if(ClientPrefs.data.cacheOnGPU) Paths.clearUnusedMemory();
 
 		super.create();
 	}
@@ -451,7 +446,7 @@ class CharacterEditorState extends MusicBeatState
 			if(intended == null || intended.length < 1) return;
 
 			var characterPath:String = 'characters/$intended.json';
-			var path:String = Paths.getPath(characterPath, TEXT, null, true);
+			var path:String = Paths.getPath(characterPath);
 			#if MODS_ALLOWED
 			if (FileSystem.exists(path))
 			#else
@@ -783,7 +778,7 @@ class CharacterEditorState extends MusicBeatState
 		character.color = FlxColor.WHITE;
 		character.alpha = 1;
 
-		if(Paths.fileExists('images/' + character.imageFile + '/Animation.json', TEXT))
+		if(Paths.fileExists('images/' + character.imageFile + '/Animation.json'))
 		{
 			character.atlas = new FlxAnimate();
 			character.atlas.showPivot = false;
@@ -797,8 +792,8 @@ class CharacterEditorState extends MusicBeatState
 			}
 			character.isAnimateAtlas = true;
 		}
-		else if(Paths.fileExists('images/' + character.imageFile + '.txt', TEXT)) character.frames = Paths.getPackerAtlas(character.imageFile);
-		else if(Paths.fileExists('images/' + character.imageFile + '.json', TEXT)) character.frames = Paths.getAsepriteAtlas(character.imageFile);
+		else if(Paths.fileExists('images/' + character.imageFile + '.txt')) character.frames = Paths.getPackerAtlas(character.imageFile);
+		else if(Paths.fileExists('images/' + character.imageFile + '.json')) character.frames = Paths.getAsepriteAtlas(character.imageFile);
 		else character.frames = Paths.getSparrowAtlas(character.imageFile);
 
 		for (anim in anims) {
@@ -1034,10 +1029,10 @@ class CharacterEditorState extends MusicBeatState
 			FlxG.mouse.visible = false;
 			if(!_goToPlayState)
 			{
-				MusicBeatState.switchState(new funkin.editors.MasterEditorMenu());
+				CoolUtil.switchState(new funkin.editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
-			else MusicBeatState.switchState(new PlayState());
+			else CoolUtil.switchState(new PlayState());
 			return;
 		}
 	}
@@ -1045,9 +1040,6 @@ class CharacterEditorState extends MusicBeatState
 	final assetFolder = 'week1';  //load from assets/week1/
 	inline function loadBG()
 	{
-		var lastLoaded = Paths.currentLevel;
-		Paths.currentLevel = assetFolder;
-
 		/////////////
 		// bg data //
 		/////////////
@@ -1062,8 +1054,6 @@ class CharacterEditorState extends MusicBeatState
 		dadPosition.set(100, 100);
 		bfPosition.set(770, 100);
 		/////////////
-
-		Paths.currentLevel = lastLoaded;
 	}
 
 
@@ -1103,7 +1093,7 @@ class CharacterEditorState extends MusicBeatState
 	inline function updatePresence() {
 		#if DISCORD_ALLOWED
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Character Editor", "Character: " + _char, healthIcon.getCharacter());
+		DiscordRPC.changePresence("Character Editor", "Character: " + _char, healthIcon.getCharacter());
 		#end
 	}
 
@@ -1197,8 +1187,8 @@ class CharacterEditorState extends MusicBeatState
 
 	var characterList:Array<String> = [];
 	function reloadCharacterDropDown() {
-		characterList = Mods.mergeAllTextsNamed('data/characterList.txt', Paths.getSharedPath());
-		var foldersToCheck:Array<String> = Mods.directoriesWithFile(Paths.getSharedPath(), 'characters/');
+		characterList = File.getContent(Paths.getPath('data/characterList.txt')).split('\n');
+		var foldersToCheck:Array<String> = FileSystem.readDirectory(Paths.getPath('characters/'));
 		for (folder in foldersToCheck)
 			for (file in FileSystem.readDirectory(folder))
 				if(file.toLowerCase().endsWith('.json'))

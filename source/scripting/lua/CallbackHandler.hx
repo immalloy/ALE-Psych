@@ -1,5 +1,5 @@
 #if LUA_ALLOWED
-package psychlua;
+package scripting.lua;
 
 class CallbackHandler
 {
@@ -16,12 +16,12 @@ class CallbackHandler
 			if(cbf == null) 
 			{
 				//trace('checking last script');
-				var last:FunkinLua = FunkinLua.lastCalledScript;
+				var last:LuaScript = LuaScript.lastCalledScript;
 				if(last == null || last.lua != l)
 				{
 					//trace('looping thru scripts');
-					for (script in PlayState.instance.luaArray)
-						if(script != FunkinLua.lastCalledScript && script != null && script.lua == l)
+					for (script in ScriptState.instance.luaScripts)
+						if(script != LuaScript.lastCalledScript && script != null && script.lua == l)
 						{
 							//trace('found script');
 							cbf = script.callbacks.get(fname);

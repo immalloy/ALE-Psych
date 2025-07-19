@@ -1,6 +1,5 @@
 package funkin.states;
 
-import funkin.states.MainMenuState;
 import utils.StageData;
 
 class OptionsState extends MusicBeatState
@@ -24,7 +23,7 @@ class OptionsState extends MusicBeatState
 			case 'Gameplay':
 				openSubState(new funkin.substates.GameplaySettingsSubState());
 			case 'Adjust Delay and Combo':
-				MusicBeatState.switchState(new funkin.states.NoteOffsetState());
+				CoolUtil.switchState(new funkin.states.NoteOffsetState());
 		}
 	}
 
@@ -33,7 +32,7 @@ class OptionsState extends MusicBeatState
 
 	override function create() {
 		#if DISCORD_ALLOWED
-		DiscordClient.changePresence("Options Menu", null);
+		DiscordRPC.changePresence("Options Menu", null);
 		#end
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
@@ -70,7 +69,7 @@ class OptionsState extends MusicBeatState
 		super.closeSubState();
 		ClientPrefs.saveSettings();
 		#if DISCORD_ALLOWED
-		DiscordClient.changePresence("Options Menu", null);
+		DiscordRPC.changePresence("Options Menu", null);
 		#end
 	}
 
@@ -92,7 +91,7 @@ class OptionsState extends MusicBeatState
 				LoadingState.loadAndSwitchState(new PlayState());
 				FlxG.sound.music.volume = 0;
 			}
-			else MusicBeatState.switchState(new MainMenuState());
+			else CoolUtil.switchState(new CustomState(CoolVars.data.mainMenuState));
 		}
 		else if (controls.ACCEPT) openSelectedSubstate(options[curSelected]);
 	}

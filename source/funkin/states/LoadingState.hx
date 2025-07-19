@@ -45,7 +45,7 @@ class LoadingState extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, 0xffcaff4d);
 		bg.antialiasing = ClientPrefs.data.antialiasing;
 		add(bg);
-		funkay = new FlxSprite(0, 0).loadGraphic(Paths.getPath('images/funkay.png', IMAGE));
+		funkay = new FlxSprite(0, 0).loadGraphic(Paths.getPath('images/funkay.png'));
 		funkay.setGraphicSize(0, FlxG.height);
 		funkay.updateHitbox();
 		add(funkay);
@@ -129,7 +129,7 @@ class LoadingState extends MusicBeatState
 		if (stopMusic && FlxG.sound.music != null)
 			FlxG.sound.music.stop();
 		
-		MusicBeatState.switchState(target);
+		CoolUtil.switchState(target);
 	}
 	
 	static function getSongPath()
@@ -144,7 +144,7 @@ class LoadingState extends MusicBeatState
 	
 	inline static public function loadAndSwitchState(target:FlxState, stopMusic = false)
 	{
-		MusicBeatState.switchState(getNextState(target, stopMusic));
+		CoolUtil.switchState(getNextState(target, stopMusic));
 	}
 	
 	static function getNextState(target:FlxState, stopMusic = false):FlxState
@@ -154,9 +154,6 @@ class LoadingState extends MusicBeatState
 		StageData.forceNextDirectory = null;
 
 		if(weekDir != null && weekDir.length > 0 && weekDir != '') directory = weekDir;
-
-		Paths.setCurrentLevel(directory);
-		trace('Setting asset folder to ' + directory);
 
 		/*#if NO_PRELOAD_ALL
 		var loaded:Bool = false;

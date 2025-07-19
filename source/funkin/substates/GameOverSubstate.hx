@@ -6,10 +6,7 @@ import funkin.visuals.game.Character;
 import flixel.FlxObject;
 import flixel.FlxSubState;
 
-import funkin.states.StoryMenuState;
-import funkin.states.FreeplayState;
-
-class GameOverSubstate extends MusicBeatSubstate
+class GameOverSubstate extends MusicBeatSubState
 {
 	public var boyfriend:Character;
 	var camFollow:FlxObject;
@@ -85,17 +82,16 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		if (controls.BACK)
 		{
-			#if DISCORD_ALLOWED DiscordClient.resetClientID(); #end
+			#if DISCORD_ALLOWED DiscordRPC.resetClientID(); #end
 			FlxG.sound.music.stop();
 			PlayState.deathCounter = 0;
 			PlayState.seenCutscene = false;
 			PlayState.chartingMode = false;
 
-			Mods.loadTopMod();
 			if (PlayState.isStoryMode)
-				MusicBeatState.switchState(new StoryMenuState());
+				CoolUtil.switchState(new CustomState(CoolVars.data.storyMenuState));
 			else
-				MusicBeatState.switchState(new FreeplayState());
+				CoolUtil.switchState(new CustomState(CoolVars.data.freeplayState));
 
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			PlayState.instance.callOnScripts('onGameOverConfirm', [false]);
@@ -163,7 +159,7 @@ class GameOverSubstate extends MusicBeatSubstate
 			{
 				FlxG.camera.fade(FlxColor.BLACK, 2, false, function()
 				{
-					MusicBeatState.resetState();
+					CoolUtil.resetState();
 				});
 			});
 			PlayState.instance.callOnScripts('onGameOverConfirm', [true]);

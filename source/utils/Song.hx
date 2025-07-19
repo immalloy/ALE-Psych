@@ -96,21 +96,21 @@ class Song
 		var formattedFolder:String = Paths.formatToSongPath(folder);
 		var formattedSong:String = Paths.formatToSongPath(jsonInput);
 		#if MODS_ALLOWED
-		var moddyFile:String = Paths.modsJson(formattedFolder + '/' + formattedSong);
+		var moddyFile:String = Paths.getPath(formattedFolder + '/' + formattedSong + '.json');
 		if(FileSystem.exists(moddyFile)) {
 			rawJson = File.getContent(moddyFile).trim();
 		}
 		#end
 
 		if(rawJson == null) {
-			var path:String = Paths.json(formattedFolder + '/' + formattedSong);
+			var path:String = Paths.getPath(formattedFolder + '/' + formattedSong + '.json');
 
 			#if sys
 			if(FileSystem.exists(path))
 				rawJson = File.getContent(path).trim();
 			else
 			#end
-				rawJson = Assets.getText(Paths.json(formattedFolder + '/' + formattedSong)).trim();
+				rawJson = Assets.getText(Paths.getPath(formattedFolder + '/' + formattedSong + '.json')).trim();
 		}
 
 		while (!rawJson.endsWith("}"))

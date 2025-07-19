@@ -4,8 +4,6 @@ import flixel.util.FlxSave;
 import flixel.input.keyboard.FlxKey;
 import flixel.input.gamepad.FlxGamepadInputID;
 
-import funkin.states.TitleState;
-
 // Add a variable here and it will get automatically saved
 @:structInit class SaveVariables {
 	public var downScroll:Bool = false;
@@ -209,7 +207,7 @@ class ClientPrefs {
 			FlxG.sound.muted = FlxG.save.data.mute;
 
 		#if DISCORD_ALLOWED
-		DiscordClient.check();
+		DiscordRPC.check();
 		#end
 
 		// controls on a separate save file
@@ -239,17 +237,21 @@ class ClientPrefs {
 		return /*PlayState.isStoryMode ? defaultValue : */ (data.gameplaySettings.exists(name) ? data.gameplaySettings.get(name) : defaultValue);
 	}
 
+	public static var muteKeys:Array<FlxKey> = [FlxKey.ZERO];
+	public static var volumeDownKeys:Array<FlxKey> = [FlxKey.NUMPADMINUS, FlxKey.MINUS];
+	public static var volumeUpKeys:Array<FlxKey> = [FlxKey.NUMPADPLUS, FlxKey.PLUS];
+
 	public static function reloadVolumeKeys()
 	{
-		TitleState.muteKeys = keyBinds.get('volume_mute').copy();
-		TitleState.volumeDownKeys = keyBinds.get('volume_down').copy();
-		TitleState.volumeUpKeys = keyBinds.get('volume_up').copy();
+		ClientPrefs.muteKeys = keyBinds.get('volume_mute').copy();
+		ClientPrefs.volumeDownKeys = keyBinds.get('volume_down').copy();
+		ClientPrefs.volumeUpKeys = keyBinds.get('volume_up').copy();
 		toggleVolumeKeys(true);
 	}
 	public static function toggleVolumeKeys(?turnOn:Bool = true)
 	{
-		FlxG.sound.muteKeys = turnOn ? TitleState.muteKeys : [];
-		FlxG.sound.volumeDownKeys = turnOn ? TitleState.volumeDownKeys : [];
-		FlxG.sound.volumeUpKeys = turnOn ? TitleState.volumeUpKeys : [];
+		FlxG.sound.muteKeys = turnOn ? ClientPrefs.muteKeys : [];
+		FlxG.sound.volumeDownKeys = turnOn ? ClientPrefs.volumeDownKeys : [];
+		FlxG.sound.volumeUpKeys = turnOn ? ClientPrefs.volumeUpKeys : [];
 	}
 }

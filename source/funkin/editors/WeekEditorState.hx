@@ -11,7 +11,6 @@ import flixel.addons.ui.FlxUICheckBox;
 import flixel.addons.ui.FlxUIInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUITabMenu;
-import flixel.addons.transition.FlxTransitionableState;
 import flixel.ui.FlxButton;
 
 import openfl.net.FileReference;
@@ -137,7 +136,7 @@ class WeekEditorState extends MusicBeatState
 		add(loadWeekButton);
 		
 		var freeplayButton:FlxButton = new FlxButton(0, 650, "Freeplay", function() {
-			MusicBeatState.switchState(new WeekEditorFreeplayState(weekFile));
+			CoolUtil.switchState(new WeekEditorFreeplayState(weekFile));
 			
 		});
 		freeplayButton.screenCenter(X);
@@ -325,8 +324,8 @@ class WeekEditorState extends MusicBeatState
 
 		var isMissing:Bool = true;
 		if(assetName != null && assetName.length > 0) {
-			if( #if MODS_ALLOWED FileSystem.exists(Paths.modsImages('menubackgrounds/menu_' + assetName)) || #end
-			Assets.exists(Paths.getPath('images/menubackgrounds/menu_' + assetName + '.png', IMAGE), IMAGE)) {
+			if( #if MODS_ALLOWED FileSystem.exists(Paths.getPath('menubackgrounds/menu_' + assetName + '.png')) || #end
+			Assets.exists(Paths.getPath('images/menubackgrounds/menu_' + assetName + '.png'), IMAGE)) {
 				bgSprite.loadGraphic(Paths.image('menubackgrounds/menu_' + assetName));
 				isMissing = false;
 			}
@@ -344,8 +343,8 @@ class WeekEditorState extends MusicBeatState
 		
 		var isMissing:Bool = true;
 		if(assetName != null && assetName.length > 0) {
-			if( #if MODS_ALLOWED FileSystem.exists(Paths.modsImages('storymenu/' + assetName)) || #end
-			Assets.exists(Paths.getPath('images/storymenu/' + assetName + '.png', IMAGE), IMAGE)) {
+			if( #if MODS_ALLOWED FileSystem.exists(Paths.getPath('storymenu/' + assetName + '.png')) || #end
+			Assets.exists(Paths.getPath('images/storymenu/' + assetName + '.png'), IMAGE)) {
 				weekThing.loadGraphic(Paths.image('storymenu/' + assetName));
 				isMissing = false;
 			}
@@ -360,7 +359,7 @@ class WeekEditorState extends MusicBeatState
 
 		#if DISCORD_ALLOWED
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Week Editor", "Editting: " + weekFileName);
+		DiscordRPC.changePresence("Week Editor", "Editting: " + weekFileName);
 		#end
 	}
 	
@@ -435,7 +434,7 @@ class WeekEditorState extends MusicBeatState
 		if(!blockInput) {
 			ClientPrefs.toggleVolumeKeys(true);
 			if(FlxG.keys.justPressed.ESCAPE) {
-				MusicBeatState.switchState(new MasterEditorMenu());
+				CoolUtil.switchState(new MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
 		}
@@ -646,7 +645,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 		add(loadWeekButton);
 		
 		var storyModeButton:FlxButton = new FlxButton(0, 685, "Story Mode", function() {
-			MusicBeatState.switchState(new WeekEditorState(weekFile));
+			CoolUtil.switchState(new WeekEditorState(weekFile));
 			
 		});
 		storyModeButton.screenCenter(X);
@@ -779,9 +778,9 @@ class WeekEditorFreeplayState extends MusicBeatState
 	override function update(elapsed:Float) {
 		if(WeekEditorState.loadedWeek != null) {
 			super.update(elapsed);
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxTransitionableState.skipNextTransOut = true;
-			MusicBeatState.switchState(new WeekEditorFreeplayState(WeekEditorState.loadedWeek));
+			CoolVars.skipTransIn = true;
+			CoolVars.skipTransOut = true;
+			CoolUtil.switchState(new WeekEditorFreeplayState(WeekEditorState.loadedWeek));
 			WeekEditorState.loadedWeek = null;
 			return;
 		}
@@ -794,7 +793,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 		} else {
 			ClientPrefs.toggleVolumeKeys(true);
 			if(FlxG.keys.justPressed.ESCAPE) {
-				MusicBeatState.switchState(new MasterEditorMenu());
+				CoolUtil.switchState(new MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
 

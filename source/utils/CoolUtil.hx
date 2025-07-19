@@ -3,6 +3,10 @@ package utils;
 import openfl.utils.Assets;
 import lime.utils.Assets as LimeAssets;
 
+import core.enums.PrintType;
+
+import sys.thread.Thread;
+
 class CoolUtil
 {
 	inline public static function quantize(f:Float, snap:Float){
@@ -156,5 +160,104 @@ class CoolUtil
 			default:
 				text.borderStyle = NONE;
 		}
+	}
+
+	public static function debugTrace(text:Dynamic, ?type:PrintType = TRACE, ?customType:String = '', ?customColor:FlxColor = FlxColor.GRAY, ?pos:haxe.PosInfos)
+	{
+		text = haxe.Log.formatOutput(text, pos);
+
+		var theText:String = ansiColorString(type == CUSTOM ? customType : PrintType.typeToString(type), type == CUSTOM ? customColor : PrintType.typeToColor(type)) + ansiColorString(' | ' + Date.now().toString().split(' ')[1] + ' | ', 0xFF505050) + (pos == null ? '' : ansiColorString(pos.fileName + ': ', 0xFF888888)) + text;
+
+		Sys.println(theText);
+	}
+	
+	public static function ansiColorString(text:String, color:FlxColor):String
+		return '\x1b[38;2;' + color.red + ';' + color.green + ';' + color.blue + 'm' + text + '\x1b[0m';
+
+	public static function createSafeThread(func:Void -> Void):Thread
+	{
+		return Thread.create(function()
+		{
+			try {
+				func();
+			} catch(e) {
+				debugTrace(e.details(), ERROR);
+			}
+		});
+	}
+
+	public static function resetState()
+	{
+		CoolVars.skipTransIn = CoolVars.skipTransOut = true;
+		
+		FlxG.resetState();
+	}
+
+    public static function switchState(state:flixel.FlxState, skipTransIn:Bool = null, skipTransOut:Bool = null)
+    {
+        if (state is CustomState)
+        {
+			var scriptName = cast(state, CustomState).scriptName;
+			
+            if (Paths.fileExists('scripts/states/' + scriptName + '.hx') || Paths.fileExists('scripts/states/' + scriptName + '.lua'))
+                transitionSwitch(state, skipTransIn, skipTransOut);
+            else
+                debugTrace('Custom State called "' + scriptName + '" doesn\'t Exist', MISSING_FILE);
+        } else {
+			transitionSwitch(state, skipTransIn, skipTransOut);
+		}
+    }
+
+	private static function transitionSwitch(state:flixel.FlxState, skipTransIn:Bool = null, skipTransOut:Bool = null)
+	{
+		if (skipTransIn != null)
+			CoolVars.skipTransIn = skipTransIn;
+
+		if (skipTransOut != null)
+			CoolVars.skipTransOut = skipTransOut; 
+
+        if (CoolVars.skipTransIn)
+		{
+            CoolVars.skipTransIn = false;
+
+			FlxG.switchState(state);
+		} else {
+            #if (cpp)
+			CoolUtil.openSubState(new CustomSubState(
+				CoolVars.data.transition,
+				null,
+				[
+					'transIn' => true,
+					'transOut' => false,
+					'finishCallback' => () -> { FlxG.switchState(state); }
+				],
+				[
+					'transIn' => true,
+					'transOut' => false,
+					'finishCallback' => () -> { FlxG.switchState(state); }
+				]
+			));
+			#end
+		}
+	}
+
+	public static function openSubState(subState:flixel.FlxSubState = null)
+	{
+		if (subState == null)
+			return;
+
+        if (subState is CustomSubState)
+        {
+            var custom:CustomSubState = Std.downcast(subState, CustomSubState);
+            
+            if (Paths.fileExists('scripts/substates/' + custom.scriptName + '.hx') || Paths.fileExists('scripts/substates/' + custom.scriptName + '.lua'))
+                FlxG.state.openSubState(subState);
+            else
+                debugTrace('Custom SubState called "' + custom.scriptName + '" doesn\'t Exist', MISSING_FILE);
+
+            return;
+        }
+
+		FlxG.state.openSubState(subState);
 	}
 }

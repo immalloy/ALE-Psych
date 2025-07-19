@@ -46,20 +46,20 @@ class MenuCharacter extends FlxSprite
 				var rawJson = null;
 
 				#if MODS_ALLOWED
-				var path:String = Paths.modFolders(characterPath);
+				var path:String = Paths.getPath(characterPath);
 				if (!FileSystem.exists(path)) {
-					path = Paths.getSharedPath(characterPath);
+					path = Paths.getPath(characterPath);
 				}
 
 				if(!FileSystem.exists(path)) {
-					path = Paths.getSharedPath('images/menucharacters/' + DEFAULT_CHARACTER + '.json');
+					path = Paths.getPath('images/menucharacters/' + DEFAULT_CHARACTER + '.json');
 				}
 				rawJson = File.getContent(path);
 
 				#else
-				var path:String = Paths.getSharedPath(characterPath);
+				var path:String = Paths.getPath(characterPath);
 				if(!Assets.exists(path)) {
-					path = Paths.getSharedPath('images/menucharacters/' + DEFAULT_CHARACTER + '.json');
+					path = Paths.getPath('images/menucharacters/' + DEFAULT_CHARACTER + '.json');
 				}
 				rawJson = Assets.getText(path);
 				#end

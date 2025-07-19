@@ -10,7 +10,7 @@ import funkin.visuals.objects.AttachedText;
 import utils.Option;
 import utils.InputFormatter;
 
-class BaseOptionsMenu extends MusicBeatSubstate
+class BaseOptionsMenu extends MusicBeatSubState
 {
 	private var curOption:Option = null;
 	private var curSelected:Int = 0;
@@ -35,7 +35,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		if(rpcTitle == null) rpcTitle = 'Options Menu';
 		
 		#if DISCORD_ALLOWED
-		DiscordClient.changePresence(rpcTitle, null);
+		DiscordRPC.changePresence(rpcTitle, null);
 		#end
 		
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));

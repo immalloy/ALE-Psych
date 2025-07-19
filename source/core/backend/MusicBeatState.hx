@@ -1,7 +1,6 @@
 package core.backend;
 
 import flixel.addons.ui.FlxUIState;
-import flixel.addons.transition.FlxTransitionableState;
 import flixel.FlxState;
 import funkin.visuals.PsychCamera;
 
@@ -31,20 +30,37 @@ class MusicBeatState extends FlxUIState
 
 	var _psychCameraInitialized:Bool = false;
 
-	override function create() {
-		var skip:Bool = FlxTransitionableState.skipNextTransOut;
-		#if MODS_ALLOWED Mods.updatedOnState = false; #end
-
-		if(!_psychCameraInitialized) initPsychCamera();
-
-		super.create();
+	override function create()
+	{
+		if (!_psychCameraInitialized)
+			initPsychCamera();
 
 		MusicBeatState.instance = this;
 
-		if(!skip) {
-			openSubState(new CustomFadeTransition(0.6, true));
-		}
-		FlxTransitionableState.skipNextTransOut = false;
+        if (CoolVars.skipTransOut)
+        {
+            CoolVars.skipTransOut = false;
+        } else {
+            #if cpp
+            CoolUtil.openSubState(new CustomSubState(
+                CoolVars.data.transition,
+                null,
+                [
+                    'transIn' => false,
+                    'transOut' => true,
+                    'finishCallback' => null
+                ],
+                [
+                    'transIn' => false,
+                    'transOut' => true,
+                    'finishCallback' => null
+                ]
+            ));
+            #end
+        }
+
+		super.create();
+
 		timePassedOnState = 0;
 	}
 
@@ -62,8 +78,7 @@ class MusicBeatState extends FlxUIState
 
     private function cleanMemory()
     {
-        Paths.clearUnusedMemory();
-		Paths.clearStoredMemory();
+        Paths.clearEngineCache();
 
         #if cpp
         var killZombies:Bool = true;
@@ -184,38 +199,6 @@ class MusicBeatState extends FlxUIState
 		var shit = ((Conductor.songPosition - ClientPrefs.data.noteOffset) - lastChange.songTime) / lastChange.stepCrochet;
 		curDecStep = lastChange.stepTime + shit;
 		curStep = lastChange.stepTime + Math.floor(shit);
-	}
-
-	public static function switchState(nextState:FlxState = null) {
-		if(nextState == null) nextState = FlxG.state;
-		if(nextState == FlxG.state)
-		{
-			resetState();
-			return;
-		}
-
-		if(FlxTransitionableState.skipNextTransIn) FlxG.switchState(nextState);
-		else startTransition(nextState);
-		FlxTransitionableState.skipNextTransIn = false;
-	}
-
-	public static function resetState() {
-		if(FlxTransitionableState.skipNextTransIn) FlxG.resetState();
-		else startTransition();
-		FlxTransitionableState.skipNextTransIn = false;
-	}
-
-	// Custom made Trans in
-	public static function startTransition(nextState:FlxState = null)
-	{
-		if(nextState == null)
-			nextState = FlxG.state;
-
-		FlxG.state.openSubState(new CustomFadeTransition(0.6, false));
-		if(nextState == FlxG.state)
-			CustomFadeTransition.finishCallback = function() FlxG.resetState();
-		else
-			CustomFadeTransition.finishCallback = function() FlxG.switchState(nextState);
 	}
 
 	public static function getState():MusicBeatState {

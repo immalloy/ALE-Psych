@@ -38,7 +38,7 @@ class NoteOffsetState extends MusicBeatState
 	override public function create()
 	{
 		#if DISCORD_ALLOWED
-		DiscordClient.changePresence("Delay/Combo Offset Menu", null);
+		DiscordRPC.changePresence("Delay/Combo Offset Menu", null);
 		#end
 
 		// Cameras
@@ -56,9 +56,7 @@ class NoteOffsetState extends MusicBeatState
 
 		persistentUpdate = true;
 		FlxG.sound.pause();
-
-		// Stage
-		Paths.setCurrentLevel(stageDirectory);
+		
 		new BackgroundStage();
 
 		// Characters
@@ -405,7 +403,7 @@ class NoteOffsetState extends MusicBeatState
 			if(beatTween != null) beatTween.cancel();
 
 			persistentUpdate = false;
-			MusicBeatState.switchState(new funkin.states.OptionsState());
+			CoolUtil.switchState(new funkin.states.OptionsState());
 			if(OptionsState.onPlayState)
 			{
 				if(ClientPrefs.data.pauseMusic != 'None')

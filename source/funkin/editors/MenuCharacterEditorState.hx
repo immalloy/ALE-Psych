@@ -31,7 +31,7 @@ class MenuCharacterEditorState extends MusicBeatState
 		};
 		#if DISCORD_ALLOWED
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Menu Character Editor", "Editting: " + characterFile.image);
+		DiscordRPC.changePresence("Menu Character Editor", "Editting: " + characterFile.image);
 		#end
 
 		grpWeekCharacters = new FlxTypedGroup<MenuCharacter>();
@@ -227,7 +227,7 @@ class MenuCharacterEditorState extends MusicBeatState
 		
 		#if DISCORD_ALLOWED
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Menu Character Editor", "Editting: " + characterFile.image);
+		DiscordRPC.changePresence("Menu Character Editor", "Editting: " + characterFile.image);
 		#end
 	}
 
@@ -263,7 +263,7 @@ class MenuCharacterEditorState extends MusicBeatState
 		if(!blockInput) {
 			ClientPrefs.toggleVolumeKeys(true);
 			if(FlxG.keys.justPressed.ESCAPE) {
-				MusicBeatState.switchState(new funkin.editors.MasterEditorMenu());
+				CoolUtil.switchState(new funkin.editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
 

@@ -4,9 +4,6 @@ import utils.WeekData;
 
 import funkin.visuals.game.Character;
 
-import funkin.states.MainMenuState;
-import funkin.states.FreeplayState;
-
 class MasterEditorMenu extends MusicBeatState
 {
 	var options:Array<String> = [
@@ -19,7 +16,7 @@ class MasterEditorMenu extends MusicBeatState
 		'Note Splash Debug'
 	];
 	private var grpTexts:FlxTypedGroup<Alphabet>;
-	private var directories:Array<String> = [null];
+	private var directories:Array<String> = [Mods.folder];
 
 	private var curSelected = 0;
 	private var curDirectory = 0;
@@ -30,7 +27,7 @@ class MasterEditorMenu extends MusicBeatState
 		FlxG.camera.bgColor = FlxColor.BLACK;
 		#if DISCORD_ALLOWED
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Editors Main Menu", null);
+		DiscordRPC.changePresence("Editors Main Menu", null);
 		#end
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
@@ -59,13 +56,8 @@ class MasterEditorMenu extends MusicBeatState
 		directoryTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER);
 		directoryTxt.scrollFactor.set();
 		add(directoryTxt);
-		
-		for (folder in Mods.getModDirectories())
-		{
-			directories.push(folder);
-		}
 
-		var found:Int = directories.indexOf(Mods.currentModDirectory);
+		var found:Int = directories.indexOf(Mods.folder);
 		if(found > -1) curDirectory = found;
 		changeDirectory();
 		#end
@@ -98,7 +90,7 @@ class MasterEditorMenu extends MusicBeatState
 
 		if (controls.BACK)
 		{
-			MusicBeatState.switchState(new MainMenuState());
+			CoolUtil.switchState(new CustomState(CoolVars.data.mainMenuState));
 		}
 
 		if (controls.ACCEPT)
@@ -109,18 +101,17 @@ class MasterEditorMenu extends MusicBeatState
 				case 'Character Editor':
 					LoadingState.loadAndSwitchState(new CharacterEditorState(Character.DEFAULT_CHARACTER, false));
 				case 'Week Editor':
-					MusicBeatState.switchState(new WeekEditorState());
+					CoolUtil.switchState(new WeekEditorState());
 				case 'Menu Character Editor':
-					MusicBeatState.switchState(new MenuCharacterEditorState());
+					CoolUtil.switchState(new MenuCharacterEditorState());
 				case 'Dialogue Editor':
 					LoadingState.loadAndSwitchState(new DialogueEditorState(), false);
 				case 'Dialogue Portrait Editor':
 					LoadingState.loadAndSwitchState(new DialogueCharacterEditorState(), false);
 				case 'Note Splash Debug':
-					MusicBeatState.switchState(new NoteSplashDebugState());
+					CoolUtil.switchState(new NoteSplashDebugState());
 			}
 			FlxG.sound.music.volume = 0;
-			FreeplayState.destroyFreeplayVocals();
 		}
 		
 		var bullShit:Int = 0;
@@ -170,8 +161,7 @@ class MasterEditorMenu extends MusicBeatState
 			directoryTxt.text = '< No Mod Directory Loaded >';
 		else
 		{
-			Mods.currentModDirectory = directories[curDirectory];
-			directoryTxt.text = '< Loaded Mod Directory: ' + Mods.currentModDirectory + ' >';
+			directoryTxt.text = '< Loaded Mod Directory: ' + Mods.folder + ' >';
 		}
 		directoryTxt.text = directoryTxt.text.toUpperCase();
 	}

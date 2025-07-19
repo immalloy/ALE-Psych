@@ -436,7 +436,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 
 		#if DISCORD_ALLOWED
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Dialogue Character Editor", "Editting: " + character.jsonFile.image);
+		DiscordRPC.changePresence("Dialogue Character Editor", "Editting: " + character.jsonFile.image);
 		#end
 	}
 
@@ -646,7 +646,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 			}
 
 			if(FlxG.keys.justPressed.ESCAPE) {
-				MusicBeatState.switchState(new funkin.editors.MasterEditorMenu());
+				CoolUtil.switchState(new funkin.editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'), 1);
 				transitioning = true;
 			}

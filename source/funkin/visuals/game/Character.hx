@@ -95,14 +95,14 @@ class Character extends FlxSprite
 			default:
 				var characterPath:String = 'characters/$curCharacter.json';
 
-				var path:String = Paths.getPath(characterPath, TEXT, null, true);
+				var path:String = Paths.getPath(characterPath);
 				#if MODS_ALLOWED
 				if (!FileSystem.exists(path))
 				#else
 				if (!Assets.exists(path))
 				#end
 				{
-					path = Paths.getSharedPath('characters/' + DEFAULT_CHARACTER + '.json'); //If a character couldn't be found, change him to BF just to prevent a crash
+					path = Paths.getPath('characters/' + DEFAULT_CHARACTER + '.json'); //If a character couldn't be found, change him to BF just to prevent a crash
 					color = FlxColor.BLACK;
 					alpha = 0.6;
 				}
@@ -139,7 +139,7 @@ class Character extends FlxSprite
 		isAnimateAtlas = false;
 
 		#if flxanimate
-		var animToFind:String = Paths.getPath('images/' + json.image + '/Animation.json', TEXT, null, true);
+		var animToFind:String = Paths.getPath('images/' + json.image + '/Animation.json');
 		if (#if MODS_ALLOWED FileSystem.exists(animToFind) || #end Assets.exists(animToFind))
 			isAnimateAtlas = true;
 		#end

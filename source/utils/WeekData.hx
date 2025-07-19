@@ -73,40 +73,14 @@ class WeekData {
 	{
 		weeksList = [];
 		weeksLoaded.clear();
-		#if MODS_ALLOWED
-		var directories:Array<String> = [Paths.mods(), Paths.getSharedPath()];
-		var originalLength:Int = directories.length;
 
-		for (mod in Mods.parseList().enabled)
-			directories.push(Paths.mods(mod + '/'));
+		#if MODS_ALLOWED
+		var directories:Array<String> = [Paths.modFolder() + '/', 'assets/shared/'];
+		var originalLength:Int = directories.length;
 		#else
-		var directories:Array<String> = [Paths.getSharedPath()];
+		var directories:Array<String> = ['assets/shared/'];
 		var originalLength:Int = directories.length;
 		#end
-
-		var sexList:Array<String> = CoolUtil.coolTextFile(Paths.getSharedPath('weeks/weekList.txt'));
-		for (i in 0...sexList.length) {
-			for (j in 0...directories.length) {
-				var fileToCheck:String = directories[j] + 'weeks/' + sexList[i] + '.json';
-				if(!weeksLoaded.exists(sexList[i])) {
-					var week:WeekFile = getWeekFile(fileToCheck);
-					if(week != null) {
-						var weekFile:WeekData = new WeekData(week, sexList[i]);
-
-						#if MODS_ALLOWED
-						if(j >= originalLength) {
-							weekFile.folder = directories[j].substring(Paths.mods().length, directories[j].length-1);
-						}
-						#end
-
-						if(weekFile != null && (isStoryMode == null || (isStoryMode && !weekFile.hideStoryMode) || (!isStoryMode && !weekFile.hideFreeplay))) {
-							weeksLoaded.set(sexList[i], weekFile);
-							weeksList.push(sexList[i]);
-						}
-					}
-				}
-			}
-		}
 
 		#if MODS_ALLOWED
 		for (i in 0...directories.length) {
@@ -146,7 +120,7 @@ class WeekData {
 				if(i >= originalLength)
 				{
 					#if MODS_ALLOWED
-					weekFile.folder = directory.substring(Paths.mods().length, directory.length-1);
+					weekFile.folder = directory.substring(Paths.modFolder().length, directory.length-1);
 					#end
 				}
 				if((PlayState.isStoryMode && !weekFile.hideStoryMode) || (!PlayState.isStoryMode && !weekFile.hideFreeplay))
@@ -189,9 +163,9 @@ class WeekData {
 	}
 
 	public static function setDirectoryFromWeek(?data:WeekData = null) {
-		Mods.currentModDirectory = '';
+		Mods.folder = '';
 		if(data != null && data.folder != null && data.folder.length > 0) {
-			Mods.currentModDirectory = data.folder;
+			Mods.folder = data.folder;
 		}
 	}
 }

@@ -18,11 +18,14 @@ import js.html.*;
 
 import core.backend.Controls;
 import core.backend.MusicBeatState;
-import core.backend.MusicBeatSubstate;
+import core.backend.MusicBeatSubState;
+import core.backend.ScriptState;
+import core.backend.ScriptSubState;
 import core.backend.Conductor;
 import core.backend.Mods;
 
-import funkin.substates.CustomFadeTransition;
+import funkin.states.CustomState;
+import funkin.substates.CustomSubState;
 
 import core.config.ClientPrefs;
 
@@ -33,6 +36,7 @@ import utils.CoolUtil;
 import utils.CoolVars;
 import utils.Paths;
 import utils.ALEJson as Json;
+import utils.CoolUtil.debugTrace;
 
 import funkin.visuals.objects.Alphabet;
 import funkin.visuals.stages.BGSprite;

@@ -16,7 +16,7 @@ import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.display.StageScaleMode;
 import lime.app.Application;
-import funkin.states.TitleState;
+import core.config.MainState;
 
 #if linux
 import lime.graphics.Image;
@@ -57,7 +57,7 @@ class Main extends Sprite
 	var game = {
 		width: 1280, // WINDOW width
 		height: 720, // WINDOW height
-		initialState: TitleState, // initial game state
+		initialState: MainState, // initial game state
 		zoom: -1.0, // game state bounds
 		framerate: 60, // default framerate
 		skipSplash: true, // if the default flixel splash screen should be skipped
@@ -128,7 +128,7 @@ class Main extends Sprite
 			game.height = Math.ceil(stageHeight / game.zoom);
 		}
 	
-		#if LUA_ALLOWED Lua.set_callbacks_function(cpp.Callable.fromStaticFunction(psychlua.CallbackHandler.call)); #end
+		#if LUA_ALLOWED Lua.set_callbacks_function(cpp.Callable.fromStaticFunction(scripting.lua.CallbackHandler.call)); #end
 		Controls.instance = new Controls();
 		ClientPrefs.loadDefaultKeys();
 		
@@ -156,7 +156,7 @@ class Main extends Sprite
 		#end
 
 		#if DISCORD_ALLOWED
-		DiscordClient.prepare();
+		DiscordRPC.prepare();
 		#end
 
 		openalFix();
@@ -228,7 +228,7 @@ class Main extends Sprite
 
 		Application.current.window.alert(errMsg, "Error!");
 		#if DISCORD_ALLOWED
-		DiscordClient.shutdown();
+		DiscordRPC.shutdown();
 		#end
 		Sys.exit(1);
 	}

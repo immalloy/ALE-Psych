@@ -5,7 +5,7 @@ import lime.app.Application;
 import hxdiscord_rpc.Discord;
 import hxdiscord_rpc.Types;
 
-class DiscordClient
+class DiscordRPC
 {
 	public static var isInitialized:Bool = false;
 	private static final _defaultID:String = "863222024192262205";
@@ -88,7 +88,7 @@ class DiscordClient
 		presence.details = details;
 		presence.state = state;
 		presence.largeImageKey = 'icon';
-		presence.largeImageText = "Engine Version: " + funkin.states.MainMenuState.psychEngineVersion;
+		presence.largeImageText = "Engine Version: " + CoolVars.engineVersion;
 		presence.smallImageKey = smallImageKey;
 		// Obtained times are in milliseconds so they are divided so Discord can use it
 		presence.startTimestamp = Std.int(startTimestamp / 1000);
@@ -117,18 +117,6 @@ class DiscordClient
 		}
 		return newID;
 	}
-
-	#if MODS_ALLOWED
-	public static function loadModRPC()
-	{
-		var pack:Dynamic = Mods.getPack();
-		if(pack != null && pack.discordRPC != null && pack.discordRPC != clientID)
-		{
-			clientID = pack.discordRPC;
-			//trace('Changing clientID! $clientID, $_defaultID');
-		}
-	}
-	#end
 
 	#if LUA_ALLOWED
 	public static function addLuaCallbacks(lua:State) {

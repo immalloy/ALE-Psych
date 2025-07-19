@@ -1,4 +1,4 @@
-package psychlua;
+package scripting.lua;
 
 import utils.WeekData;
 import funkin.visuals.game.Character;
@@ -123,7 +123,7 @@ class LuaUtils
 		if(FlxG.save.data.modSettings == null) FlxG.save.data.modSettings = new Map<String, Dynamic>();
 
 		var settings:Map<String, Dynamic> = FlxG.save.data.modSettings.get(modName);
-		var path:String = Paths.mods('$modName/data/settings.json');
+		var path:String = Paths.getPath('data/settings.json');
 		if(FileSystem.exists(path))
 		{
 			if(settings == null || !settings.exists(saveTag))
@@ -158,7 +158,7 @@ class LuaUtils
 				}
 				catch(e:Dynamic)
 				{
-					var errorTitle = 'Mod name: ' + Mods.currentModDirectory;
+					var errorTitle = 'Mod name: ' + Mods.folder;
 					var errorMsg = 'An error occurred: $e';
 					#if windows
 					lime.app.Application.current.window.alert(errorMsg, errorTitle);
@@ -171,7 +171,7 @@ class LuaUtils
 		{
 			FlxG.save.data.modSettings.remove(modName);
 			#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
-			PlayState.instance.addTextToDebug('getModSetting: $path could not be found!', FlxColor.RED);
+			trace('getModSetting: $path could not be found!');
 			#else
 			FlxG.log.warn('getModSetting: $path could not be found!');
 			#end
@@ -180,7 +180,7 @@ class LuaUtils
 
 		if(settings.exists(saveTag)) return settings.get(saveTag);
 		#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
-		PlayState.instance.addTextToDebug('getModSetting: "$saveTag" could not be found inside $modName\'s settings!', FlxColor.RED);
+		trace('getModSetting: "$saveTag" could not be found inside $modName\'s settings!');
 		#else
 		FlxG.log.warn('getModSetting: "$saveTag" could not be found inside $modName\'s settings!');
 		#end
@@ -230,35 +230,6 @@ class LuaUtils
 		if(allowMaps && isMap(leArray)) return leArray.get(variable);
 		return Reflect.getProperty(leArray, variable);
 	}
-
-	public static function getPropertyLoop(split:Array<String>, ?checkForTextsToo:Bool = true, ?getProperty:Bool=true, ?allowMaps:Bool = false):Dynamic
-	{
-		var obj:Dynamic = getObjectDirectly(split[0], checkForTextsToo);
-		var end = split.length;
-		if(getProperty) end = split.length-1;
-
-		for (i in 1...end) obj = getVarInArray(obj, split[i], allowMaps);
-		return obj;
-	}
-
-	public static function getObjectDirectly(objectName:String, ?checkForTextsToo:Bool = true, ?allowMaps:Bool = false):Dynamic
-	{
-		switch(objectName)
-		{
-			case 'this' | 'instance' | 'game':
-				return PlayState.instance;
-			
-			default:
-				var obj:Dynamic = PlayState.instance.getLuaObject(objectName, checkForTextsToo);
-				if(obj == null) obj = getVarInArray(getTargetInstance(), objectName, allowMaps);
-				return obj;
-		}
-	}
-
-	inline public static function getTextObject(name:String):FlxText
-	{
-		return #if LUA_ALLOWED PlayState.instance.modchartTexts.exists(name) ? PlayState.instance.modchartTexts.get(name) : #end Reflect.getProperty(PlayState.instance, name);
-	}
 	
 	public static function isOfTypes(value:Any, types:Array<Dynamic>)
 	{
@@ -295,34 +266,6 @@ class LuaUtils
 		return group;
 	}
 	
-	public static function addAnimByIndices(obj:String, name:String, prefix:String, indices:Any = null, framerate:Int = 24, loop:Bool = false)
-	{
-		var obj:Dynamic = LuaUtils.getObjectDirectly(obj, false);
-		if(obj != null && obj.animation != null)
-		{
-			if(indices == null)
-				indices = [0];
-			else if(Std.isOfType(indices, String))
-			{
-				var strIndices:Array<String> = cast (indices, String).trim().split(',');
-				var myIndices:Array<Int> = [];
-				for (i in 0...strIndices.length) {
-					myIndices.push(Std.parseInt(strIndices[i]));
-				}
-				indices = myIndices;
-			}
-
-			obj.animation.addByIndices(name, prefix, indices, '', framerate, loop);
-			if(obj.animation.curAnim == null)
-			{
-				if(obj.playAnim != null) obj.playAnim(name, true);
-				else obj.animation.play(name, true);
-			}
-			return true;
-		}
-		return false;
-	}
-	
 	public static function loadFrames(spr:FlxSprite, image:String, spriteType:String)
 	{
 		switch(spriteType.toLowerCase().trim())
@@ -339,63 +282,6 @@ class LuaUtils
 			default:
 				spr.frames = Paths.getSparrowAtlas(image);
 		}
-	}
-
-	public static function resetTextTag(tag:String) {
-		#if LUA_ALLOWED
-		if(!PlayState.instance.modchartTexts.exists(tag)) {
-			return;
-		}
-
-		var target:FlxText = PlayState.instance.modchartTexts.get(tag);
-		target.kill();
-		PlayState.instance.remove(target, true);
-		target.destroy();
-		PlayState.instance.modchartTexts.remove(tag);
-		#end
-	}
-
-	public static function resetSpriteTag(tag:String) {
-		#if LUA_ALLOWED
-		if(!PlayState.instance.modchartSprites.exists(tag)) {
-			return;
-		}
-
-		var target:ModchartSprite = PlayState.instance.modchartSprites.get(tag);
-		target.kill();
-		PlayState.instance.remove(target, true);
-		target.destroy();
-		PlayState.instance.modchartSprites.remove(tag);
-		#end
-	}
-
-	public static function cancelTween(tag:String) {
-		#if LUA_ALLOWED
-		if(PlayState.instance.modchartTweens.exists(tag)) {
-			PlayState.instance.modchartTweens.get(tag).cancel();
-			PlayState.instance.modchartTweens.get(tag).destroy();
-			PlayState.instance.modchartTweens.remove(tag);
-		}
-		#end
-	}
-
-	public static function tweenPrepare(tag:String, vars:String) {
-		cancelTween(tag);
-		var variables:Array<String> = vars.split('.');
-		var sexyProp:Dynamic = LuaUtils.getObjectDirectly(variables[0]);
-		if(variables.length > 1) sexyProp = LuaUtils.getVarInArray(LuaUtils.getPropertyLoop(variables), variables[variables.length-1]);
-		return sexyProp;
-	}
-
-	public static function cancelTimer(tag:String) {
-		#if LUA_ALLOWED
-		if(PlayState.instance.modchartTimers.exists(tag)) {
-			var theTimer:FlxTimer = PlayState.instance.modchartTimers.get(tag);
-			theTimer.cancel();
-			theTimer.destroy();
-			PlayState.instance.modchartTimers.remove(tag);
-		}
-		#end
 	}
 
 	public static function getBuildTarget():String

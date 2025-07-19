@@ -3,7 +3,7 @@ package funkin.substates;
 import funkin.visuals.objects.AttachedText;
 import funkin.visuals.objects.CheckboxThingie;
 
-class GameplayChangersSubstate extends MusicBeatSubstate
+class GameplayChangersSubstate extends MusicBeatSubState
 {
 	private var curOption:GameplayOption = null;
 	private var curSelected:Int = 0;

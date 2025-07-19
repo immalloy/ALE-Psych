@@ -239,7 +239,7 @@ class DialogueEditorState extends MusicBeatState
 		var rpcText:String = lineInputText.text;
 		if(rpcText == null || rpcText.length < 1) rpcText = '(Empty)';
 		if(rpcText.length < 3) rpcText += '   '; //Fixes a bug on RPC that triggers an error when the text is too short
-		DiscordClient.changePresence("Dialogue Editor", rpcText);
+		DiscordRPC.changePresence("Dialogue Editor", rpcText);
 		#end
 	}
 
@@ -332,7 +332,7 @@ class DialogueEditorState extends MusicBeatState
 				reloadText(false);
 			}
 			if(FlxG.keys.justPressed.ESCAPE) {
-				MusicBeatState.switchState(new funkin.editors.MasterEditorMenu());
+				CoolUtil.switchState(new funkin.editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'), 1);
 				transitioning = true;
 			}

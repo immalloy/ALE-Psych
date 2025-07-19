@@ -4,7 +4,6 @@ import flixel.FlxSubState;
 
 import flixel.effects.FlxFlicker;
 import lime.app.Application;
-import flixel.addons.transition.FlxTransitionableState;
 
 class FlashingState extends MusicBeatState
 {
@@ -36,8 +35,8 @@ class FlashingState extends MusicBeatState
 			var back:Bool = controls.BACK;
 			if (controls.ACCEPT || back) {
 				leftState = true;
-				FlxTransitionableState.skipNextTransIn = true;
-				FlxTransitionableState.skipNextTransOut = true;
+				CoolVars.skipTransIn = true;
+				CoolVars.skipTransOut = true;
 				if(!back) {
 					ClientPrefs.data.flashing = false;
 					ClientPrefs.saveSettings();

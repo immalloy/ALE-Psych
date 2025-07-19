@@ -16,7 +16,7 @@ class FPSField extends DebugField
 
     public function new()
     {
-        gameData = CoolVars.developerMode ? 'Developer Mode' : '';
+        gameData = CoolVars.data.developerMode ? 'Developer Mode' : '';
 
         super('FPS: 0', 26, 'Memory: [N/A]\n' + gameData, 16);
 

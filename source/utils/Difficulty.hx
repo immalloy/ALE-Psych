@@ -23,6 +23,7 @@ class Difficulty
 		{
 			fileSuffix = '';
 		}
+		
 		return Paths.formatToSongPath(fileSuffix);
 	}
 

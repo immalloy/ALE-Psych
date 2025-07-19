@@ -4,15 +4,11 @@ import utils.WeekData;
 import utils.Highscore;
 import utils.Song;
 
-import flixel.addons.transition.FlxTransitionableState;
-
 import flixel.util.FlxStringUtil;
 
-import funkin.states.StoryMenuState;
-import funkin.states.FreeplayState;
 import funkin.states.OptionsState;
 
-class PauseSubState extends MusicBeatSubstate
+class PauseSubState extends MusicBeatSubState
 {
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
@@ -225,7 +221,7 @@ class PauseSubState extends MusicBeatSubstate
 						var poop = Highscore.formatSong(name, curSelected);
 						PlayState.SONG = Song.loadFromJson(poop, name);
 						PlayState.storyDifficulty = curSelected;
-						MusicBeatState.resetState();
+						CoolUtil.resetState();
 						FlxG.sound.music.volume = 0;
 						PlayState.changedDifficulty = true;
 						PlayState.chartingMode = false;
@@ -297,7 +293,7 @@ class PauseSubState extends MusicBeatSubstate
 				case 'Options':
 					PlayState.instance.paused = true; // For lua
 					PlayState.instance.vocals.volume = 0;
-					MusicBeatState.switchState(new OptionsState());
+					CoolUtil.switchState(new OptionsState());
 					if(ClientPrefs.data.pauseMusic != 'None')
 					{
 						FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath(ClientPrefs.data.pauseMusic)), pauseMusic.volume);
@@ -306,15 +302,14 @@ class PauseSubState extends MusicBeatSubstate
 					}
 					OptionsState.onPlayState = true;
 				case "Exit to menu":
-					#if DISCORD_ALLOWED DiscordClient.resetClientID(); #end
+					#if DISCORD_ALLOWED DiscordRPC.resetClientID(); #end
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
 
-					Mods.loadTopMod();
 					if(PlayState.isStoryMode)
-						MusicBeatState.switchState(new StoryMenuState());
+						CoolUtil.switchState(new CustomState(CoolVars.data.freeplayState));
 					else 
-						MusicBeatState.switchState(new FreeplayState());
+						CoolUtil.switchState(new CustomState(CoolVars.data.storyMenuState));
 
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 					PlayState.changedDifficulty = false;
@@ -344,10 +339,10 @@ class PauseSubState extends MusicBeatSubstate
 
 		if(noTrans)
 		{
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxTransitionableState.skipNextTransOut = true;
+			CoolVars.skipTransIn = true;
+			CoolVars.skipTransOut = true;
 		}
-		MusicBeatState.resetState();
+		CoolUtil.resetState();
 	}
 
 	override function destroy()

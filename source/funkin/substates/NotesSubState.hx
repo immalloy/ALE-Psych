@@ -13,7 +13,7 @@ import funkin.visuals.game.Note;
 import funkin.visuals.shaders.RGBPalette;
 import funkin.visuals.shaders.RGBPalette.RGBShaderReference;
 
-class NotesSubState extends MusicBeatSubstate
+class NotesSubState extends MusicBeatSubState
 {
 	var onModeColumn:Bool = true;
 	var curSelectedMode:Int = 0;
@@ -51,7 +51,7 @@ class NotesSubState extends MusicBeatSubstate
 		super();
 		
 		#if DISCORD_ALLOWED
-		DiscordClient.changePresence("Note Colors Menu", null);
+		DiscordRPC.changePresence("Note Colors Menu", null);
 		#end
 		
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));

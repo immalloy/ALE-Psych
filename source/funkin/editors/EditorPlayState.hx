@@ -17,7 +17,7 @@ import openfl.events.KeyboardEvent;
 import funkin.visuals.game.Character;
 import openfl.utils.Assets as OpenFlAssets;
 
-class EditorPlayState extends MusicBeatSubstate
+class EditorPlayState extends MusicBeatSubState
 {
 	// Borrowed from original PlayState
 	var finishTimer:FlxTimer = null;
@@ -146,7 +146,7 @@ class EditorPlayState extends MusicBeatSubstate
 		
 		#if DISCORD_ALLOWED
 		// Updating Discord Rich Presence (with Time Left)
-		DiscordClient.changePresence('Playtesting on Chart Editor', PlayState.SONG.song, null, true, songLength);
+		DiscordRPC.changePresence('Playtesting on Chart Editor', PlayState.SONG.song, null, true, songLength);
 		#end
 		RecalculateRating();
 	}
@@ -989,19 +989,11 @@ class EditorPlayState extends MusicBeatSubstate
 	
 	function loadCharacterFile(char:String):CharacterFile {
 		var characterPath:String = 'characters/' + char + '.json';
-		#if MODS_ALLOWED
-		var path:String = Paths.modFolders(characterPath);
-		if (!FileSystem.exists(path)) {
-			path = Paths.getSharedPath(characterPath);
-		}
+		var path:String = Paths.getPath(characterPath);
 
-		if (!FileSystem.exists(path))
-		#else
-		var path:String = Paths.getSharedPath(characterPath);
 		if (!OpenFlAssets.exists(path))
-		#end
 		{
-			path = Paths.getSharedPath('characters/' + Character.DEFAULT_CHARACTER + '.json'); //If a character couldn't be found, change him to BF just to prevent a crash
+			path = Paths.getPath('characters/' + Character.DEFAULT_CHARACTER + '.json'); //If a character couldn't be found, change him to BF just to prevent a crash
 		}
 
 		#if MODS_ALLOWED

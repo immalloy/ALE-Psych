@@ -86,7 +86,7 @@ class SchoolEvil extends BaseStage
 	var doof:DialogueBox = null;
 	function initDoof()
 	{
-		var file:String = Paths.txt(songName + '/' + songName + 'Dialogue'); //Checks for vanilla/Senpai dialogue
+		var file:String = Paths.getPath(songName + '/' + songName + 'Dialogue.txt'); //Checks for vanilla/Senpai dialogue
 		#if MODS_ALLOWED
 		if (!FileSystem.exists(file))
 		#else
@@ -97,7 +97,7 @@ class SchoolEvil extends BaseStage
 			return;
 		}
 
-		doof = new DialogueBox(false, CoolUtil.coolTextFile(file));
+		doof = new DialogueBox(false, File.getContent(Paths.getPath(file)).split('\n'));
 		doof.cameras = [camHUD];
 		doof.scrollFactor.set();
 		doof.finishThing = startCountdown;
