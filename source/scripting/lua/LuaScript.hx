@@ -22,7 +22,7 @@ import core.enums.ScriptType;
 class LuaScript
 {
 	public var lua:State = null;
-	public var scriptName:String = '';
+	public var scriptName:String = 'unknown';
 	public var closed:Bool = false;
 
 	public var callbacks:Map<String, Dynamic> = new Map<String, Dynamic>();
@@ -40,9 +40,7 @@ class LuaScript
 
 		try
 		{
-			var isString:Bool = !FileSystem.exists(scriptName);
-
-			var result:Dynamic = LuaL.dofile(lua, Paths.getPath(scriptName));
+			var result:Dynamic = LuaL.dofile(lua, scriptName);
 
 			var resultStr:String = Lua.tostring(lua, result);
 
@@ -60,9 +58,6 @@ class LuaScript
 
 				return;
 			}
-
-			if (isString)
-				scriptName = 'unknown';
 		} catch(e:Dynamic) {
 			trace(e);
 
@@ -140,7 +135,7 @@ class LuaScript
 
 	public function set(variable:String, data:Dynamic)
 	{
-		if(lua == null)
+		if (lua == null)
 			return;
 
 		Convert.toLua(lua, data);
