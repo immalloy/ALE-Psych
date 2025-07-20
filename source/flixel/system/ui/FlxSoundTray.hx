@@ -11,6 +11,7 @@ import openfl.display.Sprite;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
 import openfl.text.TextFormatAlign;
+
 #if flash
 import openfl.text.AntiAliasType;
 import openfl.text.GridFitType;
@@ -63,7 +64,7 @@ class FlxSoundTray extends Sprite
 		text.gridFitType = GridFitType.PIXEL;
 		#else
 		#end
-		var dtf:TextFormat = new TextFormat(FlxAssets.FONT_DEFAULT, 10, 0xffffff);
+		var dtf:TextFormat = new TextFormat(Paths.font('jetbrains.ttf'), 10, 0xffffff);
 		dtf.align = TextFormatAlign.CENTER;
 		text.defaultTextFormat = dtf;
 		addChild(text);
@@ -87,6 +88,17 @@ class FlxSoundTray extends Sprite
 
 		y = -height;
 		visible = false;
+
+		Lib.application.window.onClose.add(function()
+			{
+				if (FlxG.save.isBound)
+				{
+					FlxG.save.data.mute = FlxG.sound.muted;
+					FlxG.save.data.volume = FlxG.sound.volume;
+					FlxG.save.flush();
+				}
+			}
+		);
 	}
 
 	public function update(elapsed:Float):Void
@@ -98,7 +110,7 @@ class FlxSoundTray extends Sprite
 		if (_timer > 0)
 		{
 			_timer -= elapsed / 750;
-		} else if (Math.floor(y) > -height) {
+		} else if (_y != -height) {
 			_y = -height;
 
 			_alpha = 0;
@@ -116,36 +128,27 @@ class FlxSoundTray extends Sprite
 
 		_y = 0;
 
-		visible = true;
+		_alpha = 1;
 
-		active = true;
+		visible = active = true;
 
 		var globalVolume:Int = Math.round(FlxG.sound.volume * 10);
 
 		if (FlxG.sound.muted)
-		{
 			globalVolume = 0;
-		}
 
 		for (i in 0..._bars.length)
-		{
 			if (i < globalVolume)
-			{
 				_bars[i].alpha = 1;
-			}
 			else
-			{
 				_bars[i].alpha = 0.5;
-			}
-		}
 	}
 
 	public function screenCenter():Void
 	{
-		scaleX = _defaultScale;
-		scaleY = _defaultScale;
+		scaleX = scaleY = _defaultScale;
 
-		x = (0.5 * (Lib.current.stage.stageWidth - _width * _defaultScale) - FlxG.game.x);
+		x = 0.5 * (Lib.current.stage.stageWidth - _width * _defaultScale) - FlxG.game.x;
 	}
 }
 #end

@@ -37,7 +37,7 @@ class DebugField extends Sprite implements IFlxDestroyable
 		for (field in [title, text])
         {
 			field.autoSize = LEFT;
-			field.defaultTextFormat = new TextFormat(Paths.font('vcr.ttf'), field == this.title ? titleSize : theTextSize, -1);
+			field.defaultTextFormat = new TextFormat(Paths.font('jetbrains.ttf'), field == this.title ? titleSize : theTextSize, -1);
 			field.selectable = false;
 
 			addChild(field);
