@@ -10,8 +10,9 @@
 - [ ] Improve Lua's API
 - [x] Custom States Support
 - [x] Custom Sub-States Support
-- [ ] Use ALE Engine's Callbacks on Scripts
-- [ ] Scripted Classes
+- [ ] Better Transitions Support
+- [x] Use ALE Engine's Callbacks on Scripts
+- [x] Scripted Classes
 - [ ] Fix PlayState
 - [ ] Remove Note Skins
 - [ ] Remove Note Splashes
@@ -19,3 +20,4 @@
 - [ ] Use Abstract Enums (String) instead of Enums
 - [ ] Use `debugTrace` instead of `trace`
 - [ ] Use `debugPrint` instead of `addTextToDebug / luaTrace`
+- [ ] Implement `data.json`

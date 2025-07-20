@@ -159,8 +159,6 @@ class Main extends Sprite
 		DiscordRPC.prepare();
 		#end
 
-		openalFix();
-
 		// shader coords fix
 		FlxG.signals.gameResized.add(function (w, h) {
 		     if (FlxG.cameras != null) {
@@ -181,25 +179,6 @@ class Main extends Sprite
 			sprite.__cacheBitmapData = null;
 		}
 	}
-
-    function openalFix()
-    {
-		#if desktop
-		var origin:String = #if hl Sys.getCwd() #else Sys.programPath() #end;
-
-		var configPath:String = Path.directory(Path.withoutExtension(origin));
-
-		#if windows
-		configPath += "/plugins/alsoft.ini";
-		#elseif mac
-		configPath = Path.directory(configPath) + "/Resources/plugins/alsoft.conf";
-		#else
-		configPath += "/plugins/alsoft.conf";
-		#end
-
-		Sys.putEnv("ALSOFT_CONF", configPath);
-		#end	
-    }
 
 	#if CRASH_HANDLER
 	function onCrash(e:UncaughtErrorEvent):Void
