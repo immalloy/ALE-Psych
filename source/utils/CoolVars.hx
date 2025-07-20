@@ -1,5 +1,7 @@
 package utils;
 
+import openfl.Lib;
+
 import core.structures.DataJson;
 
 class CoolVars
@@ -29,7 +31,9 @@ class CoolVars
     public static var skipTransIn:Bool = false;
     public static var skipTransOut:Bool = false;
 	
-	public static final engineVersion:String = '0.1.0';
+	public static var engineVersion(get, never):String;
+	public static function get_engineVersion():String
+		return Lib.application?.meta?.get('version') ?? '';
 
 	@:allow(funkin.states.PlayState)
 	private static var weekCompleted:Map<String, Bool> = new Map<String, Bool>();

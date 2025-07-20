@@ -141,14 +141,8 @@ class Main extends Sprite
 		if(fpsVar != null)
 			fpsVar.visible = ClientPrefs.data.showFPS;
 
-		#if linux
-		var icon = Image.fromFile("icon.png");
-		Lib.current.stage.window.setIcon(icon);
-		#end
-
 		#if html5
 		FlxG.autoPause = false;
-		FlxG.mouse.visible = false;
 		#end
 		
 		#if CRASH_HANDLER

@@ -1,11 +1,14 @@
 package utils;
 
 import openfl.utils.Assets;
-import lime.utils.Assets as LimeAssets;
 
 import core.enums.PrintType;
 
 import sys.thread.Thread;
+
+import openfl.Lib;
+
+import lime.graphics.Image;
 
 class CoolUtil
 {
@@ -22,13 +25,14 @@ class CoolUtil
 	inline public static function coolTextFile(path:String):Array<String>
 	{
 		var daList:String = null;
-		#if (sys && MODS_ALLOWED)
-		var formatted:Array<String> = path.split(':'); //prevent "shared:", "preload:" and other library names on file path
+		
+		var formatted:Array<String> = path.split(':');
+
 		path = formatted[formatted.length-1];
-		if(FileSystem.exists(path)) daList = File.getContent(path);
-		#else
-		if(Assets.exists(path)) daList = Assets.getText(path);
-		#end
+
+		if(FileSystem.exists(path))
+			daList = File.getContent(path);
+
 		return daList != null ? listFromString(daList) : [];
 	}
 
@@ -272,4 +276,109 @@ class CoolUtil
 	
 	public static function colorFromArray(arr:Array<Int>):Int
     	return FlxColor.fromRGB(arr[0], arr[1], arr[2]);
+
+	public static function reloadGameMetadata()
+	{
+		CoolVars.data = {
+			developerMode: false,
+			scriptsHotReloading: false,
+
+			initialState: 'TitleState',
+			freeplayState: 'FreeplayState',
+			storyMenuState: 'StoryMenuState',
+			masterEditorMenu: 'MasterEditorMenu',
+			mainMenuState: 'MainMenuState',
+
+			pauseSubState: 'PauseSubState',
+			gameOverScreen: 'GameOverSubState',
+			transition: 'FadeTransition',
+
+			title: 'Friday Night Funkin\': ALE Engine',
+			icon: 'appIcon',
+
+			bpm: 102.0,
+
+			discordID: '1309982575368077416',
+		};
+
+		try
+		{
+			if (Paths.fileExists('data.json'))
+			{
+				var json:Dynamic = Json.parse(File.getContent(Paths.getPath('data.json')));
+
+				for (field in Reflect.fields(json))
+					if (Reflect.hasField(CoolVars.data, field))
+						Reflect.setField(CoolVars.data, field, Reflect.field(json, field));
+			}
+		} catch (error:Dynamic) {
+			debugTrace('Error While Loading Game Data (data.json): ' + error, ERROR);
+		}
+
+		if (Paths.fileExists(CoolVars.data.icon + '.png'))
+			Lib.current.stage.window.setIcon(Image.fromFile(Paths.getPath(CoolVars.data.icon + '.png')));
+		else
+			Lib.current.stage.window.setIcon(Image.fromFile(Paths.getPath('images/appIcon.png')));
+
+        FlxG.stage.window.title = CoolVars.data.title;
+	}
+
+	public static function resizeGame(width:Int, height:Int, ?centerWindow:Bool = true)
+	{
+		FlxG.fullscreen = false;
+
+		FlxG.initialWidth = width;
+		FlxG.initialHeight = height;
+
+		FlxG.resizeGame(width, height);
+
+		FlxG.resizeWindow(width, height);
+
+		if (centerWindow)
+		{
+			Lib.application.window.x = Std.int((Lib.application.window.display.bounds.width - Lib.application.window.width) / 2);
+			Lib.application.window.y = Std.int((Lib.application.window.display.bounds.height - Lib.application.window.height) / 2);
+		}
+
+		for (camera in FlxG.cameras.list)
+		{
+			camera.width = width;
+			camera.height = height;
+		}
+	}
+	
+	public static function loadSong(name:String, diff:Int):Void
+	{
+		var songLowercase:String = Paths.formatToSongPath(name);
+
+		var poop:String = Highscore.formatSong(songLowercase, diff);
+
+		PlayState.isStoryMode = false;
+
+		PlayState.SONG = Song.loadFromJson(poop, songLowercase);
+
+		PlayState.storyDifficulty = diff;
+
+		LoadingState.loadAndSwitchState(new PlayState());
+	}
+
+	public static function loadWeek(names:Array<String>, diff:Int)
+	{
+		PlayState.storyPlaylist = names;
+
+		PlayState.isStoryMode = true;
+
+		var diffic = Difficulty.getFilePath(diff);
+
+		if (diffic == null)
+			diffic = '';
+
+		PlayState.storyDifficulty = diff;
+
+		PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + diffic, PlayState.storyPlaylist[0].toLowerCase());
+		PlayState.campaignScore = 0;
+		PlayState.campaignMisses = 0;
+
+		LoadingState.loadAndSwitchState(new PlayState());
+	}
 }

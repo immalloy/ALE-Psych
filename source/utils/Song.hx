@@ -110,7 +110,7 @@ class Song
 				rawJson = File.getContent(path).trim();
 			else
 			#end
-				rawJson = Assets.getText(Paths.getPath(formattedFolder + '/' + formattedSong + '.json')).trim();
+				rawJson = Assets.getText(path).trim();
 		}
 
 		while (!rawJson.endsWith("}"))

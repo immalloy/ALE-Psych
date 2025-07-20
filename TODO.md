@@ -4,13 +4,14 @@
 - [x] Use ALE Engine's Source Code Organization
 - [ ] Implement `Ctrl + Shift + [function]`
 - [ ] Implement CoolUtil
-- [ ] Implement CoolVars
+- [x] Implement CoolVars
 - [ ] Implemet ALESave
 - [x] RuleScript instead of SScript
 - [ ] Improve Lua's API
 - [x] Custom States Support
+- [x] Custom States' Hot Reloading
 - [x] Custom Sub-States Support
-- [ ] Better Transitions Support
+- [x] Better Transitions Support
 - [x] Use ALE Engine's Callbacks on Scripts
 - [x] Scripted Classes
 - [ ] Fix PlayState
@@ -20,4 +21,8 @@
 - [ ] Use Abstract Enums (String) instead of Enums
 - [ ] Use `debugTrace` instead of `trace`
 - [ ] Use `debugPrint` instead of `addTextToDebug / luaTrace`
-- [ ] Implement `data.json`
+- [x] Implement `data.json`
+- [x] Fix FlxKeyboard
+- [x] Use ALE Engine's SoundTray
+- [ ] Mods Menu
+- [x] Mouse Controls

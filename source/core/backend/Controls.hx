@@ -17,6 +17,30 @@ class Controls
 	//Dumb but easily usable code, or Smart but complicated? Your choice.
 	//Also idk how to use macros they're weird as fuck lol
 
+    public var MOUSE_WHEEL(get, never):Bool;
+    public function get_MOUSE_WHEEL():Bool
+        return FlxG.mouse.wheel != 0;
+    
+    public var MOUSE_WHEEL_DOWN(get, never):Bool;
+    public function get_MOUSE_WHEEL_DOWN():Bool
+        return FlxG.mouse.wheel < 0;
+
+    public var MOUSE_WHEEL_UP(get, never):Bool;
+    public function get_MOUSE_WHEEL_UP():Bool
+        return FlxG.mouse.wheel > 0;
+
+    public var MOUSE(get, never):Bool;
+    public function get_MOUSE():Bool
+        return FlxG.mouse.pressed;
+    
+    public var MOUSE_P(get, never):Bool;
+    public function get_MOUSE_P():Bool
+        return FlxG.mouse.justPressed;
+
+    public var MOUSE_R(get, never):Bool;
+    public function get_MOUSE_R():Bool
+        return FlxG.mouse.justReleased;
+	
 	// Pressed buttons (directions)
 	public var UI_UP_P(get, never):Bool;
 	public var UI_DOWN_P(get, never):Bool;

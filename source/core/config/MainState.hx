@@ -29,11 +29,15 @@ class MainState extends MusicBeatState
 
 		Highscore.load();
 
-		FlxG.mouse.visible = false;
-
-		CoolUtil.switchState(new CustomState(CoolVars.data.initialState));
+		FlxG.mouse.useSystemCursor = true;
 
 		RuleScript.resolveScript = importCustomClass;
+
+		CoolUtil.reloadGameMetadata();
+
+        FlxG.autoPause = !CoolVars.data.developerMode || !CoolVars.data.scriptsHotReloading;
+
+		CoolUtil.switchState(new CustomState(CoolVars.data.initialState));
 
 		openalFix();
 	}
