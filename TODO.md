@@ -1,6 +1,7 @@
 # ALE Psych TODO List
 - [x] Use the ALE Engine's FPS Counter
 - [x] Optimize Memory Usage
+- [x] Use ALE Engine's Source Code Organization
 - [ ] Implement `Ctrl + Shift + [function]`
 - [ ] Implement CoolUtil
 - [ ] Implement CoolVars
@@ -16,3 +17,5 @@
 - [ ] Remove Note Splashes
 - [ ] Separate Classes, Typedefs and Enums in several files
 - [ ] Use Abstract Enums (String) instead of Enums
+- [ ] Use `debugTrace` instead of `trace`
+- [ ] Use `debugPrint` instead of `addTextToDebug / luaTrace`
