@@ -260,4 +260,16 @@ class CoolUtil
 
 		FlxG.state.openSubState(subState);
 	}
+
+	public static function fpsLerp(v1:Float, v2:Float, ratio:Float):Float
+		return FlxMath.lerp(v1, v2, fpsRatio(ratio));
+
+	public static function fpsRatio(ratio:Float)
+		return FlxMath.bound(ratio * FlxG.elapsed * 60, 0, 1);
+
+	public static function snapNumber(og:Float, mod:Int):Float
+		return Math.floor(og / mod) * mod;
+	
+	public static function colorFromArray(arr:Array<Int>):Int
+    	return FlxColor.fromRGB(arr[0], arr[1], arr[2]);
 }

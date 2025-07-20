@@ -1,10 +1,10 @@
 package funkin.visuals.objects;
 
-enum Alignment
+enum abstract Alignment(String)
 {
-	LEFT;
-	CENTERED;
-	RIGHT;
+	var LEFT = 'left';
+	var CENTERED = 'centered';
+	var RIGHT = 'right';
 }
 
 class Alphabet extends FlxSpriteGroup

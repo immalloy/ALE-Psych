@@ -95,7 +95,8 @@ class ALERuleScript extends RuleScript
 			'FlxKey' => HScriptFlxKey,
 			'Json' => utils.ALEJson,
 			//'debugTrace' => CoolUtil.debugTrace,
-			//'debugPrint' => CoolUtil.debugPrint
+			//'debugPrint' => CoolUtil.debugPrint,
+			'controls' => Controls.instance
 		];
 
 		for (preVar in presetVariables.keys())

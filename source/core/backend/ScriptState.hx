@@ -83,8 +83,6 @@ class ScriptState extends MusicBeatState
                 hScripts.push(script);
 
                 debugTrace('"' + path + '.hx" has been Successfully Loaded', HSCRIPT);
-
-                script.call('onCreate');
             }
         }
         #end
@@ -102,8 +100,6 @@ class ScriptState extends MusicBeatState
                 luaScripts.push(script);
 
                 debugTrace('"' + path + '.lua" has been Successfully Loaded', LUA);
-                
-                script.call('onCreate');
             } catch (error:Exception) {
                 debugTrace(error.details(), ERROR);
             }
