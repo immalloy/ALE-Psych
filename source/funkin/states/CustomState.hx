@@ -124,33 +124,27 @@ class CustomState extends ScriptState
     {
         super.stepHit();
 
-        setOnScripts('curStep', curStep);
+        callOnScripts('onStepHit', [curStep]);
 
-        callOnScripts('onStepHit');
-
-        callOnScripts('postStepHit');
+        callOnScripts('postStepHit', [curStep]);
     }
 
     override public function beatHit()
     {
         super.beatHit();
 
-        setOnScripts('curBeat', curBeat);
+        callOnScripts('onBeatHit', [curBeat]);
 
-        callOnScripts('onBeatHit');
-
-        callOnScripts('postBeatHit');
+        callOnScripts('postBeatHit', [curBeat]);
     }
 
     override public function sectionHit()
     {
         super.sectionHit();
 
-        setOnScripts('curSection', curSection);
+        callOnScripts('onSectionHit', [curSection]);
 
-        callOnScripts('onSectionHit');
-
-        callOnScripts('postSectionHit');
+        callOnScripts('postSectionHit', [curSection]);
     }
 
     override public function onFocus()

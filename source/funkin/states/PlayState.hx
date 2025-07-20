@@ -369,10 +369,8 @@ class PlayState extends ScriptState
 
 		// "GLOBAL" SCRIPTS
 		#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
-		for (folder in FileSystem.readDirectory(Paths.getPath('scripts')))
-			if (FileSystem.isDirectory(Paths.getPath('scripts/' + folder)))
-				for (file in FileSystem.readDirectory(folder))
-					loadScript(folder + file);
+		for (file in Paths.getPath('scripts/songs'))
+			loadScript('scripts/songs/' + file);
 		#end
 
 		// STAGE SCRIPTS
@@ -399,6 +397,8 @@ class PlayState extends ScriptState
 		startCharacterPos(boyfriend);
 		boyfriendGroup.add(boyfriend);
 		startCharacterScripts(boyfriend.curCharacter);
+
+		callOnScripts('onCreate');
 
 		var camPos:FlxPoint = FlxPoint.get(girlfriendCameraOffset[0], girlfriendCameraOffset[1]);
 		if(gf != null)
@@ -563,7 +563,7 @@ class PlayState extends ScriptState
 
 		resetRPC();
 
-		callOnScripts('onCreatePost');
+		callOnScripts('postCreate');
 
 		cacheCountdown();
 		cachePopUpScore();
@@ -627,7 +627,6 @@ class PlayState extends ScriptState
 					boyfriendGroup.add(newBoyfriend);
 					startCharacterPos(newBoyfriend);
 					newBoyfriend.alpha = 0.00001;
-					startCharacterScripts(newBoyfriend.curCharacter);
 				}
 
 			case 1:
@@ -637,7 +636,6 @@ class PlayState extends ScriptState
 					dadGroup.add(newDad);
 					startCharacterPos(newDad, true);
 					newDad.alpha = 0.00001;
-					startCharacterScripts(newDad.curCharacter);
 				}
 
 			case 2:
@@ -648,7 +646,6 @@ class PlayState extends ScriptState
 					gfGroup.add(newGf);
 					startCharacterPos(newGf);
 					newGf.alpha = 0.00001;
-					startCharacterScripts(newGf.curCharacter);
 				}
 		}
 	}
@@ -1400,11 +1397,19 @@ class PlayState extends ScriptState
 		}
 
 		super.openSubState(SubState);
+
+        callOnHScripts('onOpenSubState', [SubState]);
+        callOnLuaScripts('onOpenSubState', [Type.getClassName(Type.getClass(SubState))]);
+
+        callOnHScripts('postOpenSubState', [SubState]);
+        callOnLuaScripts('postOpenSubState', [Type.getClassName(Type.getClass(SubState))]);
 	}
 
 	override function closeSubState()
 	{
 		super.closeSubState();
+
+        callOnScripts('onCloseSubState');
 		
 		stagesFunc(function(stage:BaseStage) stage.closeSubState());
 		if (paused)
@@ -1420,12 +1425,20 @@ class PlayState extends ScriptState
 			callOnScripts('onResume');
 			resetRPC(startTimer != null && startTimer.finished);
 		}
+
+        callOnScripts('postCloseSubState');
 	}
 
 	override public function onFocus():Void
 	{
-		if (health > 0 && !paused) resetRPC(Conductor.songPosition > 0.0);
+		if (health > 0 && !paused)
+			resetRPC(Conductor.songPosition > 0.0);
+
 		super.onFocus();
+
+        callOnScripts('onOnFocus');
+
+        callOnScripts('postOnFocus');
 	}
 
 	override public function onFocusLost():Void
@@ -1435,6 +1448,10 @@ class PlayState extends ScriptState
 		#end
 
 		super.onFocusLost();
+
+        callOnScripts('onOnFocusLost');
+
+        callOnScripts('postOnFocusLost');
 	}
 
 	// Updating Discord Rich Presence.
@@ -1666,7 +1683,7 @@ class PlayState extends ScriptState
 		setOnScripts('cameraX', camFollow.x);
 		setOnScripts('cameraY', camFollow.y);
 		setOnScripts('botPlay', cpuControlled);
-		callOnScripts('onUpdatePost', [elapsed]);
+		callOnScripts('postUpdate', [elapsed]);
 	}
 
 	// Health icon updaters
@@ -2846,8 +2863,16 @@ class PlayState extends ScriptState
 		#if FLX_PITCH FlxG.sound.music.pitch = 1; #end
 		Note.globalRgbShaders = [];
 		utils.NoteTypesConfig.clearNoteTypesData();
-		instance = null;
+
 		super.destroy();
+
+        callOnScripts('onDestroy');
+
+        instance = null;
+
+        callOnScripts('postDestroy');
+
+        destroyScripts();
 	}
 
 	var lastStepHit:Int = -1;
@@ -2867,13 +2892,14 @@ class PlayState extends ScriptState
 
 		super.stepHit();
 
-		if(curStep == lastStepHit) {
+		if (curStep == lastStepHit)
 			return;
-		}
 
 		lastStepHit = curStep;
-		setOnScripts('curStep', curStep);
-		callOnScripts('onStepHit');
+
+        callOnScripts('onStepHit', [curStep]);
+
+        callOnScripts('postStepHit', [curStep]);
 	}
 
 	var lastBeatHit:Int = -1;
@@ -2899,8 +2925,9 @@ class PlayState extends ScriptState
 		super.beatHit();
 		lastBeatHit = curBeat;
 
-		setOnScripts('curBeat', curBeat);
-		callOnScripts('onBeatHit');
+        callOnScripts('onBeatHit', [curBeat]);
+
+        callOnScripts('postBeatHit', [curBeat]);
 	}
 
 	public function characterBopper(beat:Int):Void
@@ -2944,10 +2971,12 @@ class PlayState extends ScriptState
 			setOnScripts('altAnim', SONG.notes[curSection].altAnim);
 			setOnScripts('gfSection', SONG.notes[curSection].gfSection);
 		}
+
 		super.sectionHit();
 
-		setOnScripts('curSection', curSection);
-		callOnScripts('onSectionHit');
+        callOnScripts('onSectionHit', [curSection]);
+
+        callOnScripts('postSectionHit', [curSection]);
 	}
 
 	function strumPlayAnim(isDad:Bool, id:Int, time:Float) {
