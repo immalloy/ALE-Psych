@@ -26,3 +26,4 @@
 - [x] Use ALE Engine's SoundTray
 - [ ] Mods Menu
 - [x] Mouse Controls
+- [ ] Improve Songs Loading
