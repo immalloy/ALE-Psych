@@ -13,14 +13,7 @@ import rulescript.parsers.HxParser;
 
 import scripting.haxe.ALERuleScript;
 
-import sys.io.File;
-import sys.FileSystem;
-
-import rulescript.*;
-import rulescript.parsers.*;
 import rulescript.scriptedClass.RuleScriptedClassUtil;
-
-import rulescript.scriptedClass.RuleScriptedClass;
 
 class MainState extends MusicBeatState
 {
@@ -48,10 +41,8 @@ class MainState extends MusicBeatState
 
         FlxG.autoPause = !CoolVars.data.developerMode || !CoolVars.data.scriptsHotReloading;
 
-		//CoolUtil.switchState(new CustomState(CoolVars.data.initialState));
+		CoolUtil.switchState(new CustomState(CoolVars.data.initialState));
 		
-		CoolUtil.switchState(new TestState());
-
 		openalFix();
 	}
 
@@ -150,19 +141,3 @@ class MainState extends MusicBeatState
 		return rulescript;
 	}
 }
-
-class TestState extends MusicBeatState
-{
-    var script:RuleScript = new RuleScript();
-
-    override function create()
-    {
-		script.getParser(HxParser).mode = MODULE;
-
-		RuleScriptedClassUtil.registerRuleScriptedClass('Script', script.getParser(HxParser).parse(File.getContent('Script.hx')));
-
-		CoolUtil.switchState(new ScriptState('Script'));
-    }
-}
-
-class ScriptState implements RuleScriptedClass extends MusicBeatState {}
