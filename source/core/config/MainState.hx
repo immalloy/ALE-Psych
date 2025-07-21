@@ -128,16 +128,16 @@ class MainState extends MusicBeatState
 
 	static function customBuildRuleScript(typeName:String, superInstance:Dynamic):RuleScript
 	{
-		var rulescript = new ALERuleScript();
+		var script = new ALERuleScript();
 
-		rulescript.getParser(HxParser).mode = MODULE;
+		script.getParser(HxParser).mode = MODULE;
 
-		rulescript.superInstance = superInstance;
+		script.superInstance = superInstance;
 
-		rulescript.interp.skipNextRestore = true;
+		script.interp.skipNextRestore = true;
 
-		rulescript.execute(File.getContent('${typeName.replace('.', '/')}.hx'));
+		script.execute(File.getContent(Paths.getPath('scripts/classes/' + typeName.replace('.', '/') + '.hx')));
 
-		return rulescript;
+		return script;
 	}
 }
