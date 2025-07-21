@@ -13,6 +13,15 @@ import rulescript.parsers.HxParser;
 
 import scripting.haxe.ALERuleScript;
 
+import sys.io.File;
+import sys.FileSystem;
+
+import rulescript.*;
+import rulescript.parsers.*;
+import rulescript.scriptedClass.RuleScriptedClassUtil;
+
+import rulescript.scriptedClass.RuleScriptedClass;
+
 class MainState extends MusicBeatState
 {
 	override function create()
@@ -38,6 +47,8 @@ class MainState extends MusicBeatState
         FlxG.autoPause = !CoolVars.data.developerMode || !CoolVars.data.scriptsHotReloading;
 
 		CoolUtil.switchState(new CustomState(CoolVars.data.initialState));
+
+		//CoolUtil.switchState(new TestState());
 
 		openalFix();
 	}
@@ -122,3 +133,44 @@ class MainState extends MusicBeatState
 		#end	
     }
 }
+
+class TestState extends MusicBeatState
+{
+    var script:RuleScript = new RuleScript();
+
+    override function create()
+    {
+		script.getParser(HxParser).mode = MODULE;
+
+		RuleScriptedClassUtil.registerRuleScriptedClass('Script', script.getParser(HxParser).parse(File.getContent('Script.hx')));
+
+		add(new ScriptSprite('Script'));
+
+		RuleScriptedClassUtil.buildBridge = customBuildRuleScript;
+    }
+
+	public static function customBuildRuleScript(typeName:String, superInstance:Dynamic):RuleScript
+	{
+		var rulescript = new ALERuleScript();
+
+		rulescript.getParser(HxParser).mode = MODULE;
+
+		rulescript.superInstance = superInstance;
+
+		rulescript.interp.skipNextRestore = true;
+
+		rulescript.execute(File.getContent('${typeName.replace('.', '/')}.hx'));
+
+		return rulescript;
+	}
+
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+
+		if (FlxG.keys.justPressed.R)
+			FlxG.resetState();
+	}
+}
+
+class ScriptSprite implements RuleScriptedClass extends FlxSprite {}
