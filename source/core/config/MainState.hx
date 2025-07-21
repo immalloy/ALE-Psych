@@ -40,18 +40,39 @@ class MainState extends MusicBeatState
 
 		FlxG.mouse.useSystemCursor = true;
 
+		RuleScriptedClassUtil.buildBridge = customBuildRuleScript;
+
 		RuleScript.resolveScript = importCustomClass;
 
 		CoolUtil.reloadGameMetadata();
 
         FlxG.autoPause = !CoolVars.data.developerMode || !CoolVars.data.scriptsHotReloading;
 
-		CoolUtil.switchState(new CustomState(CoolVars.data.initialState));
-
-		//CoolUtil.switchState(new TestState());
+		//CoolUtil.switchState(new CustomState(CoolVars.data.initialState));
+		
+		CoolUtil.switchState(new TestState());
 
 		openalFix();
 	}
+
+    function openalFix()
+    {
+		#if desktop
+		var origin:String = #if hl Sys.getCwd() #else Sys.programPath() #end;
+
+		var configPath:String = Path.directory(Path.withoutExtension(origin));
+
+		#if windows
+		configPath += "/plugins/alsoft.ini";
+		#elseif mac
+		configPath = Path.directory(configPath) + "/Resources/plugins/alsoft.conf";
+		#else
+		configPath += "/plugins/alsoft.conf";
+		#end
+
+		Sys.putEnv("ALSOFT_CONF", configPath);
+		#end	
+    }
 
 	static function importCustomClass(name:String):Dynamic
 	{
@@ -114,42 +135,7 @@ class MainState extends MusicBeatState
 		return obj;
 	}
 
-    function openalFix()
-    {
-		#if desktop
-		var origin:String = #if hl Sys.getCwd() #else Sys.programPath() #end;
-
-		var configPath:String = Path.directory(Path.withoutExtension(origin));
-
-		#if windows
-		configPath += "/plugins/alsoft.ini";
-		#elseif mac
-		configPath = Path.directory(configPath) + "/Resources/plugins/alsoft.conf";
-		#else
-		configPath += "/plugins/alsoft.conf";
-		#end
-
-		Sys.putEnv("ALSOFT_CONF", configPath);
-		#end	
-    }
-}
-
-class TestState extends MusicBeatState
-{
-    var script:RuleScript = new RuleScript();
-
-    override function create()
-    {
-		script.getParser(HxParser).mode = MODULE;
-
-		RuleScriptedClassUtil.registerRuleScriptedClass('Script', script.getParser(HxParser).parse(File.getContent('Script.hx')));
-
-		add(new ScriptSprite('Script'));
-
-		RuleScriptedClassUtil.buildBridge = customBuildRuleScript;
-    }
-
-	public static function customBuildRuleScript(typeName:String, superInstance:Dynamic):RuleScript
+	static function customBuildRuleScript(typeName:String, superInstance:Dynamic):RuleScript
 	{
 		var rulescript = new ALERuleScript();
 
@@ -163,14 +149,20 @@ class TestState extends MusicBeatState
 
 		return rulescript;
 	}
-
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
-
-		if (FlxG.keys.justPressed.R)
-			FlxG.resetState();
-	}
 }
 
-class ScriptSprite implements RuleScriptedClass extends FlxSprite {}
+class TestState extends MusicBeatState
+{
+    var script:RuleScript = new RuleScript();
+
+    override function create()
+    {
+		script.getParser(HxParser).mode = MODULE;
+
+		RuleScriptedClassUtil.registerRuleScriptedClass('Script', script.getParser(HxParser).parse(File.getContent('Script.hx')));
+
+		CoolUtil.switchState(new ScriptState('Script'));
+    }
+}
+
+class ScriptState implements RuleScriptedClass extends MusicBeatState {}
