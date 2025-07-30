@@ -43,10 +43,4 @@ class ScriptBar extends FlxBar implements RuleScriptedClass {}
 class ScriptGraphic extends FlxGraphic implements RuleScriptedClass {}
 
 @:strictScriptedConstructor
-class ScriptSubState extends FlxSubState implements RuleScriptedClass {}
-
-@:strictScriptedConstructor
-class ScriptState extends FlxState implements RuleScriptedClass {}
-
-@:strictScriptedConstructor
 class ScriptBasic extends FlxBasic implements RuleScriptedClass {}
