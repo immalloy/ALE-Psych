@@ -10,7 +10,6 @@ import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.display.FlxMouseSpring;
 import flixel.addons.display.FlxNestedSprite;
 import flixel.addons.display.FlxPieDial;
-import flixel.addons.display.FlxRadialGauge;
 import flixel.addons.display.FlxRuntimeShader;
 import flixel.addons.display.FlxShaderMaskCamera;
 import flixel.addons.display.FlxSliceSprite;

@@ -26,8 +26,6 @@ import flixel.ui.FlxBar;
 import flixel.ui.FlxBitmapTextButton;
 import flixel.ui.FlxButton;
 import flixel.ui.FlxSpriteButton;
-import flixel.ui.FlxVirtualPad;
-import flixel.ui.FlxVirtualStick;
 
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -40,8 +38,6 @@ import flixel.tile.FlxTilemapBuffer;
 
 import flixel.text.FlxBitmapFont;
 import flixel.text.FlxBitmapText;
-import flixel.text.FlxInputText;
-import flixel.text.FlxInputTextManager;
 import flixel.text.FlxText;
 
 import flixel.system.FlxAssets;
@@ -56,7 +52,6 @@ import flixel.system.FlxVersion;
 import flixel.sound.FlxSound;
 import flixel.sound.FlxSoundGroup;
 
-import flixel.path.FlxBasePath;
 import flixel.path.FlxPath;
 import flixel.path.FlxPathfinder;
 
@@ -77,9 +72,7 @@ import flixel.input.FlxSwipe;
 import flixel.input.IFlxInput;
 import flixel.input.IFlxInputManager;
 
-import flixel.group.FlxContainer;
 import flixel.group.FlxGroup;
-import flixel.group.FlxSpriteContainer;
 import flixel.group.FlxSpriteGroup;
 
 import flixel.graphics.FlxAsepriteUtil;

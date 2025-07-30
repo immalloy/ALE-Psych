@@ -27,3 +27,4 @@
 - [ ] Mods Menu
 - [x] Mouse Controls
 - [ ] Improve Songs Loading
+- [ ] Rewrite Options Menu

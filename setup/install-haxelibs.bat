@@ -1,6 +1,10 @@
 @echo off
 cd ..
 @echo on
+echo Installing dependencies
+
+@if not exist ".haxelib\" mkdir .haxelib
+
 echo Installing dependencies...
 haxelib install lime 8.2.2
 haxelib run lime setup
