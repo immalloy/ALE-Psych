@@ -100,6 +100,8 @@
 
 	<haxedef name="message.reporting" value="pretty"/>
 
+	<haxedef name="hscriptPos"/>
+
 	<!-- ______________________________ Application Icon ______________________________ -->
 
 	<assets path='art/iconOG.png' rename='icon.png' if="linux"/>

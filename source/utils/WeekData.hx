@@ -75,10 +75,10 @@ class WeekData {
 		weeksLoaded.clear();
 
 		#if MODS_ALLOWED
-		var directories:Array<String> = [Paths.modFolder() + '/', 'assets/shared/'];
+		var directories:Array<String> = [Paths.modFolder() + '/', 'assets/'];
 		var originalLength:Int = directories.length;
 		#else
-		var directories:Array<String> = ['assets/shared/'];
+		var directories:Array<String> = ['assets/'];
 		var originalLength:Int = directories.length;
 		#end
 

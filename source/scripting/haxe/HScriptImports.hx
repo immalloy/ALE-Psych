@@ -18,4 +18,6 @@ import scripting.haxe.imports.FunkinImports;
 
 import scripting.haxe.Extensible;
 
+import funkin.substates.GameplayChangersSubstate;
+
 class HScriptImports {}
