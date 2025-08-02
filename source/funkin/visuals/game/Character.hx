@@ -139,7 +139,7 @@ class Character extends FlxSprite
 		isAnimateAtlas = false;
 
 		#if flxanimate
-		var animToFind:String = Paths.getPath('images/' + json.image + '/Animation.json');
+		var animToFind:String = Paths.getPath('images/' + json.image + '/Animation.json', false);
 		if (#if MODS_ALLOWED FileSystem.exists(animToFind) || #end Assets.exists(animToFind))
 			isAnimateAtlas = true;
 		#end
@@ -149,6 +149,7 @@ class Character extends FlxSprite
 
 		if(!isAnimateAtlas)
 			frames = Paths.getAtlas(json.image);
+
 		#if flxanimate
 		else
 		{

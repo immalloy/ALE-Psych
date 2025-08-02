@@ -307,9 +307,9 @@ class PauseSubState extends MusicBeatSubState
 					PlayState.seenCutscene = false;
 
 					if(PlayState.isStoryMode)
-						CoolUtil.switchState(new CustomState(CoolVars.data.freeplayState));
-					else 
 						CoolUtil.switchState(new CustomState(CoolVars.data.storyMenuState));
+					else 
+						CoolUtil.switchState(new CustomState(CoolVars.data.freeplayState));
 
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 					PlayState.changedDifficulty = false;

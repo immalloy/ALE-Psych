@@ -81,19 +81,19 @@ class Paths
 		return newGraphic;
 	}
 
-	inline static public function voices(song:String, postfix:String = null):Any
+	inline static public function voices(song:String, postfix:String = null, missingPrint:Bool = true):Any
 	{
 		var songKey:String = '${formatToSongPath(song)}/Voices';
 		if(postfix != null) songKey += '-' + postfix;
 		//trace('songKey test: $songKey');
-		var voices = returnSound('songs/' + songKey);
+		var voices = returnSound('songs/' + songKey, missingPrint);
 		return voices;
 	}
 
-	inline static public function inst(song:String):Any
+	inline static public function inst(song:String, missingPrint:Bool = true):Any
 	{
 		var songKey:String = '${formatToSongPath(song)}/Inst';
-		var inst = returnSound('songs/' + songKey);
+		var inst = returnSound('songs/' + songKey, missingPrint);
 		return inst;
 	}
 
@@ -205,7 +205,7 @@ class Paths
     }
 
     public static function getAtlas(file:String, missingPrint:Bool = true):FlxAtlasFrames
-        return getSparrowAtlas(file, missingPrint) ?? getPackerAtlas(file, missingPrint) ?? getAsepriteAtlas(file, missingPrint) ?? null;
+        return getSparrowAtlas(file, false) ?? getPackerAtlas(file, false) ?? getAsepriteAtlas(file, missingPrint);
 
     public static function getSparrowAtlas(file:String, missingPrint:Bool = true):FlxAtlasFrames
     {

@@ -369,8 +369,9 @@ class PlayState extends ScriptState
 
 		// "GLOBAL" SCRIPTS
 		#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
-		for (file in Paths.getPath('scripts/songs'))
-			loadScript('scripts/songs/' + file);
+		if (Paths.fileExists('scripts/songs'))
+			for (file in FileSystem.readDirectory(Paths.getPath('scripts/songs')))
+				loadScript('scripts/songs/' + file);
 		#end
 
 		// STAGE SCRIPTS
@@ -1125,10 +1126,10 @@ class PlayState extends ScriptState
 		{
 			if (songData.needsVoices)
 			{
-				var playerVocals = Paths.voices(songData.song, (boyfriend.vocalsFile == null || boyfriend.vocalsFile.length < 1) ? 'Player' : boyfriend.vocalsFile);
-				vocals.loadEmbedded(playerVocals != null ? playerVocals : Paths.voices(songData.song));
+				var playerVocals = Paths.voices(songData.song, (boyfriend.vocalsFile == null || boyfriend.vocalsFile.length < 1) ? 'Player' : boyfriend.vocalsFile, false);
+				vocals.loadEmbedded(playerVocals ?? Paths.voices(songData.song));
 				
-				var oppVocals = Paths.voices(songData.song, (dad.vocalsFile == null || dad.vocalsFile.length < 1) ? 'Opponent' : dad.vocalsFile);
+				var oppVocals = Paths.voices(songData.song, (dad.vocalsFile == null || dad.vocalsFile.length < 1) ? 'Opponent' : dad.vocalsFile, false);
 				if(oppVocals != null) opponentVocals.loadEmbedded(oppVocals);
 			}
 		}
@@ -1156,9 +1157,9 @@ class PlayState extends ScriptState
 		// NEW SHIT
 		noteData = songData.notes;
 
-		var file:String = Paths.getPath('data/' + songName + '/events');
+		var file:String = Paths.getPath('data/' + songName + '/events.json', false);
 		#if MODS_ALLOWED
-		if (FileSystem.exists(Paths.getPath('data/' + songName + '/events.json')) || FileSystem.exists(file))
+		if (FileSystem.exists(file))
 		#else
 		if (OpenFlAssets.exists(file))
 		#end
