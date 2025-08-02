@@ -20,4 +20,6 @@ import scripting.haxe.Extensible;
 
 import funkin.substates.GameplayChangersSubstate;
 
+import funkin.substates.ResetScoreSubState;
+
 class HScriptImports {}

@@ -18,6 +18,8 @@ class ResetScoreSubState extends MusicBeatSubState
 	var song:String;
 	var difficulty:Int;
 	var week:Int;
+	
+	var subCamera:FlxCamera;
 
 	// Week -1 = Freeplay
 	public function new(song:String, difficulty:Int, character:String, week:Int = -1)
@@ -27,6 +29,11 @@ class ResetScoreSubState extends MusicBeatSubState
 		this.week = week;
 
 		super();
+		
+		subCamera = new FlxCamera();
+		subCamera.bgColor = flixel.util.FlxColor.TRANSPARENT;
+
+		FlxG.cameras.add(subCamera, false);
 
 		var name:String = song;
 		if(week > -1) {
@@ -38,6 +45,7 @@ class ResetScoreSubState extends MusicBeatSubState
 		bg.alpha = 0;
 		bg.scrollFactor.set();
 		add(bg);
+		bg.cameras = [subCamera];
 
 		var tooLong:Float = (name.length > 18) ? 0.8 : 1; //Fucking Winter Horrorland
 		var text:Alphabet = new Alphabet(0, 180, "Reset the score of", true);
@@ -45,6 +53,7 @@ class ResetScoreSubState extends MusicBeatSubState
 		alphabetArray.push(text);
 		text.alpha = 0;
 		add(text);
+		text.cameras = [subCamera];
 		var text:Alphabet = new Alphabet(0, text.y + 90, name, true);
 		text.scaleX = tooLong;
 		text.screenCenter(X);
@@ -52,6 +61,7 @@ class ResetScoreSubState extends MusicBeatSubState
 		alphabetArray.push(text);
 		text.alpha = 0;
 		add(text);
+		text.cameras = [subCamera];
 		if(week == -1) {
 			icon = new HealthIcon(character);
 			icon.setGraphicSize(Std.int(icon.width * tooLong));
@@ -59,17 +69,27 @@ class ResetScoreSubState extends MusicBeatSubState
 			icon.setPosition(text.x - icon.width + (10 * tooLong), text.y - 30);
 			icon.alpha = 0;
 			add(icon);
+			icon.cameras = [subCamera];
 		}
 
 		yesText = new Alphabet(0, text.y + 150, 'Yes', true);
 		yesText.screenCenter(X);
 		yesText.x -= 200;
 		add(yesText);
+		yesText.cameras = [subCamera];
 		noText = new Alphabet(0, text.y + 150, 'No', true);
 		noText.screenCenter(X);
 		noText.x += 200;
 		add(noText);
+		noText.cameras = [subCamera];
 		updateOptions();
+	}
+
+	override function destroy()
+	{
+		FlxG.cameras.remove(subCamera);
+
+		super.destroy();
 	}
 
 	override function update(elapsed:Float)

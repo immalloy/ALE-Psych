@@ -77,24 +77,35 @@ class GameplayChangersSubstate extends MusicBeatSubState
 		}
 		return null;
 	}
+	
+	var subCamera:FlxCamera;
 
 	public function new()
 	{
 		super();
 		
+		subCamera = new FlxCamera();
+		subCamera.bgColor = flixel.util.FlxColor.TRANSPARENT;
+
+		FlxG.cameras.add(subCamera, false);
+		
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		bg.alpha = 0.6;
 		add(bg);
+		bg.cameras = [subCamera];
 
 		// avoids lagspikes while scrolling through menus!
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
+		grpOptions.cameras = [subCamera];
 
 		grpTexts = new FlxTypedGroup<AttachedText>();
 		add(grpTexts);
+		grpTexts.cameras = [subCamera];
 
 		checkboxGroup = new FlxTypedGroup<CheckboxThingie>();
 		add(checkboxGroup);
+		checkboxGroup.cameras = [subCamera];
 		
 		getOptions();
 
@@ -130,6 +141,13 @@ class GameplayChangersSubstate extends MusicBeatSubState
 
 		changeSelection();
 		reloadCheckboxes();
+	}
+
+	override function destroy()
+	{
+		FlxG.cameras.remove(subCamera);
+
+		super.destroy();
 	}
 
 	var nextAccept:Int = 5;
