@@ -22,4 +22,6 @@ import funkin.substates.GameplayChangersSubstate;
 
 import funkin.substates.ResetScoreSubState;
 
+import funkin.visuals.objects.MenuCharacter;
+
 class HScriptImports {}
