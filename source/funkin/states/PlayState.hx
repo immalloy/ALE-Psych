@@ -267,8 +267,6 @@ class PlayState extends ScriptState
 		cpuControlled = ClientPrefs.getGameplaySetting('botplay');
 		guitarHeroSustains = ClientPrefs.data.guitarHeroSustains;
 
-		// var gameCam:FlxCamera = FlxG.camera;
-		camGame = initPsychCamera();
 		camOther = new FlxCamera();
 		camOther.bgColor.alpha = 0;
 
