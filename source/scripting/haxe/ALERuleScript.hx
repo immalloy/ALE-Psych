@@ -8,6 +8,8 @@ import haxe.Exception;
 
 import scripting.haxe.HScriptImports;
 
+import scripting.lua.LuaUtils;
+
 class ALERuleScript extends RuleScript
 {
 	public var failedParsing:Bool = false;
@@ -96,7 +98,12 @@ class ALERuleScript extends RuleScript
 			'Json' => utils.ALEJson,
 			//'debugTrace' => CoolUtil.debugTrace,
 			//'debugPrint' => CoolUtil.debugPrint,
-			'controls' => Controls.instance
+			'controls' => Controls.instance,
+			'Function_Stop' => LuaUtils.Function_Stop,
+			'Function_Continue' => LuaUtils.Function_Continue,
+			'Function_StopLua' => LuaUtils.Function_StopLua,
+			'Function_StopHScript' => LuaUtils.Function_StopHScript,
+			'Function_StopAll' => LuaUtils.Function_StopAll
 		];
 
 		for (preVar in presetVariables.keys())
