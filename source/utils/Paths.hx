@@ -324,7 +324,7 @@ class Paths
 		var changedAtlasJson = false;
 		var changedImage = false;
 		
-		if(spriteJson != null)
+		if (spriteJson != null)
 		{
 			changedAtlasJson = true;
 
@@ -349,22 +349,25 @@ class Paths
 				if (i == 0)
                     st = '';
 
-				if(!changedAtlasJson)
+				if (!changedAtlasJson)
 				{
 					spriteJson = File.getContent(getPath('images/$originalPath/spritemap$st.json'));
 
-					if(spriteJson != null)
+					if (spriteJson != null)
 					{
 						changedImage = true;
+
 						changedAtlasJson = true;
+
 						folderOrImg = image('$originalPath/spritemap$st');
+                        
 						break;
 					}
-				}
-				else if (fileExists('images/$originalPath/spritemap$st.png'))
-				{
+				} else if (fileExists('images/$originalPath/spritemap$st.png')) {
 					changedImage = true;
+
 					folderOrImg = image('$originalPath/spritemap$st');
+
 					break;
 				}
 			}
@@ -376,7 +379,7 @@ class Paths
 				folderOrImg = image(originalPath);
 			}
 
-			if(!changedAnimJson)
+			if (!changedAnimJson)
 			{
 				changedAnimJson = true;
 

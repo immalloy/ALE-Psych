@@ -134,22 +134,9 @@ class CoolUtil
 		#end
 	}
 
-	/**
-		Helper Function to Fix Save Files for Flixel 5
-
-		-- EDIT: [November 29, 2023] --
-
-		this function is used to get the save path, period.
-		since newer flixel versions are being enforced anyways.
-		@crowplexus
-	**/
-	@:access(flixel.util.FlxSave.validate)
-	inline public static function getSavePath():String {
-		final company:String = FlxG.stage.application.meta.get('company');
-		// #if (flixel < "5.0.0") return company; #else
-		return '${company}/${flixel.util.FlxSave.validate(FlxG.stage.application.meta.get('file'))}';
-		// #end
-	}
+	@:access(flixel.util.FlxSave)
+	inline public static function getSavePath():String
+		return FlxG.stage.application.meta.get('company') + '/' + flixel.util.FlxSave.validate(FlxG.stage.application.meta.get('file'));
 
 	public static function setTextBorderFromString(text:FlxText, border:String)
 	{
@@ -226,7 +213,7 @@ class CoolUtil
 
 			FlxG.switchState(state);
 		} else {
-            #if (cpp)
+            #if cpp
 			CoolUtil.openSubState(new CustomSubState(
 				CoolVars.data.transition,
 				null,
@@ -345,40 +332,5 @@ class CoolUtil
 			camera.width = width;
 			camera.height = height;
 		}
-	}
-	
-	public static function loadSong(name:String, diff:Int):Void
-	{
-		var songLowercase:String = Paths.formatToSongPath(name);
-
-		var poop:String = Highscore.formatSong(songLowercase, diff);
-
-		PlayState.isStoryMode = false;
-
-		PlayState.SONG = Song.loadFromJson(poop, songLowercase);
-
-		PlayState.storyDifficulty = diff;
-
-		LoadingState.loadAndSwitchState(new PlayState());
-	}
-
-	public static function loadWeek(names:Array<String>, diff:Int)
-	{
-		PlayState.storyPlaylist = names;
-
-		PlayState.isStoryMode = true;
-
-		var diffic = Difficulty.getFilePath(diff);
-
-		if (diffic == null)
-			diffic = '';
-
-		PlayState.storyDifficulty = diff;
-
-		PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + diffic, PlayState.storyPlaylist[0].toLowerCase());
-		PlayState.campaignScore = 0;
-		PlayState.campaignMisses = 0;
-
-		LoadingState.loadAndSwitchState(new PlayState());
 	}
 }

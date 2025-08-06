@@ -713,13 +713,10 @@ class PlayState extends ScriptState
 			return videoCutscene;
 		}
 		#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
-		else debugTrace("Video not found: " + fileName, FlxColor.RED);
+		else debugTrace("Video not found: " + fileName, ERROR);
 		#else
-		else FlxG.log.error("Video not found: " + fileName);
-		#end
-		#else
-		FlxG.log.warn('Platform not supported!');
 		startAndEnd();
+		#end
 		#end
 		return null;
 	}
@@ -760,7 +757,6 @@ class PlayState extends ScriptState
 			psychDialogue.cameras = [camHUD];
 			add(psychDialogue);
 		} else {
-			FlxG.log.warn('Your dialogue file is badly formatted!');
 			startAndEnd();
 		}
 	}
@@ -1102,7 +1098,6 @@ class PlayState extends ScriptState
 	private var eventsPushed:Array<String> = [];
 	private function generateSong(dataPath:String):Void
 	{
-		// FlxG.log.add(ChartParser.parse());
 		songSpeed = PlayState.SONG.speed;
 		songSpeedType = ClientPrefs.getGameplaySetting('scrolltype');
 		switch(songSpeedType)
@@ -1342,7 +1337,6 @@ class PlayState extends ScriptState
 		var strumLineY:Float = ClientPrefs.data.downScroll ? (FlxG.height - 150) : 50;
 		for (i in 0...4)
 		{
-			// FlxG.log.add(i);
 			var targetAlpha:Float = 1;
 			if (player < 1)
 			{

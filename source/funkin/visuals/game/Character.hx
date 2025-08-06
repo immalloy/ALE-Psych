@@ -158,10 +158,8 @@ class Character extends FlxSprite
 			try
 			{
 				Paths.loadAnimateAtlas(atlas, json.image);
-			}
-			catch(e:Dynamic)
-			{
-				FlxG.log.warn('Could not load atlas ${json.image}: $e');
+			} catch(e:Dynamic) {
+				debugTrace('Could not load atlas ${json.image}: $e', ERROR);
 			}
 		}
 		#end

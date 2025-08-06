@@ -97,7 +97,7 @@ class SchoolEvil extends BaseStage
 			return;
 		}
 
-		doof = new DialogueBox(false, File.getContent(Paths.getPath(file)).split('\n'));
+		doof = new DialogueBox(false, File.getContent(file).split('\n'));
 		doof.cameras = [camHUD];
 		doof.scrollFactor.set();
 		doof.finishThing = startCountdown;
@@ -113,7 +113,7 @@ class SchoolEvil extends BaseStage
 		add(red);
 
 		var senpaiEvil:FlxSprite = new FlxSprite();
-		senpaiEvil.frames = Paths.getSparrowAtlas('weeb/senpaiCrazy');
+		senpaiEvil.frames = Paths.getSparrowAtlas('week6/weeb/senpaiCrazy');
 		senpaiEvil.animation.addByPrefix('idle', 'Senpai Pre Explosion', 24, false);
 		senpaiEvil.setGraphicSize(Std.int(senpaiEvil.width * 6));
 		senpaiEvil.scrollFactor.set();

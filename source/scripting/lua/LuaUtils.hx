@@ -172,8 +172,6 @@ class LuaUtils
 			FlxG.save.data.modSettings.remove(modName);
 			#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
 			trace('getModSetting: $path could not be found!');
-			#else
-			FlxG.log.warn('getModSetting: $path could not be found!');
 			#end
 			return null;
 		}
@@ -181,8 +179,6 @@ class LuaUtils
 		if(settings.exists(saveTag)) return settings.get(saveTag);
 		#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
 		trace('getModSetting: "$saveTag" could not be found inside $modName\'s settings!');
-		#else
-		FlxG.log.warn('getModSetting: "$saveTag" could not be found inside $modName\'s settings!');
 		#end
 		#end
 		return null;

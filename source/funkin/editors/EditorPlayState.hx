@@ -297,7 +297,6 @@ class EditorPlayState extends MusicBeatSubState
 	// Borrowed from PlayState
 	function generateSong(dataPath:String)
 	{
-		// FlxG.log.add(ChartParser.parse());
 		songSpeed = PlayState.SONG.speed;
 		var songSpeedType:String = ClientPrefs.getGameplaySetting('scrolltype');
 		switch(songSpeedType)
@@ -453,7 +452,6 @@ class EditorPlayState extends MusicBeatSubState
 		var strumLineY:Float = ClientPrefs.data.downScroll ? (FlxG.height - 150) : 50;
 		for (i in 0...4)
 		{
-			// FlxG.log.add(i);
 			var targetAlpha:Float = 1;
 			if (player < 1)
 			{

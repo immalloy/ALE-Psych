@@ -905,8 +905,9 @@ class ChartingState extends MusicBeatState
 		}
 
 		#if sys
-		var foldersToCheck:Array<String> = FileSystem.readDirectory(Paths.getPath('custom_notetypes'));
-		for (folder in foldersToCheck)
+		if (Paths.fileExists('custom_notetypes'))
+		if (FileSystem.isDirectory(Paths.getPath('custom_noteTypes')))
+		for (folder in FileSystem.readDirectory(Paths.getPath('custom_notetypes')))
 			for (file in FileSystem.readDirectory(folder))
 			{
 				var fileName:String = file.toLowerCase().trim();
@@ -961,20 +962,15 @@ class ChartingState extends MusicBeatState
 
 		#if LUA_ALLOWED
 		var eventPushedMap:Map<String, Bool> = new Map<String, Bool>();
-		var directories:Array<String> = [Paths.getPath('custom_events/')];
-
-		for (i in 0...directories.length) {
-			var directory:String =  directories[i];
-			if(FileSystem.exists(directory)) {
-				for (file in FileSystem.readDirectory(directory)) {
-					var path = haxe.io.Path.join([directory, file]);
-					if (!FileSystem.isDirectory(path) && file != 'readme.txt' && file.endsWith('.txt')) {
-						var fileToCheck:String = file.substr(0, file.length - 4);
-						if(!eventPushedMap.exists(fileToCheck)) {
-							eventPushedMap.set(fileToCheck, true);
-							eventStuff.push([fileToCheck, File.getContent(path)]);
-						}
-					}
+		if (Paths.fileExists('custom_events'))
+		if (FileSystem.isDirectory(Paths.getPath('custom_events')))
+		for (file in FileSystem.readDirectory(Paths.getPath('custom_events'))) {
+			var path = haxe.io.Path.join([Paths.getPath('custom_events'), file]);
+			if (!FileSystem.isDirectory(path) && file != 'readme.txt' && file.endsWith('.txt')) {
+				var fileToCheck:String = file.substr(0, file.length - 4);
+				if(!eventPushedMap.exists(fileToCheck)) {
+					eventPushedMap.set(fileToCheck, true);
+					eventStuff.push([fileToCheck, File.getContent(path)]);
 				}
 			}
 		}
@@ -1416,7 +1412,7 @@ class ChartingState extends MusicBeatState
 		opponentVocals = new FlxSound();
 		try
 		{
-			var playerVocals = Paths.voices(currentSongName, (characterData.vocalsP1 == null || characterData.vocalsP1.length < 1) ? 'Player' : characterData.vocalsP1);
+			var playerVocals = Paths.voices(currentSongName, (characterData.vocalsP1 == null || characterData.vocalsP1.length < 1) ? 'Player' : characterData.vocalsP1, false);
 			vocals.loadEmbedded(playerVocals != null ? playerVocals : Paths.voices(currentSongName));
 		}
 		vocals.autoDestroy = false;
@@ -1425,7 +1421,7 @@ class ChartingState extends MusicBeatState
 		opponentVocals = new FlxSound();
 		try
 		{
-			var oppVocals = Paths.voices(currentSongName, (characterData.vocalsP2 == null || characterData.vocalsP2.length < 1) ? 'Opponent' : characterData.vocalsP2);
+			var oppVocals = Paths.voices(currentSongName, (characterData.vocalsP2 == null || characterData.vocalsP2.length < 1) ? 'Opponent' : characterData.vocalsP2, false);
 			if(oppVocals != null) opponentVocals.loadEmbedded(oppVocals);
 		}
 		opponentVocals.autoDestroy = false;
@@ -1547,7 +1543,6 @@ class ChartingState extends MusicBeatState
 
 				case 'Change BPM':
 					_song.notes[curSec].changeBPM = check.checked;
-					FlxG.log.add('changed bpm shit');
 				case "Alt Animation":
 					_song.notes[curSec].altAnim = check.checked;
 			}
@@ -1556,7 +1551,6 @@ class ChartingState extends MusicBeatState
 		{
 			var nums:FlxUINumericStepper = cast sender;
 			var wname = nums.name;
-			//FlxG.log.add(wname);
 			switch(wname)
 			{
 				case 'section_beats':
@@ -1647,8 +1641,6 @@ class ChartingState extends MusicBeatState
 					playbackSpeed = #if FLX_PITCH Std.int(sliderRate.value) #else 1.0 #end;
 			}
 		}
-
-		// FlxG.log.add(id + " WEED " + sender + " WEED " + data + " WEED " + params);
 	}
 
 	var updatedSection:Bool = false;
@@ -1764,7 +1756,6 @@ class ChartingState extends MusicBeatState
 					&& FlxG.mouse.y > gridBG.y
 					&& FlxG.mouse.y < gridBG.y + (GRID_SIZE * getSectionBeats() * 4) * zoomList[curZoom])
 				{
-					FlxG.log.add('added note');
 					addNote();
 				}
 			}
@@ -2929,7 +2920,7 @@ class ChartingState extends MusicBeatState
 				if (i[0] == note.strumTime && i[1] == noteDataToCheck)
 				{
 					if(i == curSelectedNote) curSelectedNote = null;
-					//FlxG.log.add('FOUND EVIL NOTE');
+					
 					_song.notes[curSec].sectionNotes.remove(i);
 					break;
 				}
@@ -2946,7 +2937,6 @@ class ChartingState extends MusicBeatState
 						curSelectedNote = null;
 						changeEventSelected();
 					}
-					//FlxG.log.add('FOUND EVIL EVENT');
 					_song.events.remove(i);
 					break;
 				}
@@ -3184,7 +3174,6 @@ class ChartingState extends MusicBeatState
 		_file.removeEventListener(Event.CANCEL, onSaveCancel);
 		_file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
 		_file = null;
-		FlxG.log.notice("Successfully saved LEVEL DATA.");
 	}
 
 	/**
@@ -3207,7 +3196,6 @@ class ChartingState extends MusicBeatState
 		_file.removeEventListener(Event.CANCEL, onSaveCancel);
 		_file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
 		_file = null;
-		FlxG.log.error("Problem saving Level data");
 	}
 
 	function getSectionBeats(?section:Null<Int> = null)

@@ -785,10 +785,8 @@ class CharacterEditorState extends MusicBeatState
 			try
 			{
 				Paths.loadAnimateAtlas(character.atlas, character.imageFile);
-			}
-			catch(e:Dynamic)
-			{
-				FlxG.log.warn('Could not load atlas ${character.imageFile}: $e');
+			} catch(e:Dynamic) {
+				debugTrace('Could not load atlas ${character.imageFile}: $e', ERROR);
 			}
 			character.isAnimateAtlas = true;
 		}
@@ -1220,7 +1218,6 @@ class CharacterEditorState extends MusicBeatState
 		_file.removeEventListener(Event.CANCEL, onSaveCancel);
 		_file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
 		_file = null;
-		FlxG.log.notice("Successfully saved file.");
 	}
 
 	/**
@@ -1245,7 +1242,6 @@ class CharacterEditorState extends MusicBeatState
 		_file.removeEventListener(Event.CANCEL, onSaveCancel);
 		_file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
 		_file = null;
-		FlxG.log.error("Problem saving file");
 	}
 
 	function saveCharacter() {
