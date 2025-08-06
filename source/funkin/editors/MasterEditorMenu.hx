@@ -69,31 +69,31 @@ class MasterEditorMenu extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if (controls.UI_UP_P)
+		if (Controls.UI_UP_P)
 		{
 			changeSelection(-1);
 		}
-		if (controls.UI_DOWN_P)
+		if (Controls.UI_DOWN_P)
 		{
 			changeSelection(1);
 		}
 		#if MODS_ALLOWED
-		if(controls.UI_LEFT_P)
+		if(Controls.UI_LEFT_P)
 		{
 			changeDirectory(-1);
 		}
-		if(controls.UI_RIGHT_P)
+		if(Controls.UI_RIGHT_P)
 		{
 			changeDirectory(1);
 		}
 		#end
 
-		if (controls.BACK)
+		if (Controls.BACK)
 		{
 			CoolUtil.switchState(new CustomState(CoolVars.data.mainMenuState));
 		}
 
-		if (controls.ACCEPT)
+		if (Controls.ACCEPT)
 		{
 			switch(options[curSelected]) {
 				case 'Chart Editor'://felt it would be cool maybe

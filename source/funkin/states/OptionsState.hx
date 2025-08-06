@@ -1,129 +1,502 @@
 package funkin.states;
 
-import utils.StageData;
+import core.structures.OptionsCategory;
+import core.structures.OptionsOption;
+
+import core.enums.OptionsBasicType;
+
+import flixel.FlxBasic;
+import flixel.group.FlxGroup.FlxTypedGroup;
+
+import funkin.visuals.objects.Alphabet;
+import funkin.visuals.objects.OptionText;
+
+import funkin.substates.ControlsSubState;
+
+typedef SelInt =
+{
+    var menus:Int;
+    var options:Int;
+}
 
 class OptionsState extends MusicBeatState
 {
-	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay'];
-	private var grpOptions:FlxTypedGroup<Alphabet>;
-	private static var curSelected:Int = 0;
-	public static var menuBG:FlxSprite;
-	public static var onPlayState:Bool = false;
+    var catSprites:FlxTypedGroup<Alphabet> = new FlxTypedGroup<Alphabet>();
+    
+    var optSprites:FlxTypedGroup<OptionText> = new FlxTypedGroup<OptionText>();
+    
+    var canSelect:Dynamic = {menus: true, options: true};
+    
+    var selInt:SelInt = {menus: 0, options: 0};
+    
+    var categories:Array<OptionsCategory>;
+    
+    var descriptions:FlxText;
+    var descriptionsBG:FlxSprite;
 
-	function openSelectedSubstate(label:String) {
-		switch(label) {
-			case 'Note Colors':
-				openSubState(new funkin.substates.NotesSubState());
-			case 'Controls':
-				openSubState(new funkin.substates.ControlsSubState());
-			case 'Graphics':
-				openSubState(new funkin.substates.GraphicsSettingsSubState());
-			case 'Visuals and UI':
-				openSubState(new funkin.substates.VisualsUISubState());
-			case 'Gameplay':
-				openSubState(new funkin.substates.GameplaySettingsSubState());
-			case 'Adjust Delay and Combo':
-				CoolUtil.switchState(new funkin.states.NoteOffsetState());
-		}
-	}
+    var inPlayState:Bool = false;
 
-	var selectorLeft:Alphabet;
-	var selectorRight:Alphabet;
+    override public function new(inPlayState:Bool = false)
+    {
+        super();
 
-	override function create() {
-		#if DISCORD_ALLOWED
-		DiscordRPC.changePresence("Options Menu", null);
-		#end
+        this.inPlayState = inPlayState;
+    }
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.antialiasing = ClientPrefs.data.antialiasing;
-		bg.color = 0xFFea71fd;
-		bg.updateHitbox();
+    function createPost()
+    {
+        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('ui/menuBG'));
+        add(bg);
+        bg.scrollFactor.set();
+        bg.scale.x = bg.scale.y = 1.125;
+        bg.color = FlxColor.fromRGB(50, 60, 80);
+    
+        add(catSprites);
+    
+        add(optSprites);
+    
+        descriptions = new FlxText(0, 0, FlxG.width - 100, '');
+        descriptions.setFormat(Paths.font('vcr.ttf'), 24, FlxColor.WHITE, 'center');
+        descriptions.scrollFactor.set();
+        descriptions.antialiasing = ClientPrefs.data.antialiasing;
+        descriptions.x = FlxG.width / 2 - descriptions.width / 2;
+        descriptions.y = FlxG.height - descriptions.height - 50;
+        descriptions.visible = false;
+    
+        descriptionsBG = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
+        descriptionsBG.scrollFactor.set();
+        descriptionsBG.alpha = 0.5;
+        descriptionsBG.scale.x = descriptions.width + 20;
+        descriptionsBG.scale.y = descriptions.height + 20;
+        descriptionsBG.updateHitbox();
+        descriptionsBG.x = descriptions.x - 10;
+        descriptionsBG.y = descriptions.y - 10;
+        descriptionsBG.visible = false;
+    
+        add(descriptionsBG);
+        add(descriptions);
+    
+        spawnCategories();
+    }
 
-		bg.screenCenter();
-		add(bg);
+    var pressTimer:Dynamic = {left: 0, right: 0};
 
-		grpOptions = new FlxTypedGroup<Alphabet>();
-		add(grpOptions);
+    override function update(elapsed:Float)
+    {
+        super.update(elapsed);
 
-		for (i in 0...options.length)
-		{
-			var optionText:Alphabet = new Alphabet(0, 0, options[i], true);
-			optionText.screenCenter();
-			optionText.y += (100 * (i - (options.length / 2))) + 50;
-			grpOptions.add(optionText);
-		}
+        if (canSelect.menus)
+        {
+            if (Controls.UI_DOWN_P || Controls.UI_UP_P || Controls.MOUSE_WHEEL)
+            {
+                if (Controls.UI_DOWN_P || Controls.MOUSE_WHEEL_DOWN)
+                {
+                    if (selInt.menus >= catSprites.length - 1)
+                        selInt.menus = 0;
+                    else
+                        selInt.menus++;
+                }
+                
+                if (Controls.UI_UP_P || Controls.MOUSE_WHEEL_UP)
+                {
+                    if (selInt.menus <= 0)
+                        selInt.menus = catSprites.length - 1;
+                    else
+                        selInt.menus--;
+                }
+    
+                changeCategory();
+    
+                FlxG.sound.play(Paths.sound('scrollMenu'));
+            }
+    
+            if (Controls.ACCEPT || Controls.MOUSE_P)
+            {
+                var curMenu = categories[selInt.menus];
+    
+                if (curMenu.stateData == null)
+                {
+                    spawnOptions();
+    
+                    canSelect.menus = false;
+                    canSelect.options = true;
+                    
+                    FlxTween.cancelTweensOf(FlxG.camera.scroll);
+                    FlxTween.tween(FlxG.camera.scroll, {x: FlxG.width}, 0.5, {ease: FlxEase.circInOut});
+    
+                    FlxG.sound.play(Paths.sound('confirmMenu'), 0.5);
+                } else {
+                    if (curMenu.stateData.subState != null)
+                    {
+                        if (curMenu.stateData.script)
+                            CoolUtil.openSubState(new CustomSubState(curMenu.stateData.subState));
+                        else
+                            CoolUtil.openSubState(Type.createInstance(Type.resolveClass(curMenu.stateData.subState), []));
+                    } else if (curMenu.stateData.state != null) {
+                        if (curMenu.stateData.script)
+                            CoolUtil.switchState(new CustomState(curMenu.stateData.state));
+                        else
+                            CoolUtil.switchState(Type.createInstance(Type.resolveClass(curMenu.stateData.state), []));
+                    }
+                }
+            }
 
-		selectorLeft = new Alphabet(0, 0, '>', true);
-		add(selectorLeft);
-		selectorRight = new Alphabet(0, 0, '<', true);
-		add(selectorRight);
+            if (Controls.BACK)
+            {
+                if (inPlayState)
+                {
+                    CoolUtil.switchState(new funkin.states.PlayState());
 
-		changeSelection();
-		ClientPrefs.saveSettings();
+                    shouldClearMemory = false;
+                } else {
+                    CoolUtil.switchState(new CustomState(CoolVars.data.mainMenuState));
+                }
 
-		super.create();
-	}
+                FlxG.sound.play(Paths.sound('cancelMenu'));
 
-	override function closeSubState() {
-		super.closeSubState();
-		ClientPrefs.saveSettings();
-		#if DISCORD_ALLOWED
-		DiscordRPC.changePresence("Options Menu", null);
-		#end
-	}
+                canSelect.menus = false;
+            }
+        } else if (canSelect.options) {
+            if ((Controls.UI_DOWN_P || Controls.UI_UP_P || Controls.MOUSE_WHEEL) && !FlxG.keys.pressed.SHIFT)
+            {
+                if (Controls.UI_DOWN_P || Controls.MOUSE_P)
+                {
+                    if (selInt.options >= optSprites.members.length - 1)
+                        selInt.options = 0;
+                    else
+                        selInt.options++;
+                }
+                
+                if (Controls.UI_UP_P || Controls.MOUSE_WHEEL_DOWN)
+                {
+                    if (selInt.options <= 0)
+                        selInt.options = optSprites.members.length - 1;
+                    else
+                        selInt.options--;
+                }
+    
+                changeOption();
+    
+                FlxG.sound.play(Paths.sound('scrollMenu'));
+            }
 
-	override function update(elapsed:Float) {
-		super.update(elapsed);
+            if (Controls.UI_RIGHT || Controls.UI_LEFT || (FlxG.keys.pressed.SHIFT && Controls.MOUSE_WHEEL))
+            {
+                var option:OptionText = optSprites.members[selInt.options];
 
-		if (controls.UI_UP_P) {
-			changeSelection(-1);
-		}
-		if (controls.UI_DOWN_P) {
-			changeSelection(1);
-		}
+                if (option.type != BOOL)
+                {
+                    if (Controls.UI_RIGHT_P || pressTimer.right >= 0.75 || Controls.MOUSE_WHEEL_DOWN)
+                        option.moveRight();
+                    
+                    if (Controls.UI_LEFT_P || pressTimer.left >= 0.75 || Controls.MOUSE_WHEEL_UP)
+                        option.moveLeft();
+                }
+            }
 
-		if (controls.BACK) {
-			FlxG.sound.play(Paths.sound('cancelMenu'));
-			if(onPlayState)
-			{
-				StageData.loadDirectory(PlayState.SONG);
-				LoadingState.loadAndSwitchState(new PlayState());
-				FlxG.sound.music.volume = 0;
-			}
-			else CoolUtil.switchState(new CustomState(CoolVars.data.mainMenuState));
-		}
-		else if (controls.ACCEPT) openSelectedSubstate(options[curSelected]);
-	}
-	
-	function changeSelection(change:Int = 0) {
-		curSelected += change;
-		if (curSelected < 0)
-			curSelected = options.length - 1;
-		if (curSelected >= options.length)
-			curSelected = 0;
+            if (Controls.UI_LEFT)
+                pressTimer.left += elapsed;
 
-		var bullShit:Int = 0;
+            if (Controls.UI_RIGHT)
+                pressTimer.right += elapsed;
 
-		for (item in grpOptions.members) {
-			item.targetY = bullShit - curSelected;
-			bullShit++;
+            if (Controls.UI_RIGHT_R)
+                pressTimer.right = 0;
 
-			item.alpha = 0.6;
-			if (item.targetY == 0) {
-				item.alpha = 1;
-				selectorLeft.x = item.x - 63;
-				selectorLeft.y = item.y;
-				selectorRight.x = item.x + item.width + 15;
-				selectorRight.y = item.y;
-			}
-		}
-		FlxG.sound.play(Paths.sound('scrollMenu'));
-	}
+            if (Controls.UI_LEFT_R)
+                pressTimer.left = 0;
+    
+            if (Controls.ACCEPT || Controls.MOUSE_P)
+            {
+                var option:OptionText = optSprites.members[selInt.options];
 
-	override function destroy()
-	{
-		ClientPrefs.loadPrefs();
-		super.destroy();
-	}
+                if (option.type == BOOL)
+                    option.value = !option.value;
+            }
+    
+            if (Controls.BACK)
+            {
+                CoolUtil.save.savePreferences();
+                
+                CoolUtil.save.loadPreferences();
+
+                spawnCategories();
+    
+                canSelect.menus = true;
+                canSelect.options = false;
+    
+                FlxTween.cancelTweensOf(FlxG.camera.scroll);
+                FlxTween.tween(FlxG.camera.scroll, {x: 0}, 0.5, {ease: FlxEase.circInOut});
+
+                FlxG.sound.play(Paths.sound('cancelMenu'));
+            }
+        }
+    }
+
+    function spawnCategories()
+    {
+        for (sprite in optSprites)
+        {
+            FlxTween.cancelTweensOf(sprite);
+    
+            FlxTween.tween(sprite, {alpha: 0}, 0.5, {ease: FlxEase.circInOut});
+        }
+    
+        catSprites.clear();
+    
+        for (category in categories)
+        {
+            var index:Int = categories.indexOf(category);
+            var offIndex:Int = index - selInt.menus;
+    
+            var alpha:Alphabet = new Alphabet(165 - Math.pow(1.75, Math.abs(offIndex)) * 25, 300 + 100 * offIndex, category.name + (category.stateData == null ? ' >' : ''));
+            alpha.scaleY = alpha.scaleX = 0.85;
+            catSprites.add(alpha);
+            alpha.alpha = 0;
+            FlxTween.tween(alpha, {alpha: index == selInt.menus ? 1 : 0.5}, 0.5, {ease: FlxEase.circInOut});
+        }
+    
+        changeCategory();
+    }
+
+    function spawnOptions()
+    {
+        for (sprite in catSprites)
+        {
+            FlxTween.cancelTweensOf(sprite);
+            
+            FlxTween.tween(sprite, {alpha: 0}, 0.5, {ease: FlxEase.circInOut});
+        }
+    
+        selInt.options = 0;
+        
+        optSprites.clear();
+    
+        for (option in categories[selInt.menus].options)
+        {
+            var index:Int = categories[selInt.menus].options.indexOf(option);
+            var offIndex:Int = index - selInt.options;
+    
+            var sprite:OptionText = new OptionText(option);
+            optSprites.add(sprite);
+            sprite.x = FlxG.width + 175 - Math.pow(1.75, Math.abs(offIndex)) * 25;
+            sprite.y = 300 + 75 * offIndex;
+        }
+    
+        changeOption();
+    }
+
+    function changeCategory()
+    {
+        for (sprite in catSprites)
+        {
+            FlxTween.cancelTweensOf(sprite);
+    
+            var index:Int = catSprites.members.indexOf(sprite);
+            var offIndex:Int = index - selInt.menus;
+    
+            if (index == selInt.menus)
+            {   
+                FlxTween.cancelTweensOf(catSprites);
+    
+                sprite.alpha = 1;
+            } else {
+                sprite.alpha = 0.5;
+            }
+    
+            FlxTween.tween(sprite, {x: 165 - Math.pow(1.75, Math.abs(offIndex)) * 25, y: 300 + 100 * offIndex}, 0.25, {ease: FlxEase.cubeOut});
+        }
+    }
+
+    function changeOption()
+    {
+        for (sprite in optSprites)
+        {
+            FlxTween.cancelTweensOf(sprite);
+    
+            var index:Int = optSprites.members.indexOf(sprite);
+            var offIndex:Int = index - selInt.options;
+    
+            if (index == selInt.options)
+            {
+                sprite.alpha = 1;
+            } else {
+                sprite.alpha = 0.5;
+            }
+    
+            FlxTween.tween(sprite, {x: FlxG.width + 175 - Math.pow(1.75, Math.abs(offIndex)) * 25, y: 300 + 75 * offIndex}, 0.25, {ease: FlxEase.cubeOut});
+        }
+    }
+
+    override public function create()
+    {
+        categories = [
+            {
+                name: 'Note Colors',
+                stateData: {
+                    script: false,
+                    subState: 'funkin.substates.NotesSubState'
+                }
+            },
+            {
+                name: 'Controls',
+                stateData: {
+                    script: false,
+                    subState: 'funkin.substates.ControlsSubState'
+                }
+            },
+            {
+                name: 'Delay and Combo',
+                stateData: {
+                    script: false,
+                    state: 'game.states.NoteOffsetState'
+                }
+            },
+            {
+                name: 'Graphics',
+                options: [
+                    {
+                        name: 'Low Quality',
+                        description: 'If checked, disables some background details, decreases loading times and improves performance.',
+                        variable: 'lowQuality',
+                        type: BOOL,
+                        initialValue: false
+                    },
+                    {
+                        name: 'Anti-Aliasing',
+                        description: 'If unchecked, disables anti-aliasing, increases performance at the cost of sharper visuals.',
+                        variable: 'antialiasing',
+                        type: BOOL,
+                        initialValue: true
+                    },
+                    {
+                        name: 'Shaders',
+                        description: 'If unchecked, disables shaders. It\'s used for some visual effects, and also CPU intensive for weaker PCs.',
+                        variable: 'shaders',
+                        type: BOOL,
+                        initialValue: true
+                    },
+                    {
+                        name: 'GPU Caching',
+                        description: 'If checked, allows the GPU to be used for caching textures, decreasing RAM usage. Don\'t turn this on if you have a shitty Graphics Card.',
+                        variable: 'cacheOnGPU',
+                        type: BOOL,
+                        initialValue: true
+                    },
+                    {
+                        name: 'Framerate',
+                        description: 'Pretty self explanatory, isn\'t it?',
+                        variable: 'framerate',
+                        type: INTEGER,
+                        min: 30,
+                        max: 240,
+                        change: 1,
+                        initialValue: 60
+                    }
+                ]
+            },
+            {
+                name: 'Visuals and UI',
+                options: [
+                    {
+                        name: 'Note Splash Opacity',
+                        description: 'How much transparent should the Note Splashes be.',
+                        variable: 'splashAlpha',
+                        type: INTEGER,
+                        min: 0,
+                        max: 100,
+                        change: 1,
+                        initialValue: 60
+                    },
+                    {
+                        name: 'Flashing Lights',
+                        description: 'Uncheck this if you\'re sensitive to flashing lights!',
+                        variable: 'flashing',
+                        type: BOOL,
+                        initialValue: true
+                    },
+                    {
+                        name: 'Pause Music',
+                        description: '',
+                        variable: 'pauseMusic',
+                        type: STRING,
+                        strings: [
+                            'None',
+                            'Breakfast',
+                            'Tea Time'
+                        ],
+                        initialValue: 'Tea Time'
+                    },
+                    {
+                        name: 'Check for Updates',
+                        description: 'Turn this on to check for updates when you start the game.',
+                        variable: 'checkForUpdates',
+                        type: BOOL,
+                        initialValue: true
+                    },
+                    {
+                        name: 'Discord Rich Presence',
+                        description: 'Uncheck this to prevent accidental leaks, it will hide the Application from your "Playing" box on Discord.',
+                        variable: 'discordRPC',
+                        type: BOOL,
+                        initialValue: true
+                    },
+                    {
+                        name: 'Open Console at Start Up',
+                        description: 'Automatically opens the Console at Game Startup.',
+                        variable: 'openConsoleOnStart',
+                        type: BOOL,
+                        initialValue: false
+                    }
+                ]
+            },
+            {
+                name: 'Gameplay',
+                options: [
+                    {
+                        name: 'Downscroll',
+                        description: 'If checked, notes go Down instead of Up, simple enough.',
+                        variable: 'downScroll',
+                        type: BOOL,
+                        initialValue: false
+                    },
+                    {
+                        name: 'Ghost Tapping',
+                        description: 'If checked, you won\'t get misses from pressing keys while there are no notes able to hit.',
+                        variable: 'ghostTapping',
+                        type: BOOL,
+                        initialValue: true
+                    },
+                    {
+                        name: 'Disable Reset Button',
+                        description: 'If checked, pressing Reset won\'t do anything.',
+                        variable: 'noReset',
+                        type: BOOL,
+                        initialValue: false
+                    }
+                ]
+            }
+        ];
+
+        if (Paths.fileExists('options.json'))
+        {
+            var jsonData:Dynamic = Json.parse(File.getContent(Paths.getPath('options.json')));
+
+            if (jsonData.categories is Array)
+                for (cat in cast(jsonData.categories, Array<Dynamic>))
+                {
+                    for (option in cast(cat.options, Array<Dynamic>))
+                    {
+                        if (Reflect.fields(ClientPrefs.custom).contains(option.variable))
+                            Reflect.setField(option, 'initialValue', Reflect.field(ClientPrefs.custom, option.variable));
+                    }
+
+                    categories.push(cast cat);
+                }
+        }
+
+        createPost();
+        
+        super.create();
+    }
 }

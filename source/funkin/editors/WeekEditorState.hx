@@ -423,7 +423,7 @@ class WeekEditorState extends MusicBeatState
 		var blockInput:Bool = false;
 		for (inputText in blockPressWhileTypingOn) {
 			if(inputText.hasFocus) {
-				ClientPrefs.toggleVolumeKeys(false);
+				CoolUtil.toggleVolumeKeys(false);
 				blockInput = true;
 
 				if(FlxG.keys.justPressed.ENTER) inputText.hasFocus = false;
@@ -432,7 +432,7 @@ class WeekEditorState extends MusicBeatState
 		}
 
 		if(!blockInput) {
-			ClientPrefs.toggleVolumeKeys(true);
+			CoolUtil.toggleVolumeKeys(true);
 			if(FlxG.keys.justPressed.ESCAPE) {
 				CoolUtil.switchState(new MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
@@ -784,19 +784,19 @@ class WeekEditorFreeplayState extends MusicBeatState
 		}
 		
 		if(iconInputText.hasFocus) {
-			ClientPrefs.toggleVolumeKeys(false);
+			CoolUtil.toggleVolumeKeys(false);
 			if(FlxG.keys.justPressed.ENTER) {
 				iconInputText.hasFocus = false;
 			}
 		} else {
-			ClientPrefs.toggleVolumeKeys(true);
+			CoolUtil.toggleVolumeKeys(true);
 			if(FlxG.keys.justPressed.ESCAPE) {
 				CoolUtil.switchState(new MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
 
-			if(controls.UI_UP_P) changeSelection(-1);
-			if(controls.UI_DOWN_P) changeSelection(1);
+			if(Controls.UI_UP_P) changeSelection(-1);
+			if(Controls.UI_DOWN_P) changeSelection(1);
 		}
 		super.update(elapsed);
 	}

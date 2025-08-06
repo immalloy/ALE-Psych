@@ -1,5 +1,7 @@
 package utils;
 
+import flixel.input.keyboard.FlxKey;
+
 import openfl.utils.Assets;
 
 import core.enums.PrintType;
@@ -12,6 +14,8 @@ import lime.graphics.Image;
 
 class CoolUtil
 {
+	public static var save:ALESave;
+
 	inline public static function quantize(f:Float, snap:Float){
 		// changed so this actually works lol
 		var m:Float = Math.fround(f * snap);
@@ -134,9 +138,13 @@ class CoolUtil
 		#end
 	}
 
-	@:access(flixel.util.FlxSave)
-	inline public static function getSavePath():String
-		return FlxG.stage.application.meta.get('company') + '/' + flixel.util.FlxSave.validate(FlxG.stage.application.meta.get('file'));
+	@:access(flixel.util.FlxSave.validate)
+	public static function getSavePath(modSupport:Bool = true):String
+	{
+		final company:String = FlxG.stage.application.meta.get('company');
+		
+		return company + '/' + flixel.util.FlxSave.validate(FlxG.stage.application.meta.get('file')) + (modSupport ? ((Mods.folder.trim() == '' ? '' : '/' + Mods.folder)) : '');
+	}
 
 	public static function setTextBorderFromString(text:FlxText, border:String)
 	{
@@ -332,5 +340,12 @@ class CoolUtil
 			camera.width = width;
 			camera.height = height;
 		}
+	}
+
+	public static function toggleVolumeKeys(?turnOn:Bool = true)
+	{
+		FlxG.sound.muteKeys = turnOn ? [FlxKey.M] : [];
+		FlxG.sound.volumeDownKeys = turnOn ? [FlxKey.MINUS, FlxKey.NUMPADMINUS] : [];
+		FlxG.sound.volumeUpKeys = turnOn ? [FlxKey.PLUS, FlxKey.NUMPADPLUS] : [];
 	}
 }

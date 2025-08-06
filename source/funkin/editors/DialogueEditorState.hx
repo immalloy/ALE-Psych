@@ -311,7 +311,7 @@ class DialogueEditorState extends MusicBeatState
 		var blockInput:Bool = false;
 		for (inputText in blockPressWhileTypingOn) {
 			if(inputText.hasFocus) {
-				ClientPrefs.toggleVolumeKeys(false);
+				CoolUtil.toggleVolumeKeys(false);
 				blockInput = true;
 
 				if(FlxG.keys.justPressed.ENTER) {
@@ -327,7 +327,7 @@ class DialogueEditorState extends MusicBeatState
 		}
 
 		if(!blockInput) {
-			ClientPrefs.toggleVolumeKeys(true);
+			CoolUtil.toggleVolumeKeys(true);
 			if(FlxG.keys.justPressed.SPACE) {
 				reloadText(false);
 			}

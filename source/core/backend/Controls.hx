@@ -1,190 +1,154 @@
 package core.backend;
 
-import flixel.input.gamepad.FlxGamepadButton;
-import flixel.input.gamepad.FlxGamepadInputID;
-import flixel.input.gamepad.mappings.FlxGamepadMapping;
-import flixel.input.keyboard.FlxKey;
+import core.structures.UIControls;
+import core.structures.NotesControls;
+import core.structures.EngineControls;
 
 class Controls
 {
-	//Keeping same use cases on stuff for it to be easier to understand/use
-	//I'd have removed it but this makes it a lot less annoying to use in my opinion
+    public static var NOTE_LEFT(get, never):Bool;
+    static function get_NOTE_LEFT():Bool
+        return FlxG.keys.anyPressed(ClientPrefs.controls.notes.left);
 
-	//You do NOT have to create these variables/getters for adding new keys,
-	//but you will instead have to use:
-	//   controls.justPressed("ui_up")   instead of   controls.UI_UP
+    public static var NOTE_LEFT_P(get, never):Bool;
+    static function get_NOTE_LEFT_P():Bool
+        return FlxG.keys.anyJustPressed(ClientPrefs.controls.notes.left);
 
-	//Dumb but easily usable code, or Smart but complicated? Your choice.
-	//Also idk how to use macros they're weird as fuck lol
+    public static var NOTE_LEFT_R(get, never):Bool;
+    static function get_NOTE_LEFT_R():Bool
+        return FlxG.keys.anyJustReleased(ClientPrefs.controls.notes.left);
 
-    public var MOUSE_WHEEL(get, never):Bool;
-    public function get_MOUSE_WHEEL():Bool
+    public static var NOTE_DOWN(get, never):Bool;
+    static function get_NOTE_DOWN():Bool
+        return FlxG.keys.anyPressed(ClientPrefs.controls.notes.down);
+
+    public static var NOTE_DOWN_P(get, never):Bool;
+    static function get_NOTE_DOWN_P():Bool
+        return FlxG.keys.anyJustPressed(ClientPrefs.controls.notes.down);
+
+    public static var NOTE_DOWN_R(get, never):Bool;
+    static function get_NOTE_DOWN_R():Bool
+        return FlxG.keys.anyJustReleased(ClientPrefs.controls.notes.down);
+
+    public static var NOTE_UP(get, never):Bool;
+        static function get_NOTE_UP():Bool
+        return FlxG.keys.anyPressed(ClientPrefs.controls.notes.up);
+
+    public static var NOTE_UP_P(get, never):Bool;
+        static function get_NOTE_UP_P():Bool
+        return FlxG.keys.anyJustPressed(ClientPrefs.controls.notes.up);
+
+    public static var NOTE_UP_R(get, never):Bool;
+    static function get_NOTE_UP_R():Bool
+        return FlxG.keys.anyJustReleased(ClientPrefs.controls.notes.up);
+
+    public static var NOTE_RIGHT(get, never):Bool;
+    static function get_NOTE_RIGHT():Bool
+        return FlxG.keys.anyPressed(ClientPrefs.controls.notes.right);
+
+    public static var NOTE_RIGHT_P(get, never):Bool;
+    static function get_NOTE_RIGHT_P():Bool
+        return FlxG.keys.anyJustPressed(ClientPrefs.controls.notes.right);
+
+    public static var NOTE_RIGHT_R(get, never):Bool;
+    static function get_NOTE_RIGHT_R():Bool
+        return FlxG.keys.anyJustReleased(ClientPrefs.controls.notes.right);
+    
+    @:unreflective static var ui:UIControls = ClientPrefs.controls.ui;
+
+    public static var UI_LEFT(get, never):Bool;
+    static function get_UI_LEFT():Bool
+        return FlxG.keys.anyPressed(ClientPrefs.controls.ui.left);
+
+    public static var UI_LEFT_P(get, never):Bool;
+    static function get_UI_LEFT_P():Bool
+        return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.left);
+
+    public static var UI_LEFT_R(get, never):Bool;
+    static function get_UI_LEFT_R():Bool
+        return FlxG.keys.anyJustReleased(ClientPrefs.controls.ui.left);
+
+    public static var UI_DOWN(get, never):Bool;
+    static function get_UI_DOWN():Bool
+        return FlxG.keys.anyPressed(ClientPrefs.controls.ui.down);
+
+    public static var UI_DOWN_P(get, never):Bool;
+    static function get_UI_DOWN_P():Bool
+        return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.down);
+
+    public static var UI_DOWN_R(get, never):Bool;
+    static function get_UI_DOWN_R():Bool
+        return FlxG.keys.anyJustReleased(ClientPrefs.controls.ui.down);
+
+    public static var UI_UP(get, never):Bool;
+    static function get_UI_UP():Bool
+        return FlxG.keys.anyPressed(ClientPrefs.controls.ui.up);
+
+    public static var UI_UP_P(get, never):Bool;
+    static function get_UI_UP_P():Bool
+        return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.up);
+
+    public static var UI_UP_R(get, never):Bool;
+    static function get_UI_UP_R():Bool
+        return FlxG.keys.anyJustReleased(ClientPrefs.controls.ui.up);
+
+    public static var UI_RIGHT(get, never):Bool;
+    static function get_UI_RIGHT():Bool
+        return FlxG.keys.anyPressed(ClientPrefs.controls.ui.right);
+
+    public static var UI_RIGHT_P(get, never):Bool;
+    static function get_UI_RIGHT_P():Bool
+        return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.right);
+
+    public static var UI_RIGHT_R(get, never):Bool;
+    static function get_UI_RIGHT_R():Bool
+        return FlxG.keys.anyJustReleased(ClientPrefs.controls.ui.right);
+
+    public static var ACCEPT(get, never):Bool;
+    static function get_ACCEPT():Bool
+        return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.accept);
+
+    public static var BACK(get, never):Bool;
+    static function get_BACK():Bool
+        return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.back);
+
+    public static var RESET(get, never):Bool;
+    static function get_RESET():Bool
+        return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.reset);
+
+    public static var PAUSE(get, never):Bool;
+    static function get_PAUSE():Bool
+        return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.pause);
+
+    public static var ENGINE_CHART(get, never):Bool;
+    static function get_ENGINE_CHART():Bool
+        return FlxG.keys.anyJustPressed(ClientPrefs.controls.engine.chart);
+
+    public static var ENGINE_CHARACTER(get, never):Bool;
+    static function get_ENGINE_CHARACTER():Bool
+        return FlxG.keys.anyJustPressed(ClientPrefs.controls.engine.character);
+
+    public static var MOUSE_WHEEL(get, never):Bool;
+    static function get_MOUSE_WHEEL():Bool
         return FlxG.mouse.wheel != 0;
     
-    public var MOUSE_WHEEL_DOWN(get, never):Bool;
-    public function get_MOUSE_WHEEL_DOWN():Bool
+    public static var MOUSE_WHEEL_DOWN(get, never):Bool;
+    static function get_MOUSE_WHEEL_DOWN():Bool
         return FlxG.mouse.wheel < 0;
 
-    public var MOUSE_WHEEL_UP(get, never):Bool;
-    public function get_MOUSE_WHEEL_UP():Bool
+    public static var MOUSE_WHEEL_UP(get, never):Bool;
+    static function get_MOUSE_WHEEL_UP():Bool
         return FlxG.mouse.wheel > 0;
 
-    public var MOUSE(get, never):Bool;
-    public function get_MOUSE():Bool
+    public static var MOUSE(get, never):Bool;
+    static function get_MOUSE():Bool
         return FlxG.mouse.pressed;
     
-    public var MOUSE_P(get, never):Bool;
-    public function get_MOUSE_P():Bool
+    public static var MOUSE_P(get, never):Bool;
+    static function get_MOUSE_P():Bool
         return FlxG.mouse.justPressed;
 
-    public var MOUSE_R(get, never):Bool;
-    public function get_MOUSE_R():Bool
+    public static var MOUSE_R(get, never):Bool;
+    static function get_MOUSE_R():Bool
         return FlxG.mouse.justReleased;
-	
-	// Pressed buttons (directions)
-	public var UI_UP_P(get, never):Bool;
-	public var UI_DOWN_P(get, never):Bool;
-	public var UI_LEFT_P(get, never):Bool;
-	public var UI_RIGHT_P(get, never):Bool;
-	public var NOTE_UP_P(get, never):Bool;
-	public var NOTE_DOWN_P(get, never):Bool;
-	public var NOTE_LEFT_P(get, never):Bool;
-	public var NOTE_RIGHT_P(get, never):Bool;
-	private function get_UI_UP_P() return justPressed('ui_up');
-	private function get_UI_DOWN_P() return justPressed('ui_down');
-	private function get_UI_LEFT_P() return justPressed('ui_left');
-	private function get_UI_RIGHT_P() return justPressed('ui_right');
-	private function get_NOTE_UP_P() return justPressed('note_up');
-	private function get_NOTE_DOWN_P() return justPressed('note_down');
-	private function get_NOTE_LEFT_P() return justPressed('note_left');
-	private function get_NOTE_RIGHT_P() return justPressed('note_right');
-
-	// Held buttons (directions)
-	public var UI_UP(get, never):Bool;
-	public var UI_DOWN(get, never):Bool;
-	public var UI_LEFT(get, never):Bool;
-	public var UI_RIGHT(get, never):Bool;
-	public var NOTE_UP(get, never):Bool;
-	public var NOTE_DOWN(get, never):Bool;
-	public var NOTE_LEFT(get, never):Bool;
-	public var NOTE_RIGHT(get, never):Bool;
-	private function get_UI_UP() return pressed('ui_up');
-	private function get_UI_DOWN() return pressed('ui_down');
-	private function get_UI_LEFT() return pressed('ui_left');
-	private function get_UI_RIGHT() return pressed('ui_right');
-	private function get_NOTE_UP() return pressed('note_up');
-	private function get_NOTE_DOWN() return pressed('note_down');
-	private function get_NOTE_LEFT() return pressed('note_left');
-	private function get_NOTE_RIGHT() return pressed('note_right');
-
-	// Released buttons (directions)
-	public var UI_UP_R(get, never):Bool;
-	public var UI_DOWN_R(get, never):Bool;
-	public var UI_LEFT_R(get, never):Bool;
-	public var UI_RIGHT_R(get, never):Bool;
-	public var NOTE_UP_R(get, never):Bool;
-	public var NOTE_DOWN_R(get, never):Bool;
-	public var NOTE_LEFT_R(get, never):Bool;
-	public var NOTE_RIGHT_R(get, never):Bool;
-	private function get_UI_UP_R() return justReleased('ui_up');
-	private function get_UI_DOWN_R() return justReleased('ui_down');
-	private function get_UI_LEFT_R() return justReleased('ui_left');
-	private function get_UI_RIGHT_R() return justReleased('ui_right');
-	private function get_NOTE_UP_R() return justReleased('note_up');
-	private function get_NOTE_DOWN_R() return justReleased('note_down');
-	private function get_NOTE_LEFT_R() return justReleased('note_left');
-	private function get_NOTE_RIGHT_R() return justReleased('note_right');
-
-
-	// Pressed buttons (others)
-	public var ACCEPT(get, never):Bool;
-	public var BACK(get, never):Bool;
-	public var PAUSE(get, never):Bool;
-	public var RESET(get, never):Bool;
-	private function get_ACCEPT() return justPressed('accept');
-	private function get_BACK() return justPressed('back');
-	private function get_PAUSE() return justPressed('pause');
-	private function get_RESET() return justPressed('reset');
-
-	//Gamepad & Keyboard stuff
-	public var keyboardBinds:Map<String, Array<FlxKey>>;
-	public var gamepadBinds:Map<String, Array<FlxGamepadInputID>>;
-	public function justPressed(key:String)
-	{
-		var result:Bool = (FlxG.keys.anyJustPressed(keyboardBinds[key]) == true);
-		if(result) controllerMode = false;
-
-		return result || _myGamepadJustPressed(gamepadBinds[key]) == true;
-	}
-
-	public function pressed(key:String)
-	{
-		var result:Bool = (FlxG.keys.anyPressed(keyboardBinds[key]) == true);
-		if(result) controllerMode = false;
-
-		return result || _myGamepadPressed(gamepadBinds[key]) == true;
-	}
-
-	public function justReleased(key:String)
-	{
-		var result:Bool = (FlxG.keys.anyJustReleased(keyboardBinds[key]) == true);
-		if(result) controllerMode = false;
-
-		return result || _myGamepadJustReleased(gamepadBinds[key]) == true;
-	}
-
-	public var controllerMode:Bool = false;
-	private function _myGamepadJustPressed(keys:Array<FlxGamepadInputID>):Bool
-	{
-		if(keys != null)
-		{
-			for (key in keys)
-			{
-				if (FlxG.gamepads.anyJustPressed(key) == true)
-				{
-					controllerMode = true;
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	private function _myGamepadPressed(keys:Array<FlxGamepadInputID>):Bool
-	{
-		if(keys != null)
-		{
-			for (key in keys)
-			{
-				if (FlxG.gamepads.anyPressed(key) == true)
-				{
-					controllerMode = true;
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	private function _myGamepadJustReleased(keys:Array<FlxGamepadInputID>):Bool
-	{
-		if(keys != null)
-		{
-			for (key in keys)
-			{
-				if (FlxG.gamepads.anyJustReleased(key) == true)
-				{
-					controllerMode = true;
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-	// IGNORE THESE
-	public static var instance:Controls;
-	public function new()
-	{
-		keyboardBinds = ClientPrefs.keyBinds;
-		gamepadBinds = ClientPrefs.gamepadBinds;
-	}
 }

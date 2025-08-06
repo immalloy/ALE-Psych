@@ -98,7 +98,6 @@ class ALERuleScript extends RuleScript
 			'Json' => utils.ALEJson,
 			//'debugTrace' => CoolUtil.debugTrace,
 			//'debugPrint' => CoolUtil.debugPrint,
-			'controls' => Controls.instance,
 			'Function_Stop' => LuaUtils.Function_Stop,
 			'Function_Continue' => LuaUtils.Function_Continue,
 			'Function_StopLua' => LuaUtils.Function_StopLua,

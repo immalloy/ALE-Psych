@@ -4,6 +4,12 @@ import core.config.ClientPrefs;
 
 class Rating
 {
+	static var ratingWindows:Dynamic = {
+		sickWindow: 45,
+		goodWindow: 90,
+		badWindow: 135
+	};
+
 	public var name:String = '';
 	public var image:String = '';
 	public var hitWindow:Null<Int> = 0; //ms
@@ -21,7 +27,7 @@ class Rating
 		var window:String = name + 'Window';
 		try
 		{
-			this.hitWindow = Reflect.field(ClientPrefs.data, window);
+			this.hitWindow = Reflect.field(Rating.ratingWindows, window);
 		} catch (e:Dynamic) {};
 	}
 

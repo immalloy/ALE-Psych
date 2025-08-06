@@ -75,12 +75,12 @@ class GameOverSubstate extends MusicBeatSubState
 
 		PlayState.instance.callOnScripts('onUpdate', [elapsed]);
 
-		if (controls.ACCEPT)
+		if (Controls.ACCEPT)
 		{
 			endBullshit();
 		}
 
-		if (controls.BACK)
+		if (Controls.BACK)
 		{
 			#if DISCORD_ALLOWED DiscordRPC.resetClientID(); #end
 			FlxG.sound.music.stop();

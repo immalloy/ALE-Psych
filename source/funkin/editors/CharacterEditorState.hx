@@ -840,10 +840,10 @@ class CharacterEditorState extends MusicBeatState
 
 		if(animationInputText.hasFocus || animationNameInputText.hasFocus || animationIndicesInputText.hasFocus || imageInputText.hasFocus || healthIconInputText.hasFocus || vocalsInputText.hasFocus)
 		{
-			ClientPrefs.toggleVolumeKeys(false);
+			CoolUtil.toggleVolumeKeys(false);
 			return;
 		}
-		ClientPrefs.toggleVolumeKeys(true);
+		CoolUtil.toggleVolumeKeys(true);
 
 		var shiftMult:Float = 1;
 		var ctrlMult:Float = 1;

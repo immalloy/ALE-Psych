@@ -26,8 +26,9 @@ class MainState extends MusicBeatState
 		super.create();
 
 		FlxG.save.bind('funkin', CoolUtil.getSavePath());
-
-		ClientPrefs.loadPrefs();
+    
+        if (CoolUtil.save == null)
+            CoolUtil.save = new utils.ALESave();
 
 		Highscore.load();
 

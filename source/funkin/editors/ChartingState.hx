@@ -1764,7 +1764,7 @@ class ChartingState extends MusicBeatState
 		var blockInput:Bool = false;
 		for (inputText in blockPressWhileTypingOn) {
 			if(inputText.hasFocus) {
-				ClientPrefs.toggleVolumeKeys(false);
+				CoolUtil.toggleVolumeKeys(false);
 				blockInput = true;
 				break;
 			}
@@ -1775,7 +1775,7 @@ class ChartingState extends MusicBeatState
 				@:privateAccess
 				var leText:FlxUIInputText = cast (stepper.text_field, FlxUIInputText);
 				if(leText.hasFocus) {
-					ClientPrefs.toggleVolumeKeys(false);
+					CoolUtil.toggleVolumeKeys(false);
 					blockInput = true;
 					break;
 				}
@@ -1783,7 +1783,7 @@ class ChartingState extends MusicBeatState
 		}
 
 		if(!blockInput) {
-			ClientPrefs.toggleVolumeKeys(true);
+			CoolUtil.toggleVolumeKeys(true);
 			for (dropDownMenu in blockPressWhileScrolling) {
 				if(dropDownMenu.dropPanel.visible) {
 					blockInput = true;

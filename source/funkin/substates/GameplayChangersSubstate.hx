@@ -15,54 +15,6 @@ class GameplayChangersSubstate extends MusicBeatSubState
 
 	function getOptions()
 	{
-		var goption:GameplayOption = new GameplayOption('Scroll Type', 'scrolltype', 'string', 'multiplicative', ["multiplicative", "constant"]);
-		optionsArray.push(goption);
-
-		var option:GameplayOption = new GameplayOption('Scroll Speed', 'scrollspeed', 'float', 1);
-		option.scrollSpeed = 2.0;
-		option.minValue = 0.35;
-		option.changeValue = 0.05;
-		option.decimals = 2;
-		if (goption.getValue() != "constant")
-		{
-			option.displayFormat = '%vX';
-			option.maxValue = 3;
-		}
-		else
-		{
-			option.displayFormat = "%v";
-			option.maxValue = 6;
-		}
-		optionsArray.push(option);
-
-		#if FLX_PITCH
-		var option:GameplayOption = new GameplayOption('Playback Rate', 'songspeed', 'float', 1);
-		option.scrollSpeed = 1;
-		option.minValue = 0.5;
-		option.maxValue = 3.0;
-		option.changeValue = 0.05;
-		option.displayFormat = '%vX';
-		option.decimals = 2;
-		optionsArray.push(option);
-		#end
-
-		var option:GameplayOption = new GameplayOption('Health Gain Multiplier', 'healthgain', 'float', 1);
-		option.scrollSpeed = 2.5;
-		option.minValue = 0;
-		option.maxValue = 5;
-		option.changeValue = 0.1;
-		option.displayFormat = '%vX';
-		optionsArray.push(option);
-
-		var option:GameplayOption = new GameplayOption('Health Loss Multiplier', 'healthloss', 'float', 1);
-		option.scrollSpeed = 2.5;
-		option.minValue = 0.5;
-		option.maxValue = 5;
-		option.changeValue = 0.1;
-		option.displayFormat = '%vX';
-		optionsArray.push(option);
-
-		optionsArray.push(new GameplayOption('Instakill on Miss', 'instakill', 'bool', false));
 		optionsArray.push(new GameplayOption('Practice Mode', 'practice', 'bool', false));
 		optionsArray.push(new GameplayOption('Botplay', 'botplay', 'bool', false));
 	}
@@ -155,18 +107,18 @@ class GameplayChangersSubstate extends MusicBeatSubState
 	var holdValue:Float = 0;
 	override function update(elapsed:Float)
 	{
-		if (controls.UI_UP_P)
+		if (Controls.UI_UP_P)
 		{
 			changeSelection(-1);
 		}
-		if (controls.UI_DOWN_P)
+		if (Controls.UI_DOWN_P)
 		{
 			changeSelection(1);
 		}
 
-		if (controls.BACK) {
+		if (Controls.BACK) {
 			close();
-			ClientPrefs.saveSettings();
+			
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
 
@@ -180,7 +132,7 @@ class GameplayChangersSubstate extends MusicBeatSubState
 
 			if(usesCheckbox)
 			{
-				if(controls.ACCEPT)
+				if(Controls.ACCEPT)
 				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					curOption.setValue((curOption.getValue() == true) ? false : true);
@@ -188,13 +140,13 @@ class GameplayChangersSubstate extends MusicBeatSubState
 					reloadCheckboxes();
 				}
 			} else {
-				if(controls.UI_LEFT || controls.UI_RIGHT) {
-					var pressed = (controls.UI_LEFT_P || controls.UI_RIGHT_P);
+				if(Controls.UI_LEFT || Controls.UI_RIGHT) {
+					var pressed = (Controls.UI_LEFT_P || Controls.UI_RIGHT_P);
 					if(holdTime > 0.5 || pressed) {
 						if(pressed) {
 							var add:Dynamic = null;
 							if(curOption.type != 'string') {
-								add = controls.UI_LEFT ? -curOption.changeValue : curOption.changeValue;
+								add = Controls.UI_LEFT ? -curOption.changeValue : curOption.changeValue;
 							}
 
 							switch(curOption.type)
@@ -217,7 +169,7 @@ class GameplayChangersSubstate extends MusicBeatSubState
 
 								case 'string':
 									var num:Int = curOption.curOption; //lol
-									if(controls.UI_LEFT_P) --num;
+									if(Controls.UI_LEFT_P) --num;
 									else num++;
 
 									if(num < 0) {
@@ -254,7 +206,7 @@ class GameplayChangersSubstate extends MusicBeatSubState
 							curOption.change();
 							FlxG.sound.play(Paths.sound('scrollMenu'));
 						} else if(curOption.type != 'string') {
-							holdValue = Math.max(curOption.minValue, Math.min(curOption.maxValue, holdValue + curOption.scrollSpeed * elapsed * (controls.UI_LEFT ? -1 : 1)));
+							holdValue = Math.max(curOption.minValue, Math.min(curOption.maxValue, holdValue + curOption.scrollSpeed * elapsed * (Controls.UI_LEFT ? -1 : 1)));
 
 							switch(curOption.type)
 							{
@@ -273,12 +225,12 @@ class GameplayChangersSubstate extends MusicBeatSubState
 					if(curOption.type != 'string') {
 						holdTime += elapsed;
 					}
-				} else if(controls.UI_LEFT_R || controls.UI_RIGHT_R) {
+				} else if(Controls.UI_LEFT_R || Controls.UI_RIGHT_R) {
 					clearHold();
 				}
 			}
 
-			if(controls.RESET)
+			if(Controls.RESET)
 			{
 				for (i in 0...optionsArray.length)
 				{
@@ -452,11 +404,11 @@ class GameplayOption
 
 	public function getValue():Dynamic
 	{
-		return ClientPrefs.data.gameplaySettings.get(variable);
+		return Reflect.field(ClientPrefs.data, variable);
 	}
 	public function setValue(value:Dynamic)
 	{
-		ClientPrefs.data.gameplaySettings.set(variable, value);
+		Reflect.setField(ClientPrefs.data, variable, value);
 	}
 
 	public function setChild(child:Alphabet)

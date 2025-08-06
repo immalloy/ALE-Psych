@@ -103,15 +103,15 @@ class ResetScoreSubState extends MusicBeatSubState
 		}
 		if(week == -1) icon.alpha += elapsed * 2.5;
 
-		if(controls.UI_LEFT_P || controls.UI_RIGHT_P) {
+		if(Controls.UI_LEFT_P || Controls.UI_RIGHT_P) {
 			FlxG.sound.play(Paths.sound('scrollMenu'), 1);
 			onYes = !onYes;
 			updateOptions();
 		}
-		if(controls.BACK) {
+		if(Controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
 			close();
-		} else if(controls.ACCEPT) {
+		} else if(Controls.ACCEPT) {
 			if(onYes) {
 				if(week == -1) {
 					Highscore.resetSong(song, difficulty);

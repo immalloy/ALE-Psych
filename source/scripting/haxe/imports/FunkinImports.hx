@@ -9,6 +9,4 @@ import funkin.visuals.objects.VideoSprite;
 import funkin.states.CustomState;
 import funkin.substates.CustomSubState;
 
-import utils.ALEParserHelper;
-
 class FunkinImports {}

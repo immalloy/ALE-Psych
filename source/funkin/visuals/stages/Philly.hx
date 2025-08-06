@@ -122,11 +122,9 @@ class Philly extends BaseStage
 						if(phillyGlowGradient.visible)
 						{
 							doFlash();
-							if(ClientPrefs.data.camZooms)
-							{
-								FlxG.camera.zoom += 0.5;
-								camHUD.zoom += 0.1;
-							}
+
+							FlxG.camera.zoom += 0.5;
+							camHUD.zoom += 0.1;
 
 							blammedLightsBlack.visible = false;
 							phillyWindowEvent.visible = false;
@@ -148,11 +146,9 @@ class Philly extends BaseStage
 						if(!phillyGlowGradient.visible)
 						{
 							doFlash();
-							if(ClientPrefs.data.camZooms)
-							{
-								FlxG.camera.zoom += 0.5;
-								camHUD.zoom += 0.1;
-							}
+							
+							FlxG.camera.zoom += 0.5;
+							camHUD.zoom += 0.1;
 
 							blammedLightsBlack.visible = true;
 							blammedLightsBlack.alpha = 1;

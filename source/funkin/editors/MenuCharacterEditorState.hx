@@ -252,7 +252,7 @@ class MenuCharacterEditorState extends MusicBeatState
 		var blockInput:Bool = false;
 		for (inputText in blockPressWhileTypingOn) {
 			if(inputText.hasFocus) {
-				ClientPrefs.toggleVolumeKeys(false);
+				CoolUtil.toggleVolumeKeys(false);
 				blockInput = true;
 
 				if(FlxG.keys.justPressed.ENTER) inputText.hasFocus = false;
@@ -261,7 +261,7 @@ class MenuCharacterEditorState extends MusicBeatState
 		}
 
 		if(!blockInput) {
-			ClientPrefs.toggleVolumeKeys(true);
+			CoolUtil.toggleVolumeKeys(true);
 			if(FlxG.keys.justPressed.ESCAPE) {
 				CoolUtil.switchState(new funkin.editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
