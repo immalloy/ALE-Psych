@@ -234,6 +234,8 @@ class PlayState extends ScriptState
 
 	override public function create()
 	{
+		playbackRate = 1;
+
 		super.create();
 
 		startCallback = startCountdown;
