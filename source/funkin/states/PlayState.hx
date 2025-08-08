@@ -2071,18 +2071,20 @@ class PlayState extends ScriptState
 				if (storyPlaylist.length <= 0)
 				{
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					
 					#if DISCORD_ALLOWED DiscordRPC.resetClientID(); #end
 
 					CoolUtil.switchState(new CustomState(CoolVars.data.storyMenuState));
 
-					// if ()
-					if(!ClientPrefs.data.practice && !ClientPrefs.data.botplay) {
+					if(!ClientPrefs.data.practice && !ClientPrefs.data.botplay)
+					{
 						CoolVars.weekCompleted.set(WeekData.weeksList[storyWeek], true);
+
 						Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
 
-						FlxG.save.data.weekCompleted = CoolVars.weekCompleted;
-						FlxG.save.flush();
+						CoolUtil.save.saveScore();
 					}
+
 					changedDifficulty = false;
 				}
 				else

@@ -24,13 +24,13 @@ class MainState extends MusicBeatState
 		FlxG.keys.preventDefaultKeys = [TAB];
 
 		super.create();
-
-		FlxG.save.bind('funkin', CoolUtil.getSavePath());
     
-        if (CoolUtil.save == null)
-            CoolUtil.save = new utils.ALESave();
+        if (CoolUtil.save != null)
+			CoolUtil.save.destroy();
 
-		Highscore.load();
+        CoolUtil.save = new utils.ALESave();
+
+		CoolUtil.save.load();
 
 		FlxG.mouse.useSystemCursor = true;
 

@@ -2,9 +2,13 @@ package utils;
 
 import flixel.util.FlxSave;
 
+import utils.Highscore;
+
 class ALESave
 {
     public var preferences:FlxSave;
+
+    public var score:FlxSave;
 
     public var custom:FlxSave;
 
@@ -14,6 +18,9 @@ class ALESave
     {
         preferences = new FlxSave();
 		preferences.bind('preferences', CoolUtil.getSavePath(false));
+
+        score = new FlxSave();
+        score.bind('score', CoolUtil.getSavePath());
 
         custom = new FlxSave();
         custom.bind('custom', CoolUtil.getSavePath());
@@ -62,6 +69,24 @@ class ALESave
 		}
     }
 
+    public function loadScore()
+    {
+		if (CoolUtil.save.score.data.weekScores != null)
+			Highscore.weekScores = CoolUtil.save.score.data.weekScores;
+
+		if (CoolUtil.save.score.data.songScores != null)
+			Highscore.songScores = CoolUtil.save.score.data.songScores;
+
+		if (CoolUtil.save.score.data.songRating != null)
+			Highscore.songRating = CoolUtil.save.score.data.songRating;
+    }
+
+    public function loadControls()
+    {
+        if (controls.data.settings != null)
+            ClientPrefs.controls = cast controls.data.settings;
+    }
+
     public function savePreferences()
     {
 		preferences.data.settings = ClientPrefs.data;
@@ -71,15 +96,54 @@ class ALESave
 		custom.flush();
     }
 
-    public function loadControls()
+    public function saveScore()
     {
-        if (controls.data.settings != null)
-            ClientPrefs.controls = cast controls.data.settings;
+		CoolUtil.save.score.data.songScores = Highscore.songScores;
+		CoolUtil.save.score.flush();
+		
+		CoolUtil.save.score.data.weekScores = Highscore.weekScores;
+		CoolUtil.save.score.flush();
+
+		CoolUtil.save.score.data.songRating = Highscore.songRating;
+		CoolUtil.save.score.flush();
     }
 
     public function saveControls()
     {
         controls.data.settings = ClientPrefs.controls;
         controls.flush();
+    }
+
+    public function load()
+    {
+        loadPreferences();
+
+        loadScore();
+        
+        loadControls();
+    }
+
+    public function save()
+    {
+        savePreferences();
+
+        saveScore();
+
+        saveControls();
+    }
+
+    public function destroy()
+    {
+        preferences.destroy();
+        preferences = null;
+
+        score.destroy();
+        score = null;
+
+        controls.destroy();
+        controls = null;
+
+        custom.destroy();
+        custom = null;
     }
 }

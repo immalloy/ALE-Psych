@@ -154,6 +154,8 @@ class WeekData {
 
 	//To use on PlayState.hx or Highscore stuff
 	public static function getWeekFileName():String {
+		trace(weeksList[PlayState.storyWeek]);
+
 		return weeksList[PlayState.storyWeek];
 	}
 
