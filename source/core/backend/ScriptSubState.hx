@@ -1,7 +1,12 @@
 package core.backend;
 
+#if HSCRIPT_ALLOWED
 import scripting.haxe.HScript;
+#end
+
+#if LUA_ALLOWED
 import scripting.lua.LuaScript;
+#end
 
 import haxe.Exception;
 
@@ -67,9 +72,11 @@ class ScriptSubState extends MusicBeatSubState
     public inline function loadHScript(path:String)
     {
         #if HSCRIPT_ALLOWED
-        if (Paths.fileExists(path + '.hx'))
+        var newPath:String = 'scripts/substates/' + path;
+
+        if (Paths.fileExists(newPath + '.hx'))
         {
-            var script:HScript = new HScript(Paths.getPath(path + '.hx'), SUBSTATE);
+            var script:HScript = new HScript(Paths.getPath(newPath + '.hx'), SUBSTATE, path);
 
             if (!script.failedParsing)
             {

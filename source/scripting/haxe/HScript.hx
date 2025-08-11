@@ -5,19 +5,25 @@ import core.enums.ScriptType;
 import haxe.ds.StringMap;
 import haxe.Exception;
 
+import flixel.FlxG;
 import flixel.FlxObject;
 
-@:access(core.backend.ScriptState)
-@:access(core.backend.ScriptSubState)
+import sys.FileSystem;
+import sys.io.File;
+
+import scripting.haxe.HScriptImports;
+
 class HScript extends ALERuleScript
 {
 	public final type:ScriptType;
 
-	override public function new(filePath:String, type:ScriptType)
+	override public function new(filePath:String, type:ScriptType, scriptName:String)
 	{
 		this.type = type;
 
-		super();
+		super(scriptName);
+
+		preset();
 
 		scriptName = filePath.split('/').pop();
 
@@ -25,24 +31,8 @@ class HScript extends ALERuleScript
 			tryExecute(File.getContent(filePath), onError);
 	}
 
-	override public function onError(error:Exception):Dynamic
+	function preset():Void
 	{
-		/*
-		if (type == STATE)
-			ScriptState.instance.debugPrint(error.message, ERROR);
-		else
-			ScriptSubState.instance.debugPrint(error.message, ERROR);
-		*/
-
-		trace('ERROR: ' + error.message);
-
-		return super.onError(error);
-	}
-
-	override private function preset():Void
-	{
-		super.preset();
-		
 		var instanceVariables:StringMap<Dynamic> = new StringMap<Dynamic>();
 		
 		if (type == STATE)
@@ -82,7 +72,7 @@ class HScript extends ALERuleScript
 					FlxG.state.subState.insert(index, obj);
 				}
 			];
-		}
+		};
 
 		for (insVar in instanceVariables.keys())
 			set(insVar, instanceVariables.get(insVar));

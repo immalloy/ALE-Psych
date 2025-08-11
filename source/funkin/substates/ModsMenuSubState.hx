@@ -95,6 +95,8 @@ class ModsMenuSubState extends MusicBeatSubState
             save.data.currentMod = options[selInt] == 'Disable Mods' ? '' : options[selInt];
             save.flush();
 
+            close();
+
             CoolUtil.resetEngine();
         }
 

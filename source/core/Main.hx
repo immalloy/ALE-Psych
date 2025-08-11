@@ -188,7 +188,7 @@ class Main extends Sprite
 
 		errMsg += "\nUncaught Error: " + e.error;
 	
-		#if (windows && cpp)
+		#if WINDOWS_API
 		cpp.WindowsAPI.showMessageBox('ALE Psych ' + CoolVars.engineVersion + ' | Crash Handler', errMsg, ERROR);
 		#else
 		Application.current.window.alert(errMsg, 'ALE Psych ' + CoolVars.engineVersion + ' | Crash Handler');
