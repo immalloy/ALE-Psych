@@ -1,25 +1,18 @@
 package core.backend;
 
+import flixel.util.FlxSave;
+
 class Mods
 {
-	static public var folder:String = 'MODDEDICATEDTOTHEDEVELOPMENTOFALEPSYCHBYALEJOGDOFFICIAL';
+	static public var folder:String = '';
 
-	public final ignoreModFolders:Array<String> = [
-		'characters',
-		'custom_events',
-		'custom_notetypes',
-		'data',
-		'songs',
-		'music',
-		'sounds',
-		'shaders',
-		'videos',
-		'images',
-		'stages',
-		'weeks',
-		'fonts',
-		'scripts',
-		'achievements',
-		'.git'
-	];
+    public static function init()
+    {
+		var save:FlxSave = new FlxSave();
+
+		save.bind('ALEEngineData', CoolUtil.getSavePath(false));
+
+        if (save != null)
+            folder = save.data.currentMod;
+    }
 }

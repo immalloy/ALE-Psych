@@ -4,30 +4,35 @@ package core;
 import android.content.Context;
 #end
 
-import funkin.debug.DebugCounter;
-
 import flixel.graphics.FlxGraphic;
 import flixel.FlxGame;
 import flixel.FlxState;
+import flixel.input.keyboard.FlxKey;
+
 import haxe.io.Path;
+
 import openfl.Assets;
 import openfl.Lib;
 import openfl.display.Sprite;
 import openfl.events.Event;
-import openfl.display.StageScaleMode;
+
 import lime.app.Application;
+
 import core.config.MainState;
 
 #if linux
 import lime.graphics.Image;
 #end
 
-//crash handler stuff
 #if CRASH_HANDLER
 import openfl.events.UncaughtErrorEvent;
+
 import haxe.CallStack;
 import haxe.io.Path;
 #end
+
+import openfl.events.KeyboardEvent;
+import openfl.ui.Keyboard;
 
 #if (windows && cpp)
 @:buildXml('
@@ -54,19 +59,16 @@ extern "C" HRESULT WINAPI SetCurrentProcessExplicitAppUserModelID(PCWSTR AppID);
 
 class Main extends Sprite
 {
-	var game = {
-		width: 1280, // WINDOW width
-		height: 720, // WINDOW height
-		initialState: MainState, // initial game state
-		zoom: -1.0, // game state bounds
-		framerate: 60, // default framerate
-		skipSplash: true, // if the default flixel splash screen should be skipped
-		startFullscreen: false // if the game should start at fullscreen mode
+	@:allow(utils.CoolUtil)
+	private static var game = {
+		width: 1280,
+		height: 720,
+		initialState: MainState,
+		zoom: -1.0,
+		framerate: 60,
+		skipSplash: true,
+		startFullscreen: false
 	};
-
-	public static var fpsVar:DebugCounter;
-
-	// You can pretty much ignore everything from here on - your code should go in your states.
 
 	public static function main():Void
 	{
@@ -77,7 +79,6 @@ class Main extends Sprite
 	{
 		super();
 
-		// Credits to MAJigsaw77 (he's the og author for this code)
 		#if android
 		Sys.setCwd(Path.addTrailingSlash(Context.getExternalFilesDir()));
 		#elseif ios
@@ -112,6 +113,9 @@ class Main extends Sprite
 		}
 
 		setupGame();
+		
+		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPressed);
+		FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyReleased);
 	}
 
 	private function setupGame():Void
@@ -132,11 +136,6 @@ class Main extends Sprite
 		
 		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 
-		fpsVar = new DebugCounter();
-		addChild(fpsVar);
-		Lib.current.stage.align = "tl";
-		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
-
 		#if html5
 		FlxG.autoPause = false;
 		#end
@@ -149,7 +148,6 @@ class Main extends Sprite
 		DiscordRPC.prepare();
 		#end
 
-		// shader coords fix
 		FlxG.signals.gameResized.add(function (w, h) {
 		     if (FlxG.cameras != null) {
 			   for (cam in FlxG.cameras.list) {
@@ -171,14 +169,11 @@ class Main extends Sprite
 	}
 
 	#if CRASH_HANDLER
+	
 	function onCrash(e:UncaughtErrorEvent):Void
 	{
 		var errMsg:String = "";
 		var callStack:Array<StackItem> = CallStack.exceptionStack(true);
-		var dateNow:String = Date.now().toString();
-
-		dateNow = dateNow.replace(" ", "_");
-		dateNow = dateNow.replace(":", "'");
 
 		for (stackItem in callStack)
 		{
@@ -191,15 +186,112 @@ class Main extends Sprite
 			}
 		}
 
-		errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/ShadowMario/FNF-PsychEngine\n\n> Crash Handler written by: sqirra-rng";
-
-		Sys.println(errMsg);
-
-		Application.current.window.alert(errMsg, "Error!");
-		#if DISCORD_ALLOWED
-		DiscordRPC.shutdown();
+		errMsg += "\nUncaught Error: " + e.error;
+	
+		#if (windows && cpp)
+		cpp.WindowsAPI.showMessageBox('ALE Psych ' + CoolVars.engineVersion + ' | Crash Handler', errMsg, ERROR);
+		#else
+		Application.current.window.alert(errMsg, 'ALE Psych ' + CoolVars.engineVersion + ' | Crash Handler');
 		#end
+
+		debugTrace(errMsg, ERROR);
+
+		DiscordRPC.shutdown();
+
 		Sys.exit(1);
 	}
 	#end
+
+    public var keysPressed:Array<FlxKey> = [];
+
+    static final nativeCorrection:Map<String, FlxKey> = [
+		"0_64" => FlxKey.INSERT,
+		"0_65" => FlxKey.END,
+		"0_67" => FlxKey.PAGEDOWN,
+		"0_69" => FlxKey.NONE,
+		"0_73" => FlxKey.PAGEUP,
+		"0_266" => FlxKey.DELETE,
+		"123_222" => FlxKey.LBRACKET,
+		"125_187" => FlxKey.RBRACKET,
+		"126_233" => FlxKey.GRAVEACCENT,
+		"0_43" => FlxKey.PLUS,
+
+		"0_80" => FlxKey.F1,
+		"0_81" => FlxKey.F2,
+		"0_82" => FlxKey.F3,
+		"0_83" => FlxKey.F4,
+		"0_84" => FlxKey.F5,
+		"0_85" => FlxKey.F6,
+		"0_86" => FlxKey.F7,
+		"0_87" => FlxKey.F8,
+		"0_88" => FlxKey.F9,
+		"0_89" => FlxKey.F10,
+		"0_90" => FlxKey.F11,
+
+		"48_224" => FlxKey.ZERO,
+		"49_38" => FlxKey.ONE,
+		"50_233" => FlxKey.TWO,
+		"51_34" => FlxKey.THREE,
+		"52_222" => FlxKey.FOUR,
+		"53_40" => FlxKey.FIVE,
+		"54_189" => FlxKey.SIX,
+		"55_232" => FlxKey.SEVEN,
+		"56_95" => FlxKey.EIGHT,
+		"57_231" => FlxKey.NINE,
+
+		"48_64" => FlxKey.NUMPADZERO,
+		"49_65" => FlxKey.NUMPADONE,
+		"50_66" => FlxKey.NUMPADTWO,
+		"51_67" => FlxKey.NUMPADTHREE,
+		"52_68" => FlxKey.NUMPADFOUR,
+		"53_69" => FlxKey.NUMPADFIVE,
+		"54_70" => FlxKey.NUMPADSIX,
+		"55_71" => FlxKey.NUMPADSEVEN,
+		"56_72" => FlxKey.NUMPADEIGHT,
+		"57_73" => FlxKey.NUMPADNINE,
+
+		"43_75" => FlxKey.NUMPADPLUS,
+		"45_77" => FlxKey.NUMPADMINUS,
+		"47_79" => FlxKey.SLASH,
+		"46_78" => FlxKey.NUMPADPERIOD,
+		"42_74" => FlxKey.NUMPADMULTIPLY
+    ];
+    
+    function correctKey(e:KeyboardEvent):Int
+    {
+        #if web
+        return e.keyCode;
+        #else
+        var key = nativeCorrection.get(e.charCode + "_" + e.keyCode);
+        return key != null ? key : e.keyCode;
+        #end
+    }
+    
+    function onKeyPressed(event:KeyboardEvent)
+    {
+        var key = correctKey(event);
+
+		if (keysPressed.contains(FlxKey.CONTROL) && keysPressed.contains(FlxKey.SHIFT))
+			if (ClientPrefs.controls.engine.switch_mod.contains(key))
+				if (!Std.isOfType(FlxG.state, funkin.states.PlayState))
+				{
+					if (FlxG.state.subState != null)
+						FlxG.state.subState.close();
+
+					CoolUtil.openSubState(new funkin.substates.ModsMenuSubState());
+				}
+    
+        if (key == FlxKey.F3)
+			if (MainState.debugCounter != null)
+				MainState.debugCounter.switchMode();
+
+		keysPressed.push(key);
+    }
+    
+    function onKeyReleased(event:KeyboardEvent)
+    {
+        var key = correctKey(event);
+
+        keysPressed.remove(key);
+    }
 }

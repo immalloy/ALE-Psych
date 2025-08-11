@@ -37,4 +37,6 @@ class CoolVars
 
 	@:allow(funkin.states.PlayState)
 	private static var weekCompleted:Map<String, Bool> = new Map<String, Bool>();
+
+	public static var globalVars:Map<String, Dynamic> = new Map<String, Dynamic>();
 }

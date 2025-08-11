@@ -15,8 +15,15 @@ import scripting.haxe.ALERuleScript;
 
 import rulescript.scriptedClass.RuleScriptedClassUtil;
 
+import funkin.debug.DebugCounter;
+
+import openfl.Lib;
+import openfl.display.StageScaleMode;
+
 class MainState extends MusicBeatState
 {
+	public static var debugCounter:DebugCounter;
+
 	override function create()
 	{
 		FlxG.fixedTimestep = false;
@@ -24,6 +31,8 @@ class MainState extends MusicBeatState
 		FlxG.keys.preventDefaultKeys = [TAB];
 
 		super.create();
+
+		core.backend.Mods.init();
     
         if (CoolUtil.save != null)
 			CoolUtil.save.destroy();
@@ -39,6 +48,12 @@ class MainState extends MusicBeatState
 		RuleScript.resolveScript = importCustomClass;
 
 		CoolUtil.reloadGameMetadata();
+
+		MainState.debugCounter = new DebugCounter();
+		FlxG.game.addChild(MainState.debugCounter);
+		
+		Lib.current.stage.align = "tl";
+		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 
         FlxG.autoPause = !CoolVars.data.developerMode || !CoolVars.data.scriptsHotReloading;
 

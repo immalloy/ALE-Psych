@@ -4,11 +4,16 @@ import flixel.input.keyboard.FlxKey;
 
 import openfl.utils.Assets;
 
+import core.Main;
+import core.config.MainState;
+
 import core.enums.PrintType;
 
 import sys.thread.Thread;
 
 import openfl.Lib;
+
+import openfl.ui.Mouse;
 
 import lime.graphics.Image;
 
@@ -347,5 +352,55 @@ class CoolUtil
 		FlxG.sound.muteKeys = turnOn ? [FlxKey.M] : [];
 		FlxG.sound.volumeDownKeys = turnOn ? [FlxKey.MINUS, FlxKey.NUMPADMINUS] : [];
 		FlxG.sound.volumeUpKeys = turnOn ? [FlxKey.PLUS, FlxKey.NUMPADPLUS] : [];
+	}
+
+	public static function resetEngine():Void
+	{
+		CoolUtil.save.savePreferences();
+		CoolUtil.save.saveControls();
+
+		resizeGame(Main.game.width, Main.game.height);
+
+		DiscordRPC.shutdown();
+
+		CoolVars.skipTransIn = CoolVars.skipTransOut = true;
+
+		if (ScriptState.instance != null)
+			ScriptState.instance.destroyScripts();
+
+		if (ScriptSubState.instance != null)
+			ScriptSubState.instance.destroyScripts();
+
+		if (FlxG.state.subState != null)
+			FlxG.state.subState.close();
+
+		for (key in CoolVars.globalVars.keys())
+			CoolVars.globalVars.remove(key);
+
+		FlxG.game.removeChild(MainState.debugCounter);
+		
+		MainState.debugCounter.destroy();
+		MainState.debugCounter = null;
+
+        #if (windows && cpp)
+		cpp.WindowsAPI.setWindowBorderColor(255, 255, 255);
+		#end
+
+		FlxTween.globalManager.clear();
+
+		FlxG.camera.bgColor = FlxColor.BLACK;
+
+		if (FlxG.sound.music != null)
+		{
+			FlxG.sound.music.stop();
+			
+			FlxG.sound.music = null;
+		}
+
+		FlxG.resetGame();
+		
+		#if desktop
+		Mouse.cursor = ARROW;
+		#end
 	}
 }

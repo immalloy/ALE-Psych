@@ -9,6 +9,8 @@ import openfl.text.TextField;
 
 import flixel.util.FlxDestroyUtil.IFlxDestroyable;
 
+import core.config.MainState;
+
 import openfl.events.Event;
 
 class DebugField extends Sprite implements IFlxDestroyable
@@ -20,15 +22,16 @@ class DebugField extends Sprite implements IFlxDestroyable
 
     public var enabled:Bool = false;
 
-    public function new(?theTitle:String = '', ?titleSize:Int = 18, ?theText:String = '', theTextSize:Int = 14)
+    @:allow(funkin.debug.DebugCounter)
+    private function new(?theTitle:String = '', ?titleSize:Int = 18, ?theText:String = '', theTextSize:Int = 14)
     {
         super();
 
         bg = new Bitmap(new BitmapData(1, 1, 0xFF000000));
         addChild(bg);
         bg.alpha = 0.5;
-        bg.x = -DebugCounter.instance.x;
-        bg.y = -DebugCounter.instance.y;
+        bg.x = -MainState.debugCounter.x;
+        bg.y = -MainState.debugCounter.y;
 
         title = new TextField();
 
@@ -64,9 +67,9 @@ class DebugField extends Sprite implements IFlxDestroyable
 
     override function __enterFrame(time:#if linux Float #else Int #end)
     {
-        alpha = FlxMath.lerp(alpha, enabled ? 1 : 0, 0.25);
+        alpha = CoolUtil.fpsLerp(alpha, enabled ? 1 : 0, 0.25);
 
-        x = FlxMath.lerp(x, enabled ? 0 : -20, 0.25);
+        x = CoolUtil.fpsLerp(x, enabled ? 0 : -20, 0.25);
 
         super.__enterFrame(time);
 
@@ -85,8 +88,11 @@ class DebugField extends Sprite implements IFlxDestroyable
             }
         }
 
-        bg.scaleX = Math.max(title.width, text.width) + DebugCounter.instance.x * 2;
-        bg.scaleY = text.height + text.y - title.y + DebugCounter.instance.y * 2;
+        if (MainState.debugCounter == null)
+            return;
+
+        bg.scaleX = Math.max(title.width, text.width) + MainState.debugCounter.x * 2;
+        bg.scaleY = text.height + text.y - title.y + MainState.debugCounter.y * 2;
     }
 
     public function updateField(elapsed:Float):Void {};

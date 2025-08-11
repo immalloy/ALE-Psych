@@ -2,7 +2,7 @@ package utils;
 
 class Highscore
 {
-	public static var weekScores:Map<String, Int> = new Map();
+	public static var weekScores:Map<String, Int> = new Map<String, Int>();
 	public static var songScores:Map<String, Int> = new Map<String, Int>();
 	public static var songRating:Map<String, Float> = new Map<String, Float>();
 
@@ -76,6 +76,7 @@ class Highscore
 	public static function getScore(song:String, diff:Int):Int
 	{
 		var daSong:String = formatSong(song, diff);
+
 		if (!songScores.exists(daSong))
 			setScore(daSong, 0);
 
