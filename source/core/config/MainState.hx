@@ -4,6 +4,8 @@ import utils.Highscore;
 
 import haxe.io.Path;
 
+import flixel.FlxState;
+
 import hscript.Expr.ModuleDecl;
 import hscript.Printer;
 
@@ -20,7 +22,7 @@ import funkin.debug.DebugCounter;
 import openfl.Lib;
 import openfl.display.StageScaleMode;
 
-class MainState extends MusicBeatState
+class MainState extends FlxState
 {
 	public static var debugCounter:DebugCounter;
 
@@ -57,7 +59,7 @@ class MainState extends MusicBeatState
 
         FlxG.autoPause = !CoolVars.data.developerMode || !CoolVars.data.scriptsHotReloading;
 
-		CoolUtil.switchState(new CustomState(CoolVars.data.initialState));
+		CoolUtil.switchState(new CustomState(CoolVars.data.initialState), true, true);
 		
 		openalFix();
 	}
