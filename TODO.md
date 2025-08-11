@@ -5,7 +5,7 @@
 - [ ] Implement `Ctrl + Shift + [function]`
 - [ ] Implement CoolUtil
 - [x] Implement CoolVars
-- [ ] Implemet ALESave
+- [x] Implemet ALESave
 - [x] RuleScript instead of SScript
 - [ ] Improve Lua's API
 - [x] Custom States Support
@@ -14,7 +14,7 @@
 - [x] Better Transitions Support
 - [x] Use ALE Engine's Callbacks on Scripts
 - [x] Scripted Classes
-- [ ] Fix PlayState
+- [x] Fix PlayState
 - [ ] Remove Note Skins
 - [ ] Remove Note Splashes
 - [ ] Separate Classes, Typedefs and Enums in several files
@@ -24,7 +24,7 @@
 - [x] Implement `data.json`
 - [x] Fix FlxKeyboard
 - [x] Use ALE Engine's SoundTray
-- [ ] Mods Menu
+- [x] Mods Menu
 - [x] Mouse Controls
 - [ ] Improve Songs Loading
-- [ ] Rewrite Options Menu
+- [x] Rewrite Options Menu

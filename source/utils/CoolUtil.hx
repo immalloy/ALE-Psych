@@ -2,20 +2,21 @@ package utils;
 
 import flixel.input.keyboard.FlxKey;
 
-import openfl.utils.Assets;
-
 import core.Main;
 import core.config.MainState;
-
 import core.enums.PrintType;
 
 import sys.thread.Thread;
 
 import openfl.Lib;
-
+import openfl.filters.ShaderFilter;
+import openfl.filters.BitmapFilter;
 import openfl.ui.Mouse;
+import openfl.utils.Assets;
 
 import lime.graphics.Image;
+
+import funkin.visuals.shaders.ALERuntimeShader;
 
 class CoolUtil
 {
@@ -167,13 +168,7 @@ class CoolUtil
 	}
 
 	public static function debugTrace(text:Dynamic, ?type:PrintType = TRACE, ?customType:String = '', ?customColor:FlxColor = FlxColor.GRAY, ?pos:haxe.PosInfos)
-	{
-		text = haxe.Log.formatOutput(text, pos);
-
-		var theText:String = ansiColorString(type == CUSTOM ? customType : PrintType.typeToString(type), type == CUSTOM ? customColor : PrintType.typeToColor(type)) + ansiColorString(' | ' + Date.now().toString().split(' ')[1] + ' | ', 0xFF505050) + (pos == null ? '' : ansiColorString(pos.fileName + ': ', 0xFF888888)) + text;
-
-		Sys.println(theText);
-	}
+		Sys.println(ansiColorString(type == CUSTOM ? customType : PrintType.typeToString(type), type == CUSTOM ? customColor : PrintType.typeToColor(type)) + ansiColorString(' | ' + Date.now().toString().split(' ')[1] + ' | ', 0xFF505050) + (pos == null ? '' : ansiColorString(pos.fileName + ': ', 0xFF888888)) + text);
 	
 	public static function ansiColorString(text:String, color:FlxColor):String
 		return '\x1b[38;2;' + color.red + ';' + color.green + ';' + color.blue + 'm' + text + '\x1b[0m';
@@ -402,5 +397,59 @@ class CoolUtil
 		#if desktop
 		Mouse.cursor = ARROW;
 		#end
+	}
+	
+	public static function createRuntimeShader(shaderName:String):ALERuntimeShader
+	{
+		#if (!flash && sys)
+		if (!ClientPrefs.data.shaders)
+			return null;
+
+		var frag:String = 'shaders/' + shaderName + '.frag';
+		var vert:String = 'shaders/' + shaderName + '.vert';
+
+		var found:Bool = false;
+
+		if (Paths.fileExists(frag))
+		{
+			frag = File.getContent(Paths.getPath(frag));
+
+			found = true;
+		} else {
+			frag = null;
+		}
+
+		if (Paths.fileExists(vert))
+		{
+			vert = File.getContent(Paths.getPath(vert));
+
+			found = true;
+		} else {
+			vert = null;
+		}
+
+		if (found)
+		{
+			return new ALERuntimeShader(shaderName, frag, vert);
+		} else {
+			debugTrace('Missing Shader: ' + shaderName, MISSING_FILE);
+
+			return null;
+		}
+		#else
+		FlxG.log.warn('Platform Unsupported for Runtime Shaders');
+
+		return null;
+		#end
+	}
+
+	public static function setCameraShaders(camera:FlxCamera, shaders:Array<ALERuntimeShader>):Void
+	{
+		var filterArray:Array<BitmapFilter> = [];
+
+		for (shader in shaders)
+			filterArray.push(new ShaderFilter(shader));
+
+		camera.filters = filterArray;
 	}
 }
