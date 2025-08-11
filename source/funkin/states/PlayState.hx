@@ -42,12 +42,8 @@ import funkin.visuals.game.Note.EventNote;
 import funkin.visuals.game.*;
 import funkin.visuals.stages.objects.*;
 
-#if LUA_ALLOWED
+import scripting.haxe.*;
 import scripting.lua.*;
-#else
-import psychlua.LuaUtils;
-import scripting.lua.HScript;
-#end
 
 import funkin.editors.*;
 
@@ -2880,9 +2876,27 @@ class PlayState extends ScriptState
 			}
 			fullComboFunction();
 		}
+
 		updateScore(badHit); // score will only update after rating is calculated, if it's a badHit, it shouldn't bounce
 		setOnScripts('rating', ratingPercent);
 		setOnScripts('ratingName', ratingName);
 		setOnScripts('ratingFC', ratingFC);
 	}
+
+    override public function loadHScript(path:String)
+    {
+        #if HSCRIPT_ALLOWED
+        if (Paths.fileExists(path + '.hx'))
+        {
+            var script:HScript = new HScript(Paths.getPath(path + '.hx'), STATE, path);
+
+            if (!script.failedParsing)
+            {
+                hScripts.push(script);
+
+                debugTrace('"' + path + '.hx" has been Successfully Loaded', HSCRIPT);
+            }
+        }
+        #end
+    }
 }

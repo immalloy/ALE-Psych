@@ -6,28 +6,19 @@ import haxe.io.Path;
 
 import flixel.FlxState;
 
-import hscript.Expr.ModuleDecl;
-import hscript.Printer;
-
-import rulescript.RuleScript;
-import rulescript.Tools;
-import rulescript.parsers.HxParser;
-
-import scripting.haxe.ALERuleScript;
-
-import rulescript.scriptedClass.RuleScriptedClassUtil;
-
 import funkin.debug.DebugCounter;
 
 import openfl.Lib;
 import openfl.display.StageScaleMode;
 
-class MainState extends FlxState
+class MainState extends MusicBeatState
 {
 	public static var debugCounter:DebugCounter;
 
 	override function create()
 	{
+		CoolVars.skipTransOut = true;
+
 		FlxG.fixedTimestep = false;
 		FlxG.game.focusLostFramerate = 60;
 		FlxG.keys.preventDefaultKeys = [TAB];
@@ -35,6 +26,8 @@ class MainState extends FlxState
 		super.create();
 
 		core.backend.Mods.init();
+
+		CoolUtil.reloadGameMetadata();
     
         if (CoolUtil.save != null)
 			CoolUtil.save.destroy();
@@ -44,12 +37,10 @@ class MainState extends FlxState
 		CoolUtil.save.load();
 
 		FlxG.mouse.useSystemCursor = true;
-
-		RuleScriptedClassUtil.buildBridge = customBuildRuleScript;
-
-		RuleScript.resolveScript = importCustomClass;
-
-		CoolUtil.reloadGameMetadata();
+		
+		#if HSCRIPT_ALLOWED
+		scripting.haxe.HScriptConfig.config();
+		#end
 
 		MainState.debugCounter = new DebugCounter();
 		FlxG.game.addChild(MainState.debugCounter);
@@ -82,80 +73,4 @@ class MainState extends FlxState
 		Sys.putEnv("ALSOFT_CONF", configPath);
 		#end	
     }
-
-	static function importCustomClass(name:String):Dynamic
-	{
-		var path:String = 'scripts/classes/' + name.replace('.', '/') + '.hx';
-
-		if (!Paths.fileExists(path))
-			return null;
-
-		var parser = new HxParser();
-		parser.allowAll();
-		parser.mode = MODULE;
-
-		var module:Array<ModuleDecl> = parser.parseModule(File.getContent(Paths.getPath(path)));
-
-		var newModule:Array<ModuleDecl> = [];
-
-		var extend:String = null;
-
-		for (decl in module)
-		{
-			switch (decl)
-			{
-				case DPackage(_), DUsing(_), DImport(_):
-					newModule.push(decl);
-				case DClass(c):
-					if (name.split('.').pop() == c.name)
-					{
-						newModule.push(decl);
-
-						if (c.extend != null)
-							extend = new Printer().typeToString(c.extend);
-					}
-				default:
-			}
-		}
-
-		var obj:Dynamic = null;
-
-		if (extend == null)
-		{
-			var script = new ALERuleScript();
-
-			script.execute(Tools.moduleDeclsToExpr(newModule));
-
-			obj = {};
-
-			for (key => value in script.variables)
-				Reflect.setField(obj, key, value);
-		} else {
-			var cl = Type.resolveClass(extend);
-
-			var f = function(args:Array<Dynamic>)
-			{
-				return Type.createInstance(cl, [name, args]);
-			}
-
-			obj = Reflect.makeVarArgs(f);
-		}
-
-		return obj;
-	}
-
-	static function customBuildRuleScript(typeName:String, superInstance:Dynamic):RuleScript
-	{
-		var script = new ALERuleScript();
-
-		script.getParser(HxParser).mode = MODULE;
-
-		script.superInstance = superInstance;
-
-		script.interp.skipNextRestore = true;
-
-		script.execute(File.getContent(Paths.getPath('scripts/classes/' + typeName.replace('.', '/') + '.hx')));
-
-		return script;
-	}
 }

@@ -1,4 +1,4 @@
-package scripting.haxe;
+package scripting.haxe.imports;
 
 import rulescript.scriptedClass.RuleScriptedClass;
 
