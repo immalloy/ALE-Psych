@@ -1,5 +1,7 @@
 package funkin.states;
 
+import haxe.Exception;
+
 import utils.Highscore;
 import utils.StageData;
 import utils.WeekData;
@@ -2895,6 +2897,25 @@ class PlayState extends ScriptState
                 hScripts.push(script);
 
                 debugTrace('"' + path + '.hx" has been Successfully Loaded', HSCRIPT);
+            }
+        }
+        #end
+    }
+
+    override public function loadLuaScript(path:String)
+    {
+        #if LUA_ALLOWED
+        if (Paths.fileExists(path + '.lua'))
+        {
+            try
+            {
+                var script:LuaScript = new LuaScript(Paths.getPath(path + '.lua'), STATE);
+
+                luaScripts.push(script);
+
+                debugTrace('"' + path + '.lua" has been Successfully Loaded', LUA);
+            } catch (error:Exception) {
+                debugTrace(error.message, ERROR);
             }
         }
         #end

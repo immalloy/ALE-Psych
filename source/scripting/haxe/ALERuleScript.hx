@@ -29,6 +29,8 @@ class ALERuleScript extends RuleScript
 	
 	public function onError(error:Exception):Dynamic
 	{
+		failedParsing = true;
+
 		debugTrace(error.message, ERROR);
 		
 		return error.details();

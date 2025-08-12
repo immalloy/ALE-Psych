@@ -97,17 +97,19 @@ class ScriptState extends MusicBeatState
     public function loadLuaScript(path:String)
     {
         #if LUA_ALLOWED
-        if (Paths.fileExists(path + '.lua'))
-        {
-            var script:LuaScript = new LuaScript(Paths.getPath(path + '.lua'), STATE);
+        var newPath:String = 'scripts/states/' + path;
 
+        if (Paths.fileExists(newPath + '.lua'))
+        {
             try
             {
+                var script:LuaScript = new LuaScript(Paths.getPath(newPath + '.lua'), STATE);
+
                 luaScripts.push(script);
 
                 debugTrace('"' + path + '.lua" has been Successfully Loaded', LUA);
             } catch (error:Exception) {
-                debugTrace(error.details(), ERROR);
+                debugTrace(error.message, ERROR);
             }
         }
         #end

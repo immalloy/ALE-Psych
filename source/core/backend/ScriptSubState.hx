@@ -91,12 +91,14 @@ class ScriptSubState extends MusicBeatSubState
     public inline function loadLuaScript(path:String)
     {
         #if LUA_ALLOWED
-        if (Paths.fileExists(path + '.lua'))
-        {
-            var script:LuaScript = new LuaScript(Paths.getPath(path + '.lua'), SUBSTATE);
+        var newPath:String = 'scripts/substates/' + path;
 
+        if (Paths.fileExists(newPath + '.lua'))
+        {
             try
             {
+                var script:LuaScript = new LuaScript(Paths.getPath(newPath + '.lua'), SUBSTATE);
+
                 luaScripts.push(script);
 
                 debugTrace('"' + path + '.lua" has been Successfully Loaded', LUA);
