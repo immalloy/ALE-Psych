@@ -4,6 +4,7 @@ enum abstract PrintType(String)
 {
     var ERROR = 'error';
     var WARNING = 'warning';
+    var DEPRECATED = 'deprecated';
     var TRACE = 'trace';
     var HSCRIPT = 'hscript';
     var LUA = 'lua';
@@ -14,6 +15,7 @@ enum abstract PrintType(String)
     private static var dataMap:Map<PrintType, Array<Dynamic>> = [
         ERROR => ['ERROR', 0xFFFF5555],
         WARNING => ['WARNING', 0xFFFFA500],
+        DEPRECATED => ['DEPRECATED', 0xFF8000],
         TRACE => ['TRACE', 0xFFFFFFFF],
         HSCRIPT => ['HSCRIPT', 0xFF88CC44],
         LUA => ['LUA', 0xFF4466DD],

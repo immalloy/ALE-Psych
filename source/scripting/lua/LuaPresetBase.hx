@@ -41,6 +41,18 @@ class LuaPresetBase
         debugTrace(text, ERROR);
     }
 
+    public inline function deprecatedPrint(text:String)
+    {
+        /*
+        if (type == STATE)
+            ScriptState.instance.debugPrint(text, DEPRECATED);
+        else
+            ScriptSubState.instance.debugPrint(text, DEPRECATED);
+        */
+
+        debugTrace(text, DEPRECATED);
+    }
+
     public inline function tagExists(name:String):Bool
         return variables.exists(name);
 
