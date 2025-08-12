@@ -8,8 +8,6 @@ import haxe.ds.StringMap;
 
 import core.enums.ScriptType;
 
-import scripting.lua.LuaPresetBase;
-
 class LuaScript
 {   
     public var lua:State = null;

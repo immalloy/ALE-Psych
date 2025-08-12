@@ -16,7 +16,7 @@ import scripting.haxe.imports.OpenFLImports;
 
 import scripting.haxe.imports.FunkinImports;
 
-import scripting.haxe.imports.Extensible;
+import scripting.haxe.Extensible;
 
 import funkin.substates.GameplayChangersSubstate;
 
