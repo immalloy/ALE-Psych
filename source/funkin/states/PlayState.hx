@@ -1644,7 +1644,6 @@ class PlayState extends ScriptState
 
 		#if DISCORD_ALLOWED
 		DiscordRPC.changePresence("Chart Editor", null, null, true);
-		DiscordRPC.resetClientID();
 		#end
 
 		CoolUtil.switchState(new ChartingState());
@@ -1657,7 +1656,6 @@ class PlayState extends ScriptState
 		paused = true;
 		if(FlxG.sound.music != null)
 			FlxG.sound.music.stop();
-		#if DISCORD_ALLOWED DiscordRPC.resetClientID(); #end
 		CoolUtil.switchState(new CharacterEditorState(SONG.player2));
 	}
 
@@ -2070,8 +2068,6 @@ class PlayState extends ScriptState
 				{
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 					
-					#if DISCORD_ALLOWED DiscordRPC.resetClientID(); #end
-
 					CoolUtil.switchState(new CustomState(CoolVars.data.storyMenuState));
 
 					if(!ClientPrefs.data.practice && !ClientPrefs.data.botplay)
@@ -2104,8 +2100,6 @@ class PlayState extends ScriptState
 			}
 			else
 			{
-				#if DISCORD_ALLOWED DiscordRPC.resetClientID(); #end
-
 				CoolUtil.switchState(new CustomState(CoolVars.data.freeplayState));
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				changedDifficulty = false;

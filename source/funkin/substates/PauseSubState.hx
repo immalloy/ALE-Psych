@@ -301,7 +301,6 @@ class PauseSubState extends MusicBeatSubState
 						FlxG.sound.music.time = pauseMusic.time;
 					}
 				case "Exit to menu":
-					#if DISCORD_ALLOWED DiscordRPC.resetClientID(); #end
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
 

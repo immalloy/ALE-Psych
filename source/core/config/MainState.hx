@@ -28,6 +28,8 @@ class MainState extends MusicBeatState
 		core.backend.Mods.init();
 
 		CoolUtil.reloadGameMetadata();
+
+        DiscordRPC.initialize(CoolVars.data.discordID);
     
         if (CoolUtil.save != null)
 			CoolUtil.save.destroy();
