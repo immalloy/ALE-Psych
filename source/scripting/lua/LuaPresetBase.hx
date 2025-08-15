@@ -73,7 +73,7 @@ class LuaPresetBase
         var result:Bool = Std.isOfType(getTag(name), type);
 
         if (!result)
-            errorPrint('Object "' + name + '" is Not a ' + Type.typeof(type));
+            errorPrint(name + ':' + Type.getClassName(Type.getClass(getTag(name))) + ' should be ' + name + ':' + Type.getClassName(type));
         
         return result;
     }

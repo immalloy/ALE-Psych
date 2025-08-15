@@ -5,3 +5,4 @@ flixel.util.FlxAxes
 flixel.text.FlxText.FlxTextAlign
 flixel.util.FlxDirectionFlags
 openfl.display.BlendMode
+flixel.util.FlxAxes
