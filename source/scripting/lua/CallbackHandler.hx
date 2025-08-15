@@ -1,9 +1,11 @@
 #if LUA_ALLOWED
 package scripting.lua;
 
+import llua.Lua;
+
 class CallbackHandler
 {
-	public static inline function call(l:State, fname:String):Int
+	public static function call(l:State, fname:String):Int
 	{
 		try
 		{
