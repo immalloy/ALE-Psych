@@ -1,4 +1,8 @@
-#!/bin/bash
+#!/bin/sh
+
+cd ..
+
+mkdir ~/haxelib && haxelib setup ~/haxelib
 
 echo "Installing dependencies..."
 
