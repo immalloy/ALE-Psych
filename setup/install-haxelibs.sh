@@ -1,10 +1,6 @@
 #!/bin/bash
 
-cd ..
-
 echo "Installing dependencies..."
-
-mkdir -p .haxelib
 
 haxelib install lime 8.2.2
 haxelib run lime setup
@@ -26,4 +22,5 @@ haxelib git hscript https://github.com/HaxeFoundation/hscript 04e7d656b667f375bb
 haxelib install sl-windows-api 1.1.0
 
 echo "Finished!"
+
 read -p "Press enter to continue..."
