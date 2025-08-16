@@ -26,5 +26,3 @@ haxelib git hscript https://github.com/HaxeFoundation/hscript 04e7d656b667f375bb
 haxelib install sl-windows-api 1.1.0
 
 echo "Finished!"
-
-read -p "Press enter to continue..."
