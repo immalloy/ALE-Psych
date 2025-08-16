@@ -1,7 +1,9 @@
 package core.config;
 
+#if DISCORD_ALLOWED
 import hxdiscord_rpc.Discord;
 import hxdiscord_rpc.Types;
+#end
 
 import sys.thread.Thread;
 
@@ -16,7 +18,7 @@ class DiscordRPC
 {
     public static var initialized:Bool = false;
 
-    private static var presence:DiscordRichPresence = new DiscordRichPresence();
+    private static var presence:#if DISCORD_ALLOWED DiscordRichPresence = new DiscordRichPresence() #else Dynamic = null #end;
 
     @:unreflective private static var thread:Thread;
 
@@ -104,7 +106,7 @@ class DiscordRPC
 		#end
     }
 
-    private static function onReady(request:RawConstPointer<DiscordUser>):Void
+    private static function onReady(request:#if DISCORD_ALLOWED RawConstPointer<DiscordUser> #else Dynamic #end):Void
     {
 		#if DISCORD_ALLOWED
 		final user:String = request[0].username;

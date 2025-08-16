@@ -1,11 +1,12 @@
-@echo off
+#!/bin/bash
+set -e
+
 cd ..
-@echo on
-echo Installing dependencies
 
-@if not exist ".haxelib\" mkdir .haxelib
+echo "Installing dependencies..."
 
-echo Installing dependencies...
+mkdir -p .haxelib
+
 haxelib install lime 8.2.2
 haxelib run lime setup
 haxelib install openfl 9.4.1
@@ -24,5 +25,6 @@ haxelib install hxvlc 2.2.2 --skip-dependencies
 haxelib git rulescript https://github.com/Kriptel/RuleScript bc0a01f8af468f01844545852faf8bac6e4caddc --skip-dependencies
 haxelib git hscript https://github.com/HaxeFoundation/hscript 04e7d656b667f375bbe58ee10082aee2850a3f9c
 haxelib install sl-windows-api 1.1.0
-echo Finished!
-pause
+
+echo "Finished!"
+read -p "Press enter to continue..."

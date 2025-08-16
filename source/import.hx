@@ -1,8 +1,6 @@
 #if !macro
 
-#if DISCORD_ALLOWED
 import core.config.DiscordRPC;
-#end
 
 #if LUA_ALLOWED
 import llua.*;

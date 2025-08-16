@@ -72,6 +72,8 @@
 
 	<haxelib name="sl-windows-api" if="WINDOWS_API"/>
 
+	<haxelib name="extension-androidtools" if="android"/>
+
 	<!-- ______________________________ Haxe Defines _____________________________ -->
 
 	<haxedef name="DISCORD_DISABLE_IO_THREAD" if="hxdiscord_rpc"/>
