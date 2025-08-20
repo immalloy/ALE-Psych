@@ -1,10 +1,7 @@
 package funkin.substates;
 
-import utils.WeekData;
-
 import funkin.visuals.game.Character;
 import flixel.FlxObject;
-import flixel.FlxSubState;
 
 class GameOverSubstate extends MusicBeatSubState
 {

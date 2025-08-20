@@ -1,6 +1,5 @@
 package scripting.lua;
 
-import utils.WeekData;
 import funkin.visuals.game.Character;
 
 import openfl.display.BlendMode;

@@ -191,7 +191,6 @@ class ChartingState extends MusicBeatState
 			_song = PlayState.SONG;
 		else
 		{
-			Difficulty.resetList();
 			_song = {
 				song: 'Test',
 				notes: [],
@@ -3072,6 +3071,7 @@ class ChartingState extends MusicBeatState
 		//shitty null fix, i fucking hate it when this happens
 		//make it look sexier if possible
 		try {
+			/*
 			if (Difficulty.getString() != Difficulty.getDefault()) {
 				if(Difficulty.getString() == null){
 					PlayState.SONG = Song.loadFromJson(song.toLowerCase(), song.toLowerCase());
@@ -3079,7 +3079,11 @@ class ChartingState extends MusicBeatState
 					PlayState.SONG = Song.loadFromJson(song.toLowerCase() + "-" + Difficulty.getString(), song.toLowerCase());
 				}
 			}
-			else PlayState.SONG = Song.loadFromJson(song.toLowerCase(), song.toLowerCase());
+			else */
+			
+			// ALE TODO: FIX THIS SHIT
+				
+			PlayState.SONG = Song.loadFromJson(song.toLowerCase(), song.toLowerCase());
 			CoolUtil.resetState();
 		}
 		catch(e)

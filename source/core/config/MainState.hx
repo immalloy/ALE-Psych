@@ -1,7 +1,5 @@
 package core.config;
 
-import utils.Highscore;
-
 import haxe.io.Path;
 
 import flixel.FlxState;

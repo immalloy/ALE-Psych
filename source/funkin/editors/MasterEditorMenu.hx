@@ -1,7 +1,5 @@
 package funkin.editors;
 
-import utils.WeekData;
-
 import funkin.visuals.game.Character;
 
 class MasterEditorMenu extends MusicBeatState
@@ -155,8 +153,7 @@ class MasterEditorMenu extends MusicBeatState
 			curDirectory = directories.length - 1;
 		if(curDirectory >= directories.length)
 			curDirectory = 0;
-	
-		WeekData.setDirectoryFromWeek();
+		
 		if(directories[curDirectory] == null || directories[curDirectory].length < 1)
 			directoryTxt.text = '< No Mod Directory Loaded >';
 		else

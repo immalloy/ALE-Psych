@@ -22,6 +22,5 @@ class Section
 	public function new(sectionBeats:Float = 4)
 	{
 		this.sectionBeats = sectionBeats;
-		trace('test created section: ' + sectionBeats);
 	}
 }

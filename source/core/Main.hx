@@ -1,7 +1,7 @@
 package core;
 
 #if android
-import extension.androidtools.content.Context;
+import android.content.Context;
 #end
 
 import flixel.graphics.FlxGraphic;

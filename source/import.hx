@@ -29,7 +29,6 @@ import core.config.ClientPrefs;
 
 import funkin.visuals.stages.BaseStage;
 
-import utils.Difficulty;
 import utils.CoolUtil;
 import utils.CoolVars;
 import utils.Paths;

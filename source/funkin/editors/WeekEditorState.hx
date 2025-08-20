@@ -1,7 +1,5 @@
 package funkin.editors;
 
-import utils.WeekData;
-
 import openfl.utils.Assets;
 
 import flixel.addons.ui.FlxInputText;
@@ -27,6 +25,22 @@ import funkin.visuals.objects.MenuItem;
 
 import funkin.editors.MasterEditorMenu;
 
+typedef WeekFile =
+{
+	var songs:Array<Dynamic>;
+	var weekCharacters:Array<String>;
+	var weekBackground:String;
+	var weekBefore:String;
+	var storyName:String;
+	var weekName:String;
+	var freeplayColor:Array<Int>;
+	var startUnlocked:Bool;
+	var hiddenUntilUnlocked:Bool;
+	var hideStoryMode:Bool;
+	var hideFreeplay:Bool;
+	var difficulties:String;
+}
+
 class WeekEditorState extends MusicBeatState
 {
 	var txtWeekTitle:FlxText;
@@ -41,7 +55,20 @@ class WeekEditorState extends MusicBeatState
 	public function new(weekFile:WeekFile = null)
 	{
 		super();
-		this.weekFile = WeekData.createWeekFile();
+		this.weekFile = {
+			songs: [["Bopeebo", "dad", [146, 113, 253]], ["Fresh", "dad", [146, 113, 253]], ["Dad Battle", "dad", [146, 113, 253]]],
+			weekCharacters: ['dad', 'bf', 'gf'],
+			weekBackground: 'stage',
+			weekBefore: 'tutorial',
+			storyName: 'Your New Week',
+			weekName: 'Custom Week',
+			freeplayColor: [146, 113, 253],
+			startUnlocked: true,
+			hiddenUntilUnlocked: false,
+			hideStoryMode: false,
+			hideFreeplay: false,
+			difficulties: ''
+		};
 		if(weekFile != null) this.weekFile = weekFile;
 		else weekFileName = 'week1';
 	}
@@ -570,7 +597,20 @@ class WeekEditorFreeplayState extends MusicBeatState
 	public function new(weekFile:WeekFile = null)
 	{
 		super();
-		this.weekFile = WeekData.createWeekFile();
+		this.weekFile = {
+			songs: [["Bopeebo", "dad", [146, 113, 253]], ["Fresh", "dad", [146, 113, 253]], ["Dad Battle", "dad", [146, 113, 253]]],
+			weekCharacters: ['dad', 'bf', 'gf'],
+			weekBackground: 'stage',
+			weekBefore: 'tutorial',
+			storyName: 'Your New Week',
+			weekName: 'Custom Week',
+			freeplayColor: [146, 113, 253],
+			startUnlocked: true,
+			hiddenUntilUnlocked: false,
+			hideStoryMode: false,
+			hideFreeplay: false,
+			difficulties: ''
+		};
 		if(weekFile != null) this.weekFile = weekFile;
 	}
 

@@ -2,7 +2,7 @@ package utils;
 
 import flixel.util.FlxSave;
 
-import utils.Highscore;
+import utils.Score;
 
 class ALESave
 {
@@ -72,13 +72,13 @@ class ALESave
     public function loadScore()
     {
 		if (CoolUtil.save.score.data.weekScores != null)
-			Highscore.weekScores = CoolUtil.save.score.data.weekScores;
+			Score.week = CoolUtil.save.score.data.weekScores;
 
 		if (CoolUtil.save.score.data.songScores != null)
-			Highscore.songScores = CoolUtil.save.score.data.songScores;
+			Score.song = CoolUtil.save.score.data.songScores;
 
 		if (CoolUtil.save.score.data.songRating != null)
-			Highscore.songRating = CoolUtil.save.score.data.songRating;
+			Score.rating = CoolUtil.save.score.data.songRating;
     }
 
     public function loadControls()
@@ -98,13 +98,13 @@ class ALESave
 
     public function saveScore()
     {
-		CoolUtil.save.score.data.songScores = Highscore.songScores;
+		CoolUtil.save.score.data.songScores = Score.song;
 		CoolUtil.save.score.flush();
 		
-		CoolUtil.save.score.data.weekScores = Highscore.weekScores;
+		CoolUtil.save.score.data.weekScores = Score.week;
 		CoolUtil.save.score.flush();
 
-		CoolUtil.save.score.data.songRating = Highscore.songRating;
+		CoolUtil.save.score.data.ratingScores = Score.rating;
 		CoolUtil.save.score.flush();
     }
 

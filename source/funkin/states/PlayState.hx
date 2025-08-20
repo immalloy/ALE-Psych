@@ -2,9 +2,7 @@ package funkin.states;
 
 import haxe.Exception;
 
-import utils.Highscore;
 import utils.StageData;
-import utils.WeekData;
 import utils.Song;
 import utils.Section;
 import utils.Rating;
@@ -28,16 +26,11 @@ import openfl.events.KeyboardEvent;
 import funkin.visuals.cutscenes.CutsceneHandler;
 import funkin.visuals.cutscenes.DialogueBoxPsych;
 
-import funkin.substates.PauseSubState;
 import funkin.substates.GameOverSubstate;
 
 #if !flash
 import flixel.addons.display.FlxRuntimeShader;
 import openfl.filters.ShaderFilter;
-#end
-
-#if VIDEOS_ALLOWED
-import funkin.visuals.objects.VideoSprite;
 #end
 
 import funkin.visuals.game.Note.EventNote;
@@ -71,19 +64,18 @@ class PlayState extends ScriptState
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
 	public static var ratingStuff:Array<Dynamic> = [
-		['You Suck!', 0.2], //From 0% to 19%
-		['Shit', 0.4], //From 20% to 39%
-		['Bad', 0.5], //From 40% to 49%
-		['Bruh', 0.6], //From 50% to 59%
-		['Meh', 0.69], //From 60% to 68%
-		['Nice', 0.7], //69%
-		['Good', 0.8], //From 70% to 79%
-		['Great', 0.9], //From 80% to 89%
-		['Sick!', 1], //From 90% to 99%
-		['Perfect!!', 1] //The value on this one isn't used actually, since Perfect is always "1"
+		['You Suck!', 0.2],
+		['Shit', 0.4],
+		['Bad', 0.5],
+		['Bruh', 0.6],
+		['Meh', 0.69],
+		['Nice', 0.7],
+		['Good', 0.8],
+		['Great', 0.9],
+		['Sick!', 1],
+		['Perfect!!', 1]
 	];
 
-	//event variables
 	private var isCameraOnForcedPos:Bool = false;
 
 	public var boyfriendMap:Map<String, Character> = new Map<String, Character>();
@@ -164,7 +156,6 @@ class PlayState extends ScriptState
 	public static var changedDifficulty:Bool = false;
 	public static var chartingMode:Bool = false;
 
-	//Gameplay settings
 	public var healthGain:Float = 1;
 	public var healthLoss:Float = 1;
 
@@ -193,7 +184,6 @@ class PlayState extends ScriptState
 
 	public var defaultCamZoom:Float = 1.05;
 
-	// how big to stretch the pixel art assets
 	public static var daPixelZoom:Float = 6;
 	private var singAnimations:Array<String> = ['singLEFT', 'singDOWN', 'singUP', 'singRIGHT'];
 
@@ -206,27 +196,22 @@ class PlayState extends ScriptState
 	public var girlfriendCameraOffset:Array<Float> = null;
 
 	#if DISCORD_ALLOWED
-	// Discord RPC variables
 	var storyDifficultyText:String = "";
 	var detailsText:String = "";
 	var detailsPausedText:String = "";
 	#end
 
-	//Achievement shit
 	var keysPressed:Array<Int> = [];
 	var boyfriendIdleTime:Float = 0.0;
 	var boyfriendIdled:Bool = false;
 
-	// Lua shit
 	public static var instance:PlayState;
 	
 	public var introSoundsSuffix:String = '';
 
-	// Less laggy controls
 	private var keysArray:Array<Int>;
 	public var songName:String;
 
-	// Callbacks for stages
 	public var startCallback:Void->Void = null;
 	public var endCallback:Void->Void = null;
 
@@ -239,17 +224,13 @@ class PlayState extends ScriptState
 		startCallback = startCountdown;
 		endCallback = endSong;
 
-		// for lua
 		instance = this;
-
-		PauseSubState.songName = null; //Reset to default
 
 		keysArray = [for (i in 0...4) i];
 
 		if(FlxG.sound.music != null)
 			FlxG.sound.music.stop();
 
-		// Gameplay settingsS
 		practiceMode = ClientPrefs.data.practice;
 		cpuControlled = ClientPrefs.data.botplay;
 
@@ -268,17 +249,14 @@ class PlayState extends ScriptState
 		Conductor.mapBPMChanges(SONG);
 		Conductor.bpm = SONG.bpm;
 
-
 		#if DISCORD_ALLOWED
-		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
-		storyDifficultyText = Difficulty.getString();
+		storyDifficultyText = 'REGISTER DIFFICUTY\'S NAME ON PLAYSTATE';
 
 		if (isStoryMode)
-			detailsText = "Story Mode: " + WeekData.getCurrentWeek().weekName;
+			detailsText = "Story Mode: TODO REGISTER WEEK NAME";
 		else
 			detailsText = "Freeplay";
 
-		// String for when the game is paused
 		detailsPausedText = "Paused - " + detailsText;
 		#end
 
@@ -315,7 +293,7 @@ class PlayState extends ScriptState
 			cameraSpeed = stageData.camera_speed;
 
 		boyfriendCameraOffset = stageData.camera_boyfriend;
-		if(boyfriendCameraOffset == null) //Fucks sake should have done it since the start :rolling_eyes:
+		if(boyfriendCameraOffset == null)
 			boyfriendCameraOffset = [0, 0];
 
 		opponentCameraOffset = stageData.camera_opponent;
@@ -332,15 +310,15 @@ class PlayState extends ScriptState
 
 		switch (curStage)
 		{
-			case 'stage': new funkin.visuals.stages.StageWeek1(); //Week 1
-			case 'spooky': new funkin.visuals.stages.Spooky(); //Week 2
-			case 'philly': new funkin.visuals.stages.Philly(); //Week 3
-			case 'limo': new funkin.visuals.stages.Limo(); //Week 4
-			case 'mall': new funkin.visuals.stages.Mall(); //Week 5 - Cocoa, Eggnog
-			case 'mallEvil': new funkin.visuals.stages.MallEvil(); //Week 5 - Winter Horrorland
-			case 'school': new funkin.visuals.stages.School(); //Week 6 - Senpai, Roses
-			case 'schoolEvil': new funkin.visuals.stages.SchoolEvil(); //Week 6 - Thorns
-			case 'tank': new funkin.visuals.stages.Tank(); //Week 7 - Ugh, Guns, Stress
+			case 'stage': new funkin.visuals.stages.StageWeek1(); 
+			case 'spooky': new funkin.visuals.stages.Spooky(); 
+			case 'philly': new funkin.visuals.stages.Philly(); 
+			case 'limo': new funkin.visuals.stages.Limo(); 
+			case 'mall': new funkin.visuals.stages.Mall(); 
+			case 'mallEvil': new funkin.visuals.stages.MallEvil(); 
+			case 'school': new funkin.visuals.stages.School(); 
+			case 'schoolEvil': new funkin.visuals.stages.SchoolEvil(); 
+			case 'tank': new funkin.visuals.stages.Tank(); 
 		}
 
 		if(isPixelStage) {
@@ -351,21 +329,19 @@ class PlayState extends ScriptState
 		add(dadGroup);
 		add(boyfriendGroup);
 
-		// "GLOBAL" SCRIPTS
 		#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
 		if (Paths.fileExists('scripts/songs'))
 			for (file in FileSystem.readDirectory(Paths.getPath('scripts/songs')))
 				loadScript('scripts/songs/' + file);
 		#end
 
-		// STAGE SCRIPTS
 		#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
 		loadScript('stages/' + curStage);
 		#end
 
 		if (!stageData.hide_girlfriend)
 		{
-			if(SONG.gfVersion == null || SONG.gfVersion.length < 1) SONG.gfVersion = 'gf'; //Fix for the Chart Editor
+			if(SONG.gfVersion == null || SONG.gfVersion.length < 1) SONG.gfVersion = 'gf'; 
 			gf = new Character(0, 0, SONG.gfVersion);
 			startCharacterPos(gf);
 			gf.scrollFactor.set(0.95, 0.95);
@@ -413,7 +389,7 @@ class PlayState extends ScriptState
 
 		var splash:NoteSplash = new NoteSplash(100, 100);
 		grpNoteSplashes.add(splash);
-		splash.alpha = 0.000001; //cant make it invisible or it won't allow precaching
+		splash.alpha = 0.000001; 
 
 		opponentStrums = new FlxTypedGroup<StrumNote>();
 		playerStrums = new FlxTypedGroup<StrumNote>();
@@ -492,7 +468,6 @@ class PlayState extends ScriptState
 			eventNotes.sort(sortByTime);
 		}
 
-		// SONG SPECIFIC SCRIPTS
 		#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
 		for (folder in FileSystem.readDirectory(Paths.getPath('data/$songName/')))
 			if (FileSystem.isDirectory(Paths.getPath('data/$songName/' + folder)))
@@ -506,14 +481,8 @@ class PlayState extends ScriptState
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
 
-		//PRECACHING THINGS THAT GET USED FREQUENTLY TO AVOID LAGSPIKES
 		for (i in 1...4) Paths.sound('missnote$i');
 		Paths.image('alphabet');
-
-		if (PauseSubState.songName != null)
-			Paths.music(PauseSubState.songName);
-		else if(Paths.formatToSongPath(ClientPrefs.data.pauseMusic) != 'none')
-			Paths.music(Paths.formatToSongPath(ClientPrefs.data.pauseMusic));
 
 		resetRPC();
 
@@ -529,7 +498,7 @@ class PlayState extends ScriptState
 	{
 		if(generatedMusic)
 		{
-			var ratio:Float = value / songSpeed; //funny word huh
+			var ratio:Float = value / songSpeed;
 			if(ratio != 1)
 			{
 				for (note in notes.members) note.resizeByRatio(ratio);
@@ -550,7 +519,7 @@ class PlayState extends ScriptState
 			opponentVocals.pitch = value;
 			FlxG.sound.music.pitch = value;
 
-			var ratio:Float = playbackRate / value; //funny word huh
+			var ratio:Float = playbackRate / value;
 			if(ratio != 1)
 			{
 				for (note in notes.members) note.resizeByRatio(ratio);
@@ -562,7 +531,7 @@ class PlayState extends ScriptState
 		Conductor.safeZoneOffset = (10 / 60) * 1000 * value;
 		setOnScripts('playbackRate', playbackRate);
 		#else
-		playbackRate = 1.0; // ensuring -Crow
+		playbackRate = 1.0; 
 		#end
 		return playbackRate;
 	}
@@ -606,74 +575,19 @@ class PlayState extends ScriptState
 
 	function startCharacterScripts(name:String)
 	{
-		// Lua
 		#if (HSCRIPT_ALLOWED || LUA_ALLOWED)
 		loadScript('characters/$name');
 		#end
 	}
 
 	function startCharacterPos(char:Character, ?gfCheck:Bool = false) {
-		if(gfCheck && char.curCharacter.startsWith('gf')) { //IF DAD IS GIRLFRIEND, HE GOES TO HER POSITION
+		if(gfCheck && char.curCharacter.startsWith('gf')) {
 			char.setPosition(GF_X, GF_Y);
 			char.scrollFactor.set(0.95, 0.95);
 			char.danceEveryNumBeats = 2;
 		}
 		char.x += char.positionArray[0];
 		char.y += char.positionArray[1];
-	}
-
-	public var videoCutscene:VideoSprite = null;
-	public function startVideo(name:String, forMidSong:Bool = false, canSkip:Bool = true, loop:Bool = false, playOnLoad:Bool = true)
-	{
-		#if VIDEOS_ALLOWED
-		inCutscene = !forMidSong;
-		canPause = forMidSong;
-
-		var foundFile:Bool = false;
-		var fileName:String = Paths.video(name);
-
-		#if sys
-		if (FileSystem.exists(fileName))
-		#else
-		if (OpenFlAssets.exists(fileName))
-		#end
-		foundFile = true;
-
-		if (foundFile)
-		{
-			videoCutscene = new VideoSprite(fileName, forMidSong, canSkip, loop);
-			videoCutscene.videoSprite.bitmap.rate = playbackRate;
-
-			// Finish callback
-			if (!forMidSong)
-			{
-				function onVideoEnd()
-				{
-					if (!isDead && generatedMusic && PlayState.SONG.notes[Std.int(curStep / 16)] != null && !endingSong && !isCameraOnForcedPos)
-					{
-						moveCameraSection();
-					}
-					videoCutscene = null;
-					canPause = true;
-					inCutscene = false;
-					startAndEnd();
-				}
-				videoCutscene.finishCallback = onVideoEnd;
-				videoCutscene.onSkip = onVideoEnd;
-			}
-			add(videoCutscene);
-
-			if (playOnLoad)
-				videoCutscene.play();
-			return videoCutscene;
-		}
-		#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
-		else debugTrace("Video not found: " + fileName, ERROR);
-		#else
-		startAndEnd();
-		#end
-		#end
-		return null;
 	}
 
 	function startAndEnd()
@@ -686,10 +600,9 @@ class PlayState extends ScriptState
 
 	var dialogueCount:Int = 0;
 	public var psychDialogue:DialogueBoxPsych;
-	//You don't have to add a song, just saying. You can just do "startDialogue(DialogueBoxPsych.parseDialogue(Paths.json(songName + '/dialogue')))" and it should load dialogue.json
+	
 	public function startDialogue(dialogueFile:DialogueFile, ?song:String = null):Void
 	{
-		// TO DO: Make this more flexible, maybe?
 		if(psychDialogue != null) return;
 
 		if(dialogueFile.dialogue.length > 0) {
@@ -719,7 +632,6 @@ class PlayState extends ScriptState
 	var startTimer:FlxTimer;
 	var finishTimer:FlxTimer = null;
 
-	// For being able to mess with the sprites on Lua
 	public var countdownReady:FlxSprite;
 	public var countdownSet:FlxSprite;
 	public var countdownGo:FlxSprite;
@@ -910,10 +822,6 @@ class PlayState extends ScriptState
 		}
 	}
 
-	// fun fact: Dynamic Functions can be overriden by just doing this
-	// `updateScore = function(miss:Bool = false) { ... }
-	// its like if it was a variable but its just a function!
-	// cool right? -Crow
 	public dynamic function updateScore(miss:Bool = false)
 	{
 		var ret:Array<Dynamic> = callOnScripts('preUpdateScore', [miss]);
@@ -930,8 +838,7 @@ class PlayState extends ScriptState
 		var tempScore:String = 'Score: ${songScore}'
 		+ ' | Misses: ${songMisses}'
 		+ ' | Rating: ${str}';
-		// "tempScore" variable is used to prevent another memory leak, just in case
-		// "\n" here prevents the text from being cut off by beat zooms
+		
 		scoreTxt.text = '${tempScore}\n';
 
 		callOnScripts('onUpdateScore', [miss]);
@@ -1007,17 +914,14 @@ class PlayState extends ScriptState
 		startOnTime = 0;
 
 		if(paused) {
-			//trace('Oopsie doopsie! Paused sound');
 			FlxG.sound.music.pause();
 			vocals.pause();
 			opponentVocals.pause();
 		}
 
-		// Song duration in a float, useful for the time left feature
 		songLength = FlxG.sound.music.length;
 
 		#if DISCORD_ALLOWED
-		// Updating Discord Rich Presence (with Time Left)
 		if(autoUpdateRPC) DiscordRPC.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength);
 		#end
 		setOnScripts('songLength', songLength);
@@ -1070,7 +974,6 @@ class PlayState extends ScriptState
 
 		var noteData:Array<SwagSection>;
 
-		// NEW SHIT
 		noteData = songData.notes;
 
 		var file:String = Paths.getPath('data/' + songName + '/events.json', false);
@@ -1081,7 +984,7 @@ class PlayState extends ScriptState
 		#end
 		{
 			var eventsData:Array<Dynamic> = Song.loadFromJson('events', songName).events;
-			for (event in eventsData) //Event Notes
+			for (event in eventsData) 
 				for (i in 0...event[1].length)
 					makeEvent(event, i);
 		}
@@ -1110,7 +1013,7 @@ class PlayState extends ScriptState
 				swagNote.sustainLength = songNotes[2];
 				swagNote.gfNote = (section.gfSection && (songNotes[1]<4));
 				swagNote.noteType = songNotes[3];
-				if(!Std.isOfType(songNotes[3], String)) swagNote.noteType = ChartingState.noteTypeList[songNotes[3]]; //Backward compatibility + compatibility with Week 7 charts
+				if(!Std.isOfType(songNotes[3], String)) swagNote.noteType = ChartingState.noteTypeList[songNotes[3]];
 
 				swagNote.scrollFactor.set();
 
@@ -1158,7 +1061,7 @@ class PlayState extends ScriptState
 
 				if (swagNote.mustPress)
 				{
-					swagNote.x += FlxG.width / 2; // general offset
+					swagNote.x += FlxG.width / 2;
 				}
 
 				if(!noteTypes.contains(swagNote.noteType)) {
@@ -1166,7 +1069,7 @@ class PlayState extends ScriptState
 				}
 			}
 		}
-		for (event in songData.events) //Event Notes
+		for (event in songData.events) 
 			for (i in 0...event[1].length)
 				makeEvent(event, i);
 
@@ -1174,7 +1077,6 @@ class PlayState extends ScriptState
 		generatedMusic = true;
 	}
 
-	// called only once per different event (Used for precaching)
 	function eventPushed(event:EventNote) {
 		eventPushedUnique(event);
 		if(eventsPushed.contains(event.event)) {
@@ -1185,7 +1087,6 @@ class PlayState extends ScriptState
 		eventsPushed.push(event.event);
 	}
 
-	// called by every event with the same name
 	function eventPushedUnique(event:EventNote) {
 		switch(event.event) {
 			case "Change Character":
@@ -1205,7 +1106,7 @@ class PlayState extends ScriptState
 				addCharacterToList(newCharacter, charType);
 
 			case 'Play Sound':
-				Paths.sound(event.value1); //Precache sound
+				Paths.sound(event.value1); 
 		}
 		stagesFunc(function(stage:BaseStage) stage.eventPushedUnique(event));
 	}
@@ -1217,8 +1118,8 @@ class PlayState extends ScriptState
 		}
 
 		switch(event.event) {
-			case 'Kill Henchmen': //Better timing so that the kill sound matches the beat intended
-				return 280; //Plays 280ms before the actual position
+			case 'Kill Henchmen':
+				return 280; 
 		}
 		return 0;
 	}
@@ -1239,7 +1140,7 @@ class PlayState extends ScriptState
 		callOnScripts('onEventPushed', [subEvent.event, subEvent.value1 != null ? subEvent.value1 : '', subEvent.value2 != null ? subEvent.value2 : '', subEvent.strumTime]);
 	}
 
-	public var skipArrowStartTween:Bool = false; //for lua
+	public var skipArrowStartTween:Bool = false; 
 	private function generateStaticArrows(player:Int):Void
 	{
 		var strumLineX:Float = STRUM_X;
@@ -1252,9 +1153,8 @@ class PlayState extends ScriptState
 			babyArrow.downScroll = ClientPrefs.data.downScroll;
 			if (!isStoryMode && !skipArrowStartTween)
 			{
-				//babyArrow.y -= 10;
 				babyArrow.alpha = 0;
-				FlxTween.tween(babyArrow, {/*y: babyArrow.y + 10,*/ alpha: targetAlpha}, 1, {ease: FlxEase.circOut, startDelay: 0.5 + (0.2 * i)});
+				FlxTween.tween(babyArrow, {alpha: targetAlpha}, 1, {ease: FlxEase.circOut, startDelay: 0.5 + (0.2 * i)});
 			}
 			else
 				babyArrow.alpha = targetAlpha;
@@ -1344,8 +1244,7 @@ class PlayState extends ScriptState
         callOnScripts('postOnFocusLost');
 	}
 
-	// Updating Discord Rich Presence.
-	public var autoUpdateRPC:Bool = true; //performance setting for custom RPC things
+	public var autoUpdateRPC:Bool = true;
 	function resetRPC(?showTime:Bool = false)
 	{
 		#if DISCORD_ALLOWED
@@ -1396,7 +1295,7 @@ class PlayState extends ScriptState
 			FlxG.camera.followLerp = 2.4 * cameraSpeed * playbackRate;
 			if(!startingSong && !endingSong && boyfriend.getAnimationName().startsWith('idle')) {
 				boyfriendIdleTime += elapsed;
-				if(boyfriendIdleTime >= 0.15) { // Kind of a mercy thing for making the achievement easier to get as it's apparently frustrating to some playerss
+				if(boyfriendIdleTime >= 0.15) {
 					boyfriendIdled = true;
 				}
 			} else {
@@ -1464,7 +1363,6 @@ class PlayState extends ScriptState
 		FlxG.watch.addQuick("beatShit", curBeat);
 		FlxG.watch.addQuick("stepShit", curStep);
 
-		// RESET = Quick Game Over Screen
 		if (!ClientPrefs.data.noReset && Controls.RESET && canReset && !inCutscene && startedCountdown && !endingSong)
 		{
 			health = 0;
@@ -1524,7 +1422,6 @@ class PlayState extends ScriptState
 
 							if(daNote.isSustainNote && strum.sustainReduce) daNote.clipToStrumNote(strum);
 
-							// Kill extremely late notes and cause misses
 							if (Conductor.songPosition - daNote.strumTime > noteKillOffset)
 							{
 								if (daNote.mustPress && !cpuControlled && !daNote.ignoreNote && !endingSong && (daNote.tooLate || !daNote.wasGoodHit))
@@ -1554,7 +1451,7 @@ class PlayState extends ScriptState
 				KillNotes();
 				FlxG.sound.music.onComplete();
 			}
-			if(FlxG.keys.justPressed.TWO) { //Go 10 seconds into the future :O
+			if(FlxG.keys.justPressed.TWO) { 
 				setSongTime(Conductor.songPosition + 10000);
 				clearNotesBefore(Conductor.songPosition);
 			}
@@ -1567,7 +1464,6 @@ class PlayState extends ScriptState
 		callOnScripts('postUpdate', [elapsed]);
 	}
 
-	// Health icon updaters
 	public dynamic function updateIconsScale(elapsed:Float)
 	{
 		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, Math.exp(-elapsed * 9 * playbackRate));
@@ -1587,7 +1483,7 @@ class PlayState extends ScriptState
 	}
 
 	var iconsAnimations:Bool = true;
-	function set_health(value:Float):Float // You can alter how icon animations work here
+	function set_health(value:Float):Float
 	{
 		if(!iconsAnimations || healthBar == null || !healthBar.enabled || healthBar.valueFunction == null)
 		{
@@ -1595,13 +1491,13 @@ class PlayState extends ScriptState
 			return health;
 		}
 
-		// update health bar
 		health = value;
 		var newPercent:Null<Float> = FlxMath.remapToRange(FlxMath.bound(healthBar.valueFunction(), healthBar.bounds.min, healthBar.bounds.max), healthBar.bounds.min, healthBar.bounds.max, 0, 100);
 		healthBar.percent = (newPercent != null ? newPercent : 0);
 
-		iconP1.animation.curAnim.curFrame = (healthBar.percent < 20) ? 1 : 0; //If health is under 20%, change player icon to frame 1 (losing icon), otherwise, frame 0 (normal)
-		iconP2.animation.curAnim.curFrame = (healthBar.percent > 80) ? 1 : 0; //If health is over 80%, change opponent icon to frame 1 (losing icon), otherwise, frame 0 (normal)
+		iconP1.animation.curAnim.curFrame = (healthBar.percent < 20) ? 1 : 0; 
+		iconP2.animation.curAnim.curFrame = (healthBar.percent > 80) ? 1 : 0;
+
 		return health;
 	}
 
@@ -1626,7 +1522,7 @@ class PlayState extends ScriptState
 					note.resetAnim = 0;
 				}
 		}
-		openSubState(new PauseSubState());
+		openSubState(new CustomSubState(CoolVars.data.pauseSubState));
 
 		#if DISCORD_ALLOWED
 		if(autoUpdateRPC) DiscordRPC.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
@@ -1659,7 +1555,7 @@ class PlayState extends ScriptState
 		CoolUtil.switchState(new CharacterEditorState(SONG.player2));
 	}
 
-	public var isDead:Bool = false; //Don't mess with this on Lua!!!
+	public var isDead:Bool = false;
 	function doDeathCheck(?skipHealthCheck:Bool = false) {
 		if ((health <= 0) && !practiceMode && !isDead)
 		{
@@ -1682,10 +1578,7 @@ class PlayState extends ScriptState
 
 				openSubState(new GameOverSubstate());
 
-				// CoolUtil.switchState(new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
-
 				#if DISCORD_ALLOWED
-				// Game Over doesn't get his its variable because it's only used here
 				if(autoUpdateRPC) DiscordRPC.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 				#end
 				isDead = true;
@@ -1734,7 +1627,7 @@ class PlayState extends ScriptState
 				if(flValue2 == null || flValue2 <= 0) flValue2 = 0.6;
 
 				if(value != 0) {
-					if(dad.curCharacter.startsWith('gf')) { //Tutorial GF is actually Dad! The GF is an imposter!! ding ding ding ding ding ding ding, dindinding, end my suffering
+					if(dad.curCharacter.startsWith('gf')) {
 						dad.playAnim('cheer', true);
 						dad.specialAnim = true;
 						dad.heyTimer = flValue2;
@@ -1764,7 +1657,6 @@ class PlayState extends ScriptState
 				}
 
 			case 'Play Animation':
-				//trace('Anim to play: ' + value1);
 				var char:Character = dad;
 				switch(value2.toLowerCase().trim()) {
 					case 'bf' | 'boyfriend':
@@ -2014,7 +1906,6 @@ class PlayState extends ScriptState
 	public var transitioning = false;
 	public function endSong()
 	{
-		//Should kill you if you tried to cheat
 		if(!startingSong) {
 			notes.forEach(function(daNote:Note) {
 				if(daNote.strumTime < songLength - Conductor.safeZoneOffset) {
@@ -2047,7 +1938,7 @@ class PlayState extends ScriptState
 			#if !switch
 			var percent:Float = ratingPercent;
 			if(Math.isNaN(percent)) percent = 0;
-			Highscore.saveScore(SONG.song, songScore, storyDifficulty, percent);
+			// REGISTER SONG SCORE
 			#end
 			playbackRate = 1;
 
@@ -2070,23 +1961,17 @@ class PlayState extends ScriptState
 					
 					CoolUtil.switchState(new CustomState(CoolVars.data.storyMenuState));
 
-					if(!ClientPrefs.data.practice && !ClientPrefs.data.botplay)
+					if (!ClientPrefs.data.practice && !ClientPrefs.data.botplay)
 					{
-						CoolVars.weekCompleted.set(WeekData.weeksList[storyWeek], true);
-
-						Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
-
-						CoolUtil.save.saveScore();
+						// TODO: REGISTER WEEKS SCORE && COMPLETED WEEK
 					}
 
 					changedDifficulty = false;
 				}
 				else
 				{
+					/*
 					var difficulty:String = Difficulty.getFilePath();
-
-					trace('LOADING NEXT SONG');
-					trace(Paths.formatToSongPath(PlayState.storyPlaylist[0]) + difficulty);
 
 					CoolVars.skipTransIn = true;
 					CoolVars.skipTransOut = true;
@@ -2096,6 +1981,9 @@ class PlayState extends ScriptState
 					FlxG.sound.music.stop();
 
 					LoadingState.loadAndSwitchState(new PlayState());
+					*/
+
+					// TODO: REWRITE WEEKS SYSTEM
 				}
 			}
 			else
@@ -2127,11 +2015,8 @@ class PlayState extends ScriptState
 	public var showComboNum:Bool = true;
 	public var showRating:Bool = true;
 
-	// Stores Ratings and Combo Sprites in a group
 	public var comboGroup:FlxSpriteGroup;
-	// Stores HUD Objects in a Group
 	public var uiGroup:FlxSpriteGroup;
-	// Stores Note Objects in a Group
 	public var noteGroup:FlxTypedGroup<FlxBasic>;
 
 	private function cachePopUpScore()
@@ -2166,7 +2051,6 @@ class PlayState extends ScriptState
 		var rating:FlxSprite = new FlxSprite();
 		var score:Int = 350;
 
-		//tryna do MS based judgment due to popular demand
 		var daRating:Rating = Conductor.judgeNote(ratingsData, noteDiff / playbackRate);
 
 		totalNotesHit += daRating.ratingMod;
@@ -2268,7 +2152,6 @@ class PlayState extends ScriptState
 			numScore.velocity.x = FlxG.random.float(-5, 5) * playbackRate;
 			numScore.antialiasing = antialias;
 
-			//if (combo >= 10 || combo == 0)
 			if(showComboNum)
 				comboGroup.add(numScore);
 
@@ -2306,7 +2189,6 @@ class PlayState extends ScriptState
 		var key:Int = getKeyFromEvent(keysArray, eventKey);
 
 		#if debug
-		//Prevents crash specifically on debug without needing to try catch shit
 		@:privateAccess if (!FlxG.keys._keyListMap.exists(eventKey)) return;
 		#end
 
@@ -2322,11 +2204,9 @@ class PlayState extends ScriptState
 		if(ret.contains(LuaUtils.Function_Stop))
 			return;
 
-		// more accurate hit time for the ratings?
 		var lastTime:Float = Conductor.songPosition;
 		if(Conductor.songPosition >= 0) Conductor.songPosition = FlxG.sound.music.time;
 
-		// obtain notes that the player can hit
 		var plrInputNotes:Array<Note> = notes.members.filter(function(n:Note):Bool {
 			var canHit:Bool = !strumsBlocked[n.noteData] && n.canBeHit && n.mustPress && !n.tooLate && !n.wasGoodHit && !n.blockHit;
 			return n != null && canHit && !n.isSustainNote && n.noteData == key;
@@ -2335,19 +2215,17 @@ class PlayState extends ScriptState
 
 		var shouldMiss:Bool = !ClientPrefs.data.ghostTapping;
 
-		if (plrInputNotes.length != 0) { // slightly faster than doing `> 0` lol
-			var funnyNote:Note = plrInputNotes[0]; // front note
+		if (plrInputNotes.length != 0) { 
+			var funnyNote:Note = plrInputNotes[0]; 
 
 			if (plrInputNotes.length > 1) {
 				var doubleNote:Note = plrInputNotes[1];
 
 				if (doubleNote.noteData == funnyNote.noteData) {
-					// if the note has a 0ms distance (is on top of the current note), kill it
 					if (Math.abs(doubleNote.strumTime - funnyNote.strumTime) < 1.0)
 						invalidateNote(doubleNote);
 					else if (doubleNote.strumTime < funnyNote.strumTime)
 					{
-						// replace the note if its ahead of time (or at least ensure "doubleNote" is ahead)
 						funnyNote = doubleNote;
 					}
 				}
@@ -2360,11 +2238,8 @@ class PlayState extends ScriptState
 			noteMissPress(key);
 		}
 
-		// Needed for the  "Just the Two of Us" achievement.
-		//									- Shadow Mario
 		if(!keysPressed.contains(key)) keysPressed.push(key);
 
-		//more accurate hit time for the ratings? part 2 (Now that the calculations are done, go back to the time it was before for not causing a note stutter)
 		Conductor.songPosition = lastTime;
 
 		var spr:StrumNote = playerStrums.members[key];
@@ -2424,10 +2299,8 @@ class PlayState extends ScriptState
 		return -1;
 	}
 
-	// Hold notes
 	private function keysCheck():Void
 	{
-		// HOLDING
 		var holdArray:Array<Bool> = [];
 		var pressArray:Array<Bool> = [];
 		var releaseArray:Array<Bool> = [];
@@ -2440,7 +2313,7 @@ class PlayState extends ScriptState
 		if (startedCountdown && !inCutscene && !boyfriend.stunned && generatedMusic)
 		{
 			if (notes.length > 0) {
-				for (n in notes) { // I can't do a filter here, that's kinda awesome
+				for (n in notes) {
 					var canHit:Bool = (n != null && !strumsBlocked[n.noteData] && n.canBeHit
 						&& n.mustPress && !n.tooLate && !n.wasGoodHit && !n.blockHit);
 
@@ -2460,15 +2333,13 @@ class PlayState extends ScriptState
 				playerDance();
 		}
 
-		// TO DO: Find a better way to handle controller inputs, this should work for now
 		if((strumsBlocked.contains(true)) && releaseArray.contains(true))
 			for (i in 0...releaseArray.length)
 				if(releaseArray[i] || strumsBlocked[i] == true)
 					keyReleased(i);
 	}
 
-	function noteMiss(daNote:Note):Void { //You didn't hit the key and let it go offscreen, also used by Hurt Notes
-		//Dupe note remove
+	function noteMiss(daNote:Note):Void {
 		notes.forEachAlive(function(note:Note) {
 			if (daNote != note && daNote.mustPress && daNote.noteData == note.noteData && daNote.isSustainNote == note.isSustainNote && Math.abs(daNote.strumTime - note.strumTime) < 1)
 				invalidateNote(note);
@@ -2479,9 +2350,9 @@ class PlayState extends ScriptState
 		if(result != LuaUtils.Function_Stop && result != LuaUtils.Function_StopHScript && result != LuaUtils.Function_StopAll) callOnHScripts('noteMiss', [daNote]);
 	}
 
-	function noteMissPress(direction:Int = 1):Void //You pressed a key when there was no notes to press for this key
+	function noteMissPress(direction:Int = 1):Void
 	{
-		if(ClientPrefs.data.ghostTapping) return; //fuck it
+		if(ClientPrefs.data.ghostTapping) return;
 
 		noteMissCommon(direction);
 		FlxG.sound.play(Paths.sound('missnote' + FlxG.random.int(1, 3)), FlxG.random.float(0.1, 0.2));
@@ -2490,11 +2361,9 @@ class PlayState extends ScriptState
 
 	function noteMissCommon(direction:Int, note:Note = null)
 	{
-		// score and data
 		var subtract:Float = 0.05;
 		if(note != null) subtract = note.missHealth;
 
-		// GUITAR HERO SUSTAIN CHECK LOL!!!!
 		if (note != null && guitarHeroSustains && note.parent == null) {
 			if(note.tail.length > 0) {
 				note.alpha = 0.35;
@@ -2508,10 +2377,7 @@ class PlayState extends ScriptState
 				note.missed = true;
 				note.canBeHit = false;
 
-				//subtract += 0.385; // you take more damage if playing with this gameplay changer enabled.
-				// i mean its fair :p -Crow
 				subtract *= note.tail.length + 1;
-				// i think it would be fair if damage multiplied based on how long the sustain is -Tahir
 			}
 
 			if (note.missed)
@@ -2541,7 +2407,6 @@ class PlayState extends ScriptState
 		totalPlayed++;
 		RecalculateRating(true);
 
-		// play character anims
 		var char:Character = boyfriend;
 		if((note != null && note.gfNote) || (SONG.notes[curSection] != null && SONG.notes[curSection].gfSection)) char = gf;
 
@@ -2607,7 +2472,7 @@ class PlayState extends ScriptState
 		if(note.wasGoodHit) return;
 		if(cpuControlled && note.ignoreNote) return;
 
-		var isSus:Bool = note.isSustainNote; //GET OUT OF MY HEAD, GET OUT OF MY HEAD, GET OUT OF MY HEAD
+		var isSus:Bool = note.isSustainNote;
 		var leData:Int = Math.round(Math.abs(note.noteData));
 		var leType:String = note.noteType;
 
@@ -2619,7 +2484,7 @@ class PlayState extends ScriptState
 		if(note.hitCausesMiss) {
 			if(!note.noMissAnimation) {
 				switch(note.noteType) {
-					case 'Hurt Note': //Hurt note
+					case 'Hurt Note':
 						if(boyfriend.animOffsets.exists('hurt')) {
 							boyfriend.playAnim('hurt', true);
 							boyfriend.specialAnim = true;
@@ -2673,7 +2538,7 @@ class PlayState extends ScriptState
 			if(combo > 9999) combo = 9999;
 			popUpScore(note);
 		}
-		var gainHealth:Bool = true; // prevent health gain, *if* sustains are treated as a singular note
+		var gainHealth:Bool = true;
 		if (guitarHeroSustains && note.isSustainNote) gainHealth = false;
 		if (gainHealth) health += note.hitHealth * healthGain;
 
@@ -2755,7 +2620,6 @@ class PlayState extends ScriptState
 	override function beatHit()
 	{
 		if(lastBeatHit >= curBeat) {
-			//trace('BEAT HIT: ' + curBeat + ', LAST HIT: ' + lastBeatHit);
 			return;
 		}
 
@@ -2854,14 +2718,11 @@ class PlayState extends ScriptState
 		if(!ret.contains(LuaUtils.Function_Stop))
 		{
 			ratingName = '?';
-			if(totalPlayed != 0) //Prevent divide by 0
+			if(totalPlayed != 0)
 			{
-				// Rating Percent
 				ratingPercent = Math.min(1, Math.max(0, totalNotesHit / totalPlayed));
-				//trace((totalNotesHit / totalPlayed) + ', Total: ' + totalPlayed + ', notes hit: ' + totalNotesHit);
 
-				// Rating Name
-				ratingName = ratingStuff[ratingStuff.length-1][0]; //Uses last string
+				ratingName = ratingStuff[ratingStuff.length-1][0];
 				if(ratingPercent < 1)
 					for (i in 0...ratingStuff.length-1)
 						if(ratingPercent < ratingStuff[i][1])
@@ -2873,7 +2734,7 @@ class PlayState extends ScriptState
 			fullComboFunction();
 		}
 
-		updateScore(badHit); // score will only update after rating is calculated, if it's a badHit, it shouldn't bounce
+		updateScore(badHit);
 		setOnScripts('rating', ratingPercent);
 		setOnScripts('ratingName', ratingName);
 		setOnScripts('ratingFC', ratingFC);

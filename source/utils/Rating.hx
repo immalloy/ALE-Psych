@@ -4,7 +4,7 @@ import core.config.ClientPrefs;
 
 class Rating
 {
-	static var ratingWindows:Dynamic = {
+	static final ratingWindows:Dynamic = {
 		sickWindow: 45,
 		goodWindow: 90,
 		badWindow: 135
@@ -25,6 +25,7 @@ class Rating
 		this.hitWindow = 0;
 
 		var window:String = name + 'Window';
+
 		try
 		{
 			this.hitWindow = Reflect.field(Rating.ratingWindows, window);
@@ -33,7 +34,7 @@ class Rating
 
 	public static function loadDefault():Array<Rating>
 	{
-		var ratingsData:Array<Rating> = [new Rating('sick')]; //highest rating goes first
+		var ratingsData:Array<Rating> = [new Rating('sick')];
 
 		var rating:Rating = new Rating('good');
 		rating.ratingMod = 0.67;
