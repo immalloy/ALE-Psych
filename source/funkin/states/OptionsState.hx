@@ -440,13 +440,6 @@ class OptionsState extends MusicBeatState
                         variable: 'discordRPC',
                         type: BOOL,
                         initialValue: true
-                    },
-                    {
-                        name: 'Open Console at Start Up',
-                        description: 'Automatically opens the Console at Game Startup.',
-                        variable: 'openConsoleOnStart',
-                        type: BOOL,
-                        initialValue: false
                     }
                 ]
             },

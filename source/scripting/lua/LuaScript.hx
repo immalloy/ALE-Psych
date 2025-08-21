@@ -29,6 +29,8 @@ class LuaScript
         this.type = type;
 
         config();
+
+        new LuaPreset(this);
     }
 
     function config()

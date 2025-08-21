@@ -262,6 +262,8 @@ class Main extends Sprite
         return key != null ? key : e.keyCode;
         #end
     }
+
+	@:unreflective static var visibleConsole:Bool = false;
     
     function onKeyPressed(event:KeyboardEvent)
     {
@@ -280,6 +282,16 @@ class Main extends Sprite
         if (key == FlxKey.F3)
 			if (MainState.debugCounter != null)
 				MainState.debugCounter.switchMode();
+
+		#if WINDOWS_API
+		if (key == FlxKey.F2)
+		{
+			if (!visibleConsole)
+				cpp.WindowsAPI.showConsole();
+			
+			visibleConsole = true;
+		}
+		#end
 
 		keysPressed.push(key);
     }

@@ -8,4 +8,6 @@ import funkin.visuals.objects.TypedAlphabet;
 import funkin.states.CustomState;
 import funkin.substates.CustomSubState;
 
+import funkin.states.OptionsState;
+
 class FunkinImports {}

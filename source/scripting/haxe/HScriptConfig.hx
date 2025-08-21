@@ -185,6 +185,7 @@ class HScriptConfig
             funkin.states.LoadingState,
 			funkin.states.CustomState,
 			funkin.substates.CustomSubState,
+            Controls,
 
 			Paths,
 
