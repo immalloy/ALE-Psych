@@ -19,8 +19,16 @@ class FlixelField extends DebugField
                 totalBitmaps++;
         }
 
-        theText = 'State: ' + Type.getClassName(Type.getClass(FlxG.state));
-        theText += '\nSub-State: ' + Type.getClassName(Type.getClass(FlxG.state.subState));
+        if (FlxG.state is CustomState)
+            theText = 'Custom State: ' + cast(FlxG.state, CustomState).scriptName;
+        else
+            theText = 'State: ' + Type.getClassName(Type.getClass(FlxG.state));
+
+        if (FlxG.state.subState is CustomSubState)
+            theText += '\nCustom Sub-State: ' + cast(FlxG.state.subState, CustomSubState).scriptName;
+        else
+            theText += '\nSub-State: ' + Type.getClassName(Type.getClass(FlxG.state.subState));
+
         theText += '\nObject Count: ' + FlxG.state.members.length;
         theText += '\nCamera Count: ' + FlxG.cameras.list.length;
         theText += '\nBitmaps Count: ' + totalBitmaps;

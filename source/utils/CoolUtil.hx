@@ -22,12 +22,8 @@ class CoolUtil
 {
 	public static var save:ALESave;
 
-	inline public static function quantize(f:Float, snap:Float){
-		// changed so this actually works lol
-		var m:Float = Math.fround(f * snap);
-		//trace(snap);
-		return (m / snap);
-	}
+	inline public static function quantize(f:Float, snap:Float)
+		return Math.fround(f * snap) / snap;
 
 	inline public static function capitalize(text:String)
 		return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
@@ -177,7 +173,7 @@ class CoolUtil
 
 	public static function resetState()
 	{
-		CoolVars.skipTransIn = CoolVars.skipTransOut = true;
+		CoolVars.skipTransOut = true;
 		
 		FlxG.resetState();
 	}
@@ -250,10 +246,10 @@ class CoolUtil
 		FlxG.state.openSubState(subState);
 	}
 
-	public static function fpsLerp(v1:Float, v2:Float, ratio:Float):Float
+	inline public static function fpsLerp(v1:Float, v2:Float, ratio:Float):Float
 		return FlxMath.lerp(v1, v2, fpsRatio(ratio));
 
-	public static function fpsRatio(ratio:Float)
+	inline public static function fpsRatio(ratio:Float)
 		return FlxMath.bound(ratio * FlxG.elapsed * 60, 0, 1);
 
 	public static function snapNumber(og:Float, mod:Int):Float

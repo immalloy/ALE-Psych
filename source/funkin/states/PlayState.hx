@@ -240,9 +240,6 @@ class PlayState extends ScriptState
 		FlxG.cameras.add(camOther, false);
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
 
-		persistentUpdate = true;
-		persistentDraw = true;
-
 		if (SONG == null)
 			SONG = Song.loadFromJson('tutorial');
 
@@ -1174,6 +1171,7 @@ class PlayState extends ScriptState
 	override function openSubState(SubState:FlxSubState)
 	{
 		stagesFunc(function(stage:BaseStage) stage.openSubState(SubState));
+
 		if (paused)
 		{
 			if (FlxG.sound.music != null)
@@ -1182,6 +1180,7 @@ class PlayState extends ScriptState
 				vocals.pause();
 				opponentVocals.pause();
 			}
+			
 			FlxTimer.globalManager.forEach(function(tmr:FlxTimer) if(!tmr.finished) tmr.active = false);
 			FlxTween.globalManager.forEach(function(twn:FlxTween) if(!twn.finished) twn.active = false);
 		}
@@ -1202,17 +1201,21 @@ class PlayState extends ScriptState
         callOnScripts('onCloseSubState');
 		
 		stagesFunc(function(stage:BaseStage) stage.closeSubState());
+
 		if (paused)
 		{
 			if (FlxG.sound.music != null && !startingSong)
 			{
 				resyncVocals();
 			}
+
 			FlxTimer.globalManager.forEach(function(tmr:FlxTimer) if(!tmr.finished) tmr.active = true);
 			FlxTween.globalManager.forEach(function(twn:FlxTween) if(!twn.finished) twn.active = true);
 
 			paused = false;
+
 			callOnScripts('onResume');
+
 			resetRPC(startTimer != null && startTimer.finished);
 		}
 
@@ -1355,8 +1358,8 @@ class PlayState extends ScriptState
 
 		if (camZooming)
 		{
-			FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom, FlxG.camera.zoom, Math.exp(-elapsed * 3.125 * camZoomingDecay * playbackRate));
-			camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, Math.exp(-elapsed * 3.125 * camZoomingDecay * playbackRate));
+			FlxG.camera.zoom = CoolUtil.fpsLerp(FlxG.camera.zoom, defaultCamZoom, 0.05);
+			camHUD.zoom = CoolUtil.fpsLerp(camHUD.zoom, 1, 0.05);
 		}
 
 		FlxG.watch.addQuick("secShit", curSection);
@@ -1466,11 +1469,11 @@ class PlayState extends ScriptState
 
 	public dynamic function updateIconsScale(elapsed:Float)
 	{
-		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, Math.exp(-elapsed * 9 * playbackRate));
+		var mult:Float = CoolUtil.fpsLerp(iconP1.scale.x, 1, 0.33);
 		iconP1.scale.set(mult, mult);
 		iconP1.updateHitbox();
 
-		var mult:Float = FlxMath.lerp(1, iconP2.scale.x, Math.exp(-elapsed * 9 * playbackRate));
+		var mult:Float = CoolUtil.fpsLerp(iconP2.scale.x, 1, 0.33);
 		iconP2.scale.set(mult, mult);
 		iconP2.updateHitbox();
 	}
@@ -1504,8 +1507,7 @@ class PlayState extends ScriptState
 	function openPauseMenu()
 	{
 		FlxG.camera.followLerp = 0;
-		persistentUpdate = false;
-		persistentDraw = true;
+		
 		paused = true;
 
 		if(FlxG.sound.music != null) {
@@ -1522,7 +1524,8 @@ class PlayState extends ScriptState
 					note.resetAnim = 0;
 				}
 		}
-		openSubState(new CustomSubState(CoolVars.data.pauseSubState));
+
+		CoolUtil.openSubState(new CustomSubState(CoolVars.data.pauseSubState));
 
 		#if DISCORD_ALLOWED
 		if(autoUpdateRPC) DiscordRPC.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
@@ -1532,7 +1535,7 @@ class PlayState extends ScriptState
 	function openChartEditor()
 	{
 		FlxG.camera.followLerp = 0;
-		persistentUpdate = false;
+
 		paused = true;
 		if(FlxG.sound.music != null)
 			FlxG.sound.music.stop();
@@ -1548,7 +1551,7 @@ class PlayState extends ScriptState
 	function openCharacterEditor()
 	{
 		FlxG.camera.followLerp = 0;
-		persistentUpdate = false;
+		
 		paused = true;
 		if(FlxG.sound.music != null)
 			FlxG.sound.music.stop();
@@ -1570,13 +1573,11 @@ class PlayState extends ScriptState
 				vocals.stop();
 				opponentVocals.stop();
 				FlxG.sound.music.stop();
-
-				persistentUpdate = false;
-				persistentDraw = false;
+				
 				FlxTimer.globalManager.clear();
 				FlxTween.globalManager.clear();
 
-				openSubState(new GameOverSubstate());
+				CoolUtil.openSubState(new GameOverSubstate());
 
 				#if DISCORD_ALLOWED
 				if(autoUpdateRPC) DiscordRPC.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
