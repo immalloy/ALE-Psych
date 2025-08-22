@@ -1,5 +1,7 @@
 package utils;
 
+import haxe.ds.StringMap;
+
 import flixel.util.FlxSave;
 
 import utils.Score;
@@ -71,14 +73,13 @@ class ALESave
 
     public function loadScore()
     {
-		if (CoolUtil.save.score.data.weekScores != null)
-			Score.week = CoolUtil.save.score.data.weekScores;
+        Score.song = CoolUtil.save.score.data.song ?? new StringMap<Float>();
 
-		if (CoolUtil.save.score.data.songScores != null)
-			Score.song = CoolUtil.save.score.data.songScores;
+        Score.week = CoolUtil.save.score.data.week ?? new StringMap<Float>();
 
-		if (CoolUtil.save.score.data.songRating != null)
-			Score.rating = CoolUtil.save.score.data.songRating;
+        Score.rating = CoolUtil.save.score.data.rating ?? new StringMap<Float>();
+
+        Score.completed = CoolUtil.save.score.data.completed ?? new StringMap<Bool>();
     }
 
     public function loadControls()
@@ -98,13 +99,14 @@ class ALESave
 
     public function saveScore()
     {
-		CoolUtil.save.score.data.songScores = Score.song;
-		CoolUtil.save.score.flush();
+		CoolUtil.save.score.data.song = Score.song;
 		
-		CoolUtil.save.score.data.weekScores = Score.week;
-		CoolUtil.save.score.flush();
+		CoolUtil.save.score.data.week = Score.week;
 
-		CoolUtil.save.score.data.ratingScores = Score.rating;
+		CoolUtil.save.score.data.rating = Score.rating;
+
+        CoolUtil.save.score.data.completed = Score.completed;
+        
 		CoolUtil.save.score.flush();
     }
 

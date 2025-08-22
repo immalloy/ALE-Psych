@@ -175,7 +175,6 @@ class PlayState extends ScriptState
 	public var songHits:Int = 0;
 	public var songMisses:Int = 0;
 	public var scoreTxt:FlxText;
-	var scoreTxtTween:FlxTween;
 
 	public static var campaignScore:Int = 0;
 	public static var campaignMisses:Int = 0;
@@ -428,8 +427,8 @@ class PlayState extends ScriptState
 		iconP2.y = healthBar.y - 75;
 		uiGroup.add(iconP2);
 
-		scoreTxt = new FlxText(0, healthBar.y + 40, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt = new FlxText(0, healthBar.y + 40, FlxG.width, "");
+		scoreTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		updateScore(false);
