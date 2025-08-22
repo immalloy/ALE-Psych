@@ -826,15 +826,17 @@ class PlayState extends ScriptState
 			return;
 
 		var str:String = '';
+
 		if(totalPlayed != 0)
 		{
 			var percent:Float = CoolUtil.floorDecimal(ratingPercent * 100, 2);
-			str += ' ${percent}% - ${ratingFC}';
+
+			str += '${percent}% - ${ratingFC}';
 		}
 
 		var tempScore:String = 'Score: ${songScore}'
 		+ '    Misses: ${songMisses}'
-		+ '    Rating: ${str}';
+		+ '    Rating: ' + (str.trim() == '' ? '?' : str);
 		
 		scoreTxt.text = '${tempScore}\n';
 
@@ -849,6 +851,7 @@ class PlayState extends ScriptState
 		var shits:Int = ratingsData[3].hits;
 
 		ratingFC = "";
+		
 		if(songMisses == 0)
 		{
 			if (bads > 0 || shits > 0) ratingFC = 'FC';
@@ -2721,6 +2724,9 @@ class PlayState extends ScriptState
 
 		if(!ret.contains(LuaUtils.Function_Stop))
 		{
+			if (totalPlayed != 0)
+				ratingPercent = Math.min(1, Math.max(0, totalNotesHit / totalPlayed));
+
 			fullComboFunction();
 		}
 
