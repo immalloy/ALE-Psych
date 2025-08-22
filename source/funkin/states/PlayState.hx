@@ -825,16 +825,16 @@ class PlayState extends ScriptState
 		if (ret.contains(LuaUtils.Function_Stop))
 			return;
 
-		var str:String = ratingName;
+		var str:String = '';
 		if(totalPlayed != 0)
 		{
 			var percent:Float = CoolUtil.floorDecimal(ratingPercent * 100, 2);
-			str += ' (${percent}%) - ${ratingFC}';
+			str += ' ${percent}% - ${ratingFC}';
 		}
 
 		var tempScore:String = 'Score: ${songScore}'
-		+ ' | Misses: ${songMisses}'
-		+ ' | Rating: ${str}';
+		+ '    Misses: ${songMisses}'
+		+ '    Rating: ${str}';
 		
 		scoreTxt.text = '${tempScore}\n';
 
@@ -2655,6 +2655,9 @@ class PlayState extends ScriptState
 
 	public function playerDance():Void
 	{
+		if (FlxG.sound.music == null)
+			return;
+		
 		var anim:String = boyfriend.getAnimationName();
 		if(boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 #if FLX_PITCH / FlxG.sound.music.pitch #end) * boyfriend.singDuration && anim.startsWith('sing') && !anim.endsWith('miss'))
 			boyfriend.dance();
@@ -2706,7 +2709,6 @@ class PlayState extends ScriptState
 		}
 	}
 
-	public var ratingName:String = '?';
 	public var ratingPercent:Float;
 	public var ratingFC:String;
 	public function RecalculateRating(badHit:Bool = false) {
@@ -2716,28 +2718,14 @@ class PlayState extends ScriptState
 		setOnScripts('combo', combo);
 
 		var ret:Array<Dynamic> = callOnScripts('onRecalculateRating');
+
 		if(!ret.contains(LuaUtils.Function_Stop))
 		{
-			ratingName = '?';
-			if(totalPlayed != 0)
-			{
-				ratingPercent = Math.min(1, Math.max(0, totalNotesHit / totalPlayed));
-
-				ratingName = ratingStuff[ratingStuff.length-1][0];
-				if(ratingPercent < 1)
-					for (i in 0...ratingStuff.length-1)
-						if(ratingPercent < ratingStuff[i][1])
-						{
-							ratingName = ratingStuff[i][0];
-							break;
-						}
-			}
 			fullComboFunction();
 		}
 
 		updateScore(badHit);
 		setOnScripts('rating', ratingPercent);
-		setOnScripts('ratingName', ratingName);
 		setOnScripts('ratingFC', ratingFC);
 	}
 
