@@ -1931,7 +1931,7 @@ class PlayState extends ScriptState
 				campaignScore += songScore;
 				campaignMisses += songMisses;
 
-				var nextSong:String = playlist.shift();
+				playlist.shift();
 
 				if (playlist.length <= 0)
 				{
@@ -1944,7 +1944,9 @@ class PlayState extends ScriptState
 
 					changedDifficulty = false;
 				} else {
-					CoolUtil.loadSong(nextSong, difficulty);
+					CoolVars.skipTransIn = CoolVars.skipTransOut = true;
+
+					CoolUtil.loadSong(playlist[0], difficulty);
 				}
 			} else {
 				CoolUtil.switchState(new CustomState(CoolVars.data.freeplayState));
