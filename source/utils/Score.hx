@@ -11,7 +11,7 @@ class Score
 
 	public static function saveSong(name:String, difficulty:String, score:Float, rating:Float):Void
 	{
-		var id:String = name.trim().toLowerCase() + '-' + difficulty.trim().toLowerCase();
+		var id:String = CoolUtil.formatToSongPath(name.trim() + '-' + difficulty.trim());
 
 		Score.song.set(id, score);
 
@@ -22,9 +22,9 @@ class Score
 
 	public static function saveWeek(name:String, difficulty:String, score:Float):Void
 	{
-		Score.week.set(name.trim().toLowerCase() + '-' + difficulty.trim().toLowerCase(), score);
+		Score.week.set(CoolUtil.formatToSongPath(name.trim() + '-' + difficulty.trim()), score);
 
-		Score.completed.set(name.trim().toLowerCase(), true);
+		Score.completed.set(CoolUtil.formatToSongPath(name), true);
 
 		CoolUtil.save.saveScore();
 	}
