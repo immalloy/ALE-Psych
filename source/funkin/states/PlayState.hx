@@ -417,14 +417,12 @@ class PlayState extends ScriptState
 		updateScore(false);
 		uiGroup.add(scoreTxt);
 
-		botplayTxt = new FlxText(400, 55, FlxG.width - 800, "BOTPLAY", 32);
+		botplayTxt = new FlxText(400, ClientPrefs.data.downScroll ? FlxG.height - 110 : 80, FlxG.width - 800, "BOTPLAY", 32);
 		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
 		botplayTxt.visible = cpuControlled;
 		uiGroup.add(botplayTxt);
-		if(ClientPrefs.data.downScroll)
-			botplayTxt.y = -75;
 
 		uiGroup.cameras = [camHUD];
 		noteGroup.cameras = [camHUD];
