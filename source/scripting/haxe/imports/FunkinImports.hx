@@ -10,4 +10,6 @@ import funkin.substates.CustomSubState;
 
 import funkin.states.OptionsState;
 
+import funkin.visuals.objects.MenuCharacter;
+
 class FunkinImports {}

@@ -5,8 +5,6 @@ import funkin.visuals.game.Character;
 import openfl.display.BlendMode;
 import Type.ValueType;
 
-import funkin.substates.GameOverSubstate;
-
 typedef LuaTweenOptions = {
 	type:FlxTweenType,
 	startDelay:Float,
@@ -235,11 +233,6 @@ class LuaUtils
 		return false;
 	}
 	
-	public static inline function getTargetInstance()
-	{
-		return PlayState.instance.isDead ? GameOverSubstate.instance : PlayState.instance;
-	}
-
 	public static inline function getLowestCharacterGroup():FlxSpriteGroup
 	{
 		var group:FlxSpriteGroup = PlayState.instance.gfGroup;

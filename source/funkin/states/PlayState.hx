@@ -27,8 +27,6 @@ import openfl.events.KeyboardEvent;
 import funkin.visuals.cutscenes.CutsceneHandler;
 import funkin.visuals.cutscenes.DialogueBoxPsych;
 
-import funkin.substates.GameOverSubstate;
-
 #if !flash
 import flixel.addons.display.FlxRuntimeShader;
 import openfl.filters.ShaderFilter;
@@ -242,8 +240,6 @@ class PlayState extends ScriptState
 
 		detailsPausedText = "Paused - " + detailsText;
 		#end
-
-		GameOverSubstate.resetVariables();
 
 		if(SONG.stage == null || SONG.stage.length < 1) {
 			SONG.stage = StageData.vanillaSongStage(songName);
@@ -1570,7 +1566,7 @@ class PlayState extends ScriptState
 				FlxTimer.globalManager.clear();
 				FlxTween.globalManager.clear();
 
-				CoolUtil.openSubState(new GameOverSubstate());
+				CoolUtil.openSubState(new CustomSubState(CoolVars.data.gameOverScreen));
 
 				#if DISCORD_ALLOWED
 				if(autoUpdateRPC)
