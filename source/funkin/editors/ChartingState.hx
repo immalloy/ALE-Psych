@@ -262,7 +262,7 @@ class ChartingState extends MusicBeatState
 		// sections = _song.notes;
 
 		updateJsonData();
-		currentSongName = CoolUtil.loadPlayStateSong(_song.song, PlayState.difficulty).route;
+		currentSongName = 'songs/' + CoolUtil.loadPlayStateSong(_song.song, PlayState.difficulty).route;
 		loadSong();
 		reloadGridLayer();
 		Conductor.bpm = _song.bpm;
@@ -409,7 +409,7 @@ class ChartingState extends MusicBeatState
 
 		var reloadSong:FlxButton = new FlxButton(saveButton.x + 90, saveButton.y, "Reload Audio", function()
 		{
-			currentSongName = CoolUtil.loadPlayStateSong(UI_songTitle.text, PlayState.difficulty).route;
+			currentSongName = 'songs/' + CoolUtil.loadPlayStateSong(UI_songTitle.text, CoolUtil.formatToSongPath(PlayState.difficulty)).route;
 			updateJsonData();
 			loadSong();
 			updateWaveform();
@@ -487,7 +487,7 @@ class ChartingState extends MusicBeatState
 		#end
 
 		var tempArray:Array<String> = [];
-		var characters:Array<String> = File.getContent(Paths.getPath('data/characterList.txt')).split('\n');
+		var characters:Array<String> = [];
 		for (character in characters)
 		{
 			if(character.trim().length > 0)
@@ -542,7 +542,7 @@ class ChartingState extends MusicBeatState
 
 		var directories:Array<String> = [Paths.getPath('stages')];
 
-		var stageFile:Array<String> = File.getContent(Paths.getPath('data/stageList.txt')).split('\n');
+		var stageFile:Array<String> = [];
 		var stages:Array<String> = [];
 		for (stage in stageFile) {
 			if(stage.trim().length > 0) {

@@ -1185,7 +1185,6 @@ class CharacterEditorState extends MusicBeatState
 
 	var characterList:Array<String> = [];
 	function reloadCharacterDropDown() {
-		characterList = File.getContent(Paths.getPath('data/characterList.txt')).split('\n');
 		var foldersToCheck:Array<String> = FileSystem.readDirectory(Paths.getPath('characters/'));
 		for (folder in foldersToCheck)
 			for (file in FileSystem.readDirectory(folder))

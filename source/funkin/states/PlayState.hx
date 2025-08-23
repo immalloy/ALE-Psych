@@ -236,7 +236,7 @@ class PlayState extends ScriptState
 
 		#if DISCORD_ALLOWED
 		if (isStoryMode)
-			detailsText = "Story Mode: TODO REGISTER WEEK NAME";
+			detailsText = "Story Mode: " + week;
 		else
 			detailsText = "Freeplay";
 
