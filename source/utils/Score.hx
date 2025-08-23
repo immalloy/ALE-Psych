@@ -13,16 +13,21 @@ class Score
 	{
 		var id:String = CoolUtil.formatToSongPath(name.trim() + '-' + difficulty.trim());
 
-		Score.song.set(id, score);
+		if (score > (Score.song.get(id) ?? 0))
+			Score.song.set(id, score);
 
-		Score.rating.set(id, rating);
+		if (rating > (Score.rating.get(id) ?? 0))
+			Score.rating.set(id, rating);
 
 		CoolUtil.save.saveScore();
 	}
 
 	public static function saveWeek(name:String, difficulty:String, score:Float):Void
 	{
-		Score.week.set(CoolUtil.formatToSongPath(name.trim() + '-' + difficulty.trim()), score);
+		var id:String = CoolUtil.formatToSongPath(name.trim() + '-' + difficulty.trim());
+
+		if (score > (Score.week.get(id) ?? 0))
+			Score.week.set(id, score);
 
 		Score.completed.set(CoolUtil.formatToSongPath(name), true);
 
