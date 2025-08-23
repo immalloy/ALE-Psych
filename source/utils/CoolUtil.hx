@@ -525,12 +525,20 @@ class CoolUtil
 		var data:PlayStateJSONData = loadPlayStateSong(name, difficulty);
 
 		PlayState.SONG = data.json;
+		PlayState.difficulty = difficulty;
 		PlayState.songRoute = 'songs/' + data.route;
 		PlayState.songName = data.route;
 
 		if (goToPlayState && PlayState.SONG != null)
-		{
 			switchState(new PlayState());
-		}
+	}
+
+	public static function loadWeek(weekName:String, names:Array<String>, difficulty:String, goToPlayState:Bool = true)
+	{
+		PlayState.playlist = names;
+		PlayState.week = weekName;
+
+		if (goToPlayState)
+			loadSong(PlayState.playlist[0], difficulty);
 	}
 }
