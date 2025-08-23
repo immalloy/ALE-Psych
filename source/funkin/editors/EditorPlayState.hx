@@ -304,10 +304,10 @@ class EditorPlayState extends MusicBeatSubState
 		{
 			if (songData.needsVoices)
 			{
-				var playerVocals = Paths.voices(songData.song, (boyfriendVocals == null || boyfriendVocals.length < 1) ? 'Player' : boyfriendVocals, false);
-				vocals.loadEmbedded(playerVocals != null ? playerVocals : Paths.voices(songData.song));
+				var playerVocals = Paths.voices(PlayState.songRoute, (boyfriendVocals == null || boyfriendVocals.length < 1) ? 'Player' : boyfriendVocals, false);
+				vocals.loadEmbedded(playerVocals != null ? playerVocals : Paths.voices(PlayState.songRoute));
 				
-				var oppVocals = Paths.voices(songData.song, (dadVocals == null || dadVocals.length < 1) ? 'Opponent' : dadVocals, false);
+				var oppVocals = Paths.voices(PlayState.songRoute, (dadVocals == null || dadVocals.length < 1) ? 'Opponent' : dadVocals, false);
 				if(oppVocals != null) opponentVocals.loadEmbedded(oppVocals);
 			}
 		}
@@ -323,7 +323,7 @@ class EditorPlayState extends MusicBeatSubState
 		FlxG.sound.list.add(vocals);
 		FlxG.sound.list.add(opponentVocals);
 
-		inst = new FlxSound().loadEmbedded(Paths.inst(songData.song));
+		inst = new FlxSound().loadEmbedded(Paths.inst(PlayState.songRoute));
 		FlxG.sound.list.add(inst);
 		FlxG.sound.music.volume = 0;
 

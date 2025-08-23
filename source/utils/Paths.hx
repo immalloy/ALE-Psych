@@ -81,21 +81,11 @@ class Paths
 		return newGraphic;
 	}
 
-	inline static public function voices(song:String, postfix:String = null, missingPrint:Bool = true):Any
-	{
-		var songKey:String = '${formatToSongPath(song)}/Voices';
-		if(postfix != null) songKey += '-' + postfix;
-		//trace('songKey test: $songKey');
-		var voices = returnSound('songs/' + songKey, missingPrint);
-		return voices;
-	}
+	inline static public function voices(route:String, postfix:String = null, missingPrint:Bool = true)
+		return returnSound(route + '/song/Voices' + (postfix ?? ''), missingPrint);
 
-	inline static public function inst(song:String, missingPrint:Bool = true):Any
-	{
-		var songKey:String = '${formatToSongPath(song)}/Inst';
-		var inst = returnSound('songs/' + songKey, missingPrint);
-		return inst;
-	}
+	inline static public function inst(route:String, missingPrint:Bool = true)
+		return returnSound(route + '/song/Inst', missingPrint);
 
     public static function music(file:String, missingPrint:Bool = true):Sound
         return returnSound('music/' + file, missingPrint);
@@ -308,14 +298,6 @@ class Paths
         for (key in cachedSounds.keys())
             cachedSounds.remove(key);
     }
-
-	inline static public function formatToSongPath(path:String) {
-		var invalidChars = ~/[~&\\;:<>#]/;
-		var hideChars = ~/[.,'"%?!]/;
-
-		var path = invalidChars.split(path.replace(' ', '-')).join("-");
-		return hideChars.split(path).join("").toLowerCase();
-	}
 
 	#if flxanimate
 	public static function loadAnimateAtlas(spr:FlxAnimate, folderOrImg:Dynamic, spriteJson:Dynamic = null, animationJson:Dynamic = null)

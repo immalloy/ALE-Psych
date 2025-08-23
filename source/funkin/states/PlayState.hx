@@ -6,6 +6,7 @@ import utils.StageData;
 import utils.Song;
 import utils.Section;
 import utils.Rating;
+import utils.Score;
 
 import funkin.visuals.objects.*;
 
@@ -42,22 +43,6 @@ import scripting.lua.*;
 
 import funkin.editors.*;
 
-/**
- * This is where all the Gameplay stuff happens and is managed
- *
- * here's some useful tips if you are making a mod in source:
- *
- * If you want to add your stage to the game, copy states/stages/Template.hx,
- * and put your stage code there, then, on PlayState, search for
- * "switch (curStage)", and add your stage to that list.
- *
- * If you want to code Events, you can either code it on a Stage file or on PlayState, if you're doing the latter, search for:
- *
- * "function eventPushed" - Only called *one time* when the game loads, use it for precaching events that use the same assets, no matter the values
- * "function eventPushedUnique" - Called one time per event, use it for precaching events that uses different assets based on its values
- * "function eventEarlyTrigger" - Used for making your event start a few MILLISECONDS earlier
- * "function triggerEvent" - Called when the song hits your event's timestamp, this is probably what you were looking for
-**/
 class PlayState extends ScriptState
 {
 	public static var STRUM_X = 42;
@@ -109,9 +94,8 @@ class PlayState extends ScriptState
 
 	public static var SONG:SwagSong = null;
 	public static var isStoryMode:Bool = false;
-	public static var storyWeek:Int = 0;
-	public static var storyPlaylist:Array<String> = [];
-	public static var storyDifficulty:Int = 1;
+	
+	public static var playlist:Array<String> = [];
 
 	public var spawnTime:Float = 2000;
 
@@ -194,8 +178,15 @@ class PlayState extends ScriptState
 	public var opponentCameraOffset:Array<Float> = null;
 	public var girlfriendCameraOffset:Array<Float> = null;
 
+	public static var difficulty:String = 'normal';
+
+	public static var week:String = '';
+
+	public static var songRoute:String = '';
+	
+	public static var songName:String = '';
+
 	#if DISCORD_ALLOWED
-	var storyDifficultyText:String = "";
 	var detailsText:String = "";
 	var detailsPausedText:String = "";
 	#end
@@ -209,8 +200,6 @@ class PlayState extends ScriptState
 	public var introSoundsSuffix:String = '';
 
 	private var keysArray:Array<Int>;
-	public var songName:String;
-
 	public var startCallback:Void->Void = null;
 	public var endCallback:Void->Void = null;
 
@@ -240,14 +229,12 @@ class PlayState extends ScriptState
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
 
 		if (SONG == null)
-			SONG = Song.loadFromJson('tutorial');
+			CoolUtil.loadSong('tutorial', 'normal', false);
 
 		Conductor.mapBPMChanges(SONG);
 		Conductor.bpm = SONG.bpm;
 
 		#if DISCORD_ALLOWED
-		storyDifficultyText = 'REGISTER DIFFICUTY\'S NAME ON PLAYSTATE';
-
 		if (isStoryMode)
 			detailsText = "Story Mode: TODO REGISTER WEEK NAME";
 		else
@@ -257,7 +244,7 @@ class PlayState extends ScriptState
 		#end
 
 		GameOverSubstate.resetVariables();
-		songName = Paths.formatToSongPath(SONG.song);
+
 		if(SONG.stage == null || SONG.stage.length < 1) {
 			SONG.stage = StageData.vanillaSongStage(songName);
 		}
@@ -465,10 +452,11 @@ class PlayState extends ScriptState
 		}
 
 		#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
-		for (folder in FileSystem.readDirectory(Paths.getPath('data/$songName/')))
-			if (FileSystem.isDirectory(Paths.getPath('data/$songName/' + folder)))
-				for (file in FileSystem.readDirectory(folder))
-					loadScript('data/$songName/' + file);
+		if (Paths.fileExists(songRoute + '/scripts'))
+			if (FileSystem.isDirectory(Paths.getPath(songRoute + '/scripts')))
+				for (file in FileSystem.readDirectory(Paths.getPath(songRoute + '/scripts')))
+					if (file.endsWith('.lua') || file.endsWith('.hx'))
+						loadScript(songRoute + '/scripts/' + file);
 		#end
 
 		startCallback();
@@ -921,7 +909,7 @@ class PlayState extends ScriptState
 		songLength = FlxG.sound.music.length;
 
 		#if DISCORD_ALLOWED
-		if(autoUpdateRPC) DiscordRPC.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength);
+		if(autoUpdateRPC) DiscordRPC.changePresence(detailsText, SONG.song + " (" + difficulty + ")", iconP2.getCharacter(), true, songLength);
 		#end
 		setOnScripts('songLength', songLength);
 		callOnScripts('onSongStart');
@@ -945,11 +933,12 @@ class PlayState extends ScriptState
 		{
 			if (songData.needsVoices)
 			{
-				var playerVocals = Paths.voices(songData.song, (boyfriend.vocalsFile == null || boyfriend.vocalsFile.length < 1) ? 'Player' : boyfriend.vocalsFile, false);
-				vocals.loadEmbedded(playerVocals ?? Paths.voices(songData.song));
+				var playerVocals = Paths.voices(songRoute, (boyfriend.vocalsFile == null || boyfriend.vocalsFile.length < 1) ? 'Player' : boyfriend.vocalsFile, false);
+				vocals.loadEmbedded(playerVocals ?? Paths.voices(songRoute));
 				
-				var oppVocals = Paths.voices(songData.song, (dad.vocalsFile == null || dad.vocalsFile.length < 1) ? 'Opponent' : dad.vocalsFile, false);
-				if(oppVocals != null) opponentVocals.loadEmbedded(oppVocals);
+				var oppVocals = Paths.voices(songRoute, (dad.vocalsFile == null || dad.vocalsFile.length < 1) ? 'Opponent' : dad.vocalsFile, false);
+				if (oppVocals != null)
+					opponentVocals.loadEmbedded(oppVocals);
 			}
 		}
 		catch(e:Dynamic) {}
@@ -963,7 +952,7 @@ class PlayState extends ScriptState
 
 		inst = new FlxSound();
 		try {
-			inst.loadEmbedded(Paths.inst(songData.song));
+			inst.loadEmbedded(Paths.inst(songRoute));
 		}
 		catch(e:Dynamic) {}
 		FlxG.sound.list.add(inst);
@@ -975,17 +964,19 @@ class PlayState extends ScriptState
 
 		noteData = songData.notes;
 
-		var file:String = Paths.getPath('data/' + songName + '/events.json', false);
+		var file:String = Paths.getPath(songRoute + '/charts/events.json', false);
 		#if MODS_ALLOWED
 		if (FileSystem.exists(file))
 		#else
 		if (OpenFlAssets.exists(file))
 		#end
 		{
-			var eventsData:Array<Dynamic> = Song.loadFromJson('events', songName).events;
-			for (event in eventsData) 
-				for (i in 0...event[1].length)
-					makeEvent(event, i);
+			var eventsData:Array<Dynamic> = CoolUtil.loadPlayStateSong(songName, 'events').json.events;
+
+			if (eventsData is Array)
+				for (event in eventsData) 
+					for (i in 0...event[1].length)
+						makeEvent(event, i);
 		}
 
 		for (section in noteData)
@@ -1239,7 +1230,7 @@ class PlayState extends ScriptState
 	override public function onFocusLost():Void
 	{
 		#if DISCORD_ALLOWED
-		if (health > 0 && !paused && autoUpdateRPC) DiscordRPC.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+		if (health > 0 && !paused && autoUpdateRPC) DiscordRPC.changePresence(detailsPausedText, SONG.song + " (" + difficulty + ")", iconP2.getCharacter());
 		#end
 
 		super.onFocusLost();
@@ -1256,9 +1247,9 @@ class PlayState extends ScriptState
 		if(!autoUpdateRPC) return;
 
 		if (showTime)
-			DiscordRPC.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.data.noteOffset);
+			DiscordRPC.changePresence(detailsText, SONG.song + " (" + difficulty + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.data.noteOffset);
 		else
-			DiscordRPC.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+			DiscordRPC.changePresence(detailsText, SONG.song + " (" + difficulty + ")", iconP2.getCharacter());
 		#end
 	}
 
@@ -1530,7 +1521,7 @@ class PlayState extends ScriptState
 		CoolUtil.openSubState(new CustomSubState(CoolVars.data.pauseSubState));
 
 		#if DISCORD_ALLOWED
-		if(autoUpdateRPC) DiscordRPC.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+		if(autoUpdateRPC) DiscordRPC.changePresence(detailsPausedText, SONG.song + " (" + difficulty + ")", iconP2.getCharacter());
 		#end
 	}
 
@@ -1582,7 +1573,8 @@ class PlayState extends ScriptState
 				CoolUtil.openSubState(new GameOverSubstate());
 
 				#if DISCORD_ALLOWED
-				if(autoUpdateRPC) DiscordRPC.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+				if(autoUpdateRPC)
+					DiscordRPC.changePresence("Game Over - " + detailsText, SONG.song + " (" + difficulty + ")", iconP2.getCharacter());
 				#end
 				isDead = true;
 				return true;
@@ -1838,7 +1830,6 @@ class PlayState extends ScriptState
 			camFollow.setPosition(gf.getMidpoint().x, gf.getMidpoint().y);
 			camFollow.x += gf.cameraPosition[0] + girlfriendCameraOffset[0];
 			camFollow.y += gf.cameraPosition[1] + girlfriendCameraOffset[1];
-			tweenCamIn();
 			callOnScripts('onMoveCamera', ['gf']);
 			return;
 		}
@@ -1856,33 +1847,12 @@ class PlayState extends ScriptState
 			camFollow.setPosition(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
 			camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0];
 			camFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1];
-			tweenCamIn();
 		}
 		else
 		{
 			camFollow.setPosition(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
 			camFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0];
 			camFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1];
-
-			if (songName == 'tutorial' && cameraTwn == null && FlxG.camera.zoom != 1)
-			{
-				cameraTwn = FlxTween.tween(FlxG.camera, {zoom: 1}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.elasticInOut, onComplete:
-					function (twn:FlxTween)
-					{
-						cameraTwn = null;
-					}
-				});
-			}
-		}
-	}
-
-	public function tweenCamIn() {
-		if (songName == 'tutorial' && cameraTwn == null && FlxG.camera.zoom != 1.3) {
-			cameraTwn = FlxTween.tween(FlxG.camera, {zoom: 1.3}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.elasticInOut, onComplete:
-				function (twn:FlxTween) {
-					cameraTwn = null;
-				}
-			});
 		}
 	}
 
@@ -1936,13 +1906,18 @@ class PlayState extends ScriptState
 		seenCutscene = false;
 
 		var ret:Array<Dynamic> = callOnScripts('onEndSong');
+		
 		if(!ret.contains(LuaUtils.Function_Stop) && !transitioning)
 		{
 			#if !switch
 			var percent:Float = ratingPercent;
-			if(Math.isNaN(percent)) percent = 0;
-			// REGISTER SONG SCORE
+
+			if (Math.isNaN(percent))
+				percent = 0;
+
+			Score.saveSong(SONG.song, difficulty, songScore, percent);
 			#end
+
 			playbackRate = 1;
 
 			if (chartingMode)
@@ -1956,43 +1931,26 @@ class PlayState extends ScriptState
 				campaignScore += songScore;
 				campaignMisses += songMisses;
 
-				storyPlaylist.remove(storyPlaylist[0]);
+				var nextSong:String = playlist.shift();
 
-				if (storyPlaylist.length <= 0)
+				if (playlist.length <= 0)
 				{
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 					
 					CoolUtil.switchState(new CustomState(CoolVars.data.storyMenuState));
 
 					if (!ClientPrefs.data.practice && !ClientPrefs.data.botplay)
-					{
-						// TODO: REGISTER WEEKS SCORE && COMPLETED WEEK
-					}
+						Score.saveWeek(week, difficulty, campaignScore);
 
 					changedDifficulty = false;
+				} else {
+					CoolUtil.loadSong(nextSong, difficulty);
 				}
-				else
-				{
-					/*
-					var difficulty:String = Difficulty.getFilePath();
-
-					CoolVars.skipTransIn = true;
-					CoolVars.skipTransOut = true;
-					prevCamFollow = camFollow;
-
-					PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0] + difficulty, PlayState.storyPlaylist[0]);
-					FlxG.sound.music.stop();
-
-					LoadingState.loadAndSwitchState(new PlayState());
-					*/
-
-					// TODO: REWRITE WEEKS SYSTEM
-				}
-			}
-			else
-			{
+			} else {
 				CoolUtil.switchState(new CustomState(CoolVars.data.freeplayState));
+
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+
 				changedDifficulty = false;
 			}
 			transitioning = true;

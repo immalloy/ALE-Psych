@@ -262,7 +262,7 @@ class ChartingState extends MusicBeatState
 		// sections = _song.notes;
 
 		updateJsonData();
-		currentSongName = Paths.formatToSongPath(_song.song);
+		currentSongName = CoolUtil.loadPlayStateSong(_song.song, PlayState.difficulty).route;
 		loadSong();
 		reloadGridLayer();
 		Conductor.bpm = _song.bpm;
@@ -409,7 +409,7 @@ class ChartingState extends MusicBeatState
 
 		var reloadSong:FlxButton = new FlxButton(saveButton.x + 90, saveButton.y, "Reload Audio", function()
 		{
-			currentSongName = Paths.formatToSongPath(UI_songTitle.text);
+			currentSongName = CoolUtil.loadPlayStateSong(UI_songTitle.text, PlayState.difficulty).route;
 			updateJsonData();
 			loadSong();
 			updateWaveform();
@@ -425,23 +425,23 @@ class ChartingState extends MusicBeatState
 
 		var loadAutosaveBtn:FlxButton = new FlxButton(reloadSongJson.x, reloadSongJson.y + 30, 'Load Autosave', function()
 		{
-			PlayState.SONG = Song.parseJSONshit(FlxG.save.data.autosave);
+			PlayState.SONG = cast Json.parse(FlxG.save.data.autosave).song;
 			CoolUtil.resetState();
 		});
 
 		var loadEventJson:FlxButton = new FlxButton(loadAutosaveBtn.x, loadAutosaveBtn.y + 30, 'Load Events', function()
 		{
+			var songName:String = 'songs/' + PlayState.songRoute;
 
-			var songName:String = Paths.formatToSongPath(_song.song);
-			var file:String = Paths.getPath(songName + '/events.json');
+			var file:String = Paths.getPath(songName + '/charts/events.json');
 			#if sys
-			if (#if MODS_ALLOWED FileSystem.exists(Paths.getPath(songName + '/events.json')) || #end FileSystem.exists(file))
+			if (#if MODS_ALLOWED FileSystem.exists(Paths.getPath(songName + '/charts/events.json')) || #end FileSystem.exists(file))
 			#else
 			if (OpenFlAssets.exists(file))
 			#end
 			{
 				clearEvents();
-				var events:SwagSong = Song.loadFromJson('events', songName);
+				var events:SwagSong = cast Json.parse(File.getContent(Paths.getPath(songName + 'charts/events.json'))).song;
 				_song.events = events.events;
 				changeSection(curSec);
 			}
@@ -1826,7 +1826,8 @@ class ChartingState extends MusicBeatState
 
 				//if(_song.stage == null) _song.stage = stageDropDown.selectedLabel;
 				StageData.loadDirectory(_song);
-				LoadingState.loadAndSwitchState(new PlayState());
+
+				CoolUtil.switchState(new PlayState());
 			}
 
 			if(curSelectedNote != null && curSelectedNote[1] > -1) {
@@ -3083,7 +3084,7 @@ class ChartingState extends MusicBeatState
 			
 			// ALE TODO: FIX THIS SHIT
 				
-			PlayState.SONG = Song.loadFromJson(song.toLowerCase(), song.toLowerCase());
+			PlayState.SONG = CoolUtil.loadPlayStateSong(song.toLowerCase(), PlayState.difficulty).json;
 			CoolUtil.resetState();
 		}
 		catch(e)
@@ -3141,7 +3142,7 @@ class ChartingState extends MusicBeatState
 			_file.addEventListener(#if desktop Event.SELECT #else Event.COMPLETE #end, onSaveComplete);
 			_file.addEventListener(Event.CANCEL, onSaveCancel);
 			_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
-			_file.save(data.trim(), Paths.formatToSongPath(_song.song) + ".json");
+			_file.save(data.trim(), PlayState.songRoute + '/charts/' + PlayState.difficulty + '.json');
 		}
 	}
 

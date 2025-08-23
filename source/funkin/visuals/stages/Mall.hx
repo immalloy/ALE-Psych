@@ -73,14 +73,14 @@ class Mall extends BaseStage
 
 	function eggnogEndCutscene()
 	{
-		if(PlayState.storyPlaylist[1] == null)
+		if (PlayState.playlist[1] == null)
 		{
 			endSong();
+			
 			return;
 		}
 
-		var nextSong:String = Paths.formatToSongPath(PlayState.storyPlaylist[1]);
-		if(nextSong == 'winter-horrorland')
+		if (PlayState.playlist[1].trim().toLowerCase().replace(' ', '-') == 'winter-horrorland')
 		{
 			FlxG.sound.play(Paths.sound('Lights_Shut_off'));
 
@@ -96,7 +96,8 @@ class Mall extends BaseStage
 			new FlxTimer().start(1.5, function(tmr:FlxTimer) {
 				endSong();
 			});
+		} else {
+			endSong();
 		}
-		else endSong();
 	}
 }

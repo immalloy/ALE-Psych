@@ -5,6 +5,10 @@ import flixel.input.keyboard.FlxKey;
 import core.Main;
 import core.config.MainState;
 import core.enums.PrintType;
+import core.structures.PlayStateJSONData;
+
+import utils.Song;
+import utils.Section;
 
 import sys.thread.Thread;
 
@@ -437,5 +441,96 @@ class CoolUtil
 			filterArray.push(new ShaderFilter(shader));
 
 		camera.filters = filterArray;
+	}
+
+	public static function formatToSongPath(string:String):String
+		return string.trim().toLowerCase().replace(' ', '-');
+
+	public static function loadPlayStateJSON(songJson:Dynamic)
+	{
+		if (songJson.gfVersion == null)
+		{
+			songJson.gfVersion = songJson.player3;
+
+			songJson.player3 = null;
+		}
+
+		if (songJson.events == null)
+		{
+			songJson.events = [];
+			
+			for (secNum in 0...songJson.notes.length)
+			{
+				var sec:SwagSection = songJson.notes[secNum];
+
+				var i:Int = 0;
+				var notes:Array<Dynamic> = sec.sectionNotes;
+				var len:Int = notes.length;
+
+				while (i < len)
+				{
+					var note:Array<Dynamic> = notes[i];
+
+					if (note[1] < 0)
+					{
+						songJson.events.push([note[0], [[note[2], note[3], note[4]]]]);
+						notes.remove(note);
+						len = notes.length;
+					}
+
+					else i++;
+				}
+			}
+		}
+	}
+
+	public static function loadPlayStateSong(name:String, difficulty:String, setSongRoute:Bool = true):PlayStateJSONData
+	{
+		var jsonData:SwagSong = null;
+
+		var route:String = null;
+
+		for (parentFolder in [Paths.modFolder(), 'assets'])
+		{
+			if (FileSystem.exists(parentFolder + '/songs') && FileSystem.isDirectory(parentFolder + '/songs'))
+			{
+				for (folder in FileSystem.readDirectory(parentFolder + '/songs'))
+				{
+					if (formatToSongPath(name) == formatToSongPath(folder))
+					{
+						if (FileSystem.exists(parentFolder + '/songs/' + folder + '/charts/' + difficulty + '.json'))
+						{
+							jsonData = cast Json.parse(sys.io.File.getContent(parentFolder + '/songs/' + folder + '/charts/' + difficulty + '.json')).song;
+		
+							route = folder;
+						}
+					}
+				}
+			}
+		}
+
+		loadPlayStateJSON(jsonData);
+
+		if (jsonData == null)
+			debugTrace(name + '/charts/' + difficulty + '.json', MISSING_FILE);
+
+		return {
+			route: route,
+			json: jsonData
+		};
+	}
+
+	public static function loadSong(name:String, difficulty:String, goToPlayState:Bool = true)
+	{
+		var data:PlayStateJSONData = loadPlayStateSong(name, difficulty);
+
+		PlayState.SONG = data.json;
+		PlayState.songRoute = 'songs/' + data.route;
+		PlayState.songName = data.route;
+
+		if (goToPlayState && PlayState.SONG != null)
+		{
+			switchState(new PlayState());
+		}
 	}
 }

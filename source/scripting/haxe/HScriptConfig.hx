@@ -182,7 +182,6 @@ class HScriptConfig
             utils.CoolVars,
 
             funkin.states.PlayState,
-            funkin.states.LoadingState,
 			funkin.states.CustomState,
 			funkin.substates.CustomSubState,
             Controls,

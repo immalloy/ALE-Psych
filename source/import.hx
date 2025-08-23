@@ -39,7 +39,6 @@ import funkin.visuals.objects.Alphabet;
 import funkin.visuals.stages.BGSprite;
 
 import funkin.states.PlayState;
-import funkin.states.LoadingState;
 
 #if flxanimate
 import flxanimate.*;

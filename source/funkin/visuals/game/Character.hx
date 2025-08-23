@@ -390,7 +390,8 @@ class Character extends FlxSprite
 	{
 		try
 		{
-			var noteData:Array<SwagSection> = Song.loadFromJson('picospeaker', Paths.formatToSongPath(PlayState.SONG.song)).notes;
+			var noteData:Array<SwagSection> = CoolUtil.loadPlayStateSong(PlayState.SONG.song, 'picospeaker').json.notes;
+
 			for (section in noteData) {
 				for (songNotes in section.sectionNotes) {
 					animationNotes.push(songNotes);
@@ -398,8 +399,7 @@ class Character extends FlxSprite
 			}
 			TankmenBG.animationNotes = animationNotes;
 			animationNotes.sort(sortAnims);
-		}
-		catch(e:Dynamic) {}
+		} catch(e:Dynamic) {}
 	}
 
 	function sortAnims(Obj1:Array<Dynamic>, Obj2:Array<Dynamic>):Int
