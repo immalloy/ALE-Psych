@@ -65,7 +65,9 @@ class CharacterEditorState extends MusicBeatState
 
 	override function create()
 	{
-		FlxG.sound.music.stop();
+		if (FlxG.sound.music != null)
+			FlxG.sound.music.stop();
+
 		camEditor = initPsychCamera();
 
 		camHUD = new FlxCamera();
@@ -1035,23 +1037,18 @@ class CharacterEditorState extends MusicBeatState
 		}
 	}
 
-	final assetFolder = 'week1';  //load from assets/week1/
 	inline function loadBG()
 	{
-		/////////////
-		// bg data //
-		/////////////
-		var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
+		var bg:BGSprite = new BGSprite('week1/stageback', -600, -200, 0.9, 0.9);
 		add(bg);
 
-		var stageFront:BGSprite = new BGSprite('stagefront', -650, 600, 0.9, 0.9);
+		var stageFront:BGSprite = new BGSprite('week1/stagefront', -650, 600, 0.9, 0.9);
 		stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
 		stageFront.updateHitbox();
 		add(stageFront);
 
 		dadPosition.set(100, 100);
 		bfPosition.set(770, 100);
-		/////////////
 	}
 
 
@@ -1185,15 +1182,17 @@ class CharacterEditorState extends MusicBeatState
 
 	var characterList:Array<String> = [];
 	function reloadCharacterDropDown() {
-		var foldersToCheck:Array<String> = FileSystem.readDirectory(Paths.getPath('characters/'));
+		var foldersToCheck:Array<String> = [Paths.modFolder() + '/characters', 'assets/characters'];
+
 		for (folder in foldersToCheck)
-			for (file in FileSystem.readDirectory(folder))
-				if(file.toLowerCase().endsWith('.json'))
-				{
-					var charToCheck:String = file.substr(0, file.length - 5);
-					if(!characterList.contains(charToCheck))
-						characterList.push(charToCheck);
-				}
+			if (FileSystem.exists(folder) && FileSystem.isDirectory(folder))
+				for (file in FileSystem.readDirectory(folder))
+					if(file.toLowerCase().endsWith('.json'))
+					{
+						var charToCheck:String = file.substr(0, file.length - 5);
+						if(!characterList.contains(charToCheck))
+							characterList.push(charToCheck);
+					}
 
 		if(characterList.length < 1) characterList.push('');
 		charDropDown.setData(FlxUIDropDownMenu.makeStrIdLabelArray(characterList, true));
