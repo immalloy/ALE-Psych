@@ -86,7 +86,7 @@ class SchoolEvil extends BaseStage
 	var doof:DialogueBox = null;
 	function initDoof()
 	{
-		var file:String = Paths.getPath('data/' + songName + '/' + songName + 'Dialogue.txt'); //Checks for vanilla/Senpai dialogue
+	var file:String = Paths.getPath(PlayState.songRoute + '/dialogue.txt'); //Checks for vanilla/Senpai dialogue
 		#if MODS_ALLOWED
 		if (!FileSystem.exists(file))
 		#else

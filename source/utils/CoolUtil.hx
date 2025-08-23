@@ -250,10 +250,10 @@ class CoolUtil
 		FlxG.state.openSubState(subState);
 	}
 
-	inline public static function fpsLerp(v1:Float, v2:Float, ratio:Float):Float
+	public static function fpsLerp(v1:Float, v2:Float, ratio:Float):Float
 		return FlxMath.lerp(v1, v2, fpsRatio(ratio));
 
-	inline public static function fpsRatio(ratio:Float)
+	public static function fpsRatio(ratio:Float)
 		return FlxMath.bound(ratio * FlxG.elapsed * 60, 0, 1);
 
 	public static function snapNumber(og:Float, mod:Int):Float
