@@ -27,6 +27,7 @@ typedef CharacterFile = {
 	var healthbar_colors:Array<Int>;
 	var vocals_file:String;
 	@:optional var _editor_isPlayer:Null<Bool>;
+	@:optional var deadVariant:String;
 }
 
 typedef AnimArray = {
@@ -78,6 +79,8 @@ class Character extends FlxSprite
 	public var noAntialiasing:Bool = false;
 	public var originalFlipX:Bool = false;
 	public var editorIsPlayer:Null<Bool> = null;
+
+	public var deadVariant:String = '';
 
 	public function new(x:Float, y:Float, ?character:String = 'bf', ?isPlayer:Bool = false)
 	{
@@ -222,7 +225,8 @@ class Character extends FlxSprite
 		#if flxanimate
 		if(isAnimateAtlas) copyAtlasValues();
 		#end
-		//trace('Loaded file to character ' + curCharacter);
+		
+		deadVariant = json.deadVariant ?? 'bf-dead';
 	}
 
 	override function update(elapsed:Float)
