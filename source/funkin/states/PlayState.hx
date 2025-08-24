@@ -117,7 +117,7 @@ class PlayState extends ScriptState
 	public var playerStrums:FlxTypedGroup<StrumNote>;
 	public var grpNoteSplashes:FlxTypedGroup<NoteSplash>;
 
-	public var camZooming:Bool = false;
+	public var camZooming:Bool = true;
 	public var camZoomingMult:Float = 1;
 	public var camZoomingDecay:Float = 1;
 	private var curSong:String = "";
