@@ -144,6 +144,12 @@ class Main extends Sprite
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 		#end
 		
+		Lib.application.window.onClose.add(function()
+			{
+				CoolUtil.save?.save();
+			}
+		);
+
 		FlxG.signals.gameResized.add(function (w, h) {
 		     if (FlxG.cameras != null) {
 			   for (cam in FlxG.cameras.list) {
@@ -165,7 +171,6 @@ class Main extends Sprite
 	}
 
 	#if CRASH_HANDLER
-	
 	function onCrash(e:UncaughtErrorEvent):Void
 	{
 		var errMsg:String = "";
