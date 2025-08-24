@@ -482,9 +482,9 @@ class ChartingState extends MusicBeatState
 		stepperSpeed.name = 'song_speed';
 		blockPressWhileTypingOnStepper.push(stepperSpeed);
 		#if MODS_ALLOWED
-		var directories:Array<String> = [Paths.getPath('characters/')];
+		var directories:Array<String> = [Paths.modFolder() + 'characters', 'assets/characters'];
 		#else
-		var directories:Array<String> = [Paths.getPath('characters/')];
+		var directories:Array<String> = ['assets/characters'];
 		#end
 
 		var tempArray:Array<String> = [];
@@ -541,7 +541,11 @@ class ChartingState extends MusicBeatState
 		player2DropDown.selectedLabel = _song.player2;
 		blockPressWhileScrolling.push(player2DropDown);
 
-		var directories:Array<String> = [Paths.getPath('stages')];
+		#if MODS_ALLOWED
+		var directories:Array<String> = [Paths.modFolder() + '/stages', 'assets/stages'];
+		#else
+		var directories:Array<String> = ['assets/stages'];
+		#end
 
 		var stageFile:Array<String> = [];
 		var stages:Array<String> = [];
