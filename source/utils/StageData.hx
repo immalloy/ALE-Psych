@@ -105,7 +105,7 @@ class StageData {
 
 	public static function vanillaSongStage(songName):String
 	{
-		switch (songName)
+		switch (CoolUtil.formatToSongPath(songName))
 		{
 			case 'spookeez' | 'south' | 'monster':
 				return 'spooky';

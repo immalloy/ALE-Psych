@@ -447,22 +447,24 @@ class CoolUtil
 	public static function formatToSongPath(string:String):String
 		return string.trim().toLowerCase().replace(' ', '-');
 
-	public static function loadPlayStateJSON(songJson:Dynamic)
+	public static function loadPlayStateJSON(songJson:Dynamic):SwagSong
 	{
-		if (songJson.gfVersion == null)
-		{
-			songJson.gfVersion = songJson.player3;
+		var json = songJson;
 
-			songJson.player3 = null;
+		if (json.gfVersion == null)
+		{
+			json.gfVersion = json.player3;
+
+			json.player3 = null;
 		}
 
-		if (songJson.events == null)
+		if (json.events == null)
 		{
-			songJson.events = [];
+			json.events = [];
 			
-			for (secNum in 0...songJson.notes.length)
+			for (secNum in 0...json.notes.length)
 			{
-				var sec:SwagSection = songJson.notes[secNum];
+				var sec:SwagSection = json.notes[secNum];
 
 				var i:Int = 0;
 				var notes:Array<Dynamic> = sec.sectionNotes;
@@ -474,7 +476,7 @@ class CoolUtil
 
 					if (note[1] < 0)
 					{
-						songJson.events.push([note[0], [[note[2], note[3], note[4]]]]);
+						json.events.push([note[0], [[note[2], note[3], note[4]]]]);
 						notes.remove(note);
 						len = notes.length;
 					}
@@ -483,6 +485,8 @@ class CoolUtil
 				}
 			}
 		}
+
+		return cast json;
 	}
 
 	public static function loadPlayStateSong(name:String, difficulty:String, setSongRoute:Bool = true):PlayStateJSONData
@@ -501,7 +505,7 @@ class CoolUtil
 					{
 						if (FileSystem.exists(parentFolder + '/songs/' + folder + '/charts/' + difficulty + '.json'))
 						{
-							jsonData = cast Json.parse(sys.io.File.getContent(parentFolder + '/songs/' + folder + '/charts/' + difficulty + '.json')).song;
+							jsonData = Json.parse(sys.io.File.getContent(parentFolder + '/songs/' + folder + '/charts/' + difficulty + '.json')).song;
 		
 							route = folder;
 						}
@@ -510,10 +514,10 @@ class CoolUtil
 			}
 		}
 
-		loadPlayStateJSON(jsonData);
-
 		if (jsonData == null)
 			debugTrace(name + '/charts/' + difficulty + '.json', MISSING_FILE);
+		else
+			jsonData = loadPlayStateJSON(jsonData);
 
 		return {
 			route: route,
@@ -528,7 +532,6 @@ class CoolUtil
 		PlayState.SONG = data.json;
 		PlayState.difficulty = difficulty;
 		PlayState.songRoute = 'songs/' + data.route;
-		PlayState.songName = data.route;
 
 		if (goToPlayState && PlayState.SONG != null)
 			switchState(new PlayState());

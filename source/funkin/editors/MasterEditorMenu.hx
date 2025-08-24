@@ -111,7 +111,8 @@ class MasterEditorMenu extends MusicBeatState
 					CoolUtil.switchState(new NoteSplashDebugState());
 			}
 
-			FlxG.sound.music.volume = 0;
+			if (FlxG.sound.music != null)
+				FlxG.sound.music.volume = 0;
 		}
 		
 		var bullShit:Int = 0;

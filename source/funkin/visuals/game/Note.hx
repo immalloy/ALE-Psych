@@ -127,7 +127,7 @@ class Note extends FlxSprite
 	private function set_multSpeed(value:Float):Float {
 		resizeByRatio(value / multSpeed);
 		multSpeed = value;
-		//trace('fuck cock');
+		
 		return value;
 	}
 
@@ -161,7 +161,10 @@ class Note extends FlxSprite
 	}
 
 	private function set_noteType(value:String):String {
-		noteSplashData.texture = PlayState.SONG != null ? PlayState.SONG.splashSkin : 'noteSplashes';
+		noteSplashData.texture = PlayState.SONG == null ? (PlayState.SONG.splashSkin == null ? 'noteSplashes/noteSplashes' : PlayState.SONG.splashSkin) : 'noteSplashes/noteSplashes';
+
+		trace(noteSplashData.texture);
+
 		defaultRGB();
 
 		if(noteData > -1 && noteType != value) {
@@ -196,8 +199,11 @@ class Note extends FlxSprite
 				case 'GF Sing':
 					gfNote = true;
 			}
-			if (value != null && value.length > 1) NoteTypesConfig.applyNoteTypeData(this, value);
+
+			if (value != null && value.length > 1)
+				NoteTypesConfig.applyNoteTypeData(this, value);
 		}
+		
 		return value;
 	}
 
@@ -238,8 +244,6 @@ class Note extends FlxSprite
 				animation.play(animToPlay + 'Scroll');
 			}
 		}
-
-		// trace(prevNote);
 
 		if(prevNote != null)
 			prevNote.nextNote = this;

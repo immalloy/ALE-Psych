@@ -181,8 +181,6 @@ class PlayState extends ScriptState
 	public static var week:String = '';
 
 	public static var songRoute:String = '';
-	
-	public static var songName:String = '';
 
 	#if DISCORD_ALLOWED
 	var detailsText:String = "";
@@ -227,7 +225,7 @@ class PlayState extends ScriptState
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
 
 		if (SONG == null)
-			CoolUtil.loadSong('tutorial', 'normal', false);
+			CoolUtil.loadSong('tutorial', 'normal');
 
 		Conductor.mapBPMChanges(SONG);
 		Conductor.bpm = SONG.bpm;
@@ -242,8 +240,9 @@ class PlayState extends ScriptState
 		#end
 
 		if(SONG.stage == null || SONG.stage.length < 1) {
-			SONG.stage = StageData.vanillaSongStage(songName);
+			SONG.stage = StageData.vanillaSongStage(SONG.song);
 		}
+
 		curStage = SONG.stage;
 
 		var stageData:StageFile = StageData.getStageFile(curStage);
@@ -917,12 +916,14 @@ class PlayState extends ScriptState
 		songSpeed = PlayState.SONG.speed;
 
 		var songData = SONG;
+
 		Conductor.bpm = songData.bpm;
 
 		curSong = songData.song;
-
+		
 		vocals = new FlxSound();
 		opponentVocals = new FlxSound();
+
 		try
 		{
 			if (songData.needsVoices)
@@ -949,6 +950,7 @@ class PlayState extends ScriptState
 			inst.loadEmbedded(Paths.inst(songRoute));
 		}
 		catch(e:Dynamic) {}
+
 		FlxG.sound.list.add(inst);
 
 		notes = new FlxTypedGroup<Note>();
@@ -965,17 +967,16 @@ class PlayState extends ScriptState
 		if (OpenFlAssets.exists(file))
 		#end
 		{
-			var eventsData:Array<Dynamic> = CoolUtil.loadPlayStateSong(songName, 'events').json.events;
+			var eventsData:Array<Dynamic> = CoolUtil.loadPlayStateSong(SONG.song, 'events').json.events;
 
-			if (eventsData is Array)
-				for (event in eventsData) 
-					for (i in 0...event[1].length)
-						makeEvent(event, i);
+			for (event in eventsData) 
+				for (i in 0...event[1].length)
+					makeEvent(event, i);
 		}
-
-		for (section in noteData)
+		
+		for (index => section in noteData)
 		{
-			for (songNotes in section.sectionNotes)
+			for (noteIndex => songNotes in section.sectionNotes)
 			{
 				var daStrumTime:Float = songNotes[0];
 				var daNoteData:Int = Std.int(songNotes[1] % 4);
@@ -996,8 +997,11 @@ class PlayState extends ScriptState
 				swagNote.mustPress = gottaHitNote;
 				swagNote.sustainLength = songNotes[2];
 				swagNote.gfNote = (section.gfSection && (songNotes[1]<4));
-				swagNote.noteType = songNotes[3];
-				if(!Std.isOfType(songNotes[3], String)) swagNote.noteType = ChartingState.noteTypeList[songNotes[3]];
+
+				swagNote.noteType = songNotes[3] ?? '';
+
+				if (!Std.isOfType(songNotes[3], String))
+					swagNote.noteType = ChartingState.noteTypeList[songNotes[3]];
 
 				swagNote.scrollFactor.set();
 
@@ -1053,11 +1057,13 @@ class PlayState extends ScriptState
 				}
 			}
 		}
+
 		for (event in songData.events) 
 			for (i in 0...event[1].length)
 				makeEvent(event, i);
 
 		unspawnNotes.sort(sortByTime);
+
 		generatedMusic = true;
 	}
 
@@ -1356,7 +1362,6 @@ class PlayState extends ScriptState
 		if (!ClientPrefs.data.noReset && Controls.RESET && canReset && !inCutscene && startedCountdown && !endingSong)
 		{
 			health = 0;
-			trace("RESET = True");
 		}
 		doDeathCheck();
 
@@ -2388,9 +2393,6 @@ class PlayState extends ScriptState
 	{
 		var result:Dynamic = callOnLuaScripts('opponentNoteHitPre', [notes.members.indexOf(note), Math.abs(note.noteData), note.noteType, note.isSustainNote]);
 		if(result != LuaUtils.Function_Stop && result != LuaUtils.Function_StopHScript && result != LuaUtils.Function_StopAll) callOnHScripts('opponentNoteHitPre', [note]);
-
-		if (songName != 'tutorial')
-			camZooming = true;
 
 		if(note.noteType == 'Hey!' && dad.animOffsets.exists('hey')) {
 			dad.playAnim('hey', true);

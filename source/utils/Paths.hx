@@ -197,7 +197,7 @@ class Paths
     public static function getAtlas(file:String, missingPrint:Bool = true):FlxAtlasFrames
         return getSparrowAtlas(file, false) ?? getPackerAtlas(file, false) ?? getAsepriteAtlas(file, missingPrint);
 
-    public static function getSparrowAtlas(file:String, missingPrint:Bool = true):FlxAtlasFrames
+    public static function getSparrowAtlas(file:String, missingPrint:Bool = true, ?pos:haxe.PosInfos):FlxAtlasFrames
     {
         var graphic = image(file, missingPrint);
         var xmlContent = xml(file, missingPrint);
