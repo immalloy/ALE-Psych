@@ -14,5 +14,8 @@ class Mods
 
         if (save != null)
             folder = save.data.currentMod;
+
+        if (!FileSystem.exists(Paths.modFolder()))
+            folder = '';
     }
 }

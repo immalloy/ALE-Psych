@@ -372,7 +372,7 @@ class PlayState extends ScriptState
 		opponentStrums = new FlxTypedGroup<StrumNote>();
 		playerStrums = new FlxTypedGroup<StrumNote>();
 
-		generateSong(SONG.song);
+		generateSong();
 
 		noteGroup.add(grpNoteSplashes);
 
@@ -911,7 +911,7 @@ class PlayState extends ScriptState
 	var debugNum:Int = 0;
 	private var noteTypes:Array<String> = [];
 	private var eventsPushed:Array<String> = [];
-	private function generateSong(dataPath:String):Void
+	private function generateSong():Void
 	{
 		songSpeed = PlayState.SONG.speed;
 
