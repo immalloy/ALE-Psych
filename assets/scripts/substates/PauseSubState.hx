@@ -213,7 +213,8 @@ function updateTime()
 	if (theTime > FlxG.sound.music.length)
 		theTime = 0;
 
-	timeText.text = FlxStringUtil.formatTime(theTime / 1000) + ' / ' + FlxStringUtil.formatTime(FlxG.sound.music.length / 1000);
+	if (timeText != null)
+		timeText.text = FlxStringUtil.formatTime(theTime / 1000) + ' / ' + FlxStringUtil.formatTime(FlxG.sound.music.length / 1000);
 }
 
 function resetSong()
@@ -235,7 +236,8 @@ function changeShit()
 		sprite.alpha = index == selInt ? 1 : 0.5;
 	}
 
-	timeText.alpha = options[selInt] == 'skip time' ? 1 : 0.5;
+	if (timeText != null)
+		timeText.alpha = options[selInt] == 'skip time' ? 1 : 0.5;
 }
 
 function onClose()
