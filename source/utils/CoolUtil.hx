@@ -279,7 +279,7 @@ class CoolUtil
 			gameOverScreen: 'GameOverSubState',
 			transition: 'FadeTransition',
 
-			title: 'Friday Night Funkin\': ALE Engine',
+			title: 'Friday Night Funkin\': ALE Psych',
 			icon: 'appIcon',
 
 			bpm: 102.0,
