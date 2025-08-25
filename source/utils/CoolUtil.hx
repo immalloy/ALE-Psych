@@ -274,6 +274,7 @@ class CoolUtil
 			storyMenuState: 'StoryMenuState',
 			masterEditorMenu: 'MasterEditorMenu',
 			mainMenuState: 'MainMenuState',
+			loadDefaultWeeks: true,
 
 			pauseSubState: 'PauseSubState',
 			gameOverScreen: 'GameOverSubState',

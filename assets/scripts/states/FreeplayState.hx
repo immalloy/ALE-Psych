@@ -75,7 +75,12 @@ function onCreate()
 
     var ignoreFiles:Array<String> = [];
 
-    for (path in [Paths.modFolder() + '/weeks', 'assets/weeks'])
+    var directories:Array<String> = [Paths.modFolder() + '/weeks'];
+
+    if (CoolVars.data.loadDefaultWeeks)
+        directories.push('assets/weeks');
+
+    for (path in directories)
         if (FileSystem.exists(path) && FileSystem.isDirectory(path))
             for (week in FileSystem.readDirectory(path))
                 if (week.endsWith('.json') && !ignoreFiles.contains(week))

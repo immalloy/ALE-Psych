@@ -15,6 +15,8 @@ typedef DataJson =
     var gameOverScreen:String;
     var transition:String;
 
+    var loadDefaultWeeks:Bool;
+
     var title:String;
     var icon:String;
 
