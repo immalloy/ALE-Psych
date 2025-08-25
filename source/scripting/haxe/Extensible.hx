@@ -4,13 +4,18 @@ import rulescript.scriptedClass.RuleScriptedClass;
 
 import flixel.*;
 import flixel.ui.*;
+import flixel.util.*;
+import flixel.text.*;
 import flixel.math.*;
 import flixel.group.*;
+import flixel.sound.*;
 import flixel.graphics.*;
 import flixel.addons.ui.*;
 import flixel.addons.display.*;
 
 import scripting.lua.LuaPresetBase;
+
+private typedef FlxDrawItem = flixel.graphics.tile.FlxDrawQuadsItem;
 
 class Extensible {}
 
@@ -21,6 +26,8 @@ class ScriptSprite extends FlxSprite implements RuleScriptedClass {}
 class ScriptText extends FlxText implements RuleScriptedClass {}
 
 class ScriptGroup extends FlxGroup implements RuleScriptedClass {}
+
+class ScriptSpriteGroup extends FlxSpriteGroup implements RuleScriptedClass {}
 
 class ScriptTimer extends FlxTimer implements RuleScriptedClass {}
 
@@ -35,5 +42,9 @@ class ScriptBar extends FlxBar implements RuleScriptedClass {}
 class ScriptGraphic extends FlxGraphic implements RuleScriptedClass {}
 
 class ScriptBasic extends FlxBasic implements RuleScriptedClass {}
+
+class ScriptRuntimeShader extends FlxRuntimeShader implements RuleScriptedClass {}
+
+class ScriptCamera extends FlxCamera implements RuleScriptedClass {}
 
 class ScriptLuaPresetBase extends LuaPresetBase implements RuleScriptedClass {}
