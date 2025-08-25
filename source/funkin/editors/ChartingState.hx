@@ -482,7 +482,7 @@ class ChartingState extends MusicBeatState
 		stepperSpeed.name = 'song_speed';
 		blockPressWhileTypingOnStepper.push(stepperSpeed);
 		#if MODS_ALLOWED
-		var directories:Array<String> = [Paths.modFolder() + 'characters', 'assets/characters'];
+		var directories:Array<String> = [Paths.modFolder() + '/characters', 'assets/characters'];
 		#else
 		var directories:Array<String> = ['assets/characters'];
 		#end

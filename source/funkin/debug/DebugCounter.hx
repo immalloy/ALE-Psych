@@ -70,7 +70,7 @@ class DebugCounter extends Sprite implements IFlxDestroyable
                     category.enabled = true;
         }
     }
-
+    
     public function destroy()
     {
         categories = [];

@@ -48,8 +48,6 @@ class MainState extends MusicBeatState
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 
-        FlxG.autoPause = !CoolVars.data.developerMode || !CoolVars.data.scriptsHotReloading;
-
 		CoolUtil.switchState(new CustomState(CoolVars.data.initialState), true, true);
 		
 		openalFix();

@@ -31,6 +31,8 @@ class CustomState extends ScriptState
     {        
         super.create();
 
+        FlxG.autoPause = !CoolVars.data.developerMode || !CoolVars.data.scriptsHotReloading;
+
         if (CoolVars.data.scriptsHotReloading && CoolVars.data.developerMode)
         {
             for (ext in ['.hx', '.lua'])
@@ -118,6 +120,8 @@ class CustomState extends ScriptState
         callOnScripts('postDestroy');
 
         destroyScripts();
+
+        FlxG.autoPause = true;
     }
 
     override public function stepHit()
