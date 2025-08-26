@@ -8,6 +8,7 @@ import rulescript.scriptedClass.RuleScriptedClass;
 import rulescript.types.ScriptedTypeUtil;
 import rulescript.types.ScriptedAbstract;
 import rulescript.interps.RuleScriptInterp;
+import rulescript.types.Abstracts;
 
 import hscript.Expr;
 
@@ -193,6 +194,13 @@ class HScriptConfig
 
         for (theClass in presetClasses)
 			curPackage.set(Type.getClassName(theClass).split('.').pop(), theClass);
+
+        var abstracts:Array<String> = [
+            'flixel.util.FlxColor'
+        ];
+
+        for (abst in abstracts)
+            curPackage.set(abst.trim().split('.').pop(), Abstracts.resolveAbstract(abst));
 
 		var presetVariables:StringMap<Dynamic> = [
 			'Json' => utils.ALEJson,
