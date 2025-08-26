@@ -1,0 +1,21 @@
+## Modified Functions
+
+- *[MODIFIED]* **precacheImage** -> `(name:String, ?allowGPU:Bool = true)`
+- *[MODIFIED]* **cameraShake** -> `(camera:String, intensity:Float, duration:Float)`
+- *[MODIFIED]* **cameraFlash** -> `(camera:String, color:String, duration:Float,forced:Bool)`
+- *[MODIFIED]* **cameraFade** -> `(camera:String, color:String, duration:Float,forced:Bool)`
+- *[MODIFIED]* **makeGraphic** -> `(obj:String, width:Int = 256, height:Int = 256, color:String = 'FFFFFF')`
+- *[MODIFIED]* **setGraphicSize** -> `(obj:String, x:Int, y:Int = 0, updateHitbox:Bool = true)`
+- *[MODIFIED]* **screenCenter** -> `(obj:String, pos:String = 'xy')`
+- [MODIFIED] **changeDiscordPresence** -> `(details:String, state:Null<String>, ?smallImageKey:String, ?hasStartTimestamp:Bool, ?endTimestamp:Float)`
+- *[MODIFIED]* **setTextBorder** -> `(tag:String, size:Float, color:String, ?style:String = 'outline')`
+- *[MODIFIED]* **initLuaShader** -> `(name:String, ?glslVersion:Int = 120)`
+- *[MODIFIED]* **keyJustPressed** -> `(name:String = '')`
+- *[MODIFIED]* **keyPressed** -> `(name:String = '')`
+- *[MODIFIED]* **keyReleased** -> `(name:String = '')`
+- *[MODIFIED]* **getDataFromSave** -> `(name:String, field:String, ?defaultValue:Dynamic = null)`
+- *[MODIFIED]* **setDataFromSave** -> `(name:String, field:String, value:Dynamic)`
+- *[MODIFIED]* **checkFileExists** -> `(filename:String, ?absolute:Bool = false)`
+- *[MODIFIED]* **saveFile** -> `(path:String, content:String, ?absolute:Bool = false)`
+- *[MODIFIED]* **deleteFile** -> `(path:String, ?ignoreModFolders:Bool = false)`
+- *[MODIFIED]* **getTextFromFile** -> `(path:String, ?ignoreModFolders:Bool = false)`
