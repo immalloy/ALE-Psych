@@ -212,7 +212,7 @@ class Paths
     public static function getAtlas(file:String, missingPrint:Bool = true):FlxAtlasFrames
         return getSparrowAtlas(file, false) ?? getPackerAtlas(file, false) ?? getAsepriteAtlas(file, missingPrint);
 
-    public static function getSparrowAtlas(file:String, missingPrint:Bool = true, ?pos:haxe.PosInfos):FlxAtlasFrames
+    public static function getSparrowAtlas(file:String, missingPrint:Bool = true):FlxAtlasFrames
     {
         var graphic = image(file, missingPrint);
         var xmlContent = xml(file, missingPrint);
@@ -243,6 +243,41 @@ class Paths
             return null;
 
         return FlxAtlasFrames.fromTexturePackerJson(graphic, jsonContent);
+    }
+
+    public static function getMultiAtlas(files:Array<String>, missingPrint:Bool = true):FlxAtlasFrames
+        return getMultiAtlasBase(Paths.getAtlas, files, missingPrint);
+
+    public static function getMultiSparrowAtlas(files:Array<String>, missingPrint:Bool = true):FlxAtlasFrames
+        return getMultiAtlasBase(Paths.getSparrowAtlas, files, missingPrint);
+
+    public static function getMultiPackerAtlas(files:Array<String>, missingPrint:Bool = true):FlxAtlasFrames
+        return getMultiAtlasBase(Paths.getPackerAtlas, files, missingPrint);
+
+    public static function getMultiAsepriteAtlas(files:Array<String>, missingPrint:Bool = true):FlxAtlasFrames
+        return getMultiAtlasBase(Paths.getAsepriteAtlas, files, missingPrint);
+
+    @:unreflective private static function getMultiAtlasBase(atlasFunc:String -> Bool -> FlxAtlasFrames, files:Array<String>, missingPrint:Bool = true):FlxAtlasFrames
+    {
+		var parentFrames:FlxAtlasFrames = atlasFunc(files[0], missingPrint);
+
+		if (files.length > 1)
+		{
+			var original:FlxAtlasFrames = parentFrames;
+
+			parentFrames = new FlxAtlasFrames(parentFrames.parent);
+			parentFrames.addAtlas(original, true);
+
+			for (i in 1...files.length)
+			{
+				var extraFrames:FlxAtlasFrames = atlasFunc(files[i], missingPrint);
+
+				if (extraFrames != null)
+					parentFrames.addAtlas(extraFrames, true);
+			}
+		}
+
+		return parentFrames;
     }
 
     public static function font(file:String, missingPrint:Bool = true):String
