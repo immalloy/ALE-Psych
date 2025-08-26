@@ -149,6 +149,21 @@ class Paths
         return File.getContent(getPath(path));
     }
 
+    public static function model(file:String, missingPrint:Bool = true):String
+    {
+        var path:String = 'models/' + file + '.obj';
+
+        if (!fileExists(path))
+        {
+            if (missingPrint)
+                debugTrace(path, MISSING_FILE);
+
+            return null;
+        }
+
+        return getPath(path);
+    }
+
     public static function video(file:String, missingPrint:Bool = true):String
     {
         var path = 'videos/' + file + '.' + VIDEO_EXT;

@@ -56,6 +56,8 @@
 	<haxelib name="flixel-ui"/>
 	<haxelib name="flixel-addons"/>
 
+	<haxelib name="away3d"/>
+
 	<haxelib name="linc_luajit" if="LUA_ALLOWED"/>
 
 	<haxelib name="rulescript" if="HSCRIPT_ALLOWED"/>
