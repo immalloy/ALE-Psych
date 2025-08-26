@@ -373,6 +373,8 @@ class CoolUtil
 		cpp.WindowsAPI.setWindowBorderColor(255, 255, 255);
 		#end
 
+		FlxG.mouse.visible = true;
+
 		FlxTween.globalManager.clear();
 
 		FlxG.camera.bgColor = FlxColor.BLACK;
