@@ -498,19 +498,30 @@ class CoolUtil
 
 		var route:String = null;
 
+		var found = false;
+
 		for (parentFolder in [Paths.modFolder(), 'assets'])
 		{
+			if (found)
+				break;
+
 			if (FileSystem.exists(parentFolder + '/songs') && FileSystem.isDirectory(parentFolder + '/songs'))
 			{
 				for (folder in FileSystem.readDirectory(parentFolder + '/songs'))
 				{
 					if (formatToSongPath(name) == formatToSongPath(folder))
 					{
-						if (FileSystem.exists(parentFolder + '/songs/' + folder + '/charts/' + difficulty + '.json'))
+						var chartPath = parentFolder + '/songs/' + folder + '/charts/' + difficulty + '.json';
+						
+						if (FileSystem.exists(chartPath))
 						{
-							jsonData = Json.parse(sys.io.File.getContent(parentFolder + '/songs/' + folder + '/charts/' + difficulty + '.json')).song;
-		
+							jsonData = Json.parse(sys.io.File.getContent(chartPath)).song;
+
 							route = folder;
+
+							found = true;
+
+							break;
 						}
 					}
 				}
