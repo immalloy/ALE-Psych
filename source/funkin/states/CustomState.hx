@@ -35,39 +35,36 @@ class CustomState extends ScriptState
 
         if (CoolVars.data.scriptsHotReloading && CoolVars.data.developerMode)
         {
+            var watchFiles = [];
+
             for (ext in ['.hx', '.lua'])
-            {
                 for (file in [scriptName, 'global'])
+                    if (Paths.fileExists('scripts/states/' + file + ext))
+                        watchFiles.push(Paths.getPath('scripts/states/' + file + ext));
+
+            CoolUtil.createSafeThread(() -> {
+                var lastTimes:Map<String, Float> = [];
+
+                for (f in watchFiles)
+                    lastTimes.set(f, FileSystem.stat(f).mtime.getTime());
+
+                while (reloadThread)
                 {
-                    CoolUtil.createSafeThread(() -> {
-                            if (!Paths.fileExists('scripts/states/' + file + ext))
-                                return;
+                    for (f in watchFiles)
+                    {
+                        var newTime = FileSystem.stat(f).mtime.getTime();
 
-                            var lastTime = FileSystem.stat(Paths.getPath('scripts/states/' + file + ext)).mtime.getTime();
+                        if (lastTimes.exists(f) && newTime != lastTimes.get(f))
+                        {
+                            lastTimes.set(f, newTime);
 
-                            while (reloadThread)
-                            {
-                                if (!Paths.fileExists('scripts/states/' + file + ext))
-                                {
-                                    resetCustomState();
+                            resetCustomState();
+                        }
+                    }
 
-                                    break;
-                                }
-    
-                                var newTime = FileSystem.stat(Paths.getPath('scripts/states/' + file + ext)).mtime.getTime();
-
-                                if (newTime != lastTime)
-                                {
-                                    lastTime = newTime;
-
-                                    resetCustomState();
-                                }
-                                
-                                Sys.sleep(0.1);
-                            }
-                    });
+                    Sys.sleep(0.1);
                 }
-            }
+            });
         }
 
         instance = this;
