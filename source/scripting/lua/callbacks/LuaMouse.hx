@@ -2,6 +2,8 @@ package scripting.lua.callbacks;
 
 import scripting.lua.LuaPresetBase;
 
+import scripting.lua.LuaPresetUtils;
+
 class LuaMouse extends LuaPresetBase
 {
     override public function new(lua:LuaScript)
@@ -45,6 +47,16 @@ class LuaMouse extends LuaPresetBase
                 case 'right':
                     FlxG.mouse.justReleasedRight;
             };
+        });
+
+        set('getMouseX', function(camera:String):Float
+        {
+            return FlxG.mouse.getScreenPosition(LuaPresetUtils.cameraFromString(lua, camera)).x;
+        });
+
+        set('getMouseY', function(camera:String):Float
+        {
+            return FlxG.mouse.getScreenPosition(LuaPresetUtils.cameraFromString(lua, camera)).y;
         });
     }
 }

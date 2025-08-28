@@ -129,5 +129,41 @@ class LuaSprite extends LuaPresetBase
                 else
                     FlxG.state.subState.remove(getTag(tag), destroy);
         });
+
+        set('getMidpointX', function(tag:String)
+        {
+            if (tagIs(tag, FlxSprite))
+                getTag(tag).getMidpoint().x;
+        });
+
+        set('getMidpointY', function(tag:String)
+        {
+            if (tagIs(tag, FlxSprite))
+                getTag(tag).getMidpoint().y;
+        });
+
+        set('getGraphicMidpointX', function(tag:String)
+        {
+            if (tagIs(tag, FlxSprite))
+                getTag(tag).getGraphicMidpoint().x;
+        });
+
+        set('getGraphicMidpointY', function(tag:String)
+        {
+            if (tagIs(tag, FlxSprite))
+                getTag(tag).getGraphicMidpoint().y;
+        });
+
+        set('getScreenPositionX', function(tag:String)
+        {
+            if (tagIs(tag, FlxSprite))
+                getTag(tag).getScreenPosition().x;
+        });
+
+        set('getScreenPositionY', function(tag:String)
+        {
+            if (tagIs(tag, FlxSprite))
+                getTag(tag).getScreenPosition().y;
+        });
     }
 }

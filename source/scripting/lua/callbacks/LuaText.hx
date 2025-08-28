@@ -43,5 +43,27 @@ class LuaText extends LuaPresetBase
 			if (tagIs(tag, FlxText))
 				getTag(tag).font = Paths.font(newFont);
 		});
+
+        set('addLuaText', function(tag:String)
+        {
+            deprecatedPrint('Use "add" instead of "addLuaText"');
+
+            if (tagIs(tag, FlxSprite))
+                if (type == STATE)
+                    FlxG.state.add(getTag(tag));
+                else
+                    FlxG.state.subState.add(getTag(tag));
+        });
+
+        set('removeLuaText', function(tag:String, ?destroy:Bool)
+        {
+            deprecatedPrint('Use "remove" instead of "removeLuaText"');
+
+            if (tagIs(tag, FlxSprite))
+                if (type == STATE)
+                    FlxG.state.remove(getTag(tag), destroy);
+                else
+                    FlxG.state.subState.remove(getTag(tag), destroy);
+        });
     }
 }
