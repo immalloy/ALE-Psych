@@ -1642,13 +1642,11 @@ class PlayState extends ScriptState
 				gfSpeed = Math.round(flValue1);
 
 			case 'Add Camera Zoom':
-				if(FlxG.camera.zoom < 1.35) {
-					if(flValue1 == null) flValue1 = 0.015;
-					if(flValue2 == null) flValue2 = 0.03;
+				if(flValue1 == null) flValue1 = 0.015;
+				if(flValue2 == null) flValue2 = 0.03;
 
-					FlxG.camera.zoom += flValue1;
-					camHUD.zoom += flValue2;
-				}
+				FlxG.camera.zoom += flValue1;
+				camHUD.zoom += flValue2;
 
 			case 'Play Animation':
 				var char:Character = dad;
@@ -2628,7 +2626,7 @@ class PlayState extends ScriptState
 			if (generatedMusic && !endingSong && !isCameraOnForcedPos)
 				moveCameraSection();
 
-			if (camZooming && FlxG.camera.zoom < 1.35)
+			if (camZooming)
 			{
 				FlxG.camera.zoom += 0.015 * camZoomingMult;
 				camHUD.zoom += 0.03 * camZoomingMult;
