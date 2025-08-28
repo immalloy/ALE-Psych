@@ -70,7 +70,7 @@ class VideoSprite extends FlxVideoSprite
                 }
 
                 if (playOnLoad)
-                    new FlxTimer().start(0.0001, (_) -> { play(); });
+                    play();
             }
         );
     }
