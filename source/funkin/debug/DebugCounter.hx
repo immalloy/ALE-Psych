@@ -88,4 +88,12 @@ class DebugCounter extends Sprite implements IFlxDestroyable
 
         removeChild(fpsCounter);
     }
+
+    @:access(flixel.FlxGame) override function __enterFrame(time:#if linux Float #else Int #end)
+    {
+        if (FlxG.game._lostFocus)
+            return;
+
+        super.__enterFrame(time);
+    }
 }

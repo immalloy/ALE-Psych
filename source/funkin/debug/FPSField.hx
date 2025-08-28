@@ -26,6 +26,7 @@ class FPSField extends DebugField
     var fps:Float = 0;
     
     var memory:Float = 0;
+    
     var memoryPeak:Float = 0;
 
 	private var times:Array<Float> = [];
