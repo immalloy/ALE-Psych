@@ -3,10 +3,11 @@
 - [x] Optimize Memory Usage
 - [x] Use ALE Engine's Source Code Organization
 - [ ] Implement `Ctrl + Shift + [function]`
-- [ ] Implement CoolUtil
+- [x] Implement CoolUtil
 - [x] Implement CoolVars
 - [x] Implemet ALESave
 - [x] RuleScript instead of SScript
+- [x] Rewrite Paths
 - [ ] Improve Lua's API
 - [x] Custom States Support
 - [x] Custom States' Hot Reloading
@@ -26,5 +27,5 @@
 - [x] Use ALE Engine's SoundTray
 - [x] Mods Menu
 - [x] Mouse Controls
-- [ ] Improve Songs Loading
+- [x] Improve Songs Loading
 - [x] Rewrite Options Menu

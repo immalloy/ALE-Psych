@@ -643,7 +643,7 @@ class PlayState extends ScriptState
 		inCutscene = false;
 		var ret:Array<Dynamic> = callOnScripts('onStartCountdown');
 
-		if(!ret.contains(LuaUtils.Function_Stop)) {
+		if(!ret.contains(CoolVars.Function_Stop)) {
 			if (skipCountdown || startOnTime > 0) skipArrowStartTween = true;
 
 			generateStaticArrows(0);
@@ -802,7 +802,7 @@ class PlayState extends ScriptState
 	public dynamic function updateScore(miss:Bool = false)
 	{
 		var ret:Array<Dynamic> = callOnScripts('preUpdateScore', [miss]);
-		if (ret.contains(LuaUtils.Function_Stop))
+		if (ret.contains(CoolVars.Function_Stop))
 			return;
 
 		var str:String = '';
@@ -1103,7 +1103,7 @@ class PlayState extends ScriptState
 
 	function eventEarlyTrigger(event:EventNote):Float {
 		var returnedValue:Array<Dynamic> = callOnScripts('eventEarlyTrigger', [event.event, event.value1, event.value2, event.strumTime]);
-		if(returnedValue is Float && !returnedValue.contains(null) && !returnedValue.contains(0) && !returnedValue.contains(LuaUtils.Function_Continue)) {
+		if(returnedValue is Float && !returnedValue.contains(null) && !returnedValue.contains(0) && !returnedValue.contains(CoolVars.Function_Continue)) {
 			return cast(returnedValue, Float);
 		}
 
@@ -1314,7 +1314,7 @@ class PlayState extends ScriptState
 		if (Controls.PAUSE && startedCountdown && canPause)
 		{
 			var ret:Array<Dynamic> = callOnScripts('onPause');
-			if(!ret.contains(LuaUtils.Function_Stop)) {
+			if(!ret.contains(CoolVars.Function_Stop)) {
 				openPauseMenu();
 			}
 		}
@@ -1555,7 +1555,7 @@ class PlayState extends ScriptState
 		if ((health <= 0) && !practiceMode && !isDead)
 		{
 			var ret:Array<Dynamic> = callOnScripts('onGameOver');
-			if(!ret.contains(LuaUtils.Function_Stop)) {
+			if(!ret.contains(CoolVars.Function_Stop)) {
 				FlxG.animationTimeScale = 1;
 				boyfriend.stunned = true;
 				deathCounter++;
@@ -1904,7 +1904,7 @@ class PlayState extends ScriptState
 
 		var ret:Array<Dynamic> = callOnScripts('onEndSong');
 		
-		if(!ret.contains(LuaUtils.Function_Stop) && !transitioning)
+		if(!ret.contains(CoolVars.Function_Stop) && !transitioning)
 		{
 			#if !switch
 			var percent:Float = ratingPercent;
@@ -2161,7 +2161,7 @@ class PlayState extends ScriptState
 
 		var ret:Array<Dynamic> = callOnScripts('onKeyPressPre', [key]);
 		
-		if(ret.contains(LuaUtils.Function_Stop))
+		if(ret.contains(CoolVars.Function_Stop))
 			return;
 
 		var lastTime:Float = Conductor.songPosition;
@@ -2233,7 +2233,7 @@ class PlayState extends ScriptState
 		if(cpuControlled || !startedCountdown || paused || key < 0 || key >= playerStrums.length) return;
 
 		var ret:Array<Dynamic> = callOnScripts('onKeyReleasePre', [key]);
-		if(ret.contains(LuaUtils.Function_Stop)) return;
+		if(ret.contains(CoolVars.Function_Stop)) return;
 
 		var spr:StrumNote = playerStrums.members[key];
 		if(spr != null)
@@ -2307,7 +2307,7 @@ class PlayState extends ScriptState
 
 		noteMissCommon(daNote.noteData, daNote);
 		var result:Dynamic = callOnLuaScripts('noteMiss', [notes.members.indexOf(daNote), daNote.noteData, daNote.noteType, daNote.isSustainNote]);
-		if(result != LuaUtils.Function_Stop && result != LuaUtils.Function_StopHScript && result != LuaUtils.Function_StopAll) callOnHScripts('noteMiss', [daNote]);
+		if(result != CoolVars.Function_Stop) callOnHScripts('noteMiss', [daNote]);
 	}
 
 	function noteMissPress(direction:Int = 1):Void
@@ -2389,8 +2389,8 @@ class PlayState extends ScriptState
 
 	function opponentNoteHit(note:Note):Void
 	{
-		var result:Dynamic = callOnLuaScripts('opponentNoteHitPre', [notes.members.indexOf(note), Math.abs(note.noteData), note.noteType, note.isSustainNote]);
-		if(result != LuaUtils.Function_Stop && result != LuaUtils.Function_StopHScript && result != LuaUtils.Function_StopAll) callOnHScripts('opponentNoteHitPre', [note]);
+		var result:Array<Dynamic> = callOnLuaScripts('opponentNoteHitPre', [notes.members.indexOf(note), Math.abs(note.noteData), note.noteType, note.isSustainNote]);
+		if(!result.contains(CoolVars.Function_Stop)) callOnHScripts('opponentNoteHitPre', [note]);
 
 		if(note.noteType == 'Hey!' && dad.animOffsets.exists('hey')) {
 			dad.playAnim('hey', true);
@@ -2418,8 +2418,8 @@ class PlayState extends ScriptState
 		strumPlayAnim(true, Std.int(Math.abs(note.noteData)), Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
 		note.hitByOpponent = true;
 		
-		var result:Dynamic = callOnLuaScripts('opponentNoteHit', [notes.members.indexOf(note), Math.abs(note.noteData), note.noteType, note.isSustainNote]);
-		if(result != LuaUtils.Function_Stop && result != LuaUtils.Function_StopHScript && result != LuaUtils.Function_StopAll) callOnHScripts('opponentNoteHit', [note]);
+		var result:Array<Dynamic> = callOnLuaScripts('opponentNoteHit', [notes.members.indexOf(note), Math.abs(note.noteData), note.noteType, note.isSustainNote]);
+		if(!result.contains(CoolVars.Function_Stop)) callOnHScripts('opponentNoteHit', [note]);
 
 		if (!note.isSustainNote) invalidateNote(note);
 	}
@@ -2433,8 +2433,8 @@ class PlayState extends ScriptState
 		var leData:Int = Math.round(Math.abs(note.noteData));
 		var leType:String = note.noteType;
 
-		var result:Dynamic = callOnLuaScripts('goodNoteHitPre', [notes.members.indexOf(note), leData, leType, isSus]);
-		if(result != LuaUtils.Function_Stop && result != LuaUtils.Function_StopHScript && result != LuaUtils.Function_StopAll) callOnHScripts('goodNoteHitPre', [note]);
+		var result:Array<Dynamic> = callOnLuaScripts('goodNoteHitPre', [notes.members.indexOf(note), leData, leType, isSus]);
+		if(!result.contains(CoolVars.Function_Stop)) callOnHScripts('goodNoteHitPre', [note]);
 
 		note.wasGoodHit = true;
 
@@ -2499,8 +2499,8 @@ class PlayState extends ScriptState
 		if (guitarHeroSustains && note.isSustainNote) gainHealth = false;
 		if (gainHealth) health += note.hitHealth * healthGain;
 
-		var result:Dynamic = callOnLuaScripts('goodNoteHit', [notes.members.indexOf(note), leData, leType, isSus]);
-		if(result != LuaUtils.Function_Stop && result != LuaUtils.Function_StopHScript && result != LuaUtils.Function_StopAll) callOnHScripts('goodNoteHit', [note]);
+		var result:Array<Dynamic> = callOnLuaScripts('goodNoteHit', [notes.members.indexOf(note), leData, leType, isSus]);
+		if(!result.contains(CoolVars.Function_Stop)) callOnHScripts('goodNoteHit', [note]);
 
 		if(!note.isSustainNote) invalidateNote(note);
 	}
@@ -2675,7 +2675,7 @@ class PlayState extends ScriptState
 
 		var ret:Array<Dynamic> = callOnScripts('onRecalculateRating');
 
-		if(!ret.contains(LuaUtils.Function_Stop))
+		if(!ret.contains(CoolVars.Function_Stop))
 		{
 			if (totalPlayed != 0)
 				ratingPercent = Math.min(1, Math.max(0, totalNotesHit / totalPlayed));

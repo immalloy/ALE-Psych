@@ -69,14 +69,14 @@ class LuaScript
     public function call(name:String, ?args:Array<Dynamic>):Dynamic
     {
         if (closed)
-            return LuaUtils.Function_Continue;
+            return CoolVars.Function_Continue;
 
         lastCalledScript = this;
 
         try
         {
             if (lua == null)
-                return LuaUtils.Function_Continue;
+                return CoolVars.Function_Continue;
 
             Lua.getglobal(lua, name);
 
@@ -89,7 +89,7 @@ class LuaScript
 
                 Lua.pop(lua, 1);
                 
-                return LuaUtils.Function_Continue;
+                return CoolVars.Function_Continue;
             }
             
             if (args != null)
@@ -102,7 +102,7 @@ class LuaScript
             {
                 debugTrace(getError(status), ERROR);
 
-                return LuaUtils.Function_Continue;
+                return CoolVars.Function_Continue;
             }
             
             var result:Dynamic = null;
@@ -122,7 +122,7 @@ class LuaScript
             debugTrace(error, ERROR);
         }
 
-        return LuaUtils.Function_Continue;
+        return CoolVars.Function_Continue;
     }
 
     public function close()
