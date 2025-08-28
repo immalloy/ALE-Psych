@@ -12,4 +12,6 @@ import funkin.states.OptionsState;
 
 import funkin.visuals.objects.MenuCharacter;
 
+import funkin.visuals.objects.VideoSprite;
+
 class FunkinImports {}

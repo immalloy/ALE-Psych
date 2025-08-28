@@ -395,9 +395,15 @@ class CoolUtil
 	
 	public static function createRuntimeShader(shaderName:String):ALERuntimeShader
 	{
-		#if (!flash && sys)
 		if (!ClientPrefs.data.shaders)
-			return null;
+			return new ALERuntimeShader(shaderName, '
+				#pragma header
+
+				void main(void)
+				{
+					gl_FragColor = texture2D(bitmap, openfl_TextureCoordv.xy);
+				}
+			');
 
 		var frag:String = 'shaders/' + shaderName + '.frag';
 		var vert:String = 'shaders/' + shaderName + '.vert';
@@ -430,11 +436,6 @@ class CoolUtil
 
 			return null;
 		}
-		#else
-		FlxG.log.warn('Platform Unsupported for Runtime Shaders');
-
-		return null;
-		#end
 	}
 
 	public static function setCameraShaders(camera:FlxCamera, shaders:Array<ALERuntimeShader>):Void
