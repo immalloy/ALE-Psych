@@ -282,6 +282,8 @@ class CoolUtil
 
 			title: 'Friday Night Funkin\': ALE Psych',
 			icon: 'appIcon',
+			width: Main.game.width,
+			height: Main.game.height,
 
 			bpm: 102.0,
 
@@ -308,6 +310,8 @@ class CoolUtil
 			Lib.current.stage.window.setIcon(Image.fromFile(Paths.getPath('images/appIcon.png')));
 
         FlxG.stage.window.title = CoolVars.data.title;
+
+		resizeGame(CoolVars.data.width, CoolVars.data.height);
 	}
 
 	public static function resizeGame(width:Int, height:Int, ?centerWindow:Bool = true)
@@ -345,8 +349,6 @@ class CoolUtil
 	{
 		CoolUtil.save.savePreferences();
 		CoolUtil.save.saveControls();
-
-		resizeGame(Main.game.width, Main.game.height);
 
 		DiscordRPC.shutdown();
 

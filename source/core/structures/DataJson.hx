@@ -19,6 +19,8 @@ typedef DataJson =
 
     var title:String;
     var icon:String;
+    var width:Int;
+    var height:Int;
 
     var bpm:Float;
 
