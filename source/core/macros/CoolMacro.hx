@@ -15,7 +15,7 @@ class CoolMacro
 
 		var fields:Array<Field> = Context.getBuildFields();
 		
-		for (index => t in list)
+		for (t in list)
 		{
 			switch (t)
 			{
@@ -23,90 +23,53 @@ class CoolMacro
 					final type = type.get();
 
 					for (field in type.statics.get())
-						fields.push(toField(field));
+					{
+						if (!field.isPublic)
+							continue;
+
+						var fieldData:Array<String> = type.module.split('.').concat([type.name, field.name]);
+
+						switch (field.kind)
+						{
+							case FVar(read, write):
+								fields.push({
+									name: field.name,
+									doc: field.doc,
+									access: [APublic, AStatic],
+									kind: FVar(null, macro $p{fieldData}),
+									pos: Context.currentPos()
+								});
+
+							case FMethod(k):
+								fields.push({
+									name: field.name,
+									doc: field.doc,
+									access: [APublic, AStatic],
+									kind: FProp('get', 'never', Context.toComplexType(field.type)),
+									pos: Context.currentPos()
+								});
+
+								fields.push({
+									name: 'get_' + field.name,
+									doc: field.doc,
+									access: [AInline, AStatic],
+									kind: FFun({
+										args: [],
+										ret: null,
+										expr: macro return $p{fieldData},
+										params: null
+									}),
+									pos: Context.currentPos()
+								});
+							
+							default:
+						}
+					}
 
 				default:
 			}
 		}
 
 		return fields;
-	}
-
-	static function varAccessToString(va:VarAccess, getOrSet:String):String
-	{
-		return switch (va)
-		{
-			case AccNormal | AccCtor: "default";
-			case AccNo: "null";
-			case AccNever: "never";
-			case AccResolve: throw null;
-			case AccCall: getOrSet;
-			case AccInline: "default";
-			case AccRequire(_, _): "default";
-		}
-	}
-
-	static function toField(cf:ClassField):Field
-	{
-		return
-		{
-			var access:Array<Access> = [APublic, AStatic];
-			if (cf.meta.has(":final"))
-			{
-				access.push(AFinal);
-			}
-			if (cf.params.length == 0)
-				{
-					name: cf.name,
-					doc: cf.doc,
-					access: access,
-					kind: switch ([cf.kind, cf.type])
-					{
-						case [FVar(read, write), ret]:
-							FProp(varAccessToString(read, "get"), varAccessToString(write, "set"), Context.toComplexType(ret), null);
-						case [FMethod(_), TFun(args, ret)]:
-							FFun({
-								args: [
-									for (a in args)
-										{
-											name: a.name,
-											opt: a.opt,
-											type: Context.toComplexType(a.t),
-										}
-								],
-								ret: Context.toComplexType(ret),
-								expr: null,
-							});
-						case [FMethod(_), TLazy(t)]:
-							switch (t())
-							{
-								case TFun(args, ret):
-									FFun({
-										args: [
-											for (a in args)
-												{
-													name: a.name,
-													opt: a.opt,
-													type: Context.toComplexType(a.t),
-												}
-										],
-										ret: Context.toComplexType(ret),
-										expr: null,
-									});
-								default:
-									null;
-							}
-
-						default:
-							throw([cf.kind, cf.type] : Array<Dynamic>);
-					},
-					pos: cf.pos,
-					meta: cf.meta.get(),
-				}
-			else
-			{
-				throw null;
-			}
-		}
 	}
 }

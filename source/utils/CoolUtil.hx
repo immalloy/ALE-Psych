@@ -1,5 +1,7 @@
 package utils;
 
+import flixel.input.keyboard.FlxKey;
+
 @:build(core.macros.CoolMacro.build(
 	[
 		'utils.cool.ColorUtil',
@@ -18,12 +20,10 @@ class CoolUtil
 {
 	public static var save:ALESave;
 
-	/*
 	public static function toggleVolumeKeys(?turnOn:Bool = true)
 	{
 		FlxG.sound.muteKeys = turnOn ? [FlxKey.M] : [];
 		FlxG.sound.volumeDownKeys = turnOn ? [FlxKey.MINUS, FlxKey.NUMPADMINUS] : [];
 		FlxG.sound.volumeUpKeys = turnOn ? [FlxKey.PLUS, FlxKey.NUMPADPLUS] : [];
 	}
-		*/
 }
