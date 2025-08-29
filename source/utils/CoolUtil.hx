@@ -1,28 +1,19 @@
 package utils;
 
-import flixel.input.keyboard.FlxKey;
-
-import core.Main;
-import core.config.MainState;
-import core.enums.PrintType;
-import core.structures.PlayStateJSONData;
-
-import utils.Song;
-import utils.Section;
-
-import sys.thread.Thread;
-
-import openfl.Lib;
-import openfl.filters.ShaderFilter;
-import openfl.filters.BitmapFilter;
-import openfl.ui.Mouse;
-import openfl.utils.Assets;
-
-import lime.graphics.Image;
-
-import funkin.visuals.shaders.ALERuntimeShader;
-
-@:build(core.macros.CoolMacro.build())
+@:build(core.macros.CoolMacro.build(
+	[
+		'utils.cool.ColorUtil',
+		'utils.cool.EngineUtil',
+		'utils.cool.FileUtil',
+		'utils.cool.LogUtil',
+		'utils.cool.MathUtil',
+		'utils.cool.PlayStateUtil',
+		'utils.cool.ShaderUtil',
+		'utils.cool.StateUtil',
+		'utils.cool.StringUtil',
+		'utils.cool.SystemUtil'
+	]
+))
 class CoolUtil
 {
 	public static var save:ALESave;

@@ -1,5 +1,10 @@
 package utils.cool;
 
+import funkin.visuals.shaders.ALERuntimeShader;
+
+import openfl.filters.BitmapFilter;
+import openfl.filters.ShaderFilter;
+
 class ShaderUtil
 {
 	public static function createRuntimeShader(shaderName:String):ALERuntimeShader

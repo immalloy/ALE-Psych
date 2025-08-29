@@ -1,5 +1,7 @@
 package utils.cool;
 
+import sys.thread.Thread;
+
 class SystemUtil
 {
 	public static function createSafeThread(func:Void -> Void):Thread
@@ -21,13 +23,5 @@ class SystemUtil
 		#else
 		FlxG.openURL(site);
 		#end
-	}
-
-	@:access(flixel.util.FlxSave.validate)
-	public static function getSavePath(modSupport:Bool = true):String
-	{
-		final company:String = FlxG.stage.application.meta.get('company');
-		
-		return company + '/' + flixel.util.FlxSave.validate(FlxG.stage.application.meta.get('file')) + (modSupport ? ((Mods.folder.trim() == '' ? '' : '/' + Mods.folder)) : '');
 	}
 }

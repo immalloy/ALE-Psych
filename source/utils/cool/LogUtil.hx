@@ -1,5 +1,7 @@
 package utils.cool;
 
+import core.enums.PrintType;
+
 class LogUtil
 {
 	public static function debugTrace(text:Dynamic, ?type:PrintType = TRACE, ?customType:String = '', ?customColor:FlxColor = FlxColor.GRAY, ?pos:haxe.PosInfos)

@@ -33,7 +33,8 @@ import utils.CoolUtil;
 import utils.CoolVars;
 import utils.Paths;
 import utils.ALEJson as Json;
-import utils.CoolUtil.debugTrace;
+
+import utils.cool.LogUtil.debugTrace;
 
 import funkin.visuals.objects.Alphabet;
 import funkin.visuals.stages.BGSprite;

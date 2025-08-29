@@ -1,5 +1,10 @@
 package utils.cool;
 
+import core.structures.PlayStateJSONData;
+
+import utils.Song;
+import utils.Section;
+
 class PlayStateUtil
 {
 	public static function loadPlayStateJSON(songJson:Dynamic):SwagSong
@@ -61,7 +66,7 @@ class PlayStateUtil
 			{
 				for (folder in FileSystem.readDirectory(parentFolder + '/songs'))
 				{
-					if (formatToSongPath(name) == formatToSongPath(folder))
+					if (FileUtil.formatToSongPath(name) == FileUtil.formatToSongPath(folder))
 					{
 						var chartPath = parentFolder + '/songs/' + folder + '/charts/' + difficulty + '.json';
 						
@@ -100,7 +105,7 @@ class PlayStateUtil
 		PlayState.songRoute = 'songs/' + data.route;
 
 		if (goToPlayState && PlayState.SONG != null)
-			switchState(new PlayState());
+			StateUtil.switchState(new PlayState());
 	}
 
 	public static function loadWeek(weekName:String, names:Array<String>, difficulty:String, goToPlayState:Bool = true)

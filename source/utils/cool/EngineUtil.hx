@@ -1,11 +1,20 @@
 package utils.cool;
 
+import core.Main;
+
+import core.config.MainState;
+
+import openfl.ui.Mouse;
+
+import openfl.Lib;
+
+import lime.graphics.Image;
+
 class EngineUtil
 {
 	public static function resetEngine():Void
 	{
-		CoolUtil.save.savePreferences();
-		CoolUtil.save.saveControls();
+		//CoolUtil.save.save();
 
 		DiscordRPC.shutdown();
 

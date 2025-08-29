@@ -4,6 +4,8 @@ import haxe.ds.StringMap;
 
 import flixel.util.FlxSave;
 
+import utils.cool.FileUtil;
+
 import utils.Score;
 
 class ALESave
@@ -19,16 +21,16 @@ class ALESave
     public function new()
     {
         preferences = new FlxSave();
-		preferences.bind('preferences', CoolUtil.getSavePath(false));
+		preferences.bind('preferences', FileUtil.getSavePath(false));
 
         score = new FlxSave();
-        score.bind('score', CoolUtil.getSavePath());
+        score.bind('score', FileUtil.getSavePath());
 
         custom = new FlxSave();
-        custom.bind('custom', CoolUtil.getSavePath());
+        custom.bind('custom', FileUtil.getSavePath());
 
         controls = new FlxSave();
-        controls.bind('controls', CoolUtil.getSavePath(false));
+        controls.bind('controls', FileUtil.getSavePath(false));
     }
 
     public function loadPreferences()

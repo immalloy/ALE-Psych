@@ -39,7 +39,7 @@ class StateUtil
 			FlxG.switchState(state);
 		} else {
             #if cpp
-			CoolUtil.openSubState(new CustomSubState(
+			openSubState(new CustomSubState(
 				CoolVars.data.transition,
 				null,
 				[

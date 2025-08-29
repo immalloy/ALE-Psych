@@ -13,7 +13,7 @@ class FileUtil
 		if (FileSystem.exists(path))
 			daList = File.getContent(path);
 
-		return daList != null ? listFromString(daList) : [];
+		return daList != null ? StringUtil.listFromString(daList) : [];
 	}
 	
     inline public static function searchComplexFile(path:String, missingPrint:Bool = true)
@@ -42,7 +42,7 @@ class FileUtil
         return result;
     }
 
-    inline public static function searchFile(parent:String, file:String)
+    public static function searchFile(parent:String, file:String)
     {
         for (folder in [Paths.modFolder(), 'assets'])
         {
@@ -50,7 +50,7 @@ class FileUtil
 
             if (FileSystem.exists(path) && FileSystem.isDirectory(path))
                 for (searchAsset in FileSystem.readDirectory(path))
-                    if (CoolUtil.formatToSongPath(searchAsset) == CoolUtil.formatToSongPath(file))
+                    if (formatToSongPath(searchAsset) == formatToSongPath(file))
                         return parent + (parent.length > 0 ? '/' : '') + searchAsset;
         }
         
@@ -78,4 +78,10 @@ class FileUtil
 
 	public static function formatToSongPath(string:String):String
 		return string.trim().toLowerCase().replace(' ', '-');
+    
+	@:access(flixel.util.FlxSave.validate)
+	public static function getSavePath(modSupport:Bool = true):String
+	{
+		return FlxG.stage.application.meta.get('company') + '/' + flixel.util.FlxSave.validate(FlxG.stage.application.meta.get('file')) + (modSupport ? ((Mods.folder.trim() == '' ? '' : '/' + Mods.folder)) : '');
+	}
 }

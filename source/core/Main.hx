@@ -59,7 +59,7 @@ extern "C" HRESULT WINAPI SetCurrentProcessExplicitAppUserModelID(PCWSTR AppID);
 
 class Main extends Sprite
 {
-	@:allow(utils.CoolUtil)
+	@:allow(utils.cool.EngineUtil)
 	private static var game = {
 		width: 1280,
 		height: 720,
