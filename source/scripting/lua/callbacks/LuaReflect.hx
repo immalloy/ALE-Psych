@@ -29,7 +29,7 @@ class LuaReflect extends LuaPresetBase
 
         set('getPropertyFromClass', function(path:String, prop:String):Dynamic
         {
-            var cl:Dynamic = getClass(path);
+            var cl:Dynamic = LuaPresetUtils.getClass(path);
 
             if (cl == null)
                 return null;
@@ -54,7 +54,7 @@ class LuaReflect extends LuaPresetBase
 
         set('setPropertyFromClass', function(path:String, prop:String, value:Dynamic)
         {
-            var cl:Dynamic = getClass(path);
+            var cl:Dynamic = LuaPresetUtils.getClass(path);
 
             if (cl == null)
                 return;
@@ -79,7 +79,7 @@ class LuaReflect extends LuaPresetBase
 
         set('setPropertiesFromClass', function(path:String, props:Any)
         {
-            var cl:Dynamic = getClass(path);
+            var cl:Dynamic = LuaPresetUtils.getClass(path);
 
             if (cl == null)
                 return;
@@ -94,7 +94,7 @@ class LuaReflect extends LuaPresetBase
 
         set('callMethodFromClass', function(path:String, func:String, ?args:Array<Dynamic>):Dynamic
         {
-            var cl:Dynamic = getClass(path);
+            var cl:Dynamic = LuaPresetUtils.getClass(path);
 
             if (cl == null)
                 return null;
@@ -104,7 +104,7 @@ class LuaReflect extends LuaPresetBase
 
         set('createInstance', function(tag:String, path:String, ?args:Array<Dynamic>)
         {
-            var cl:Dynamic = getClass(path);
+            var cl:Dynamic = LuaPresetUtils.getClass(path);
 
             if (cl == null)
                 return;
@@ -122,15 +122,5 @@ class LuaReflect extends LuaPresetBase
                 else
                     FlxG.state.subState.add(getTag(tag));
         });
-    }
-
-    function getClass(path:String):Dynamic
-    {
-        var cl:Dynamic = Type.resolveClass(path);
-
-        if (cl == null)
-            errorPrint('Type not Found: ' + path);
-
-        return cl;
     }
 }

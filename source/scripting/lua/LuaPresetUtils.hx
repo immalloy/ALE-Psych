@@ -27,6 +27,16 @@ class LuaPresetUtils
         }
     }
 
+    inline public static function getClass(path:String):Dynamic
+    {
+        var cl:Dynamic = Type.resolveClass(path);
+
+        if (cl == null)
+            debugTrace('Type not Found: ' + path, ERROR);
+
+        return cl;
+    }
+
     public static function complexTween(lua:LuaScript, tag:String, obj:Dynamic, props:Any, time:Float, options:Any):FlxTween
     {
         var opt:TweenOptions = {
