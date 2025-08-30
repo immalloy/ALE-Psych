@@ -14,9 +14,8 @@ class LuaCamera extends LuaPresetBase
         
         set('cameraShake', function(camera:String, tag:String, ?intensity:Float, ?duration:Float, ?force:Bool, ?axes:FlxAxes)
         {
-            LuaPresetUtils.cameraFromString(lua, camera).shake(intensity, duration, () -> {
-                lua.call('onCameraShakeComplete', [tag]);
-            }, force, axes);
+            if (tagIs(camera, FlxCamera))
+                getTag(camera).shake(intensity, duration, () -> { lua.call('onCameraShakeComplete', [tag]); }, force, axes);
         });
     }
 }

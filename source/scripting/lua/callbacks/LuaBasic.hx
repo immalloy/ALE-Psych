@@ -16,8 +16,8 @@ class LuaBasic extends LuaPresetBase
         {
             deprecatedPrint('Use "setObjectCameras" instead of "setObjectCamera"');
 
-            if (tagIs(tag, FlxBasic))
-                getTag(tag).cameras = [LuaPresetUtils.cameraFromString(lua, camera)];
+            if (tagIs(tag, FlxBasic) && tagIs(camera, FlxCamera))
+                getTag(tag).cameras = [getTag(camera)];
         });
 
         set('setObjectCameras', function(tag:String, cameras:Array<String>)
@@ -28,7 +28,8 @@ class LuaBasic extends LuaPresetBase
             var foundCameras:Array<FlxCamera> = [];
 
             for (camera in cameras)
-                foundCameras.push(LuaPresetUtils.cameraFromString(lua, camera));
+                if (tagIs(camera, FlxCamera))
+                    foundCameras.push(getTag(camera));
 
             getTag(tag).cameras = foundCameras;
         });

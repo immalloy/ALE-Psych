@@ -2,6 +2,8 @@ package scripting.lua.callbacks;
 
 import scripting.lua.LuaPresetBase;
 
+import scripting.lua.LuaPresetUtils;
+
 import funkin.visuals.cutscenes.DialogueBoxPsych;
 
 class LuaPlayState extends LuaPresetBase
@@ -171,163 +173,42 @@ class LuaPlayState extends LuaPresetBase
 
         set('noteTween', function (tag:String, note:Int, props:Dynamic, ?time:Float, ?options:Dynamic)
         {
-            setTag(tag, complexTween(tag, note, props, time, options));
+            setTag(tag, LuaPresetUtils.complexTween(lua, tag, game.strumLineNotes.members[note], props, time, options));
         });
 
         set('noteTweenX', function (tag:String, note:Int, value:Dynamic, duration:Float, ease:String)
         {
             deprecatedPrint('Use "noteTween" instead of "noteTweenX"');
 
-            setTag(tag, complexTween(tag, note, {x: value}, duration, {ease: ease}));
+            setTag(tag, LuaPresetUtils.complexTween(lua, tag, game.strumLineNotes.members[note], {x: value}, duration, {ease: ease}));
         });
 
         set('noteTweenY', function (tag:String, note:Int, value:Dynamic, duration:Float, ease:String)
         {
             deprecatedPrint('Use "noteTween" instead of "noteTweenY"');
 
-            setTag(tag, complexTween(tag, note, {y: value}, duration, {ease: ease}));
+            setTag(tag, LuaPresetUtils.complexTween(lua, tag, game.strumLineNotes.members[note], {y: value}, duration, {ease: ease}));
         });
 
         set('noteTweenAngle', function (tag:String, note:Int, value:Dynamic, duration:Float, ease:String)
         {
             deprecatedPrint('Use "noteTween" instead of "noteTweenAngle"');
 
-            setTag(tag, complexTween(tag, note, {angle: value}, duration, {ease: ease}));
+            setTag(tag, LuaPresetUtils.complexTween(lua, tag, game.strumLineNotes.members[note], {angle: value}, duration, {ease: ease}));
         });
 
         set('noteTweenDirection', function (tag:String, note:Int, value:Dynamic, duration:Float, ease:String)
         {
             deprecatedPrint('Use "noteTween" instead of "noteTweenDirection"');
 
-            setTag(tag, complexTween(tag, note, {direction: value}, duration, {ease: ease}));
+            setTag(tag, LuaPresetUtils.complexTween(lua, tag, game.strumLineNotes.members[note], {direction: value}, duration, {ease: ease}));
         });
 
         set('noteTweenAlpha', function (tag:String, note:Int, value:Dynamic, duration:Float, ease:String)
         {
             deprecatedPrint('Use "noteTween" instead of "noteTweenAlpha"');
 
-            setTag(tag, complexTween(tag, note, {alpha: value}, duration, {ease: ease}));
+            setTag(tag, LuaPresetUtils.complexTween(lua, tag, game.strumLineNotes.members[note], {alpha: value}, duration, {ease: ease}));
         });
     }
-
-    public function complexTween(tag:String, note:Int, props:Any, time:Float, options:Any):FlxTween
-    {
-        var opt:TweenOptions = {
-            type: tweenTypeByString(Reflect.field(options, 'type') ?? ''),
-            startDelay: Reflect.field(options, 'startDelay'),
-            onUpdate: (_) -> {
-                lua.call('onTweenUpdate', [tag]);
-            },
-            onStart: (_) -> {
-                lua.call('onTweenStart', [tag]);
-            },
-            onComplete: (_) -> {
-                lua.call('onTweenComplete', [tag]);
-            },
-            loopDelay: Reflect.field(options, 'loopDelay'),
-            ease: easeByString(Reflect.field(options, 'ease') ?? '')
-        };
-
-        return FlxTween.tween(game.strumLineNotes.members[note], props, time, opt);
-    }
-
-	public function easeByString(?ease:String = '')
-    {
-		return switch(ease.toLowerCase().trim())
-        {
-			case 'backin':
-				FlxEase.backIn;
-			case 'backinout':
-				FlxEase.backInOut;
-			case 'backout':
-				FlxEase.backOut;
-			case 'bouncein':
-				FlxEase.bounceIn;
-			case 'bounceinout':
-				FlxEase.bounceInOut;
-			case 'bounceout':
-				FlxEase.bounceOut;
-			case 'circin':
-				FlxEase.circIn;
-			case 'circinout':
-				FlxEase.circInOut;
-			case 'circout':
-				FlxEase.circOut;
-			case 'cubein':
-				FlxEase.cubeIn;
-			case 'cubeinout':
-				FlxEase.cubeInOut;
-			case 'cubeout':
-				FlxEase.cubeOut;
-			case 'elasticin':
-				FlxEase.elasticIn;
-			case 'elasticinout':
-				FlxEase.elasticInOut;
-			case 'elasticout':
-				FlxEase.elasticOut;
-			case 'expoin':
-				FlxEase.expoIn;
-			case 'expoinout':
-				FlxEase.expoInOut;
-			case 'expoout':
-				FlxEase.expoOut;
-			case 'quadin':
-				FlxEase.quadIn;
-			case 'quadinout':
-				FlxEase.quadInOut;
-			case 'quadout':
-				FlxEase.quadOut;
-			case 'quartin':
-				FlxEase.quartIn;
-			case 'quartinout':
-				FlxEase.quartInOut;
-			case 'quartout':
-				FlxEase.quartOut;
-			case 'quintin':
-				FlxEase.quintIn;
-			case 'quintinout':
-				FlxEase.quintInOut;
-			case 'quintout':
-				FlxEase.quintOut;
-			case 'sinein':
-				FlxEase.sineIn;
-			case 'sineinout':
-				FlxEase.sineInOut;
-			case 'sineout':
-				FlxEase.sineOut;
-			case 'smoothstepin':
-				FlxEase.smoothStepIn;
-			case 'smoothstepinout':
-				FlxEase.smoothStepInOut;
-			case 'smoothstepout':
-				FlxEase.smoothStepOut;
-			case 'smootherstepin':
-				FlxEase.smootherStepIn;
-			case 'smootherstepinout':
-				FlxEase.smootherStepInOut;
-			case 'smootherstepout':
-				FlxEase.smootherStepOut;
-			default:
-				FlxEase.linear;
-		}
-	}
-
-	public function tweenTypeByString(?type:String = '')
-	{
-		return switch (type.toUpperCase().trim())
-		{
-			case 'BACKWARD':
-				FlxTweenType.BACKWARD;
-			case 'LOOPING':
-				FlxTweenType.LOOPING;
-			case 'ONESHOT':
-				FlxTweenType.ONESHOT;
-			case 'PERSIST':
-				FlxTweenType.PERSIST;
-			case 'PINGPONG':
-				FlxTweenType.PINGPONG;
-			default:
-				null;
-		}
-	}
 }

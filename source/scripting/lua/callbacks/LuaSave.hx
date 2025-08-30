@@ -35,7 +35,7 @@ class LuaSave extends LuaPresetBase
 
         set('setDataFromSave', function(name:String, values:Any)
         {
-            LuaPresetUtils.applyProps(cast(Reflect.getProperty(CoolUtil.save, name), FlxSave).data, values);
+            LuaPresetUtils.setMultiProperty(cast(Reflect.getProperty(CoolUtil.save, name), FlxSave).data, values);
         });
 
         set('eraseSaveData', function(name:String)

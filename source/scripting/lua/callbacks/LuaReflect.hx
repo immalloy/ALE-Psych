@@ -37,7 +37,7 @@ class LuaReflect extends LuaPresetBase
             return getRecursiveProperty(cl, prop.split('.'));
         });
 
-        set('setProperty', function (tag:String, value:Dynamic)
+        set('setProperty', function(tag:String, value:Dynamic)
         {
             var split:Array<String> = tag.split('.');
 
@@ -46,7 +46,7 @@ class LuaReflect extends LuaPresetBase
             Reflect.setProperty(getTag(split.join('.')), pop, value);
         });
 
-        set('setPropertyFromGroup', function (tag:String, index:Int, prop:String, value:Dynamic)
+        set('setPropertyFromGroup', function(tag:String, index:Int, prop:String, value:Dynamic)
         {
             if (tagIs(tag, FlxTypedGroup))
                 Reflect.setProperty(getTag(tag).members[index], prop, value);
@@ -64,6 +64,27 @@ class LuaReflect extends LuaPresetBase
             var pop:String = split.pop();
 
             Reflect.setProperty(getRecursiveProperty(cl, split), pop, value);
+        });
+
+        set('setProperties', function(tag:String, props:Any)
+        {
+            LuaPresetUtils.setMultiProperty(getTag(tag), props);
+        });
+
+        set('setPropertiesFromGroup', function(tag:String, index:Int, props:Any)
+        {
+            if (tagIs(tag, FlxTypedGroup))
+                LuaPresetUtils.setMultiProperty(getTag(tag).members[index], props);
+        });
+
+        set('setPropertiesFromClass', function(path:String, props:Any)
+        {
+            var cl:Dynamic = getClass(path);
+
+            if (cl == null)
+                return;
+
+            LuaPresetUtils.setMultiProperty(cl, props);
         });
 
         set('callMethod', function(tag:String, ?args:Array<Dynamic>):Dynamic

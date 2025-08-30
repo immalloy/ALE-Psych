@@ -51,12 +51,18 @@ class LuaMouse extends LuaPresetBase
 
         set('getMouseX', function(camera:String):Float
         {
-            return FlxG.mouse.getScreenPosition(LuaPresetUtils.cameraFromString(lua, camera)).x;
+            if (!tagIs(camera, FlxCamera))
+                return 0;
+
+            return FlxG.mouse.getScreenPosition(getTag(camera)).x;
         });
 
         set('getMouseY', function(camera:String):Float
         {
-            return FlxG.mouse.getScreenPosition(LuaPresetUtils.cameraFromString(lua, camera)).y;
+            if (!tagIs(camera, FlxCamera))
+                return 0;
+
+            return FlxG.mouse.getScreenPosition(getTag(camera)).y;
         });
     }
 }
