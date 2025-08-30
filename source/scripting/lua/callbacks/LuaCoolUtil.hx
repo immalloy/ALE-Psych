@@ -13,5 +13,7 @@ class LuaCoolUtil extends LuaPresetBase
         set('floorDecimal', CoolUtil.floorDecimal);
 
         set('debugTrace', CoolUtil.debugTrace);
+
+        set('loadSong', CoolUtil.loadSong);
     }
 }

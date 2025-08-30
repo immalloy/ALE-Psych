@@ -19,3 +19,4 @@
 - *[MODIFIED]* **saveFile** -> `(path:String, content:String, ?absolute:Bool = false)`
 - *[MODIFIED]* **deleteFile** -> `(path:String, ?ignoreModFolders:Bool = false)`
 - *[MODIFIED]* **getTextFromFile** -> `(path:String, ?ignoreModFolders:Bool = false)`
+- *[MODIFIED]* **loadSong** -> ``(?name:String = null, ?difficultyNum:Int = -1)`;
