@@ -22,16 +22,14 @@ class LuaBasic extends LuaPresetBase
 
         set('setObjectCameras', function(tag:String, cameras:Array<String>)
         {
-            if (!tagIs(tag, FlxBasic))
-                return;
+            var theCameras:Array<FlxCamera> = [];
 
-            var foundCameras:Array<FlxCamera> = [];
+            for (cam in cameras)
+                if (tagIs(cam, FlxCamera))
+                    theCameras.push(getTag(cam));
 
-            for (camera in cameras)
-                if (tagIs(camera, FlxCamera))
-                    foundCameras.push(getTag(camera));
-
-            getTag(tag).cameras = foundCameras;
+            if (tagIs(tag, FlxBasic))
+                cast(getTag(tag), FlxBasic).cameras = theCameras;
         });
 
         set('objectsOverlap', function(tag0:String, tag1:String)

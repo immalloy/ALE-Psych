@@ -29,8 +29,6 @@ class LuaScript
         this.type = type;
 
         config();
-
-        new LuaPreset(this);
     }
 
     function config()
@@ -38,6 +36,8 @@ class LuaScript
         lua = LuaL.newstate();
         
         LuaL.openlibs(lua);
+
+        new LuaPreset(this);
 
         var result = LuaL.dofile(lua, name);
 

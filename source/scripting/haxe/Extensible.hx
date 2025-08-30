@@ -46,3 +46,5 @@ class ScriptBasic extends FlxBasic implements RuleScriptedClass {}
 class ScriptRuntimeShader extends FlxRuntimeShader implements RuleScriptedClass {}
 
 class ScriptCamera extends FlxCamera implements RuleScriptedClass {}
+
+class ScriptLuaPresetBase extends LuaPresetBase implements RuleScriptedClass {}
