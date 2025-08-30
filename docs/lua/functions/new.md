@@ -3,6 +3,9 @@
 - **add** -> 
 - **remove** -> 
 - **insert** ->
+- **setProperties** ->
+- **setPropertiesFromGroup** ->
+- **setPropertiesFromClass** ->
 - **setObjectCameras** ->
 - **tween** ->
 - **noteTween** ->
