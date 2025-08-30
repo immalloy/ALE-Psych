@@ -53,19 +53,23 @@ class LuaPresetBase
         debugTrace(text, DEPRECATED);
     }
 
-    public inline function tagExists(name:String):Bool
-        return variables.exists(name);
-
-    public inline function getTag(name:String):Dynamic
+    public function getTag(tag:String):Dynamic
     {
-        if (tagExists(name))
-        {
-            return variables.get(name);
-        } else {
-            errorPrint('There is no Object with this Tag "' + name + '"');
+        var split:Array<String> = tag.split('.');
 
-            return null;
-        }
+        var instance:Dynamic = variables.get(split[0]);
+
+        if (instance == null)
+            instance = type == STATE ? FlxG.state : FlxG.state.subState;
+        else
+            split.shift();
+
+        var result:Dynamic = tag.length > 0 ? getRecursiveProperty(instance, split) : instance;
+
+        if (result == null)
+            errorPrint('There is no Object with this Tag "' + tag + '"');
+
+        return result;
     }
 
     public inline function tagIs(name:String, type:Dynamic):Bool
@@ -80,7 +84,7 @@ class LuaPresetBase
 
     public inline function setTag(name:String, value:Dynamic)
     {
-        if (tagExists(name))
+        if (variables.exists(name))
             errorPrint('There is already an object with the tag "' + name + '"');
         else
             variables.set(name, value);
@@ -88,7 +92,22 @@ class LuaPresetBase
 
     public inline function removeTag(name:String)
     {
-        if (tagExists(name))
+        if (variables.exists(name))
             variables.remove(name);
+    }
+
+    function getRecursiveProperty(instance:Dynamic, split:Array<String>):Dynamic
+    {
+        var result:Dynamic = instance;
+
+        for (part in split)
+        {
+            result = Reflect.getProperty(result, part);
+
+            if (result == null)
+                return null;
+        }
+
+        return result;
     }
 }

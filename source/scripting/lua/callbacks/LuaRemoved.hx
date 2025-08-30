@@ -54,7 +54,8 @@ class LuaRemoved extends LuaPresetBase
 			'getColorFromHex',
 			'addOffset',
 			'makeAnimatedLuaSprite',
-			'setScrollFactor'
+			'setScrollFactor',
+			'instanceArg'
 		])
 			set(name, () -> { errorPrint('"' + name + '" function was removed'); });
     }

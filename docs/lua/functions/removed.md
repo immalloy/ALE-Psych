@@ -79,3 +79,4 @@
 - *[REMOVED]* **initSaveData** -> `(name:String, ?folder:String = 'psychenginemods')`
 - *[REMOVED]* **getModSetting** -> `(saveTag:String, ?modName:String = null)`
 - *[REMOVED]* **startTween** -> `(tag:String, vars:String, values:Any = null, duration:Float, options:Any = null)` >>> **tween**
+- *[REMOVED]* **instanceArg** -> `(instanceName:String, ?classVar:String = null)`
