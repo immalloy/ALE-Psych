@@ -2714,6 +2714,8 @@ class PlayState extends ScriptState
             {
                 var script:LuaScript = new LuaScript(Paths.getPath(path + '.lua'), STATE);
 
+				new scripting.lua.callbacks.LuaPlayState(script);
+
                 luaScripts.push(script);
 
                 debugTrace('"' + path + '.lua" has been Successfully Loaded', LUA);

@@ -47,5 +47,7 @@ class LuaPreset
         new scripting.lua.callbacks.LuaFileSystem(lua);
 
         new scripting.lua.callbacks.LuaStringTools(lua);
+
+        new scripting.lua.callbacks.LuaVariables(lua);
     }
 }
