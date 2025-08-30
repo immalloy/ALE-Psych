@@ -644,8 +644,6 @@ class PlayState extends ScriptState
 		var ret:Array<Dynamic> = callOnScripts('onStartCountdown');
 
 		if(!ret.contains(CoolVars.Function_Stop)) {
-			if (skipCountdown || startOnTime > 0) skipArrowStartTween = true;
-
 			generateStaticArrows(0);
 			generateStaticArrows(1);
 			for (i in 0...playerStrums.length) {
@@ -1130,7 +1128,6 @@ class PlayState extends ScriptState
 		callOnScripts('onEventPushed', [subEvent.event, subEvent.value1 != null ? subEvent.value1 : '', subEvent.value2 != null ? subEvent.value2 : '', subEvent.strumTime]);
 	}
 
-	public var skipArrowStartTween:Bool = false; 
 	private function generateStaticArrows(player:Int):Void
 	{
 		var strumLineX:Float = STRUM_X;
@@ -1141,20 +1138,13 @@ class PlayState extends ScriptState
 
 			var babyArrow:StrumNote = new StrumNote(strumLineX, strumLineY, i, player);
 			babyArrow.downScroll = ClientPrefs.data.downScroll;
-			if (!isStoryMode && !skipArrowStartTween)
-			{
-				babyArrow.alpha = 0;
-				FlxTween.tween(babyArrow, {alpha: targetAlpha}, 1, {ease: FlxEase.circOut, startDelay: 0.5 + (0.2 * i)});
-			}
-			else
-				babyArrow.alpha = targetAlpha;
+			
+			babyArrow.alpha = targetAlpha;
 
 			if (player == 1)
 				playerStrums.add(babyArrow);
 			else
-			{
 				opponentStrums.add(babyArrow);
-			}
 
 			strumLineNotes.add(babyArrow);
 			babyArrow.postAddedToGroup();
