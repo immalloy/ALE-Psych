@@ -16,7 +16,7 @@ class FileUtil
 		return daList != null ? StringUtil.listFromString(daList) : [];
 	}
 	
-    inline public static function searchComplexFile(path:String, missingPrint:Bool = true)
+    public static function searchComplexFile(path:String, missingPrint:Bool = true)
     {
         var parts = path.split('/');
 

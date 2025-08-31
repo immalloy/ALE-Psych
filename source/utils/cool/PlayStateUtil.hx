@@ -53,45 +53,15 @@ class PlayStateUtil
 	{
 		var jsonData:SwagSong = null;
 
-		var route:String = null;
+		var json = FileUtil.searchComplexFile('songs/' + name + '/charts/' + difficulty + '.json');
 
-		var found = false;
-
-		for (parentFolder in [Paths.modFolder(), 'assets'])
-		{
-			if (found)
-				break;
-
-			if (FileSystem.exists(parentFolder + '/songs') && FileSystem.isDirectory(parentFolder + '/songs'))
-			{
-				for (folder in FileSystem.readDirectory(parentFolder + '/songs'))
-				{
-					if (FileUtil.formatToSongPath(name) == FileUtil.formatToSongPath(folder))
-					{
-						var chartPath = parentFolder + '/songs/' + folder + '/charts/' + difficulty + '.json';
-						
-						if (FileSystem.exists(chartPath))
-						{
-							jsonData = Json.parse(sys.io.File.getContent(chartPath)).song;
-
-							route = folder;
-
-							found = true;
-
-							break;
-						}
-					}
-				}
-			}
-		}
-
-		if (jsonData == null)
+		if (json == null)
 			debugTrace(name + '/charts/' + difficulty + '.json', MISSING_FILE);
 		else
-			jsonData = loadPlayStateJSON(jsonData);
+			jsonData = loadPlayStateJSON(Json.parse(File.getContent(Paths.getPath(json))).song);
 
 		return {
-			route: route,
+			route: FileUtil.searchComplexFile('songs/' + name),
 			json: jsonData
 		};
 	}
@@ -102,7 +72,7 @@ class PlayStateUtil
 
 		PlayState.SONG = data.json;
 		PlayState.difficulty = difficulty;
-		PlayState.songRoute = 'songs/' + data.route;
+		PlayState.songRoute = data.route;
 
 		if (goToPlayState && PlayState.SONG != null)
 			StateUtil.switchState(new PlayState());
