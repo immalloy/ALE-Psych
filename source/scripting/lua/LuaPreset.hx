@@ -1,53 +1,57 @@
 package scripting.lua;
 
+import scripting.lua.callbacks.*;
+
 class LuaPreset
 {
     public function new(lua:LuaScript)
     {
-        new scripting.lua.callbacks.LuaSprite(lua);
+        new LuaSprite(lua);
 
-        new scripting.lua.callbacks.LuaGlobal(lua);
+        new LuaGlobal(lua);
 
-        new scripting.lua.callbacks.LuaReflect(lua);
+        new LuaReflect(lua);
 
-        new scripting.lua.callbacks.LuaCoolUtil(lua);
+        new LuaCoolUtil(lua);
 
-        new scripting.lua.callbacks.LuaBasic(lua);
+        new LuaBasic(lua);
 
-        new scripting.lua.callbacks.LuaRemoved(lua);
+        new LuaRemoved(lua);
 
-        new scripting.lua.callbacks.LuaMouse(lua);
+        new LuaMouse(lua);
 
-        new scripting.lua.callbacks.LuaTween(lua);
+        new LuaTween(lua);
 
-        new scripting.lua.callbacks.LuaTimer(lua);
+        new LuaTimer(lua);
 
-        new scripting.lua.callbacks.LuaColor(lua);
+        new LuaColor(lua);
 
-        new scripting.lua.callbacks.LuaPaths(lua);
+        new LuaPaths(lua);
 
-        new scripting.lua.callbacks.LuaCamera(lua);
+        new LuaCamera(lua);
 
-        new scripting.lua.callbacks.LuaObject(lua);
+        new LuaObject(lua);
 
-        new scripting.lua.callbacks.LuaSound(lua);
+        new LuaSound(lua);
 
-        new scripting.lua.callbacks.LuaDiscord(lua);
+        new LuaDiscord(lua);
 
-        new scripting.lua.callbacks.LuaAnimate(lua);
+        new LuaAnimate(lua);
 
-        new scripting.lua.callbacks.LuaText(lua);
+        new LuaText(lua);
 
-        new scripting.lua.callbacks.LuaShader(lua);
+        new LuaShader(lua);
 
-        new scripting.lua.callbacks.LuaKeyManager(lua);
+        new LuaKeyManager(lua);
 
-        new scripting.lua.callbacks.LuaSave(lua);
+        new LuaSave(lua);
 
-        new scripting.lua.callbacks.LuaFileSystem(lua);
+        new LuaFileSystem(lua);
 
-        new scripting.lua.callbacks.LuaStringTools(lua);
+        new LuaStringTools(lua);
 
-        new scripting.lua.callbacks.LuaVariables(lua);
+        new LuaVariables(lua);
+
+        new LuaJson(lua);
     }
 }

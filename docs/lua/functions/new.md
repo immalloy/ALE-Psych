@@ -38,3 +38,6 @@
 - **capitalizeString** ->
 - **listFromString** ->
 - **getBuildTarget** ->
+- **parseJson** ->
+- **parseJsonFile** ->
+- **stringifyJson** ->
