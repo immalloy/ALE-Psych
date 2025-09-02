@@ -75,13 +75,21 @@ class ALESave
 
     public function loadScore()
     {
-        Score.song = CoolUtil.save.score.data.song ?? new StringMap<Float>();
+        CoolUtil.save.score.data.song ??= new StringMap<Float>();
 
-        Score.week = CoolUtil.save.score.data.week ?? new StringMap<Float>();
+        Score.song = CoolUtil.save.score.data.song;
 
-        Score.rating = CoolUtil.save.score.data.rating ?? new StringMap<Float>();
+        CoolUtil.save.score.data.week ??= new StringMap<Float>();
 
-        Score.completed = CoolUtil.save.score.data.completed ?? new StringMap<Bool>();
+        Score.week = CoolUtil.save.score.data.week;
+
+        CoolUtil.save.score.data.rating ??= new StringMap<Float>();
+
+        Score.rating = CoolUtil.save.score.data.rating;
+
+        CoolUtil.save.score.data.completed ??= new StringMap<Bool>();
+
+        Score.completed = CoolUtil.save.score.data.completed;
     }
 
     public function loadControls()
