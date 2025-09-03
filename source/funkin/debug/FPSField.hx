@@ -22,35 +22,19 @@ class FPSField extends DebugField
 
         text.alpha = 0.75;
     }
-
-    var fps:Float = 0;
-    
-    var memory:Float = 0;
     
     var memoryPeak:Float = 0;
 
-	private var times:Array<Float> = [];
-
-    override function __enterFrame(time:#if linux Float #else Int #end)
-    {
-        super.__enterFrame(time);
-
-        final now:Float = haxe.Timer.stamp() * 1000;
-
-		times.push(now);
-
-		while (times[0] < now - 1000)
-            times.shift();
-
-        fps = FlxMath.lerp(fps, times.length < FlxG.updateFramerate ? times.length : FlxG.updateFramerate, 0.5);
-    }
+    var fps:Float = 0;
 
     override function updateField(elapsed:Float)
     {
-        title.text = 'FPS: ' + Std.string(Math.round(fps));
+        fps = CoolUtil.fpsLerp(fps, FlxG.elapsed == 0 ? 0 : (1 / FlxG.elapsed), 0.25);
+
+        title.text = 'FPS: ' + Math.floor(fps);
         
         #if cpp
-        memory = Gc.memInfo64(Gc.MEM_INFO_USAGE);
+        var memory:Float = Gc.memInfo64(Gc.MEM_INFO_USAGE);
 
         if (memoryPeak < memory)
             memoryPeak = memory;
