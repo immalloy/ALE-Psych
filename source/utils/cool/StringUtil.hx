@@ -15,4 +15,7 @@ class StringUtil
 
 		return daList;
 	}
+
+	inline public static function fromCharCode(code:Int):String
+		return String.fromCharCode(code);
 }
