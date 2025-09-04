@@ -115,7 +115,6 @@ class Main extends Sprite
 		setupGame();
 		
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPressed);
-		FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyReleased);
 	}
 
 	private function setupGame():Void
@@ -203,8 +202,6 @@ class Main extends Sprite
 	}
 	#end
 
-    public var keysPressed:Array<FlxKey> = [];
-
     static final nativeCorrection:Map<String, FlxKey> = [
 		"0_64" => FlxKey.INSERT,
 		"0_65" => FlxKey.END,
@@ -263,8 +260,7 @@ class Main extends Sprite
         #if web
         return e.keyCode;
         #else
-        var key = nativeCorrection.get(e.charCode + "_" + e.keyCode);
-        return key != null ? key : e.keyCode;
+        return nativeCorrection.get(e.charCode + "_" + e.keyCode) ?? e.keyCode;
         #end
     }
 
@@ -274,7 +270,7 @@ class Main extends Sprite
     {
         var key = correctKey(event);
 
-		if (keysPressed.contains(FlxKey.CONTROL) && keysPressed.contains(FlxKey.SHIFT))
+		if (event.ctrlKey && event.shiftKey)
 			if (ClientPrefs.controls.engine.switch_mod.contains(key))
 				if (!Std.isOfType(FlxG.state, funkin.states.PlayState))
 				{
@@ -297,14 +293,5 @@ class Main extends Sprite
 			visibleConsole = true;
 		}
 		#end
-
-		keysPressed.push(key);
-    }
-    
-    function onKeyReleased(event:KeyboardEvent)
-    {
-        var key = correctKey(event);
-
-        keysPressed.remove(key);
     }
 }
