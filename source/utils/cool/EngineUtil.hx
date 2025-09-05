@@ -14,8 +14,6 @@ class EngineUtil
 {
 	public static function resetEngine():Void
 	{
-		//CoolUtil.save.save();
-
 		DiscordRPC.shutdown();
 
 		CoolVars.skipTransIn = CoolVars.skipTransOut = true;

@@ -16,6 +16,8 @@ import scripting.haxe.imports.OpenFLImports;
 
 #end
 
+import scripting.haxe.imports.ALEUIImports;
+
 import scripting.haxe.imports.FunkinImports;
 
 import scripting.haxe.Extensible;

@@ -74,6 +74,8 @@
 
 	<haxelib name="hxvlc"/>
 
+	<haxelib name="ale-ui"/>
+
 	<!-- ______________________________ Haxe Defines _____________________________ -->
 
 	<haxedef name="DISCORD_DISABLE_IO_THREAD" if="hxdiscord_rpc"/>

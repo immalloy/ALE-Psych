@@ -9,12 +9,18 @@ import funkin.debug.DebugCounter;
 import openfl.Lib;
 import openfl.display.StageScaleMode;
 
+import ale.ui.ALEUIUtils;
+
 class MainState extends MusicBeatState
 {
 	public static var debugCounter:DebugCounter;
 
 	override function create()
 	{
+		ALEUIUtils.color = FlxColor.fromRGB(50, 70, 100);
+		ALEUIUtils.outlineColor = FlxColor.WHITE;
+		ALEUIUtils.font = Paths.font('vcr.ttf');
+
 		CoolVars.skipTransOut = true;
 
 		FlxG.fixedTimestep = false;
