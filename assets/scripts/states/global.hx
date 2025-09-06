@@ -1,3 +1,5 @@
+import ale.ui.ALEUIUtils;
+
 import core.config.DiscordRPC;
 
 function onCreate()
@@ -9,7 +11,7 @@ function onCreate()
 
 function onUpdate(elapsed:Float)
 {
-    if (FlxG.keys.justPressed.R && CoolVars.data.developerMode)
+    if (FlxG.keys.justPressed.R && CoolVars.data.developerMode && !ALEUIUtils.usingInputs)
         resetCustomState();
     
     if (FlxG.sound.music != null)
