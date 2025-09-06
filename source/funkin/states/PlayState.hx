@@ -494,7 +494,9 @@ class PlayState extends ScriptState
 		{
 			vocals.pitch = value;
 			opponentVocals.pitch = value;
-			FlxG.sound.music.pitch = value;
+
+			if (FlxG.sound.music != null)
+				FlxG.sound.music.pitch = value;
 
 			var ratio:Float = playbackRate / value;
 			if(ratio != 1)
@@ -846,13 +848,18 @@ class PlayState extends ScriptState
 	{
 		if(time < 0) time = 0;
 
-		FlxG.sound.music.pause();
+		if (FlxG.sound.music != null)
+			FlxG.sound.music.pause();
+
 		vocals.pause();
 		opponentVocals.pause();
 
-		FlxG.sound.music.time = time;
-		#if FLX_PITCH FlxG.sound.music.pitch = playbackRate; #end
-		FlxG.sound.music.play();
+		if (FlxG.sound.music != null)
+		{
+			FlxG.sound.music.time = time;
+			#if FLX_PITCH FlxG.sound.music.pitch = playbackRate; #end
+			FlxG.sound.music.play();
+		}
 
 		if (Conductor.songPosition <= vocals.length)
 		{
@@ -881,23 +888,28 @@ class PlayState extends ScriptState
 	{
 		startingSong = false;
 
-		@:privateAccess
-		FlxG.sound.playMusic(inst._sound, 1, false);
-		#if FLX_PITCH FlxG.sound.music.pitch = playbackRate; #end
-		FlxG.sound.music.onComplete = finishSong.bind();
+		if (FlxG.sound.music != null)
+		{
+			@:privateAccess
+			FlxG.sound.playMusic(inst._sound, 1, false);
+			#if FLX_PITCH FlxG.sound.music.pitch = playbackRate; #end
+			FlxG.sound.music.onComplete = finishSong.bind();
+		}
 		vocals.play();
 		opponentVocals.play();
 
 		if(startOnTime > 0) setSongTime(startOnTime - 500);
 		startOnTime = 0;
 
-		if(paused) {
-			FlxG.sound.music.pause();
+		if	(paused)
+		{
+			if (FlxG.sound.music != null)
+				FlxG.sound.music.pause();
 			vocals.pause();
 			opponentVocals.pause();
 		}
 
-		songLength = FlxG.sound.music.length;
+		songLength = FlxG.sound.music != null ? FlxG.sound.music.length : 0;
 
 		#if DISCORD_ALLOWED
 		if(autoUpdateRPC) DiscordRPC.changePresence(detailsText, SONG.song + " (" + difficulty + ")", iconP2.getCharacter(), true, songLength);
@@ -1250,9 +1262,13 @@ class PlayState extends ScriptState
 		vocals.pause();
 		opponentVocals.pause();
 
-		FlxG.sound.music.play();
-		#if FLX_PITCH FlxG.sound.music.pitch = playbackRate; #end
-		Conductor.songPosition = FlxG.sound.music.time;
+		if (FlxG.sound.music != null)
+		{
+			FlxG.sound.music.play();
+			#if FLX_PITCH FlxG.sound.music.pitch = playbackRate; #end
+			Conductor.songPosition = FlxG.sound.music.time;
+		}
+
 		if (Conductor.songPosition <= vocals.length)
 		{
 			vocals.time = Conductor.songPosition;
@@ -1273,7 +1289,6 @@ class PlayState extends ScriptState
 	var startedCountdown:Bool = false;
 	var canPause:Bool = true;
 	var freezeCamera:Bool = false;
-	var allowDebugKeys:Bool = true;
 
 	override public function update(elapsed:Float)
 	{
@@ -1309,7 +1324,7 @@ class PlayState extends ScriptState
 			}
 		}
 
-		if(!endingSong && !inCutscene && allowDebugKeys)
+		if(!endingSong && !inCutscene && CoolVars.data.developerMode)
 		{
 			if (Controls.ENGINE_CHART)
 				openChartEditor();
@@ -1349,10 +1364,30 @@ class PlayState extends ScriptState
 		FlxG.watch.addQuick("beatShit", curBeat);
 		FlxG.watch.addQuick("stepShit", curStep);
 
+		if (Controls.RESET)
+		{
+			if (CoolVars.data.developerMode)
+			{
+				paused = true;
+				
+				vocals.volume = 0;
+
+				shouldClearMemory = false;
+
+					if (FlxG.sound.music != null)
+						FlxG.sound.music.volume = 0;
+				
+				CoolUtil.resetState();
+			} else if (!ClientPrefs.data.noReset && canReset && !inCutscene && startedCountdown && !endingSong) {
+				health = 0;
+			}
+		}
+
 		if (!ClientPrefs.data.noReset && Controls.RESET && canReset && !inCutscene && startedCountdown && !endingSong)
 		{
 			health = 0;
 		}
+
 		doDeathCheck();
 
 		if (unspawnNotes[0] != null)
@@ -1434,6 +1469,8 @@ class PlayState extends ScriptState
 		if(!endingSong && !startingSong) {
 			if (FlxG.keys.justPressed.ONE) {
 				KillNotes();
+				
+		if (FlxG.sound.music != null)
 				FlxG.sound.music.onComplete();
 			}
 			if(FlxG.keys.justPressed.TWO) { 
@@ -1554,7 +1591,9 @@ class PlayState extends ScriptState
 
 				vocals.stop();
 				opponentVocals.stop();
-				FlxG.sound.music.stop();
+
+				if (FlxG.sound.music != null)
+					FlxG.sound.music.stop();
 				
 				FlxTimer.globalManager.clear();
 				FlxTween.globalManager.clear();
@@ -1853,7 +1892,9 @@ class PlayState extends ScriptState
 	public function finishSong(?ignoreNoteOffset:Bool = false):Void
 	{
 		updateTime = false;
-		FlxG.sound.music.volume = 0;
+		
+		if (FlxG.sound.music != null)
+			FlxG.sound.music.volume = 0;
 
 		vocals.volume = 0;
 		vocals.pause();
@@ -2162,7 +2203,7 @@ class PlayState extends ScriptState
 			return;
 
 		var lastTime:Float = Conductor.songPosition;
-		if(Conductor.songPosition >= 0) Conductor.songPosition = FlxG.sound.music.time;
+		if(Conductor.songPosition >= 0) Conductor.songPosition = FlxG.sound.music != null ? FlxG.sound.music.time : 0;
 
 		var plrInputNotes:Array<Note> = notes.members.filter(function(n:Note):Bool {
 			var canHit:Bool = !strumsBlocked[n.noteData] && n.canBeHit && n.mustPress && !n.tooLate && !n.wasGoodHit && !n.blockHit;
@@ -2545,15 +2586,18 @@ class PlayState extends ScriptState
 	var lastStepHit:Int = -1;
 	override function stepHit()
 	{
-		if (SONG.needsVoices && FlxG.sound.music.time >= -ClientPrefs.data.noteOffset)
+		if (FlxG.sound.music != null)
 		{
-			var timeSub:Float = Conductor.songPosition - Conductor.offset;
-			var syncTime:Float = 20 * playbackRate;
-			if (Math.abs(FlxG.sound.music.time - timeSub) > syncTime ||
-			(vocals.length > 0 && Math.abs(vocals.time - timeSub) > syncTime) ||
-			(opponentVocals.length > 0 && Math.abs(opponentVocals.time - timeSub) > syncTime))
+			if (SONG.needsVoices && FlxG.sound.music.time >= -ClientPrefs.data.noteOffset)
 			{
-				resyncVocals();
+				var timeSub:Float = Conductor.songPosition - Conductor.offset;
+				var syncTime:Float = 20 * playbackRate;
+				if (Math.abs(FlxG.sound.music.time - timeSub) > syncTime ||
+				(vocals.length > 0 && Math.abs(vocals.time - timeSub) > syncTime) ||
+				(opponentVocals.length > 0 && Math.abs(opponentVocals.time - timeSub) > syncTime))
+				{
+					resyncVocals();
+				}
 			}
 		}
 
