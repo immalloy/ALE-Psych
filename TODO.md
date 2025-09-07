@@ -2,13 +2,12 @@
 - [x] Use the ALE Engine's FPS Counter
 - [x] Optimize Memory Usage
 - [x] Use ALE Engine's Source Code Organization
-- [ ] Implement `Ctrl + Shift + [function]`
 - [x] Implement CoolUtil
 - [x] Implement CoolVars
 - [x] Implemet ALESave
 - [x] RuleScript instead of SScript
 - [x] Rewrite Paths
-- [ ] Improve Lua's API
+- [x] Improve Lua's API
 - [x] Custom States Support
 - [x] Custom States' Hot Reloading
 - [x] Custom Sub-States Support
@@ -16,16 +15,17 @@
 - [x] Use ALE Engine's Callbacks on Scripts
 - [x] Scripted Classes
 - [x] Fix PlayState
-- [ ] Remove Note Skins
-- [ ] Remove Note Splashes
-- [ ] Separate Classes, Typedefs and Enums in several files
-- [ ] Use Abstract Enums (String) instead of Enums
-- [ ] Use `debugTrace` instead of `trace`
-- [ ] Use `debugPrint` instead of `addTextToDebug / luaTrace`
+- [x] Remove Note Skins
+- [x] Remove Note Splashes
+- [x] Use `debugTrace` instead of `trace`
 - [x] Implement `data.json`
 - [x] Fix FlxKeyboard
 - [x] Use ALE Engine's SoundTray
 - [x] Mods Menu
 - [x] Mouse Controls
 - [x] Improve Songs Loading
-- [x] Rewrite Options Menu
+- [ ] Rewrite Options Menu
+- [ ] Implement `Ctrl + Shift + [function]`
+- [ ] Separate Classes, Typedefs and Enums in several files
+- [ ] Use Abstract Enums (String) instead of Enums
+- [ ] Fix Editors
