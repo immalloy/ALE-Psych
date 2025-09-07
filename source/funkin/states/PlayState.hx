@@ -43,6 +43,14 @@ import funkin.editors.*;
 
 class PlayState extends ScriptState
 {
+	public function new()
+	{
+		if (FlxG.sound.music == null)
+			FlxG.sound.playMusic(Paths.music('freakyMenu'));
+
+		super();
+	}
+
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
@@ -895,6 +903,7 @@ class PlayState extends ScriptState
 			#if FLX_PITCH FlxG.sound.music.pitch = playbackRate; #end
 			FlxG.sound.music.onComplete = finishSong.bind();
 		}
+		
 		vocals.play();
 		opponentVocals.play();
 
@@ -1374,20 +1383,15 @@ class PlayState extends ScriptState
 
 				shouldClearMemory = false;
 
-					if (FlxG.sound.music != null)
-						FlxG.sound.music.volume = 0;
+				if (FlxG.sound.music != null)
+					FlxG.sound.music.volume = 0;
 				
 				CoolUtil.resetState();
 			} else if (!ClientPrefs.data.noReset && canReset && !inCutscene && startedCountdown && !endingSong) {
 				health = 0;
 			}
 		}
-
-		if (!ClientPrefs.data.noReset && Controls.RESET && canReset && !inCutscene && startedCountdown && !endingSong)
-		{
-			health = 0;
-		}
-
+		
 		doDeathCheck();
 
 		if (unspawnNotes[0] != null)
