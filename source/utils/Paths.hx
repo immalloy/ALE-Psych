@@ -9,6 +9,8 @@ import flixel.graphics.FlxGraphic;
 import flixel.sound.FlxSound;
 import flixel.util.FlxColor;
 
+import funkin.visuals.objects.PsychFlxAnimate;
+
 import openfl.display.BitmapData;
 import openfl.display3D.textures.RectangleTexture;
 
@@ -350,7 +352,7 @@ class Paths
     }
 
 	#if flxanimate
-	public static function loadAnimateAtlas(spr:FlxAnimate, folderOrImg:Dynamic, spriteJson:Dynamic = null, animationJson:Dynamic = null)
+	public static function loadAnimateAtlas(spr:PsychFlxAnimate, folderOrImg:Dynamic, spriteJson:Dynamic = null, animationJson:Dynamic = null)
 	{
 		var changedAnimJson = false;
 		var changedAtlasJson = false;

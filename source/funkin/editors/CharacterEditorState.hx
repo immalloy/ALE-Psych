@@ -4,7 +4,6 @@ import flixel.FlxObject;
 import flixel.graphics.FlxGraphic;
 
 import flixel.animation.FlxAnimation;
-import flixel.system.debug.interaction.tools.Pointer.GraphicCursorCross;
 import flixel.addons.ui.*;
 import flixel.ui.FlxButton;
 import flixel.util.FlxDestroyUtil;
@@ -18,12 +17,13 @@ import lime.system.Clipboard;
 import funkin.visuals.game.Character;
 import funkin.visuals.objects.HealthIcon;
 import funkin.visuals.objects.Bar;
+import funkin.visuals.objects.PsychFlxAnimate;
 
 class CharacterEditorState extends MusicBeatState
 {
 	var character:Character;
 	var ghost:FlxSprite;
-	var animateGhost:FlxAnimate;
+	var animateGhost:PsychFlxAnimate;
 	var animateGhostImage:String;
 	var cameraFollowPointer:FlxSprite;
 	var isAnimateSprite:Bool = false;
@@ -101,8 +101,8 @@ class CharacterEditorState extends MusicBeatState
 
 		addCharacter();
 
-		cameraFollowPointer = new FlxSprite().loadGraphic(FlxGraphic.fromClass(GraphicCursorCross));
-		cameraFollowPointer.setGraphicSize(40, 40);
+		cameraFollowPointer = new FlxSprite().makeGraphic(20, 20);
+		cameraFollowPointer.offset.set(10, 10);
 		cameraFollowPointer.updateHitbox();
 		add(cameraFollowPointer);
 
@@ -298,7 +298,7 @@ class CharacterEditorState extends MusicBeatState
 				{
 					if(animateGhost == null) //If I created the animateGhost on create() and you didn't load an atlas, it would crash the game on destroy, so we create it here
 					{
-						animateGhost = new FlxAnimate(ghost.x, ghost.y);
+						animateGhost = new PsychFlxAnimate(ghost.x, ghost.y);
 						animateGhost.showPivot = false;
 						insert(members.indexOf(ghost), animateGhost);
 						animateGhost.active = false;
@@ -782,7 +782,7 @@ class CharacterEditorState extends MusicBeatState
 
 		if(Paths.fileExists('images/' + character.imageFile + '/Animation.json'))
 		{
-			character.atlas = new FlxAnimate();
+			character.atlas = new PsychFlxAnimate();
 			character.atlas.showPivot = false;
 			try
 			{

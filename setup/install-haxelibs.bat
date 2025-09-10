@@ -9,16 +9,16 @@ echo Installing dependencies...
 haxelib install lime 8.2.2
 haxelib run lime setup
 haxelib install openfl 9.4.1
-haxelib install flixel 5.6.1
-haxelib install flixel-addons 3.2.3
-haxelib install flixel-ui 2.6.1
+haxelib install flixel 6.1.0
+haxelib install flixel-addons 3.3.2
+haxelib install flixel-ui 2.6.4
 haxelib install flixel-tools 1.5.1
 haxelib install tjson 1.4.0
 haxelib install hxCodec 2.6.1
 haxelib install away3d 5.0.9
 haxelib install extension-androidtools 2.2.2 --skip-dependencies
 haxelib git hxcpp https://github.com/AlejoGDOfficial/MobilePorting-hxcpp --skip-dependencies
-haxelib git flxanimate https://github.com/ShadowMario/flxanimate dev
+haxelib git flxanimate https://github.com/Dot-Stuff/flxanimate 7da385ca7fd8d8067aac03bc39798d37c5598e45
 haxelib git linc_luajit https://github.com/superpowers04/linc_luajit 633fcc051399afed6781dd60cbf30ed8c3fe2c5a
 haxelib install hxdiscord_rpc 1.3.0 --skip-dependencies
 haxelib install hxvlc 2.2.2 --skip-dependencies

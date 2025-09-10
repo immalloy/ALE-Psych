@@ -12,6 +12,8 @@ import utils.Song;
 import utils.Section;
 import funkin.visuals.stages.objects.TankmenBG;
 
+import funkin.visuals.objects.PsychFlxAnimate;
+
 typedef CharacterFile = {
 	var animations:Array<AnimArray>;
 	var image:String;
@@ -156,7 +158,7 @@ class Character extends FlxSprite
 		#if flxanimate
 		else
 		{
-			atlas = new FlxAnimate();
+			atlas = new PsychFlxAnimate();
 			atlas.showPivot = false;
 			try
 			{
@@ -299,12 +301,11 @@ class Character extends FlxSprite
 	inline public function isAnimationNull():Bool
 		return !isAnimateAtlas ? (animation.curAnim == null) : (atlas.anim.curSymbol == null);
 
+	var __lastAnim:String;
+
 	inline public function getAnimationName():String
 	{
-		var name:String = '';
-		@:privateAccess
-		if(!isAnimationNull()) name = !isAnimateAtlas ? animation.curAnim.name : atlas.anim.lastPlayedAnim;
-		return (name != null) ? name : '';
+		return __lastAnim ?? '';
 	}
 
 	public function isAnimationFinished():Bool
@@ -375,7 +376,8 @@ class Character extends FlxSprite
 			var daOffset = animOffsets.get(AnimName);
 			offset.set(daOffset[0], daOffset[1]);
 		}
-		//else offset.set(0, 0);
+		
+		__lastAnim = AnimName;
 
 		if (curCharacter.startsWith('gf-') || curCharacter == 'gf')
 		{
@@ -388,6 +390,7 @@ class Character extends FlxSprite
 			if (AnimName == 'singUP' || AnimName == 'singDOWN')
 				danced = !danced;
 		}
+
 	}
 
 	function loadMappedAnims():Void
@@ -448,7 +451,7 @@ class Character extends FlxSprite
 	// special thanks ne_eo for the references, you're the goat!!
 	public var isAnimateAtlas:Bool = false;
 	#if flxanimate
-	public var atlas:FlxAnimate;
+	public var atlas:PsychFlxAnimate;
 	public override function draw()
 	{
 		if(isAnimateAtlas)

@@ -6,6 +6,8 @@ import funkin.visuals.cutscenes.CutsceneHandler;
 
 import funkin.visuals.game.Character;
 
+import funkin.visuals.objects.PsychFlxAnimate;
+
 class Tank extends BaseStage
 {
 	var tankWatchtower:BGSprite;
@@ -133,8 +135,8 @@ class Tank extends BaseStage
 
 	// Cutscenes
 	var cutsceneHandler:CutsceneHandler;
-	var tankman:FlxAnimate;
-	var pico:FlxAnimate;
+	var tankman:PsychFlxAnimate;
+	var pico:PsychFlxAnimate;
 	var boyfriendCutscene:FlxSprite;
 	function prepareCutscene()
 	{
@@ -144,7 +146,7 @@ class Tank extends BaseStage
 		camHUD.visible = false;
 		//inCutscene = true; //this would stop the camera movement, oops
 
-		tankman = new FlxAnimate(dad.x + 419, dad.y + 225);
+		tankman = new PsychFlxAnimate(dad.x + 419, dad.y + 225);
 		tankman.showPivot = false;
 		try
 		{
@@ -268,7 +270,7 @@ class Tank extends BaseStage
 		});
 		Paths.sound('stressCutscene');
 
-		pico = new FlxAnimate(gf.x + 150, gf.y + 450);
+		pico = new PsychFlxAnimate(gf.x + 150, gf.y + 450);
 		pico.showPivot = false;
 		Paths.loadAnimateAtlas(pico, 'week7/cutscenes/picoAppears');
 		pico.antialiasing = ClientPrefs.data.antialiasing;
@@ -307,33 +309,34 @@ class Tank extends BaseStage
 			FlxTween.tween(FlxG.camera, {zoom: 0.9 * 1.2 * 1.2}, 2.25, {ease: FlxEase.quadInOut});
 
 			pico.anim.play('dieBitch', true);
-			pico.anim.onComplete = function()
+			pico.anim.onComplete.addOnce(function()
 			{
 				pico.anim.play('picoAppears', true);
-				pico.anim.onComplete = function()
+				pico.anim.onComplete.addOnce(function()
 				{
 					pico.anim.play('picoEnd', true);
-					pico.anim.onComplete = function()
+					pico.anim.onComplete.addOnce(function()
 					{
 						gfGroup.alpha = 1;
 						pico.visible = false;
 						pico.anim.onComplete = null;
-					}
-				};
+					});
+				});
 
 				boyfriendGroup.alpha = 1;
 				boyfriendCutscene.visible = false;
 				boyfriend.playAnim('bfCatch', true);
 
-				boyfriend.animation.finishCallback = function(name:String)
+				boyfriend.animation.onFinish.addOnce(function(name:String)
 				{
 					if(name != 'idle')
 					{
 						boyfriend.playAnim('idle', true);
+
 						boyfriend.animation.curAnim.finish(); //Instantly goes to last frame
 					}
-				};
-			};
+				});
+			});
 		});
 
 		cutsceneHandler.timer(17.5, function()

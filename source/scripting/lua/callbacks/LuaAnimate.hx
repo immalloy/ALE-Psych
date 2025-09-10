@@ -2,7 +2,7 @@ package scripting.lua.callbacks;
 
 import scripting.lua.LuaPresetBase;
 
-import flxanimate.FlxAnimate;
+import funkin.visuals.objects.PsychFlxAnimate;
 
 class LuaAnimate extends LuaPresetBase
 {
@@ -12,7 +12,7 @@ class LuaAnimate extends LuaPresetBase
 
         set('makeFlxAnimateSprite', function(tag:String, ?x:Float, ?y:Float, ?loadFolder:String)
         {
-            var sprite:FlxAnimate = new FlxAnimate(x, y);
+            var sprite:PsychFlxAnimate = new PsychFlxAnimate(x, y);
 
             if (loadFolder != null)
                 Paths.loadAnimateAtlas(sprite, loadFolder);
@@ -22,16 +22,16 @@ class LuaAnimate extends LuaPresetBase
         
         set('loadAnimateAtlas', function(tag:String, folderOrImg:Dynamic, ?spriteJson:Dynamic, ?animationJson:Dynamic)
         {
-            if (tagIs(tag, FlxAnimate))
+            if (tagIs(tag, PsychFlxAnimate))
                 Paths.loadAnimateAtlas(getTag(tag), folderOrImg, spriteJson, animationJson);
         });
 
         set('addAnimationBySymbolIndices', function(tag:String, name:String, symbol:String, indices:Any, ?framerate:Float, ?loop:Bool, ?matX:Float, ?matY:Float)
         {
-            if (!tagIs(tag, FlxAnimate))
+            if (!tagIs(tag, PsychFlxAnimate))
                 return;
 
-            var obj:FlxAnimate = getTag(tag);
+            var obj:PsychFlxAnimate = getTag(tag);
 
 			if(indices == null)
 				indices = [0];
@@ -52,7 +52,7 @@ class LuaAnimate extends LuaPresetBase
 
 			if (obj.anim.curSymbol == null)
 			{
-				var obj2:FlxAnimate = cast (obj, FlxAnimate);
+				var obj2:PsychFlxAnimate = cast (obj, PsychFlxAnimate);
 
                 obj2.anim.play(name, true);
 			}
