@@ -9,7 +9,7 @@ class Controls
     public static var NOTE_LEFT(get, never):Bool;
     static function get_NOTE_LEFT():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyPressed(ClientPrefs.controls.notes.left);
 
         #if !mobile return FlxG.keys.anyPressed(ClientPrefs.controls.notes.left); #end
@@ -18,7 +18,7 @@ class Controls
     public static var NOTE_LEFT_P(get, never):Bool;
     static function get_NOTE_LEFT_P():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyJustPressed(ClientPrefs.controls.notes.left);
 
         #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.notes.left); #end
@@ -27,7 +27,7 @@ class Controls
     public static var NOTE_LEFT_R(get, never):Bool;
     static function get_NOTE_LEFT_R():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyJustReleased(ClientPrefs.controls.notes.left);
 
         #if !mobile return FlxG.keys.anyJustReleased(ClientPrefs.controls.notes.left); #end
@@ -36,7 +36,7 @@ class Controls
     public static var NOTE_DOWN(get, never):Bool;
     static function get_NOTE_DOWN():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyPressed(ClientPrefs.controls.notes.down);
 
         #if !mobile return FlxG.keys.anyPressed(ClientPrefs.controls.notes.down); #end
@@ -45,7 +45,7 @@ class Controls
     public static var NOTE_DOWN_P(get, never):Bool;
     static function get_NOTE_DOWN_P():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyJustPressed(ClientPrefs.controls.notes.down);
 
         #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.notes.down); #end
@@ -54,7 +54,7 @@ class Controls
     public static var NOTE_DOWN_R(get, never):Bool;
     static function get_NOTE_DOWN_R():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyJustReleased(ClientPrefs.controls.notes.down);
 
         #if !mobile return FlxG.keys.anyJustReleased(ClientPrefs.controls.notes.down); #end
@@ -63,7 +63,7 @@ class Controls
     public static var NOTE_UP(get, never):Bool;
     static function get_NOTE_UP():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyPressed(ClientPrefs.controls.notes.up);
         
         #if !mobile return FlxG.keys.anyPressed(ClientPrefs.controls.notes.up); #end
@@ -72,7 +72,7 @@ class Controls
     public static var NOTE_UP_P(get, never):Bool;
     static function get_NOTE_UP_P():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyJustPressed(ClientPrefs.controls.notes.up);
         
         #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.notes.up); #end
@@ -81,7 +81,7 @@ class Controls
     public static var NOTE_UP_R(get, never):Bool;
     static function get_NOTE_UP_R():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyJustReleased(ClientPrefs.controls.notes.up);
 
         #if !mobile return FlxG.keys.anyJustReleased(ClientPrefs.controls.notes.up); #end
@@ -90,7 +90,7 @@ class Controls
     public static var NOTE_RIGHT(get, never):Bool;
     static function get_NOTE_RIGHT():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyPressed(ClientPrefs.controls.notes.right);
 
         #if !mobile return FlxG.keys.anyPressed(ClientPrefs.controls.notes.right); #end
@@ -99,7 +99,7 @@ class Controls
     public static var NOTE_RIGHT_P(get, never):Bool;
     static function get_NOTE_RIGHT_P():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyJustPressed(ClientPrefs.controls.notes.right);
 
         #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.notes.right); #end
@@ -108,7 +108,7 @@ class Controls
     public static var NOTE_RIGHT_R(get, never):Bool;
     static function get_NOTE_RIGHT_R():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyJustReleased(ClientPrefs.controls.notes.right);
 
         #if !mobile return FlxG.keys.anyJustReleased(ClientPrefs.controls.notes.right); #end
@@ -119,7 +119,7 @@ class Controls
     public static var UI_LEFT(get, never):Bool;
     static function get_UI_LEFT():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyPressed(ClientPrefs.controls.ui.left);
 
         #if !mobile return FlxG.keys.anyPressed(ClientPrefs.controls.ui.left); #end
@@ -128,7 +128,7 @@ class Controls
     public static var UI_LEFT_P(get, never):Bool;
     static function get_UI_LEFT_P():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyJustPressed(ClientPrefs.controls.ui.left);
 
         #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.left); #end
@@ -137,7 +137,7 @@ class Controls
     public static var UI_LEFT_R(get, never):Bool;
     static function get_UI_LEFT_R():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyJustReleased(ClientPrefs.controls.ui.left);
 
         #if !mobile return FlxG.keys.anyJustReleased(ClientPrefs.controls.ui.left); #end
@@ -146,7 +146,7 @@ class Controls
     public static var UI_DOWN(get, never):Bool;
     static function get_UI_DOWN():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyPressed(ClientPrefs.controls.ui.down);
 
         #if !mobile return FlxG.keys.anyPressed(ClientPrefs.controls.ui.down); #end
@@ -155,7 +155,7 @@ class Controls
     public static var UI_DOWN_P(get, never):Bool;
     static function get_UI_DOWN_P():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyJustPressed(ClientPrefs.controls.ui.down);
 
         #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.down); #end
@@ -164,7 +164,7 @@ class Controls
     public static var UI_DOWN_R(get, never):Bool;
     static function get_UI_DOWN_R():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyJustReleased(ClientPrefs.controls.ui.down);
 
         #if !mobile return FlxG.keys.anyJustReleased(ClientPrefs.controls.ui.down); #end
@@ -173,7 +173,7 @@ class Controls
     public static var UI_UP(get, never):Bool;
     static function get_UI_UP():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyPressed(ClientPrefs.controls.ui.up);
 
         #if !mobile return FlxG.keys.anyPressed(ClientPrefs.controls.ui.up); #end
@@ -182,7 +182,7 @@ class Controls
     public static var UI_UP_P(get, never):Bool;
     static function get_UI_UP_P():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyJustPressed(ClientPrefs.controls.ui.up);
 
         #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.up); #end
@@ -191,7 +191,7 @@ class Controls
     public static var UI_UP_R(get, never):Bool;
     static function get_UI_UP_R():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyJustReleased(ClientPrefs.controls.ui.up);
 
         #if !mobile return FlxG.keys.anyJustReleased(ClientPrefs.controls.ui.up); #end
@@ -200,7 +200,7 @@ class Controls
     public static var UI_RIGHT(get, never):Bool;
     static function get_UI_RIGHT():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyPressed(ClientPrefs.controls.ui.right);
 
         #if !mobile return FlxG.keys.anyPressed(ClientPrefs.controls.ui.right); #end
@@ -209,7 +209,7 @@ class Controls
     public static var UI_RIGHT_P(get, never):Bool;
     static function get_UI_RIGHT_P():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyJustPressed(ClientPrefs.controls.ui.right);
 
         #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.right); #end
@@ -218,7 +218,7 @@ class Controls
     public static var UI_RIGHT_R(get, never):Bool;
     static function get_UI_RIGHT_R():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyJustReleased(ClientPrefs.controls.ui.right);
 
         #if !mobile return FlxG.keys.anyJustReleased(ClientPrefs.controls.ui.right); #end
@@ -227,7 +227,7 @@ class Controls
     public static var ACCEPT(get, never):Bool;
     static function get_ACCEPT():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyJustPressed(ClientPrefs.controls.ui.accept);
 
         #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.accept); #end
@@ -236,7 +236,7 @@ class Controls
     public static var BACK(get, never):Bool;
     static function get_BACK():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyJustPressed(ClientPrefs.controls.ui.back);
 
         #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.back); #end
@@ -245,7 +245,7 @@ class Controls
     public static var RESET(get, never):Bool;
     static function get_RESET():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyJustPressed(ClientPrefs.controls.ui.reset);
 
         #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.reset); #end
@@ -254,7 +254,7 @@ class Controls
     public static var PAUSE(get, never):Bool;
     static function get_PAUSE():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyJustPressed(ClientPrefs.controls.ui.pause);
 
         #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.pause); #end
@@ -263,7 +263,7 @@ class Controls
     public static var ENGINE_CHART(get, never):Bool;
     static function get_ENGINE_CHART():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyJustPressed(ClientPrefs.controls.engine.chart);
 
         #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.engine.chart); #end
@@ -272,7 +272,7 @@ class Controls
     public static var ENGINE_CHARACTER(get, never):Bool;
     static function get_ENGINE_CHARACTER():Bool
     {
-        #if !mobile if (CoolVars.data.mobileDebug && !CoolVars.data.developerMode) #end
+        #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyJustPressed(ClientPrefs.controls.engine.character);
 
         #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.engine.character); #end
