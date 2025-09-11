@@ -177,6 +177,8 @@ class HScriptConfig
             core.backend.Conductor,
             core.backend.MusicBeatState,
             core.backend.MusicBeatSubState,
+            core.backend.MobileControls,
+
             core.config.ClientPrefs,
 
             utils.CoolUtil,
@@ -185,6 +187,9 @@ class HScriptConfig
             funkin.states.PlayState,
 			funkin.states.CustomState,
 			funkin.substates.CustomSubState,
+
+            funkin.visuals.mobile.MobileButton,
+            
             Controls,
 
 			Paths,

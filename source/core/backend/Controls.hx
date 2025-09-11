@@ -8,125 +8,275 @@ class Controls
 {
     public static var NOTE_LEFT(get, never):Bool;
     static function get_NOTE_LEFT():Bool
-        return FlxG.keys.anyPressed(ClientPrefs.controls.notes.left);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyPressed(ClientPrefs.controls.notes.left);
+
+        #if !mobile return FlxG.keys.anyPressed(ClientPrefs.controls.notes.left); #end
+    }
 
     public static var NOTE_LEFT_P(get, never):Bool;
     static function get_NOTE_LEFT_P():Bool
-        return FlxG.keys.anyJustPressed(ClientPrefs.controls.notes.left);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyJustPressed(ClientPrefs.controls.notes.left);
+
+        #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.notes.left); #end
+    }
 
     public static var NOTE_LEFT_R(get, never):Bool;
     static function get_NOTE_LEFT_R():Bool
-        return FlxG.keys.anyJustReleased(ClientPrefs.controls.notes.left);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyJustReleased(ClientPrefs.controls.notes.left);
+
+        #if !mobile return FlxG.keys.anyJustReleased(ClientPrefs.controls.notes.left); #end
+    }
 
     public static var NOTE_DOWN(get, never):Bool;
     static function get_NOTE_DOWN():Bool
-        return FlxG.keys.anyPressed(ClientPrefs.controls.notes.down);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyPressed(ClientPrefs.controls.notes.down);
+
+        #if !mobile return FlxG.keys.anyPressed(ClientPrefs.controls.notes.down); #end
+    }
 
     public static var NOTE_DOWN_P(get, never):Bool;
     static function get_NOTE_DOWN_P():Bool
-        return FlxG.keys.anyJustPressed(ClientPrefs.controls.notes.down);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyJustPressed(ClientPrefs.controls.notes.down);
+
+        #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.notes.down); #end
+    }
 
     public static var NOTE_DOWN_R(get, never):Bool;
     static function get_NOTE_DOWN_R():Bool
-        return FlxG.keys.anyJustReleased(ClientPrefs.controls.notes.down);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyJustReleased(ClientPrefs.controls.notes.down);
+
+        #if !mobile return FlxG.keys.anyJustReleased(ClientPrefs.controls.notes.down); #end
+    }
 
     public static var NOTE_UP(get, never):Bool;
-        static function get_NOTE_UP():Bool
-        return FlxG.keys.anyPressed(ClientPrefs.controls.notes.up);
+    static function get_NOTE_UP():Bool
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyPressed(ClientPrefs.controls.notes.up);
+        
+        #if !mobile return FlxG.keys.anyPressed(ClientPrefs.controls.notes.up); #end
+    }
 
     public static var NOTE_UP_P(get, never):Bool;
-        static function get_NOTE_UP_P():Bool
-        return FlxG.keys.anyJustPressed(ClientPrefs.controls.notes.up);
+    static function get_NOTE_UP_P():Bool
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyJustPressed(ClientPrefs.controls.notes.up);
+        
+        #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.notes.up); #end
+    }
 
     public static var NOTE_UP_R(get, never):Bool;
     static function get_NOTE_UP_R():Bool
-        return FlxG.keys.anyJustReleased(ClientPrefs.controls.notes.up);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyJustReleased(ClientPrefs.controls.notes.up);
+
+        #if !mobile return FlxG.keys.anyJustReleased(ClientPrefs.controls.notes.up); #end
+    }
 
     public static var NOTE_RIGHT(get, never):Bool;
     static function get_NOTE_RIGHT():Bool
-        return FlxG.keys.anyPressed(ClientPrefs.controls.notes.right);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyPressed(ClientPrefs.controls.notes.right);
+
+        #if !mobile return FlxG.keys.anyPressed(ClientPrefs.controls.notes.right); #end
+    }
 
     public static var NOTE_RIGHT_P(get, never):Bool;
     static function get_NOTE_RIGHT_P():Bool
-        return FlxG.keys.anyJustPressed(ClientPrefs.controls.notes.right);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyJustPressed(ClientPrefs.controls.notes.right);
+
+        #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.notes.right); #end
+    }
 
     public static var NOTE_RIGHT_R(get, never):Bool;
     static function get_NOTE_RIGHT_R():Bool
-        return FlxG.keys.anyJustReleased(ClientPrefs.controls.notes.right);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyJustReleased(ClientPrefs.controls.notes.right);
+
+        #if !mobile return FlxG.keys.anyJustReleased(ClientPrefs.controls.notes.right); #end
+    }
     
     @:unreflective static var ui:UIControls = ClientPrefs.controls.ui;
 
     public static var UI_LEFT(get, never):Bool;
     static function get_UI_LEFT():Bool
-        return FlxG.keys.anyPressed(ClientPrefs.controls.ui.left);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyPressed(ClientPrefs.controls.ui.left);
+
+        #if !mobile return FlxG.keys.anyPressed(ClientPrefs.controls.ui.left); #end
+    }
 
     public static var UI_LEFT_P(get, never):Bool;
     static function get_UI_LEFT_P():Bool
-        return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.left);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.left);
+
+        #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.left); #end
+    }
 
     public static var UI_LEFT_R(get, never):Bool;
     static function get_UI_LEFT_R():Bool
-        return FlxG.keys.anyJustReleased(ClientPrefs.controls.ui.left);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyJustReleased(ClientPrefs.controls.ui.left);
+
+        #if !mobile return FlxG.keys.anyJustReleased(ClientPrefs.controls.ui.left); #end
+    }
 
     public static var UI_DOWN(get, never):Bool;
     static function get_UI_DOWN():Bool
-        return FlxG.keys.anyPressed(ClientPrefs.controls.ui.down);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyPressed(ClientPrefs.controls.ui.down);
+
+        #if !mobile return FlxG.keys.anyPressed(ClientPrefs.controls.ui.down); #end
+    }
 
     public static var UI_DOWN_P(get, never):Bool;
     static function get_UI_DOWN_P():Bool
-        return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.down);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.down);
+
+        #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.down); #end
+    }
 
     public static var UI_DOWN_R(get, never):Bool;
     static function get_UI_DOWN_R():Bool
-        return FlxG.keys.anyJustReleased(ClientPrefs.controls.ui.down);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyJustReleased(ClientPrefs.controls.ui.down);
+
+        #if !mobile return FlxG.keys.anyJustReleased(ClientPrefs.controls.ui.down); #end
+    }
 
     public static var UI_UP(get, never):Bool;
     static function get_UI_UP():Bool
-        return FlxG.keys.anyPressed(ClientPrefs.controls.ui.up);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyPressed(ClientPrefs.controls.ui.up);
+
+        #if !mobile return FlxG.keys.anyPressed(ClientPrefs.controls.ui.up); #end
+    }
 
     public static var UI_UP_P(get, never):Bool;
     static function get_UI_UP_P():Bool
-        return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.up);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.up);
+
+        #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.up); #end
+    }
 
     public static var UI_UP_R(get, never):Bool;
     static function get_UI_UP_R():Bool
-        return FlxG.keys.anyJustReleased(ClientPrefs.controls.ui.up);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyJustReleased(ClientPrefs.controls.ui.up);
+
+        #if !mobile return FlxG.keys.anyJustReleased(ClientPrefs.controls.ui.up); #end
+    }
 
     public static var UI_RIGHT(get, never):Bool;
     static function get_UI_RIGHT():Bool
-        return FlxG.keys.anyPressed(ClientPrefs.controls.ui.right);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyPressed(ClientPrefs.controls.ui.right);
+
+        #if !mobile return FlxG.keys.anyPressed(ClientPrefs.controls.ui.right); #end
+    }
 
     public static var UI_RIGHT_P(get, never):Bool;
     static function get_UI_RIGHT_P():Bool
-        return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.right);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.right);
+
+        #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.right); #end
+    }
 
     public static var UI_RIGHT_R(get, never):Bool;
     static function get_UI_RIGHT_R():Bool
-        return FlxG.keys.anyJustReleased(ClientPrefs.controls.ui.right);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyJustReleased(ClientPrefs.controls.ui.right);
+
+        #if !mobile return FlxG.keys.anyJustReleased(ClientPrefs.controls.ui.right); #end
+    }
 
     public static var ACCEPT(get, never):Bool;
     static function get_ACCEPT():Bool
-        return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.accept);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.accept);
+
+        #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.accept); #end
+    }
 
     public static var BACK(get, never):Bool;
     static function get_BACK():Bool
-        return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.back);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.back);
+
+        #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.back); #end
+    }
 
     public static var RESET(get, never):Bool;
     static function get_RESET():Bool
-        return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.reset);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.reset);
+
+        #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.reset); #end
+    }
 
     public static var PAUSE(get, never):Bool;
     static function get_PAUSE():Bool
-        return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.pause);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.pause);
+
+        #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.ui.pause); #end
+    }
 
     public static var ENGINE_CHART(get, never):Bool;
     static function get_ENGINE_CHART():Bool
-        return FlxG.keys.anyJustPressed(ClientPrefs.controls.engine.chart);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyJustPressed(ClientPrefs.controls.engine.chart);
+
+        #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.engine.chart); #end
+    }
 
     public static var ENGINE_CHARACTER(get, never):Bool;
     static function get_ENGINE_CHARACTER():Bool
-        return FlxG.keys.anyJustPressed(ClientPrefs.controls.engine.character);
+    {
+        #if !mobile if (CoolVars.data.mobileDebug) #end
+            return FlxG.keys.anyJustPressed(ClientPrefs.controls.engine.character);
+
+        #if !mobile return FlxG.keys.anyJustPressed(ClientPrefs.controls.engine.character); #end
+    }
 
     public static var MOUSE_WHEEL(get, never):Bool;
     static function get_MOUSE_WHEEL():Bool

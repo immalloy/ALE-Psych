@@ -63,6 +63,7 @@ class EngineUtil
 	{
 		CoolVars.data = {
 			developerMode: false,
+			mobileDebug: false,
 			scriptsHotReloading: false,
 
 			initialState: 'TitleState',
@@ -112,13 +113,13 @@ class EngineUtil
 
 	public static function resizeGame(width:Int, height:Int, ?centerWindow:Bool = true)
 	{
-		#if mobile
-		#else
 		for (camera in FlxG.cameras.list)
 		{
 			camera.width = FlxG.width;
 			camera.height = FlxG.height;
 		}
+		
+		#if !mobile
 		FlxG.fullscreen = false;
 		FlxG.initialWidth = width;
 		FlxG.initialHeight = height;
