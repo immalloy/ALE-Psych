@@ -112,13 +112,17 @@ class EngineUtil
 
 	public static function resizeGame(width:Int, height:Int, ?centerWindow:Bool = true)
 	{
+		#if mobile
+		#else
+		for (camera in FlxG.cameras.list)
+		{
+			camera.width = FlxG.width;
+			camera.height = FlxG.height;
+		}
 		FlxG.fullscreen = false;
-
 		FlxG.initialWidth = width;
 		FlxG.initialHeight = height;
-
 		FlxG.resizeGame(width, height);
-
 		FlxG.resizeWindow(width, height);
 
 		if (centerWindow)
@@ -132,5 +136,6 @@ class EngineUtil
 			camera.width = width;
 			camera.height = height;
 		}
+		#end
 	}
 }

@@ -15,6 +15,10 @@ import hxluajit.wrapper.LuaError;
 
 class MainState extends MusicBeatState
 {
+    #if mobile
+    @:unreflective private var showedModMenu:Bool = false;
+    #end
+
 	public static var debugCounter:DebugCounter;
 
 	override function create()
@@ -60,7 +64,18 @@ class MainState extends MusicBeatState
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 
-		CoolUtil.switchState(new CustomState(CoolVars.data.initialState), true, true);
+        #if mobile
+        if (showedModMenu)
+        {
+        	CoolUtil.switchState(new CustomState(CoolVars.data.initialState), true, true);
+        } else {
+            CoolUtil.openSubState(new funkin.substates.ModsMenuSubState());
+
+            showedModMenu = true;
+		}
+        #else
+        CoolUtil.switchState(new CustomState(CoolVars.data.initialState), true, true);
+        #end
 		
 		openalFix();
 	}

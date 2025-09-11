@@ -1,11 +1,11 @@
-@echo off
+#!/bin/sh
+
 cd ..
-@echo on
-echo Installing dependencies
 
-@if not exist ".haxelib\" mkdir .haxelib
+mkdir ~/haxelib && haxelib setup ~/haxelib
 
-echo Installing dependencies...
+echo "Installing dependencies..."
+
 haxelib git lime https://github.com/ALE-Engine-Crew/lime
 haxelib run lime setup
 haxelib install openfl 9.4.1
@@ -26,5 +26,5 @@ haxelib git rulescript https://github.com/Kriptel/RuleScript 0e9b657ef8c01942724
 haxelib git hscript https://github.com/HaxeFoundation/hscript 04e7d656b667f375bbe58ee10082aee2850a3f9c
 haxelib git ale-ui https://github.com/ALE-Engine-Crew/ALE-UI --skip-dependencies
 haxelib install sl-windows-api 1.1.0
-echo Finished!
-pause
+
+echo "Finished!"

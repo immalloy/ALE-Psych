@@ -19,6 +19,7 @@ import openfl.events.Event;
 import lime.app.Application;
 
 import core.config.MainState;
+import core.config.CopyState;
 
 #if linux
 import lime.graphics.Image;
@@ -63,7 +64,7 @@ class Main extends Sprite
 	private static var game = {
 		width: 1280,
 		height: 720,
-		initialState: MainState,
+		initialState: #if mobile CopyState #else MainState #end,
 		zoom: -1.0,
 		framerate: 60,
 		skipSplash: true,
@@ -96,21 +97,15 @@ class Main extends Sprite
 		#end
 
 		if (stage != null)
-		{
 			init();
-		}
 		else
-		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
-		}
 	}
 
 	private function init(?E:Event):Void
 	{
 		if (hasEventListener(Event.ADDED_TO_STAGE))
-		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-		}
 
 		setupGame();
 		
@@ -122,6 +117,9 @@ class Main extends Sprite
 		var stageWidth:Int = Lib.current.stage.stageWidth;
 		var stageHeight:Int = Lib.current.stage.stageHeight;
 
+		#if (openfl <= "9.2.0")
+		var stageWidth:Int = Lib.current.stage.stageWidth;
+		var stageHeight:Int = Lib.current.stage.stageHeight;
 		if (game.zoom == -1.0)
 		{
 			var ratioX:Float = stageWidth / game.width;
@@ -130,6 +128,10 @@ class Main extends Sprite
 			game.width = Math.ceil(stageWidth / game.zoom);
 			game.height = Math.ceil(stageHeight / game.zoom);
 		}
+		#else
+		if (game.zoom == -1.0)
+			game.zoom = 1.0;
+		#end
 	
 		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 
