@@ -1,5 +1,6 @@
 package funkin.visuals.objects;
 
+#if VIDEOS_ALLOWED
 import hxvlc.flixel.FlxVideoSprite;
 import hxvlc.util.Handle;
 
@@ -75,3 +76,4 @@ class VideoSprite extends FlxVideoSprite
         );
     }
 }
+#end

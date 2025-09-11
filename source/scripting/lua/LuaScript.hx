@@ -1,16 +1,23 @@
 package scripting.lua;
 
 #if LUA_ALLOWED
-import llua.*;
-import llua.Lua.Lua_helper;
+import cpp.RawPointer;
+
+import hxluajit.wrapper.LuaUtils;
+import hxluajit.wrapper.LuaConverter;
+import hxluajit.wrapper.LuaError;
+
+import hxluajit.Lua;
+import hxluajit.LuaL;
+import hxluajit.Types;
 
 import haxe.ds.StringMap;
 
 import core.enums.ScriptType;
 
 class LuaScript
-{   
-    public var lua:State = null;
+{
+    public var state:Null<RawPointer<Lua_State>>;
 
     public var type:ScriptType;
 
@@ -18,8 +25,6 @@ class LuaScript
 
     public var closed:Bool = false;
 
-    public var callbacks:StringMap<Dynamic> = new StringMap<Dynamic>();
-    
     public var variables:StringMap<Dynamic> = new StringMap<Dynamic>();
 
     public function new(name:String, type:ScriptType)
@@ -28,94 +33,54 @@ class LuaScript
 
         this.type = type;
 
-        config();
+        state = LuaL.newstate();
+
+        LuaL.openlibs(state);
 
         new LuaPreset(this);
+
+        LuaUtils.doFile(state, name);
     }
 
-    function config()
-    {
-        lua = LuaL.newstate();
-        
-        LuaL.openlibs(lua);
-
-        var result = LuaL.dofile(lua, name);
-
-        var resultString:String = Lua.tostring(lua, result);
-        
-        if (resultString != null && result != 0)
-            debugTrace(resultString, ERROR);
-    }
-
-    public function set(name:String, value:Dynamic)
-    {
-        if (lua == null || closed)
-            return;
-
-        Convert.toLua(lua, value);
-
-        Lua.setglobal(lua, name);
-    }
-
-	public function setFunction(name:String, myFunction:Dynamic)
-	{
-		callbacks.set(name, myFunction);
-
-		Lua_helper.add_callback(lua, name, null);
-	}
-
-    public static var lastCalledScript:LuaScript = null;
-
-    public function call(name:String, ?args:Array<Dynamic>):Dynamic
+    public function call(name:String, args:Array<Dynamic>):Dynamic
     {
         if (closed)
             return CoolVars.Function_Continue;
 
-        lastCalledScript = this;
-
         try
         {
-            if (lua == null)
-                return CoolVars.Function_Continue;
+            Lua.getglobal(state, name);
 
-            Lua.getglobal(lua, name);
-
-            var theType:Int = Lua.type(lua, -1);
-
-            if (theType != Lua.LUA_TFUNCTION)
+            if (Lua.isnil(state, -1) != 0)
             {
-                if (theType > Lua.LUA_TNIL)
-                    debugTrace(name + ': Attempt to Call a ' + typeToString(theType) + ' value', ERROR);
-
-                Lua.pop(lua, 1);
+                Lua.pop(state, 1);
                 
                 return CoolVars.Function_Continue;
             }
             
-            if (args != null)
-                for (arg in args)
-                    Convert.toLua(lua, arg);
+            args ??= [];
 
-            var status:Int = Lua.pcall(lua, args == null ? 0 : args.length, 1, 0);
+            for (arg in args)
+                LuaConverter.toLua(state, arg);
 
-            if (status != Lua.LUA_OK)
+            var status:Int = Lua.pcall(state, args.length, 1, 0);
+
+            if (status != Lua.OK)
             {
-                debugTrace(getError(status), ERROR);
+                if (LuaError.errorHandler != null)
+                    LuaError.errorHandler(LuaError.getMessage(state, -1));
 
                 return CoolVars.Function_Continue;
             }
             
             var result:Dynamic = null;
 
-            if (Lua.gettop(lua) > 0)
+            if (Lua.gettop(state) > 0)
             {
-                result = cast Convert.fromLua(lua, -1);
+                result = cast LuaConverter.fromLua(state, -1);
                 
-                Lua.pop(lua, 1);
+                Lua.pop(state, 1);
             }
-
-            if (closed)
-                close();
 
             return result;
         } catch (error:Dynamic) {
@@ -125,64 +90,22 @@ class LuaScript
         return CoolVars.Function_Continue;
     }
 
+    public function set(name:String, value:Dynamic)
+    {
+        if (closed)
+            return;
+
+        if (Reflect.isFunction(value))
+            LuaUtils.addFunction(state, name, value);
+        else
+            LuaUtils.setVariable(state, name, value);
+    }
+    
     public function close()
     {
         closed = true;
 
-        if (lua == null || closed)
-            return;
-
-        Lua.close(lua);
-    }
-
-    private function typeToString(type:Int):String
-    {
-        return switch (type)
-        {
-            case Lua.LUA_TBOOLEAN:
-                'bool';
-            case Lua.LUA_TNUMBER:
-                'number';
-            case Lua.LUA_TSTRING:
-                'string';
-            case Lua.LUA_TTABLE:
-                'table';
-            case Lua.LUA_TFUNCTION:
-                'function';
-            case Lua.LUA_TNIL:
-                'null';
-            default:
-                'unknown';
-        }
-    }
-
-    private function getError(status:Int):String
-    {
-        var value:String = Lua.tostring(lua, -1);
-
-        Lua.pop(lua, 1);
-
-        if (value != null)
-            value = value.trim();
-
-        if (value == null || value == '')
-        {
-            return switch (status)
-            {
-                case Lua.LUA_ERRRUN:
-                    'Runtime Error';
-                case Lua.LUA_ERRMEM:
-                    'Memory Allocation Error';
-                case Lua.LUA_ERRERR:
-                    'Critical Error';
-                default:
-                    'Unknown Error';
-            }
-        }
-
-        return value;
-
-        return null;
+        Lua.close(state);
     }
 }
 #end

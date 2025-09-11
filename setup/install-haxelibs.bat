@@ -14,12 +14,12 @@ haxelib install flixel-addons 3.3.2
 haxelib install flixel-ui 2.6.4
 haxelib install flixel-tools 1.5.1
 haxelib install tjson 1.4.0
-haxelib install hxCodec 2.6.1
 haxelib install away3d 5.0.9
 haxelib install extension-androidtools 2.2.2 --skip-dependencies
 haxelib git hxcpp https://github.com/AlejoGDOfficial/MobilePorting-hxcpp --skip-dependencies
 haxelib git flxanimate https://github.com/Dot-Stuff/flxanimate 7da385ca7fd8d8067aac03bc39798d37c5598e45
-haxelib git linc_luajit https://github.com/superpowers04/linc_luajit 633fcc051399afed6781dd60cbf30ed8c3fe2c5a
+haxelib install hxluajit 1.0.5 --skip-dependencies
+haxelib install hxluajit-wrapper 1.0.0 --skip-dependencies
 haxelib install hxdiscord_rpc 1.3.0 --skip-dependencies
 haxelib install hxvlc 2.2.2 --skip-dependencies
 haxelib git rulescript https://github.com/Kriptel/RuleScript 0e9b657ef8c01942724de3a6bf4e56da9cc6f7a8 --skip-dependencies

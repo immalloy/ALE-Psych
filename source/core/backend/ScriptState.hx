@@ -139,15 +139,8 @@ class ScriptState extends MusicBeatState
     {
         #if LUA_ALLOWED
         if (luaScripts.length > 0)
-        {
             for (script in luaScripts)
-            {
-                if (Reflect.isFunction(value))
-                    script.setFunction(name, value);
-                else
-                    script.set(name, value);
-            }
-        }
+                script.set(name, value);
         #end
     }
 

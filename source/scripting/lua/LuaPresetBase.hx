@@ -6,52 +6,27 @@ import core.enums.ScriptType;
 
 class LuaPresetBase
 {
-    public var variables:StringMap<Dynamic>;
-
     public var lua:LuaScript;
 
-    public var type:ScriptType;
+    public var variables(get, never):StringMap<Dynamic>;
+    function get_variables():StringMap<Dynamic>
+        return lua.variables;
+
+    public var type(get, never):ScriptType;
+    function get_type():ScriptType
+        return lua.type;
 
     public function new(lua:LuaScript)
-    {
         this.lua = lua;
-        
-        this.type = lua.type;
-
-        variables = lua.variables;
-    }
 
     public inline function set(name:String, value:Dynamic)
-    {
-        if (Reflect.isFunction(value))
-            lua.setFunction(name, value);
-        else
-            lua.set(name, value);
-    }
+        lua.set(name, value);
 
     public inline function errorPrint(text:String)
-    {
-        /*
-        if (type == STATE)
-            ScriptState.instance.debugPrint(text, ERROR);
-        else
-            ScriptSubState.instance.debugPrint(text, ERROR);
-        */
-
         debugTrace(text, ERROR);
-    }
 
     public inline function deprecatedPrint(text:String)
-    {
-        /*
-        if (type == STATE)
-            ScriptState.instance.debugPrint(text, DEPRECATED);
-        else
-            ScriptSubState.instance.debugPrint(text, DEPRECATED);
-        */
-
         debugTrace(text, DEPRECATED);
-    }
 
     public function getTag(tag:String):Dynamic
     {

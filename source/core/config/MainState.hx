@@ -11,12 +11,18 @@ import openfl.display.StageScaleMode;
 
 import ale.ui.ALEUIUtils;
 
+import hxluajit.wrapper.LuaError;
+
 class MainState extends MusicBeatState
 {
 	public static var debugCounter:DebugCounter;
 
 	override function create()
 	{
+		LuaError.errorHandler = (e:String) -> {
+			debugTrace(e, ERROR);
+		};
+
 		ALEUIUtils.color = FlxColor.fromRGB(50, 70, 100);
 		ALEUIUtils.outlineColor = FlxColor.WHITE;
 		ALEUIUtils.font = Paths.font('vcr.ttf');
