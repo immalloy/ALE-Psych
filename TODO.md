@@ -29,3 +29,10 @@
 - [ ] Separate Classes, Typedefs and Enums in several files
 - [ ] Use Abstract Enums (String) instead of Enums
 - [ ] Fix Editors
+
+## Android Port
+- [ ] Back button to pause
+- [ ] Mod Support
+- [ ] Fix Controls.MOUSE
+- [ ] Lua Functions
+- [ ] HScript Utils
