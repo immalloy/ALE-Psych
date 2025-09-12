@@ -13,7 +13,9 @@ class CustomState extends ScriptState
     private var hsVariables:StringMap<Dynamic>;
     private var luaVariables:StringMap<Dynamic>;
 
+    #if !mobile
     @:unreflective private var reloadThread:Bool = CoolVars.data.developerMode && CoolVars.data.scriptsHotReloading;
+    #end
 
     override public function new(script:String, ?arguments:Array<Dynamic>, ?hsVariables:StringMap<Dynamic>, ?luaVariables:StringMap<Dynamic>)
     {
@@ -31,6 +33,7 @@ class CustomState extends ScriptState
     {        
         super.create();
 
+        #if !mobile
         FlxG.autoPause = !CoolVars.data.developerMode || !CoolVars.data.scriptsHotReloading;
 
         if (CoolVars.data.scriptsHotReloading && CoolVars.data.developerMode)
@@ -66,6 +69,7 @@ class CustomState extends ScriptState
                 }
             });
         }
+        #end
 
         instance = this;
 
@@ -105,8 +109,10 @@ class CustomState extends ScriptState
 
     override public function destroy()
     {
+        #if !mobile
         if (CoolVars.data.scriptsHotReloading && CoolVars.data.developerMode)
             reloadThread = false;
+        #end
 
         super.destroy();
 

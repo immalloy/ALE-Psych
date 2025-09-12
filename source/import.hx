@@ -54,5 +54,7 @@ import flixel.tweens.FlxTween;
 import flixel.group.FlxSpriteGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
 
+import funkin.visuals.mobile.MobileButton;
+
 using StringTools;
 #end

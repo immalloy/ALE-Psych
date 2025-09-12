@@ -2,6 +2,8 @@ import funkin.visuals.objects.MenuCharacter;
 
 import flixel.util.FlxColor;
 
+import flixel.input.keyboard.FlxKey;
+
 import utils.Score;
 
 import ALEParserHelper;
@@ -310,7 +312,7 @@ function onUpdate(elapsed:Float)
             CoolUtil.switchState(new CustomState(CoolVars.data.mainMenuState));
         }
 
-        if (FlxG.keys.justPressed.CONTROL)
+        if (FlxG.keys.justPressed.CONTROL || (CoolVars.mobileControls && MobileControls.anyJustPressed([FlxKey.CONTROL])))
             CoolUtil.openSubState(new CustomSubState('GameplayChangersSubState'));
     }
 
@@ -322,8 +324,41 @@ function weekIsLocked(week:ALEWeek):Bool
     return week.locked && week.weekBefore.length > 0 && !utils.Score.completed.exists(week.weekBefore);
 }
 
+var mobileCamera:FlxCamera;
+
+function postCreate()
+{
+    if (CoolVars.mobileControls)
+    {
+        mobileCamera = new FlxCamera();
+        mobileCamera.bgColor = FlxColor.TRANSPARENT;
+        FlxG.cameras.add(mobileCamera, false);
+
+        var buttonMap:Array<Dynamic> = [
+            [50, 485, ClientPrefs.controls.ui.left, '< normal'],
+            [360, 485, ClientPrefs.controls.ui.right, '> normal'],
+            [205, 395, ClientPrefs.controls.ui.up, '< normal', 90],
+            [205, 550, ClientPrefs.controls.ui.down, '> normal', 90],
+            [1105, 485, ClientPrefs.controls.ui.accept, 'a uppercase'],
+            [950, 485, ClientPrefs.controls.ui.back, 'b uppercase'],
+            [795, 485, [FlxKey.CONTROL], 'c uppercase']
+        ];
+
+        for (button in buttonMap)
+        {
+            var obj:MobileButton = new MobileButton(button[0], button[1], button[2], button[3]);
+            add(obj);
+            obj.label.angle = button[4] ?? 0;
+            obj.cameras = [mobileCamera];
+        }
+    }
+}
+
 function onDestroy()
 {
+    if (CoolVars.mobileControls)
+        FlxG.cameras.remove(mobileCamera);
+
     CoolUtil.save.custom.data.storyMenu = selInt;
     CoolUtil.save.custom.data.storyMenuDifficulty = diffSelInt;
     CoolUtil.save.custom.flush();

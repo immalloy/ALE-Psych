@@ -80,7 +80,7 @@ function onUpdate(elapsed:Float)
 {
     curTime += elapsed;
 
-    if (canSelect && Controls.ACCEPT && !changingState)
+    if (canSelect && (Controls.ACCEPT || Controls.MOUSE_P) && !changingState)
     {
         if (skippedIntro)
         {

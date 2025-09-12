@@ -43,8 +43,34 @@ class OptionsState extends MusicBeatState
         this.inPlayState = inPlayState;
     }
 
+    var mobileCamera:FlxCamera;
+
     function createPost()
     {
+        if (CoolVars.mobileControls)
+        {
+            mobileCamera = new FlxCamera();
+            mobileCamera.bgColor = FlxColor.TRANSPARENT;
+            FlxG.cameras.add(mobileCamera, false);
+
+            var buttonMap:Array<Dynamic> = [
+                [50, 485, ClientPrefs.controls.ui.left, '< normal'],
+                [360, 485, ClientPrefs.controls.ui.right, '> normal'],
+                [205, 395, ClientPrefs.controls.ui.up, '< normal', 90],
+                [205, 550, ClientPrefs.controls.ui.down, '> normal', 90],
+                [1105, 485, ClientPrefs.controls.ui.accept, 'a uppercase'],
+                [950, 485, ClientPrefs.controls.ui.back, 'b uppercase']
+            ];
+
+            for (button in buttonMap)
+            {
+                var obj:MobileButton = new MobileButton(button[0], button[1], button[2], button[3]);
+                add(obj);
+                obj.label.angle = button[4] ?? 0;
+                obj.cameras = [mobileCamera];
+            }
+        }
+
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('ui/menuBG'));
         add(bg);
         bg.scrollFactor.set();
@@ -331,13 +357,7 @@ class OptionsState extends MusicBeatState
     override public function create()
     {
         categories = [
-            {
-                name: 'Note Colors',
-                stateData: {
-                    script: false,
-                    subState: 'funkin.substates.NotesSubState'
-                }
-            },
+            #if !mobile
             {
                 name: 'Controls',
                 stateData: {
@@ -345,6 +365,7 @@ class OptionsState extends MusicBeatState
                     subState: 'funkin.substates.ControlsSubState'
                 }
             },
+            #end
             {
                 name: 'Delay and Combo',
                 stateData: {
@@ -491,5 +512,13 @@ class OptionsState extends MusicBeatState
         createPost();
         
         super.create();
+    }
+
+    override function destroy()
+    {
+        if (CoolVars.mobileControls)
+            FlxG.cameras.remove(mobileCamera);
+
+        super.destroy();
     }
 }

@@ -40,9 +40,32 @@ class ModsMenuSubState extends MusicBeatSubState
 
     var options:Array<String> = [];
 
+    var mobileCamera:FlxCamera;
+
     override function create()
     {
         super.create();
+
+        if (CoolVars.mobileControls)
+        {
+            mobileCamera = new FlxCamera();
+            mobileCamera.bgColor = FlxColor.TRANSPARENT;
+            FlxG.cameras.add(mobileCamera, false);
+
+            var buttonMap:Array<Dynamic> = [
+                [50, 395, ClientPrefs.controls.ui.up, '< normal', 90],
+                [50, 550, ClientPrefs.controls.ui.down, '> normal', 90],
+                [1105, 485, ClientPrefs.controls.ui.accept, 'a uppercase']
+            ];
+
+            for (button in buttonMap)
+            {
+                var obj:MobileButton = new MobileButton(button[0], button[1], button[2], button[3]);
+                add(obj);
+                obj.label.angle = button[4] ?? 0;
+                obj.cameras = [mobileCamera];
+            }
+        }
 
         if (FileSystem.exists('mods'))
             if (FileSystem.isDirectory('mods'))
@@ -124,6 +147,8 @@ class ModsMenuSubState extends MusicBeatSubState
     override function destroy()
     {
         FlxG.cameras.remove(modCamera);
+
+        FlxG.cameras.remove(mobileCamera);
 
         super.destroy();
     }

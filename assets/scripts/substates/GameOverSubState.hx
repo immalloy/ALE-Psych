@@ -66,6 +66,8 @@ function onUpdate()
 
             FlxTween.cancelTweensOf(bfCamera);
 
+            PlayState.instance.shouldClearMemory = false;
+
             FlxTween.tween(bf, {alpha: 0}, 2, {ease: FlxEase.quintIn, onComplete: (_) -> { CoolUtil.resetState(); }});
 
             FlxTween.tween(bf.scale, {x: bf.scale.x - 0.1, y: bf.scale.y - 0.1}, 2, {ease: FlxEase.quintIn});
@@ -98,7 +100,35 @@ function onUpdate()
     }
 }
 
+var mobileCamera:FlxCamera;
+
+function postCreate()
+{
+    if (CoolVars.mobileControls)
+    {
+        mobileCamera = new FlxCamera();
+        mobileCamera.bgColor = FlxColor.TRANSPARENT;
+        FlxG.cameras.add(mobileCamera, false);
+
+        var buttonMap:Array<Dynamic> = [
+            [1105, 485, ClientPrefs.controls.ui.accept, 'a uppercase'],
+            [950, 485, ClientPrefs.controls.ui.back, 'b uppercase']
+        ];
+
+        for (button in buttonMap)
+        {
+            var obj:MobileButton = new MobileButton(button[0], button[1], button[2], button[3]);
+            add(obj);
+            obj.label.angle = button[4] ?? 0;
+            obj.cameras = [mobileCamera];
+        }
+    }
+}
+
 function onDestroy()
 {
+    if (CoolVars.mobileControls)
+        FlxG.cameras.remove(mobileCamera);
+
     FlxG.cameras.remove(bfCamera);
 }
