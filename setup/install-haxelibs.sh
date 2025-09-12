@@ -6,7 +6,7 @@ mkdir ~/haxelib && haxelib setup ~/haxelib
 
 echo "Installing dependencies..."
 
-haxelib git lime https://github.com/ALE-Engine-Crew/lime
+haxelib git lime https://github.com/ALE-Psych-Crew/lime
 haxelib run lime setup
 haxelib install openfl 9.4.1
 haxelib install flixel 6.1.0
@@ -24,7 +24,7 @@ haxelib install hxdiscord_rpc 1.3.0 --skip-dependencies
 haxelib install hxvlc 2.2.2 --skip-dependencies
 haxelib git rulescript https://github.com/Kriptel/RuleScript 0e9b657ef8c01942724de3a6bf4e56da9cc6f7a8 --skip-dependencies
 haxelib git hscript https://github.com/HaxeFoundation/hscript 04e7d656b667f375bbe58ee10082aee2850a3f9c
-haxelib git ale-ui https://github.com/ALE-Engine-Crew/ALE-UI --skip-dependencies
+haxelib git ale-ui https://github.com/ALE-Psych-Crew/ALE-UI --skip-dependencies
 haxelib install sl-windows-api 1.1.0
 
 echo "Finished!"
