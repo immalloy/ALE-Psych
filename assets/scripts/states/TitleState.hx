@@ -49,10 +49,7 @@ function onCreate()
 
     pressEnter.alpha = 0;
     pressEnter.color = 0xFF33FFFF;
-}
-
-function postCreate()
-{
+    
     if (FlxG.sound.music == null)
         FlxG.sound.playMusic(Paths.music('freakyMenu'), 0.7);
     else
@@ -80,7 +77,7 @@ function onUpdate(elapsed:Float)
 {
     curTime += elapsed;
 
-    if (canSelect && (Controls.ACCEPT || Controls.MOUSE_P) && !changingState)
+    if (canSelect && Controls.ACCEPT && !changingState)
     {
         if (skippedIntro)
         {
@@ -170,4 +167,34 @@ function onBeatHit(curBeat:Int)
                 changeShit(phrases[sickBeats]);
         }
     }
+}
+
+var mobileCamera:FlxCamera;
+
+function postCreate()
+{
+    if (CoolVars.mobileControls)
+    {
+        mobileCamera = new FlxCamera();
+        mobileCamera.bgColor = FlxColor.TRANSPARENT;
+        FlxG.cameras.add(mobileCamera, false);
+
+        var buttonMap:Array<Dynamic> = [
+            [1105, 485, ClientPrefs.controls.ui.accept, 'a uppercase']
+        ];
+
+        for (button in buttonMap)
+        {
+            var obj:MobileButton = new MobileButton(button[0], button[1], button[2], button[3]);
+            add(obj);
+            obj.label.angle = button[4] ?? 0;
+            obj.cameras = [mobileCamera];
+        }
+    }
+}
+
+function onDestroy()
+{
+    if (CoolVars.mobileControls)
+        FlxG.cameras.remove(mobileCamera);
 }

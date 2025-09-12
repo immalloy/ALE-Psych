@@ -61,7 +61,7 @@ class MobileButton extends FlxSpriteGroup
 
     public var overlaped(get, never):Bool;
     function get_overlaped():Bool
-        return FlxG.mouse.overlaps(bg, bg.cameras[0]);
+        return FlxG.mouse.overlaps(bg, cameras[0]);
     
     public var pressed:Bool = false;
 

@@ -35,6 +35,17 @@ import haxe.io.Path;
 import openfl.events.KeyboardEvent;
 import openfl.ui.Keyboard;
 
+#if android
+import extension.androidtools.content.Context as AndroidContext;
+import extension.androidtools.os.Environment as AndroidEnvironment;
+import extension.androidtools.Permissions as AndroidPermissions;
+import extension.androidtools.os.Build.VERSION as AndroidVersion;
+import extension.androidtools.Settings as AndroidSettings;
+import extension.androidtools.os.Build.VERSION_CODES as AndroidVersionCode;
+
+import lime.system.System as LimeSystem;
+#end
+
 #if (windows && cpp)
 @:buildXml('
 <target id="haxe">
@@ -80,10 +91,12 @@ class Main extends Sprite
 	{
 		super();
 
-		#if android
-		Sys.setCwd(Path.addTrailingSlash(Context.getExternalFilesDir()));
-		#elseif ios
+		#if ios
 		Sys.setCwd(lime.system.System.applicationStorageDirectory);
+		#end
+
+		#if android
+		Sys.setCwd(Path.addTrailingSlash(AndroidContext.getExternalFilesDir()));
 		#end
 
 		#if (windows && cpp)
@@ -101,6 +114,44 @@ class Main extends Sprite
 		else
 			addEventListener(Event.ADDED_TO_STAGE, init);
 	}
+	
+	#if android
+	public static function requestPermissions():Void
+	{
+		var isAPI33 = AndroidVersion.SDK_INT >= AndroidVersionCode.TIRAMISU;
+
+		debugTrace("Check Permissions...", CUSTOM, 'ANDROID', FlxColor.LIME);
+		
+		if (!isAPI33)
+		{
+			debugTrace('Requesting EXTERNAL_STORAGE...', CUSTOM, 'ANDROID', FlxColor.LIME);
+
+			AndroidPermissions.requestPermissions(['READ_EXTERNAL_STORAGE', 'WRITE_EXTERNAL_STORAGE']);
+		}
+
+		if (!AndroidEnvironment.isExternalStorageManager())
+			AndroidSettings.requestSetting('MANAGE_APP_ALL_FILES_ACCESS_PERMISSION');
+
+		var has_MANAGE_EXTERNAL_STORAGE = AndroidEnvironment.isExternalStorageManager();
+
+		var has_READ_EXTERNAL_STORAGE = AndroidPermissions.getGrantedPermissions().contains('android.permission.READ_EXTERNAL_STORAGE');
+		
+		if ((isAPI33 && !has_MANAGE_EXTERNAL_STORAGE) || (!isAPI33 && !has_READ_EXTERNAL_STORAGE))
+			CoolUtil.showPopUp('Notice', 'If you accepted the permissions you are all good!' + '\nIf you didn\'t then expect a crash' + '\nPress OK to see what happens');
+
+		debugTrace('Checking Game Directory...', CUSTOM, 'ANDROID', FlxColor.LIME);
+
+		try
+		{
+			if (!FileSystem.exists(Context.getExternalFilesDir()))
+				FileSystem.createDirectory(Context.getExternalFilesDir());
+		} catch (e:Dynamic) {
+			CoolUtil.showPopUp('Error', 'Please create directory to\n' + Context.getExternalFilesDir() + '\nPress OK to close the game');
+
+			LimeSystem.exit(1);
+		}
+	}
+	#end
 
 	private function init(?E:Event):Void
 	{
@@ -160,6 +211,10 @@ class Main extends Sprite
 			if (FlxG.game != null)
 			resetSpriteCache(FlxG.game);
 		});
+
+		#if VIDEOS_ALLOWED
+		hxvlc.util.Handle.init(#if (hxvlc >= "1.8.0") ['--no-lua'] #end);
+		#end
 	}
 
 	static function resetSpriteCache(sprite:Sprite):Void {

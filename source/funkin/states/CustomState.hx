@@ -198,7 +198,9 @@ class CustomState extends ScriptState
 
         CoolUtil.switchState(new CustomState(scriptName, arguments, hsVariables, luaVariables), true, true);
 
+        #if !mobile
         if (CoolVars.data.scriptsHotReloading && CoolVars.data.developerMode)
             reloadThread = false;
+        #end
     }
 }

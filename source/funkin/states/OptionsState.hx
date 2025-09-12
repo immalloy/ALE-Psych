@@ -47,30 +47,6 @@ class OptionsState extends MusicBeatState
 
     function createPost()
     {
-        if (CoolVars.mobileControls)
-        {
-            mobileCamera = new FlxCamera();
-            mobileCamera.bgColor = FlxColor.TRANSPARENT;
-            FlxG.cameras.add(mobileCamera, false);
-
-            var buttonMap:Array<Dynamic> = [
-                [50, 485, ClientPrefs.controls.ui.left, '< normal'],
-                [360, 485, ClientPrefs.controls.ui.right, '> normal'],
-                [205, 395, ClientPrefs.controls.ui.up, '< normal', 90],
-                [205, 550, ClientPrefs.controls.ui.down, '> normal', 90],
-                [1105, 485, ClientPrefs.controls.ui.accept, 'a uppercase'],
-                [950, 485, ClientPrefs.controls.ui.back, 'b uppercase']
-            ];
-
-            for (button in buttonMap)
-            {
-                var obj:MobileButton = new MobileButton(button[0], button[1], button[2], button[3]);
-                add(obj);
-                obj.label.angle = button[4] ?? 0;
-                obj.cameras = [mobileCamera];
-            }
-        }
-
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('ui/menuBG'));
         add(bg);
         bg.scrollFactor.set();
@@ -136,7 +112,7 @@ class OptionsState extends MusicBeatState
                 FlxG.sound.play(Paths.sound('scrollMenu'));
             }
     
-            if (Controls.ACCEPT || Controls.MOUSE_P)
+            if (Controls.ACCEPT)
             {
                 var curMenu = categories[selInt.menus];
     
@@ -185,7 +161,7 @@ class OptionsState extends MusicBeatState
         } else if (canSelect.options) {
             if ((Controls.UI_DOWN_P || Controls.UI_UP_P || Controls.MOUSE_WHEEL) && !FlxG.keys.pressed.SHIFT)
             {
-                if (Controls.UI_DOWN_P || Controls.MOUSE_P)
+                if (Controls.UI_DOWN_P || Controls.MOUSE_WHEEL_UP)
                 {
                     if (selInt.options >= optSprites.members.length - 1)
                         selInt.options = 0;
@@ -232,7 +208,7 @@ class OptionsState extends MusicBeatState
             if (Controls.UI_LEFT_R)
                 pressTimer.left = 0;
     
-            if (Controls.ACCEPT || Controls.MOUSE_P)
+            if (Controls.ACCEPT)
             {
                 var option:OptionText = optSprites.members[selInt.options];
 
@@ -512,6 +488,30 @@ class OptionsState extends MusicBeatState
         createPost();
         
         super.create();
+        
+        if (CoolVars.mobileControls)
+        {
+            mobileCamera = new FlxCamera();
+            mobileCamera.bgColor = FlxColor.TRANSPARENT;
+            FlxG.cameras.add(mobileCamera, false);
+
+            var buttonMap:Array<Dynamic> = [
+                [50, 485, ClientPrefs.controls.ui.left, '< normal'],
+                [360, 485, ClientPrefs.controls.ui.right, '> normal'],
+                [205, 395, ClientPrefs.controls.ui.up, '< normal', 90],
+                [205, 550, ClientPrefs.controls.ui.down, '> normal', 90],
+                [1105, 485, ClientPrefs.controls.ui.accept, 'a uppercase'],
+                [950, 485, ClientPrefs.controls.ui.back, 'b uppercase']
+            ];
+
+            for (button in buttonMap)
+            {
+                var obj:MobileButton = new MobileButton(button[0], button[1], button[2], button[3]);
+                add(obj);
+                obj.label.angle = button[4] ?? 0;
+                obj.cameras = [mobileCamera];
+            }
+        }
     }
 
     override function destroy()

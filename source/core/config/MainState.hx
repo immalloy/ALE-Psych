@@ -16,7 +16,7 @@ import hxluajit.wrapper.LuaError;
 class MainState extends MusicBeatState
 {
     #if mobile
-    @:unreflective private var showedModMenu:Bool = false;
+    @:unreflective private static var showedModMenu:Bool = false;
     #end
 
 	public static var debugCounter:DebugCounter;
@@ -69,9 +69,9 @@ class MainState extends MusicBeatState
         {
         	CoolUtil.switchState(new CustomState(CoolVars.data.initialState), true, true);
         } else {
-            CoolUtil.openSubState(new funkin.substates.ModsMenuSubState());
+            MainState.showedModMenu = true;
 
-            showedModMenu = true;
+            CoolUtil.openSubState(new funkin.substates.ModsMenuSubState());
 		}
         #else
         CoolUtil.switchState(new CustomState(CoolVars.data.initialState), true, true);
