@@ -119,11 +119,12 @@ class EngineUtil
 			camera.height = FlxG.height;
 		}
 		
+		FlxG.resizeGame(width, height);
+		
 		#if !mobile
 		FlxG.fullscreen = false;
 		FlxG.initialWidth = width;
 		FlxG.initialHeight = height;
-		FlxG.resizeGame(width, height);
 		FlxG.resizeWindow(width, height);
 
 		if (centerWindow)

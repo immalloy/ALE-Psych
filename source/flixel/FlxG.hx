@@ -164,12 +164,14 @@ class FlxG
 	 * The width of the screen in game pixels. Read-only, use `resizeGame()` to change.
 	 */
 	@:allow(flixel.system.scaleModes)
+	#if mobile @:allow(FlxG.resizeGame) #end
 	public static var width(default, null):Int;
 
 	/**
 	 * The height of the screen in game pixels. Read-only, use `resizeGame()` to change.
 	 */
 	@:allow(flixel.system.scaleModes)
+	#if mobile @:allow(FlxG.resizeGame) #end
 	public static var height(default, null):Int;
 
 	/**
@@ -340,7 +342,12 @@ class FlxG
 	 */
 	public static inline function resizeGame(width:Int, height:Int):Void
 	{
+		#if mobile
+		FlxG.width = width;
+		FlxG.height = height;
+		#else
 		scaleMode.onMeasure(width, height);
+		#end
 	}
 
 	/**

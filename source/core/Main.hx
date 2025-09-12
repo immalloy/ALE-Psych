@@ -183,7 +183,7 @@ class Main extends Sprite
 		if (game.zoom == -1.0)
 			game.zoom = 1.0;
 		#end
-	
+
 		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 
 		#if html5
