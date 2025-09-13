@@ -14,7 +14,7 @@ The *idea* behind the engine is ***NOT* to have to use the source code** at all,
 
 Although we recommend waiting for an official release due to ongoing changes, sometimes minor, or having the source code on hand, you can download the engine using [Github Actions](https://github.com/ALE-Engine-Crew/ALE-Psych/actions).
 
-If you do not know how to use the Engine, please review the [Getting Started Guide](docs/general/GETTING-STARTED).
+If you do not know how to use the Engine, please review the [Getting Started Guide](docs/general/GETTING-STARTED.md).
 
 #### For Players: I would like to clarify that to **access the Mods menu**, you must press the **[Ctrl + Shift + M]** keys
 
