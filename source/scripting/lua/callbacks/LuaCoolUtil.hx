@@ -96,10 +96,7 @@ class LuaCoolUtil extends LuaPresetBase
             if (cl == null)
                 return;
 
-            if (cl is FlxState)
-                CoolUtil.switchState(Type.createInstance(cl, args ?? []), skipTransIn, skipTransOut);
-            else
-                errorPrint(state + ' should be FlxState');
+            CoolUtil.switchState(Type.createInstance(cl, args ?? []), skipTransIn, skipTransOut);
         });
 
         set('openSubState', function(substate:String, ?args:Array<Dynamic>, ?skipTransIn:Bool, ?skipTransOut:Bool)
@@ -109,10 +106,7 @@ class LuaCoolUtil extends LuaPresetBase
             if (cl == null)
                 return;
 
-            if (cl is FlxSubState)
-                CoolUtil.switchState(Type.createInstance(cl, args ?? []));
-            else
-                errorPrint(substate + ' should be FlxState');
+            CoolUtil.switchState(Type.createInstance(cl, args ?? []));
         });
 
 
