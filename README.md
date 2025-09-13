@@ -10,11 +10,15 @@
 
 The *idea* behind the engine is ***NOT* to have to use the source code** at all, but to have the tools to make an *incredible mod* with the **comfort** that *Psych Engine* gave us.
 
+## Where can I download it?
+
+Although we recommend waiting for an official release due to ongoing changes, sometimes minor, or having the source code on hand, you can download the engine using [Github Actions](https://github.com/ALE-Engine-Crew/ALE-Psych/actions).
+
 If you do not know how to use the Engine, please review the [Getting Started Guide](docs/general/GETTING-STARTED).
 
-Join the [Discord server](https://discord.gg/NP4U9CUrsH)!
-
 #### For Players: I would like to clarify that to **access the Mods menu**, you must press the **[Ctrl + Shift + M]** keys
+
+Join the [Discord server](https://discord.gg/NP4U9CUrsH) to stay up to date on Engine updates, ask for help, or contribute to development!
 
 ## What are the differences between Psych and ALE Psych?
 
@@ -45,10 +49,6 @@ Join the [Discord server](https://discord.gg/NP4U9CUrsH)!
 - The options menu is pending rewriting in HScript
 - The menu for customizing note colors has not been added yet
 - We plan to add more classes that can be extended through custom classes
-
-## Where can I download it?
-
-Although we recommend waiting for an official release due to ongoing changes, sometimes minor, or having the source code on hand, you can download the engine using [Github Actions](https://github.com/ALE-Engine-Crew/ALE-Psych/actions).
 
 ---
 
