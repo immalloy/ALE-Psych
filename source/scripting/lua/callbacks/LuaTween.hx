@@ -52,9 +52,14 @@ class LuaTween extends LuaPresetBase
         
         set('doTweenColor', function(tag:String, obj:String, value:Dynamic, ?time:Float, ?ease:String)
         {
-			deprecatedPrint('Use "tween" instead of "doTweenColor"');
+			deprecatedPrint('Use "colorTween" instead of "doTweenColor"');
 
             setTag(tag, LuaPresetUtils.complexTween(lua, tag, getTag(obj), {color: value}, time, {ease: ease}));
+        });
+
+        set('colorTween', function(tag:String, obj:String, ?time:Float, ?from:FlxColor, ?to:FlxColor, ?options:Dynamic)
+        {
+            setTag(tag, LuaPresetUtils.complexColorTween(lua, tag, getTag(obj), time, from, to, options));
         });
 
         set('cancelTween', function(tag:String)

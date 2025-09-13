@@ -37,9 +37,9 @@ class LuaPresetUtils
         return cl;
     }
 
-    public static function complexTween(lua:LuaScript, tag:String, obj:Dynamic, props:Any, time:Float, options:Any):FlxTween
-    {
-        var opt:TweenOptions = {
+	public static function getTweenOptions(lua:LuaScript, tag:String, options:Any):TweenOptions
+	{
+		return {
             type: tweenTypeByString(Reflect.field(options, 'type') ?? ''),
             startDelay: Reflect.field(options, 'startDelay'),
             onUpdate: (_) -> {
@@ -54,9 +54,13 @@ class LuaPresetUtils
             loopDelay: Reflect.field(options, 'loopDelay'),
             ease: easeByString(Reflect.field(options, 'ease') ?? '')
         };
+	}
 
-        return FlxTween.tween(obj, props, time, opt);
-    }
+    public static function complexTween(lua:LuaScript, tag:String, obj:Dynamic, props:Any, time:Float, options:Any):FlxTween
+        return FlxTween.tween(obj, props, time, getTweenOptions(lua, tag, options));
+
+	public static function complexColorTween(lua:LuaScript, tag:String, obj:Dynamic, time:Float, from:FlxColor, to:FlxColor, options:Any):FlxTween
+		return FlxTween.color(obj, time, from, to, getTweenOptions(lua, tag, options));
 
 	public static function easeByString(?ease:String = '')
     {

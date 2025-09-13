@@ -8,6 +8,7 @@
 - **setPropertiesFromClass** ->
 - **setObjectCameras** ->
 - **tween** ->
+- **colorTween** ->
 - **noteTween** ->
 - **colorFromString** ->
 - **getDominantColor** -> 

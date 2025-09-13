@@ -1,13 +1,9 @@
 package utils.cool;
 
 import core.Main;
-
 import core.config.MainState;
-
 import openfl.ui.Mouse;
-
 import openfl.Lib;
-
 import lime.graphics.Image;
 
 class EngineUtil
@@ -31,11 +27,11 @@ class EngineUtil
 			CoolVars.globalVars.remove(key);
 
 		FlxG.game.removeChild(MainState.debugCounter);
-		
+
 		MainState.debugCounter.destroy();
 		MainState.debugCounter = null;
 
-        #if (windows && cpp)
+		#if (windows && cpp)
 		cpp.WindowsAPI.setWindowBorderColor(255, 255, 255);
 		#end
 
@@ -48,12 +44,12 @@ class EngineUtil
 		if (FlxG.sound.music != null)
 		{
 			FlxG.sound.music.stop();
-			
+
 			FlxG.sound.music = null;
 		}
 
 		FlxG.resetGame();
-		
+
 		#if desktop
 		Mouse.cursor = ARROW;
 		#end
@@ -71,6 +67,7 @@ class EngineUtil
 			storyMenuState: 'StoryMenuState',
 			masterEditorMenu: 'MasterEditorMenu',
 			mainMenuState: 'MainMenuState',
+
 			loadDefaultWeeks: true,
 
 			pauseSubState: 'PauseSubState',
@@ -97,7 +94,9 @@ class EngineUtil
 					if (Reflect.hasField(CoolVars.data, field))
 						Reflect.setField(CoolVars.data, field, Reflect.field(json, field));
 			}
-		} catch (error:Dynamic) {
+		}
+		catch (error:Dynamic)
+		{
 			debugTrace('Error While Loading Game Data (data.json): ' + error, ERROR);
 		}
 
@@ -106,7 +105,7 @@ class EngineUtil
 		else
 			Lib.current.stage.window.setIcon(Image.fromFile(Paths.getPath('images/appIcon.png')));
 
-        FlxG.stage.window.title = CoolVars.data.title;
+		FlxG.stage.window.title = CoolVars.data.title;
 
 		resizeGame(CoolVars.data.width, CoolVars.data.height);
 	}
@@ -118,7 +117,7 @@ class EngineUtil
 			camera.width = FlxG.width;
 			camera.height = FlxG.height;
 		}
-		
+
 		#if !mobile
 		FlxG.fullscreen = false;
 		FlxG.initialWidth = width;

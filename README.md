@@ -10,6 +10,8 @@
 
 The *idea* behind the engine is ***NOT* to have to use the source code** at all, but to have the tools to make an *incredible mod* with the **comfort** that *Psych Engine* gave us.
 
+If you do not know how to use the Engine, please review the [Getting Started Guide](docs/general/GETTING-STARTED).
+
 Join the [Discord server](https://discord.gg/NP4U9CUrsH)!
 
 #### For Players: I would like to clarify that to **access the Mods menu**, you must press the **[Ctrl + Shift + M]** keys
@@ -47,16 +49,6 @@ Join the [Discord server](https://discord.gg/NP4U9CUrsH)!
 ## Where can I download it?
 
 Although we recommend waiting for an official release due to ongoing changes, sometimes minor, or having the source code on hand, you can download the engine using [Github Actions](https://github.com/ALE-Engine-Crew/ALE-Psych/actions).
-
-## How can I build it?
-
-##### It should be noted that the Engine is currently only available for Windows
-
-1. Install the latest stable version of [Haxe](https://haxe.org/download/)
-2. Install [git](https://git-scm.com/downloads) and leave all installation options at their default settings
-3. Run the [install-haxelibs](setup/install-haxelibs.bat) script to install the necessary libraries
-4. Install Visual Studio. You can use the script that was created for this purpose: [windows-msvc](setup/windows-msvc.bat)
-5. Run `lime test windows` or use the script created for this purpose: [compile](compile.bat)
 
 ---
 
