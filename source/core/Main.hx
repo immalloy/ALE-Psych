@@ -114,7 +114,7 @@ class Main extends Sprite
 		else
 			addEventListener(Event.ADDED_TO_STAGE, init);
 	}
-	
+
 	#if android
 	public static function requestPermissions():Void
 	{

@@ -36,12 +36,12 @@ class MainState extends MusicBeatState
 		FlxG.fixedTimestep = false;
 		FlxG.game.focusLostFramerate = 60;
 		FlxG.keys.preventDefaultKeys = [TAB];
+
+		super.create();
 	
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK];
 		#end
-
-		super.create();
 
 		core.backend.Mods.init();
 

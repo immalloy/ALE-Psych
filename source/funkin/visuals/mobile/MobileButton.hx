@@ -81,7 +81,7 @@ class MobileButton extends FlxSpriteGroup
     function getTouch():Null<FlxTouch>
     {
         for (touch in FlxG.touches.list)
-            if (touch.overlaps(bg, cameras[0]))
+            if (touch.overlaps(bg, cameras[0]) && touch.pressed)
                 return touch;
 
         return null;
