@@ -207,38 +207,11 @@ class PlayState extends ScriptState
 	public var startCallback:Void->Void = null;
 	public var endCallback:Void->Void = null;
 
-	@:unreflective var mobileCamera:FlxCamera;
-
 	override public function create()
 	{
 		playbackRate = 1;
 
 		super.create();
-
-        if (CoolVars.mobileControls)
-        {
-            mobileCamera = new FlxCamera();
-            mobileCamera.bgColor = FlxColor.TRANSPARENT;
-            FlxG.cameras.add(mobileCamera, false);
-
-            for (i in 0...4)
-            {
-                var curKeys:Array<Int> = [ClientPrefs.controls.notes.left, ClientPrefs.controls.notes.down, ClientPrefs.controls.notes.up, ClientPrefs.controls.notes.right][i];
-
-                var obj:MobileButton = new MobileButton(FlxG.width / 4 * i, 0, curKeys, null, FlxG.width / 4, FlxG.height);
-                add(obj);
-
-                obj.callback = () -> {
-                    onKeyPress(new KeyboardEvent('keyDown', false, true, 0, curKeys[0] ?? curKeys[1]));
-                };
-
-                obj.releaseCallback = () -> {
-                    onKeyRelease(new KeyboardEvent('keyUp', false, true, 0, curKeys[0] ?? curKeys[1]));
-                };
-				
-                obj.cameras = [mobileCamera];
-            }
-        }
 
 		startCallback = startCountdown;
 		endCallback = endSong;
@@ -1352,7 +1325,7 @@ class PlayState extends ScriptState
 			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
 		}
 
-		if ((Controls.PAUSE || (CoolVars.mobileControls && FlxG.keys.justPressed.ENTER)) && startedCountdown && canPause)
+		if (Controls.PAUSE && startedCountdown && canPause)
 		{
 			var ret:Array<Dynamic> = callOnScripts('onPause');
 			if(!ret.contains(CoolVars.Function_Stop)) {
@@ -2221,8 +2194,7 @@ class PlayState extends ScriptState
 		@:privateAccess if (!FlxG.keys._keyListMap.exists(eventKey)) return;
 		#end
 
-		if (FlxG.keys.checkStatus(eventKey, JUST_PRESSED) || (CoolVars.mobileControls && core.backend.MobileControls.anyJustPressed([eventKey])))
-			keyPressed(key);
+		if(FlxG.keys.checkStatus(eventKey, JUST_PRESSED)) keyPressed(key);
 	}
 
 	private function keyPressed(key:Int)
@@ -2597,9 +2569,6 @@ class PlayState extends ScriptState
 
 	override function destroy()
 	{
-		if (CoolVars.mobileControls)
-			FlxG.cameras.remove(mobileCamera);
-
 		FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
 		FlxG.stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
 		FlxG.animationTimeScale = 1;

@@ -38,14 +38,6 @@ class MainState extends MusicBeatState
 		FlxG.keys.preventDefaultKeys = [TAB];
 
 		super.create();
-	
-		#if android
-		FlxG.android.preventDefaultKeys = [BACK];
-		#end
-
-		add(new FlxSprite().makeGraphic(200, 200));
-
-		trace('addesd das');
 
 		core.backend.Mods.init();
 
@@ -73,7 +65,6 @@ class MainState extends MusicBeatState
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 
         #if mobile
-		/*
         if (showedModMenu)
         {
         	CoolUtil.switchState(new CustomState(CoolVars.data.initialState), true, true);
@@ -82,7 +73,6 @@ class MainState extends MusicBeatState
 
             CoolUtil.openSubState(new funkin.substates.ModsMenuSubState());
 		}
-			*/
         #else
         CoolUtil.switchState(new CustomState(CoolVars.data.initialState), true, true);
         #end

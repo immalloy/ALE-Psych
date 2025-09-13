@@ -340,14 +340,7 @@ class FlxG
 	 */
 	public static inline function resizeGame(width:Int, height:Int):Void
 	{
-		#if mobile
-		/*
-		FlxG.width = width;
-		FlxG.height = height;
-		*/
-		#else
 		scaleMode.onMeasure(width, height);
-		#end
 	}
 
 	/**

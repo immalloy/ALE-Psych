@@ -254,11 +254,6 @@ class Controls
     public static var PAUSE(get, never):Bool;
     static function get_PAUSE():Bool
     {
-        #if android
-        if (FlxG.android.justReleased.BACK)
-            return FlxG.android.justReleased.BACK;
-        #end
-
         #if !mobile if (CoolVars.data.mobileDebug && CoolVars.data.developerMode) #end
             return MobileControls.anyJustPressed(ClientPrefs.controls.ui.pause);
 
