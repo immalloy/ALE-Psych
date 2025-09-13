@@ -305,5 +305,5 @@ class Controls
 
     public static var MOUSE_R(get, never):Bool;
     static function get_MOUSE_R():Bool
-        return #if mobile FlxG.android.justReleased.BACK #else FlxG.mouse.justReleased #end;
+        return FlxG.mouse.justReleased;
 }
