@@ -343,9 +343,12 @@ class PlayState extends ScriptState
 		add(boyfriendGroup);
 
 		#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
-		if (Paths.fileExists('scripts/songs'))
-			for (file in FileSystem.readDirectory(Paths.getPath('scripts/songs')))
-				loadScript('scripts/songs/' + file);
+		for (folder in [songRoute + '/scripts', 'scripts/songs'])
+			if (Paths.fileExists(folder))
+				if (FileSystem.isDirectory(Paths.getPath(folder)))
+					for (file in FileSystem.readDirectory(Paths.getPath(folder)))
+						if (file.endsWith('.lua') || file.endsWith('.hx'))
+							loadScript(folder + '/' + file);
 		#end
 
 		#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
@@ -478,14 +481,6 @@ class PlayState extends ScriptState
 			for (event in eventNotes) event.strumTime -= eventEarlyTrigger(event);
 			eventNotes.sort(sortByTime);
 		}
-
-		#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
-		if (Paths.fileExists(songRoute + '/scripts'))
-			if (FileSystem.isDirectory(Paths.getPath(songRoute + '/scripts')))
-				for (file in FileSystem.readDirectory(Paths.getPath(songRoute + '/scripts')))
-					if (file.endsWith('.lua') || file.endsWith('.hx'))
-						loadScript(songRoute + '/scripts/' + file);
-		#end
 
 		startCallback();
 		RecalculateRating();
@@ -2777,6 +2772,8 @@ class PlayState extends ScriptState
         if (Paths.fileExists(path + '.hx'))
         {
             var script:HScript = new HScript(Paths.getPath(path + '.hx'), STATE, path);
+
+			new scripting.haxe.HScriptPlayState(script);
 
             if (!script.failedParsing)
             {

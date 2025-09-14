@@ -210,5 +210,20 @@ class LuaPlayState extends LuaPresetBase
 
             setTag(tag, LuaPresetUtils.complexTween(lua, tag, game.strumLineNotes.members[note], {alpha: value}, duration, {ease: ease}));
         });
+		
+        set('addBehindGF', function(obj:String)
+        {
+            game.insert(game.members.indexOf(game.gfGroup), getTag(obj));
+        });
+        
+        set('addBehindBF', function(obj:String)
+        {
+            game.insert(game.members.indexOf(game.boyfriendGroup), getTag(obj));
+        });
+        
+        set('addBehindDad', function(obj:String)
+        {
+            game.insert(game.members.indexOf(game.dadGroup), getTag(obj));
+        });
     }
 }
