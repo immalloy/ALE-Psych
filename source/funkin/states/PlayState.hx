@@ -344,9 +344,9 @@ class PlayState extends ScriptState
 
 		#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
 		for (folder in [songRoute + '/scripts', 'scripts/songs'])
-			if (Paths.fileExists(folder))
-				if (FileSystem.isDirectory(Paths.getPath(folder)))
-					for (file in FileSystem.readDirectory(Paths.getPath(folder)))
+			if (Paths.exists(folder))
+				if (Paths.isDirectory(folder))
+					for (file in Paths.readDirectory(folder))
 						if (file.endsWith('.lua') || file.endsWith('.hx'))
 							loadScript(folder + '/' + file);
 		#end
@@ -1001,12 +1001,7 @@ class PlayState extends ScriptState
 
 		noteData = songData.notes;
 
-		var file:String = Paths.getPath(songRoute + '/charts/events.json', false);
-		#if MODS_ALLOWED
-		if (FileSystem.exists(file))
-		#else
-		if (OpenFlAssets.exists(file))
-		#end
+		if (Paths.exists(songRoute + '/charts/events.json'))
 		{
 			var eventsData:Array<Dynamic> = CoolUtil.loadPlayStateSong(SONG.song, 'events').json.events;
 
@@ -2769,7 +2764,7 @@ class PlayState extends ScriptState
     override public function loadHScript(path:String)
     {
         #if HSCRIPT_ALLOWED
-        if (Paths.fileExists(path + '.hx'))
+        if (Paths.exists(path + '.hx'))
         {
             var script:HScript = new HScript(Paths.getPath(path + '.hx'), STATE, path);
 
@@ -2788,7 +2783,7 @@ class PlayState extends ScriptState
     override public function loadLuaScript(path:String)
     {
         #if LUA_ALLOWED
-        if (Paths.fileExists(path + '.lua'))
+        if (Paths.exists(path + '.lua'))
         {
             try
             {

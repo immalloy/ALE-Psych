@@ -1,5 +1,8 @@
 package utils.cool;
 
+import sys.FileSystem;
+import sys.io.File;
+
 class FileUtil
 {
 	inline public static function coolTextFile(path:String):Array<String>

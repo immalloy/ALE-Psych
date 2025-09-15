@@ -2,6 +2,8 @@ package core.backend;
 
 import flixel.util.FlxSave;
 
+import sys.FileSystem;
+
 class Mods
 {
 	static public var folder:String = '';

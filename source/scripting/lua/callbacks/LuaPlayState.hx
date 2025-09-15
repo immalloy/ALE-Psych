@@ -6,6 +6,8 @@ import scripting.lua.LuaPresetUtils;
 
 import funkin.visuals.cutscenes.DialogueBoxPsych;
 
+import sys.FileSystem;
+
 class LuaPlayState extends LuaPresetBase
 {
     public var game:PlayState = PlayState.instance;

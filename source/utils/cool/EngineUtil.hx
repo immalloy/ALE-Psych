@@ -86,9 +86,9 @@ class EngineUtil
 
 		try
 		{
-			if (Paths.fileExists('data.json'))
+			if (Paths.exists('data.json'))
 			{
-				var json:Dynamic = Json.parse(File.getContent(Paths.getPath('data.json')));
+				var json:Dynamic = Paths.json('data');
 
 				for (field in Reflect.fields(json))
 					if (Reflect.hasField(CoolVars.data, field))
@@ -100,7 +100,7 @@ class EngineUtil
 			debugTrace('Error While Loading Game Data (data.json): ' + error, ERROR);
 		}
 
-		if (Paths.fileExists(CoolVars.data.icon + '.png'))
+		if (Paths.exists(CoolVars.data.icon + '.png'))
 			Lib.current.stage.window.setIcon(Image.fromFile(Paths.getPath(CoolVars.data.icon + '.png')));
 		else
 			Lib.current.stage.window.setIcon(Image.fromFile(Paths.getPath('images/appIcon.png')));

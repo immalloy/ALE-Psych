@@ -16,6 +16,8 @@ import funkin.visuals.objects.TypedAlphabet;
 import funkin.visuals.cutscenes.DialogueBoxPsych;
 import funkin.visuals.cutscenes.DialogueCharacter;
 
+import sys.io.File;
+
 class DialogueEditorState extends MusicBeatState
 {
 	var character:DialogueCharacter;

@@ -9,6 +9,7 @@ enum abstract PrintType(String)
     var HSCRIPT = 'hscript';
     var LUA = 'lua';
     var MISSING_FILE = 'missing_file';
+    var MISSING_FOLDER = 'missing_folder';
     var CUSTOM = 'custom';
     var POP_UP = 'pop-up';
 
@@ -20,6 +21,7 @@ enum abstract PrintType(String)
         HSCRIPT => ['HSCRIPT', 0xFF88CC44],
         LUA => ['LUA', 0xFF4466DD],
         MISSING_FILE => ['MISSING FILE', 0xFFFF7F00],
+        MISSING_FILE => ['MISSING FOLDER', 0xFFFF7F00],
         POP_UP => ['POP-UP', 0xFFFF00FF]
     ];
 

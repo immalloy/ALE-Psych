@@ -41,7 +41,11 @@ class LuaText extends LuaPresetBase
 		set('setTextFont', function(tag:String, newFont:String)
 		{
 			if (tagIs(tag, FlxText))
-				getTag(tag).font = Paths.font(newFont);
+			{
+				var text:FlxText = getTag(tag);
+				
+				text.font = Paths.font(newFont);
+			}
 		});
 
         set('addLuaText', function(tag:String)

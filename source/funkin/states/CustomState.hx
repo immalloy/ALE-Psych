@@ -2,6 +2,8 @@ package funkin.states;
 
 import haxe.ds.StringMap;
 
+import sys.FileSystem;
+
 class CustomState extends ScriptState
 {
     public static var instance:CustomState;
@@ -42,7 +44,7 @@ class CustomState extends ScriptState
 
             for (ext in ['.hx', '.lua'])
                 for (file in [scriptName, 'global'])
-                    if (Paths.fileExists('scripts/states/' + file + ext))
+                    if (Paths.exists('scripts/states/' + file + ext))
                         watchFiles.push(Paths.getPath('scripts/states/' + file + ext));
 
             CoolUtil.createSafeThread(() -> {

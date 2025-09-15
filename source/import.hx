@@ -2,13 +2,6 @@
 
 import core.config.DiscordRPC;
 
-#if sys
-import sys.*;
-import sys.io.*;
-#elseif js
-import js.html.*;
-#end
-
 import core.backend.Controls;
 import core.backend.MusicBeatState;
 import core.backend.MusicBeatSubState;
@@ -35,10 +28,6 @@ import funkin.visuals.objects.Alphabet;
 import funkin.visuals.stages.BGSprite;
 
 import funkin.states.PlayState;
-
-#if flxanimate
-import flxanimate.*;
-#end
 
 import flixel.sound.FlxSound;
 import flixel.FlxG;

@@ -6,6 +6,8 @@ import funkin.visuals.game.NoteSplash;
 import flixel.addons.ui.FlxInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 
+import sys.io.File;
+
 class NoteSplashDebugState extends MusicBeatState
 {
 	var config:NoteSplashConfig;

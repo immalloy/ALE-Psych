@@ -27,6 +27,8 @@ import openfl.utils.Assets as OpenFLAssets;
 import flixel.addons.util.FlxAsyncLoop;
 import openfl.utils.ByteArray;
 import haxe.io.Path;
+import sys.FileSystem;
+import sys.io.File;
 
 /**
  * @author: Karim Akra

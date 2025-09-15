@@ -40,6 +40,9 @@ import funkin.substates.Prompt;
 import flash.media.Sound;
 #end
 
+import sys.*;
+import sys.io.*;
+
 @:access(flixel.sound.FlxSound._sound)
 @:access(openfl.media.Sound.__buffer)
 
@@ -909,7 +912,7 @@ class ChartingState extends MusicBeatState
 		}
 
 		#if sys
-		if (Paths.fileExists('custom_notetypes'))
+		if (Paths.exists('custom_notetypes'))
 		if (FileSystem.isDirectory(Paths.getPath('custom_noteTypes')))
 		for (folder in FileSystem.readDirectory(Paths.getPath('custom_notetypes')))
 			for (file in FileSystem.readDirectory(folder))
@@ -966,7 +969,7 @@ class ChartingState extends MusicBeatState
 
 		#if LUA_ALLOWED
 		var eventPushedMap:Map<String, Bool> = new Map<String, Bool>();
-		if (Paths.fileExists('custom_events'))
+		if (Paths.exists('custom_events'))
 		if (FileSystem.isDirectory(Paths.getPath('custom_events')))
 		for (file in FileSystem.readDirectory(Paths.getPath('custom_events'))) {
 			var path = haxe.io.Path.join([Paths.getPath('custom_events'), file]);

@@ -74,7 +74,7 @@ class ScriptSubState extends MusicBeatSubState
         #if HSCRIPT_ALLOWED
         var newPath:String = 'scripts/substates/' + path;
 
-        if (Paths.fileExists(newPath + '.hx'))
+        if (Paths.exists(newPath + '.hx'))
         {
             var script:HScript = new HScript(Paths.getPath(newPath + '.hx'), SUBSTATE, path);
 
@@ -93,7 +93,7 @@ class ScriptSubState extends MusicBeatSubState
         #if LUA_ALLOWED
         var newPath:String = 'scripts/substates/' + path;
 
-        if (Paths.fileExists(newPath + '.lua'))
+        if (Paths.exists(newPath + '.lua'))
         {
             try
             {

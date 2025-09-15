@@ -24,18 +24,18 @@ class ShaderUtil
 
 		var found:Bool = false;
 
-		if (Paths.fileExists(frag))
+		if (Paths.exists(frag))
 		{
-			frag = File.getContent(Paths.getPath(frag));
+			frag = Paths.getContent(frag);
 
 			found = true;
 		} else {
 			frag = null;
 		}
 
-		if (Paths.fileExists(vert))
+		if (Paths.exists(vert))
 		{
-			vert = File.getContent(Paths.getPath(vert));
+			vert = Paths.getContent(vert);
 
 			found = true;
 		} else {

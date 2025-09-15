@@ -12,7 +12,7 @@ class LuaJson extends LuaPresetBase
 
         set('parseJsonFile', function(path:String)
         {
-            return Json.parse(File.getContent(Paths.getPath(path)));
+            return Paths.json(path);
         });
 
         set('stringifyJson', Json.stringify);

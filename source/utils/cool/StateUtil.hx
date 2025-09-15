@@ -15,7 +15,7 @@ class StateUtil
         {
 			var scriptName = cast(state, CustomState).scriptName;
 			
-            if (Paths.fileExists('scripts/states/' + scriptName + '.hx') || Paths.fileExists('scripts/states/' + scriptName + '.lua'))
+            if (Paths.exists('scripts/states/' + scriptName + '.hx') || Paths.exists('scripts/states/' + scriptName + '.lua'))
                 transitionSwitch(state, skipTransIn, skipTransOut);
             else
                 debugTrace('Custom State called "' + scriptName + '" doesn\'t Exist', MISSING_FILE);
@@ -66,7 +66,7 @@ class StateUtil
         {
             var custom:CustomSubState = Std.downcast(subState, CustomSubState);
             
-            if (Paths.fileExists('scripts/substates/' + custom.scriptName + '.hx') || Paths.fileExists('scripts/substates/' + custom.scriptName + '.lua'))
+            if (Paths.exists('scripts/substates/' + custom.scriptName + '.hx') || Paths.exists('scripts/substates/' + custom.scriptName + '.lua'))
                 FlxG.state.openSubState(subState);
             else
                 debugTrace('Custom SubState called "' + custom.scriptName + '" doesn\'t Exist', MISSING_FILE);

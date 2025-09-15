@@ -2,6 +2,8 @@ package funkin.visuals.cutscenes;
 
 import lime.utils.Assets;
 
+import sys.FileSystem;
+
 typedef DialogueAnimArray = {
 	var anim:String;
 	var loop_name:String;
@@ -53,21 +55,8 @@ class DialogueCharacter extends FlxSprite
 		var characterPath:String = 'images/dialogue/' + character + '.json';
 		var rawJson = null;
 
-		#if MODS_ALLOWED
-		var path:String = Paths.getPath(characterPath);
-		if (!FileSystem.exists(path)) {
-			path = Paths.getPath(characterPath);
-		}
-
-		if(!FileSystem.exists(path)) {
-			path = Paths.getPath('images/dialogue/' + DEFAULT_CHARACTER + '.json');
-		}
-		rawJson = File.getContent(path);
-
-		#else
-		var path:String = Paths.getPath(characterPath);
-		rawJson = Assets.getText(path);
-		#end
+		if (Paths.exists(characterPath))
+			rawJson = Paths.getContent(characterPath);
 		
 		jsonFile = cast Json.parse(rawJson);
 	}

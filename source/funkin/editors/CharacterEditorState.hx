@@ -19,6 +19,8 @@ import funkin.visuals.objects.HealthIcon;
 import funkin.visuals.objects.Bar;
 import funkin.visuals.objects.PsychFlxAnimate;
 
+import sys.FileSystem;
+
 class CharacterEditorState extends MusicBeatState
 {
 	var character:Character;
@@ -780,7 +782,7 @@ class CharacterEditorState extends MusicBeatState
 		character.color = FlxColor.WHITE;
 		character.alpha = 1;
 
-		if(Paths.fileExists('images/' + character.imageFile + '/Animation.json'))
+		if(Paths.exists('images/' + character.imageFile + '/Animation.json'))
 		{
 			character.atlas = new PsychFlxAnimate();
 			character.atlas.showPivot = false;
@@ -792,8 +794,8 @@ class CharacterEditorState extends MusicBeatState
 			}
 			character.isAnimateAtlas = true;
 		}
-		else if(Paths.fileExists('images/' + character.imageFile + '.txt')) character.frames = Paths.getPackerAtlas(character.imageFile);
-		else if(Paths.fileExists('images/' + character.imageFile + '.json')) character.frames = Paths.getAsepriteAtlas(character.imageFile);
+		else if(Paths.exists('images/' + character.imageFile + '.txt')) character.frames = Paths.getPackerAtlas(character.imageFile);
+		else if(Paths.exists('images/' + character.imageFile + '.json')) character.frames = Paths.getAsepriteAtlas(character.imageFile);
 		else character.frames = Paths.getSparrowAtlas(character.imageFile);
 
 		for (anim in anims) {

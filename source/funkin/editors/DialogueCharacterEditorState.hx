@@ -18,6 +18,8 @@ import funkin.visuals.objects.TypedAlphabet;
 import funkin.visuals.cutscenes.DialogueBoxPsych;
 import funkin.visuals.cutscenes.DialogueCharacter;
 
+import sys.io.File;
+
 class DialogueCharacterEditorState extends MusicBeatState
 {
 	var box:FlxSprite;

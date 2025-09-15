@@ -103,18 +103,15 @@ class School extends BaseStage
 	var doof:DialogueBox = null;
 	function initDoof()
 	{
-	var file:String = Paths.getPath(PlayState.songRoute + '/dialogue.txt'); //Checks for vanilla/Senpai dialogue
-		#if MODS_ALLOWED
-		if (!FileSystem.exists(file))
-		#else
-		if (!OpenFlAssets.exists(file))
-		#end
+		var file:String = PlayState.songRoute + '/dialogue.txt'; //Checks for vanilla/Senpai dialogue
+
+		if (!Paths.exists(file))
 		{
 			startCountdown();
 			return;
 		}
 
-		doof = new DialogueBox(false, File.getContent(file).split('\n'));
+		doof = new DialogueBox(false, Paths.getContent(file).split('\n'));
 		doof.cameras = [camHUD];
 		doof.scrollFactor.set();
 		doof.finishThing = startCountdown;

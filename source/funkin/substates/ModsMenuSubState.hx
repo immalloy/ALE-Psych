@@ -9,6 +9,8 @@ import flixel.addons.display.FlxGridOverlay;
 
 import flixel.util.FlxSave;
 
+import sys.FileSystem;
+
 class ModsMenuSubState extends MusicBeatSubState
 {
     var sprites:FlxTypedGroup<Alphabet> = new FlxTypedGroup<Alphabet>();

@@ -58,7 +58,7 @@ class PlayStateUtil
 		if (json == null)
 			debugTrace(name + '/charts/' + difficulty + '.json', MISSING_FILE);
 		else
-			jsonData = loadPlayStateJSON(Json.parse(File.getContent(Paths.getPath(json))).song);
+			jsonData = loadPlayStateJSON(Paths.json(json).song);
 
 		return {
 			route: FileUtil.searchComplexFile('songs/' + name),

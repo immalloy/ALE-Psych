@@ -8,6 +8,9 @@ import funkin.visuals.cutscenes.DialogueBox;
 
 import openfl.utils.Assets as OpenFlAssets;
 
+import sys.FileSystem;
+import sys.io.File;
+
 class SchoolEvil extends BaseStage
 {
 	override function create()

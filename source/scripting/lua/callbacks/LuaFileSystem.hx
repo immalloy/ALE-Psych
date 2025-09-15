@@ -2,6 +2,9 @@ package scripting.lua.callbacks;
 
 import scripting.lua.LuaPresetBase;
 
+import sys.io.File;
+import sys.FileSystem;
+
 class LuaFileSystem extends LuaPresetBase
 {
     override public function new(lua:LuaScript)
@@ -10,7 +13,7 @@ class LuaFileSystem extends LuaPresetBase
         
         set('checkFileExists', function(name:String)
         {
-            return Paths.fileExists(name);
+            return Paths.exists(name);
         });
 
         set('saveFile', function(name:String, content:String)
@@ -20,17 +23,17 @@ class LuaFileSystem extends LuaPresetBase
 
         set('deleteFile', function(name:String)
         {
-            FileSystem.deleteFile(Paths.getPath(name));
+            FileSystem.deleteFile(Paths.modFolder() + '/' + name);
         });
         
         set('getTextFromFile', function(name:String)
         {
-            return File.getContent(Paths.getPath(name));
+            return Paths.getContent(name);
         });
 
         set('directoryFileList', function(name:String)
         {
-            return FileSystem.readDirectory(Paths.getPath(name));
+            return Paths.readDirectory(name);
         });
     }
 }

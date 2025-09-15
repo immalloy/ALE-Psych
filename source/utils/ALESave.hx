@@ -46,9 +46,9 @@ class ALESave
         {
             ClientPrefs.custom = custom.data.settings;
                     
-            if (Paths.fileExists('options.json'))
+            if (Paths.exists('options.json'))
             {
-                var jsonData:Dynamic = Json.parse(File.getContent(Paths.getPath('options.json')));
+                var jsonData:Dynamic = Paths.json('options');
 
                 if (jsonData.categories is Array)
                     for (cat in cast(jsonData.categories, Array<Dynamic>))

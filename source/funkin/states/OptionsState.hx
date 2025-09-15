@@ -468,9 +468,9 @@ class OptionsState extends MusicBeatState
             }
         ];
 
-        if (Paths.fileExists('options.json'))
+        if (Paths.exists('options.json'))
         {
-            var jsonData:Dynamic = Json.parse(File.getContent(Paths.getPath('options.json')));
+            var jsonData:Dynamic = Paths.json('options.json');
 
             if (jsonData.categories is Array)
                 for (cat in cast(jsonData.categories, Array<Dynamic>))

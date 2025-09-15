@@ -34,14 +34,14 @@ class HScriptConfig
 
             var filePath = 'scripts/classes/' + (pack.length >= 1 ? pack.join('.') + '.' + (moduleName ?? path[0]) : path[0]).replace('.', '/') + '.hx';
 
-            if (!Paths.fileExists(filePath))
+            if (!Paths.exists(filePath))
                 return null;
 
             var parser = new ALEParser(name);
             parser.allowAll();
             parser.mode = MODULE;
 
-            return parser.parseModule(File.getContent(Paths.getPath(filePath)));
+            return parser.parseModule(Paths.getContent(filePath));
         }
 
         RuleScriptedClassUtil.buildBridge = function (typePath:String, superInstance:Dynamic):RuleScript

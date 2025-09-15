@@ -13,6 +13,8 @@ import flash.net.FileFilter;
 
 import funkin.visuals.objects.MenuCharacter;
 
+import sys.io.File;
+
 class MenuCharacterEditorState extends MusicBeatState
 {
 	var grpWeekCharacters:FlxTypedGroup<MenuCharacter>;

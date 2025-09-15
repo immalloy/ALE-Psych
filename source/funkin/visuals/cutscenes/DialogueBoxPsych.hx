@@ -5,6 +5,8 @@ import openfl.utils.Assets;
 import funkin.visuals.objects.TypedAlphabet;
 import funkin.visuals.cutscenes.DialogueCharacter;
 
+import sys.io.File;
+
 // Gonna try to kind of make it compatible to Forever Engine,
 // love u Shubs no homo :flushedh4:
 typedef DialogueFile = {
@@ -374,13 +376,7 @@ class DialogueBoxPsych extends FlxSpriteGroup
 	}
 
 	public static function parseDialogue(path:String):DialogueFile {
-		#if MODS_ALLOWED
-		if(FileSystem.exists(path))
-		{
-			return cast Json.parse(File.getContent(path));
-		}
-		#end
-		return cast Json.parse(Assets.getText(path));
+		return cast Json.parse(File.getContent(path));
 	}
 
 	public static function updateBoxOffsets(box:FlxSprite) { //Had to make it static because of the editors

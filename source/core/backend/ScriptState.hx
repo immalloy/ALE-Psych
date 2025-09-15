@@ -80,7 +80,7 @@ class ScriptState extends MusicBeatState
         #if HSCRIPT_ALLOWED
         var newPath:String = 'scripts/states/' + path;
 
-        if (Paths.fileExists(newPath + '.hx'))
+        if (Paths.exists(newPath + '.hx'))
         {
             var script:HScript = new HScript(Paths.getPath(newPath + '.hx'), STATE, path);
 
@@ -99,7 +99,7 @@ class ScriptState extends MusicBeatState
         #if LUA_ALLOWED
         var newPath:String = 'scripts/states/' + path;
 
-        if (Paths.fileExists(newPath + '.lua'))
+        if (Paths.exists(newPath + '.lua'))
         {
             try
             {
