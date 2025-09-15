@@ -26,11 +26,6 @@ class EngineUtil
 		for (key in CoolVars.globalVars.keys())
 			CoolVars.globalVars.remove(key);
 
-		FlxG.game.removeChild(MainState.debugCounter);
-
-		MainState.debugCounter.destroy();
-		MainState.debugCounter = null;
-
 		#if (windows && cpp)
 		cpp.WindowsAPI.setWindowBorderColor(255, 255, 255);
 		#end

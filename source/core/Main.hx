@@ -336,10 +336,6 @@ class Main extends Sprite
 
 					CoolUtil.openSubState(new funkin.substates.ModsMenuSubState());
 				}
-    
-        if (key == FlxKey.F3)
-			if (MainState.debugCounter != null)
-				MainState.debugCounter.switchMode();
 
 		#if WINDOWS_API
 		if (key == FlxKey.F2)

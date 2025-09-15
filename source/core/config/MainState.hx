@@ -4,8 +4,6 @@ import haxe.io.Path;
 
 import flixel.FlxState;
 
-import funkin.debug.DebugCounter;
-
 import openfl.Lib;
 import openfl.display.StageScaleMode;
 
@@ -18,8 +16,6 @@ class MainState extends MusicBeatState
     #if mobile
     @:unreflective private static var showedModMenu:Bool = false;
     #end
-
-	public static var debugCounter:DebugCounter;
 
 	override function create()
 	{
@@ -61,9 +57,6 @@ class MainState extends MusicBeatState
 		#if HSCRIPT_ALLOWED
 		scripting.haxe.HScriptConfig.config();
 		#end
-
-		MainState.debugCounter = new DebugCounter();
-		FlxG.game.addChild(MainState.debugCounter);
 		
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
