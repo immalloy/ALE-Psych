@@ -359,7 +359,7 @@ class Paths
             return null;
         }
 
-        return Json.parse(getContent(file));
+        return Json.parse(getContent(path));
     }
 
     // CONTENT

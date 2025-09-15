@@ -44,6 +44,8 @@ import extension.androidtools.Settings as AndroidSettings;
 import extension.androidtools.os.Build.VERSION_CODES as AndroidVersionCode;
 
 import lime.system.System as LimeSystem;
+
+import sys.FileSystem;
 #end
 
 #if (windows && cpp)

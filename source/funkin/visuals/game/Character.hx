@@ -109,7 +109,7 @@ class Character extends FlxSprite
 
 				try
 				{
-					loadCharacterFile(Paths.json(characterPath));
+					loadCharacterFile(Paths.json(characterPath.substring(0, characterPath.length - 5)));
 				}
 				catch(e:Dynamic)
 				{

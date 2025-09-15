@@ -6,9 +6,9 @@ class ALEParserHelper
 {
     public static function getALEWeek(name:String):ALEWeek
     {
-        if (Paths.fileExists('weeks/' + name + '.json'))
+        if (Paths.exists('weeks/' + name + '.json'))
         {
-            var data:Dynamic = Json.parse(File.getContent(Paths.getPath('weeks/' + name + '.json')));
+            var data:Dynamic = Paths.json('weeks/' + name);
 
             if (data.format == 'ale-format-v0.1')
             {
