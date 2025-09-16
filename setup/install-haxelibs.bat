@@ -14,7 +14,6 @@ haxelib install flixel-addons 3.3.2
 haxelib install flixel-ui 2.6.4
 haxelib install flixel-tools 1.5.1
 haxelib install tjson 1.4.0
-haxelib install away3d 5.0.9
 haxelib install extension-androidtools 2.2.2 --skip-dependencies
 haxelib git hxcpp https://github.com/AlejoGDOfficial/MobilePorting-hxcpp --skip-dependencies
 haxelib git flxanimate https://github.com/Dot-Stuff/flxanimate 7da385ca7fd8d8067aac03bc39798d37c5598e45
