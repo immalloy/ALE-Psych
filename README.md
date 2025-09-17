@@ -71,7 +71,6 @@ We welcome contributions:
 - **AlejoGDOfficial** — Director and Lead Programmer  
 - **Kriptel** — RuleScript integration  
 - **ManuArtz** — Art  
-- **Aleja** — Co-founder of ALE Engine
 - **Malloy** — Rewrote Readme + Made Wiki
 - **Psych Engine Team** — Original base project
 - And [all contributors](https://github.com/ALE-Psych-Crew/ALE-Psych/graphs/contributors)  
