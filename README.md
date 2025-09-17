@@ -93,8 +93,9 @@ We welcome contributions:
 ## Community
 
 <p align="center">
-  <a href="https://discord.gg/NP4U9CUrsH"><img alt="Discord" src="https://img.shields.io/discord/1234567890?label=Discord&logo=discord&logoColor=white&color=5865F2"></a> <a href="https://github.com/ALE-Psych-Crew/ALE-Psych/discussions"><img alt="Discussions" src="https://img.shields.io/badge/GitHub-Discussions-blue?logo=github"></a>
+  <a href="https://discord.gg/NP4U9CUrsH"><img alt="Discord" src="https://img.shields.io/discord/1285303468772425779?label=Discord&logo=discord&logoColor=white&color=5865F2"></a><a href="https://github.com/ALE-Psych-Crew/ALE-Psych/discussions"><img alt="Discussions" src="https://img.shields.io/badge/GitHub-Discussions-blue?logo=github"></a>
 </p>
+
 
 - Chat with developers and modders on Discord.  
 - Share feedback and ideas in GitHub Discussions.  
