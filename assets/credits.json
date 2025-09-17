@@ -23,6 +23,13 @@
                     "link": "https://www.youtube.com/@MArtz_06",
                     "description": "Main Artist",
                     "color": "43406E"
+                },
+                {
+                    "name": "Malloy",
+                    "icon": "malloyboi",
+                    "link": "https://x.com/ArtByHenry2010",
+                    "description": "Collaborated as GitHub maintainer. Managed repositories and Wiki",
+                    "color": "e8812f"
                 }
             ]
         },
