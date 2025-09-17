@@ -47,9 +47,9 @@ class FPSField extends DebugField
         );
 
         labels[0].valueFunction = () -> {
-            fps = CoolUtil.fpsLerp(fps, 1 / FlxG.elapsed, 0.25);
+            fps = CoolUtil.fpsLerp(fps, FlxG.elapsed <= 0 ? 0 : (1 / FlxG.elapsed), 0.25);
 
-            return 'FPS: ' + Std.string(Math.floor(fps));
+            return 'FPS: ' + Math.floor(fps);
         };
 
         labels[1].valueFunction = () -> {

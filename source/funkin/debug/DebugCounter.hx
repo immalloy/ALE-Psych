@@ -24,6 +24,20 @@ class DebugCounter extends Sprite
 
         offset += fpsCounter.bg.scaleY;
 
+        var conductor:ConductorField = new ConductorField();
+        addChild(conductor);
+        fields.push(conductor);
+        conductor.y = offset;
+
+        offset += conductor.bg.scaleY;
+
+        var flixel:FlixelField = new FlixelField();
+        addChild(flixel);
+        fields.push(flixel);
+        flixel.y = offset;
+
+        offset += flixel.bg.scaleY;
+
         for (field in data)
         {
             var debug:DebugField = new DebugField(field);
@@ -44,7 +58,7 @@ class DebugCounter extends Sprite
 
     override function __enterFrame(time:#if linux Float #else Int #end)
     {
-        if (focused && visible)
+        if ((focused || !FlxG.autoPause) && visible)
         {
             if (timer > 50)
             {
@@ -102,9 +116,21 @@ class DebugCounter extends Sprite
 
                 fpsCounter.visible = true;
                 fpsCounter.bg.visible = false;
+            
+                for (label in fpsCounter.labels)
+                    label.text = label.valueFunction();
+
+                fpsCounter.updateBG();
             case 1:
                 for (field in fields)
+                {
+                    for (label in field.labels)
+                        label.text = label.valueFunction();
+
+                    field.updateBG();
+
                     field.visible = true;
+                }
 
                 fpsCounter.bg.visible = true;
             case 2:
