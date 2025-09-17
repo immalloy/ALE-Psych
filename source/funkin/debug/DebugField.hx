@@ -67,20 +67,23 @@ class DebugField extends Sprite
 
         if (obj == null)
             return function() return daClass + '.' + daVar;
+        
+        return () -> getRecursiveProperty(obj, daVar.split('.'));
+    }
 
-        var pieces = daVar.split('.');
+    function getRecursiveProperty(instance:Dynamic, split:Array<String>):Dynamic
+    {
+        var result:Dynamic = instance;
 
-        for (i in 0...(pieces.length - 1))
+        for (part in split)
         {
-            obj = Reflect.getProperty(obj, pieces[i]);
+            result = Reflect.getProperty(result, part);
 
-            if (obj == null)
-                return () -> daClass + '.' + daVar;
+            if (result == null)
+                return null;
         }
 
-        final last = pieces.pop();
-        
-        return () -> Std.string(Reflect.getProperty(obj, last) ?? 'null');
+        return result;
     }
 
     @:unreflective private var offset:Float = 2.5;
