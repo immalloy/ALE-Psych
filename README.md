@@ -1,57 +1,82 @@
 <h1 align="center">
-    <img src="art/githubLogo.png">
+  <img src="art/githubLogo.png" alt="ALE Psych Logo">
 </h1>
 
 <h2 align="center">
-    "If Psych was so good, why wasn’t there a Psych 2?" [WIP]
+  "If Psych was so good, why wasn’t there a Psych 2?"  
 </h2>
-
-**ALE Psych** is a *fork* of **Psych Engine 0.7.3**, created to replace *ALE Engine*, fix Psych, and add *~~a few~~* new features.
-
-The *idea* behind the engine is ***NOT* to have to use the source code** at all, but to have the tools to make an *incredible mod* with the **comfort** that *Psych Engine* gave us.
-
-## Where can I download it?
-
-Although we recommend waiting for an official release due to ongoing changes, sometimes minor, or having the source code on hand, you can download the engine using [Github Actions](https://github.com/ALE-Engine-Crew/ALE-Psych/actions).
-
-If you do not know how to use the Engine, please review the [Getting Started Guide](docs/general/GETTING-STARTED.md).
-
-#### For Players: I would like to clarify that to **access the Mods menu**, you must press the **[Ctrl + Shift + M]** keys
-
-Join the [Discord server](https://discord.gg/NP4U9CUrsH) to stay up to date on Engine updates, ask for help, or contribute to development!
-
-## What are the differences between Psych and ALE Psych?
-
-- **Support for creating and modifying menus and submenus using scripts (Lua and HScript)**
-- **Support for Custom Classes**
-- **Added a JSON file where you can adjust various game properties**
-- **Added a list of functions related to the Windows API (some of them only work on Windows 11)**
-- **Rewrote several menus and submenus in Scripts to make them easier to modify**
-- **Several classes are included that, although not used by default in the game, you can use from scripts.**
-- Use of RuleScript as an HScript Library
-- Reorganization of the Source Code (especially in the Lua section)
-- Memory usage has been reduced by clearing it every time the menu is changed (with some exceptions to prevent some things from taking too long to load)
-- Redesigned the way songs and their files are searched (Charts, Scripts, and Audios)
-- CoolUtil.save is used instead of FlxG.save/FlxSave to make it easier to save preferences/scores without the files conflicting between mods
-- Added access to the Game Console by pressing F2
-
-#### And much more...!
-
-## What issues does the Engine still have that would cause it to be considered a work in progress?
-
-- **I'm *NOT* entirely sure, but I suspect there may be some performance issues**
-- **Due to the changes that were made, the editors are not working properly, and sometimes crash when saving the file (I recommend doing the part related to the editors in Psych, preferably 0.7.3)**
-- **The Engine is not well documented**
-- Some necessary functions were removed from HScript and Lua, but they will be added later
-- Things like transitions, the pause menu, the death screen, and the default menu song are not easy to customize yet, but I will work on that soon
-- The backgrounds from the original weeks are still in the source code, but I will rewrite them in HScript at some point. (as in ALE Engine)
-- We plan to add more functions to Lua so that it is not so complicated to work with this language
-- The options menu is pending rewriting in HScript
-- The menu for customizing note colors has not been added yet
-- We plan to add more classes that can be extended through custom classes
 
 ---
 
-That's all for now. I'll start working on the engine documentation soon, or at least that's the plan.
+## Overview
+**ALE Psych** is a fork of **Psych Engine 0.7.3**, created to replace **ALE Engine**, fix long-standing issues, and add new features.  
 
-Thank you for your time. I hope you find this project useful!
+The goal is simple: give developers the tools to build complete mods **without touching the source code**, while keeping the comfort and flexibility that Psych Engine provided.  
+
+---
+
+## Downloads
+Official releases are still in progress. For now, you can grab the latest build from [GitHub Actions](https://github.com/ALE-Engine-Crew/ALE-Psych/actions).  
+
+- We recommend waiting for tagged releases for stability.  
+- If you’re experimenting, builds from Actions are fine.  
+
+See the [Getting Started Guide](https://github.com/ALE-Psych-Crew/ALE-Psych/wiki) for setup instructions.  
+
+**For players:** press **Ctrl + Shift + M** to open the Mods menu.  
+
+Join the [Discord server](https://discord.gg/NP4U9CUrsH) to get help, follow updates, or contribute.  
+
+---
+
+## Key Differences from Psych
+- Scripted **menus and submenus** (Lua and HScript).  
+- Support for **custom classes**.  
+- Configurable **data.json** for engine/game properties.  
+- JSON-based **options and credits**.  
+- Integration with **RuleScript** for advanced HScript features.  
+- Reorganized source structure, especially Lua.  
+- Memory cleanup on menu changes.  
+- Redesigned song loading (charts, scripts, audio).  
+- `CoolUtil.save` replaces `FlxG.save` to avoid conflicts between mods.  
+- Access the **Game Console** with `F2`.  
+
+---
+
+## Current Limitations
+ALE Psych is still **work in progress**:  
+
+- Editors are unstable and may crash. Use Psych 0.7.3 for editor work.  
+- Some performance issues may still exist.  
+- Documentation is incomplete.  
+- Certain HScript/Lua functions are missing.  
+- Transitions, pause menu, game over, and default songs are not fully customizable.  
+- Original week backgrounds are still in source; planned rewrite in HScript.  
+- Options menu rewrite and note color customization are pending.  
+- More Lua functions and extensible classes are planned.  
+
+---
+
+## Contributing
+We welcome contributions:  
+
+- Report issues and request features via [Issues](https://github.com/ALE-Engine-Crew/ALE-Psych/issues).  
+- Submit pull requests that follow the existing coding style.  
+- Test changes on at least one desktop platform.  
+- Document new features in the [Wiki](https://github.com/ALE-Psych-Crew/ALE-Psych/wiki).  
+
+---
+
+## Credits
+- **AlejoGDOfficial** — Director and Lead Programmer  
+- **Kriptel** — RuleScript integration  
+- **ManuArtz** — Art  
+- **Malloy** — Rewrote Readme + Made Wiki
+- **Psych Engine Team** — Original base project
+- And [all contributors](https://github.com/ALE-Psych-Crew/ALE-Psych/graphs/contributors)  
+
+---
+
+## License
+ALE Psych is released under the **Apache License 2.0**.  
+See [LICENSE](LICENSE) for details.  
