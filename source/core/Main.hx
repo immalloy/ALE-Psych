@@ -325,7 +325,7 @@ class Main extends Sprite
     
     function onKeyPressed(event:KeyboardEvent)
     {
-        var key = correctKey(event);
+		var key = correctKey(event);
 
 		if (event.ctrlKey && event.shiftKey)
 			if (ClientPrefs.controls.engine.switch_mod.contains(key))
@@ -336,6 +336,10 @@ class Main extends Sprite
 
 					CoolUtil.openSubState(new funkin.substates.ModsMenuSubState());
 				}
+
+		if (ClientPrefs.controls.engine.fps_counter.contains(key))
+			if (MainState.debugCounter != null)
+				MainState.debugCounter.switchMode();
 
 		#if WINDOWS_API
 		if (key == FlxKey.F2)

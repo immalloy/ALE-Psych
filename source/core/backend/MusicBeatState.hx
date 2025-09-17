@@ -12,16 +12,16 @@ import hl.Gc;
 
 class MusicBeatState extends FlxUIState
 {
-	private var curSection:Int = 0;
-	private var curStep:Int = 0;
-	private var curBeat:Int = 0;
+	var curSection:Int = 0;
+	var curStep:Int = 0;
+	var curBeat:Int = 0;
 
 	public static var instance:MusicBeatState;
 
-	private var stepsToDo:Int = 0;
+	var stepsToDo:Int = 0;
 
-	private var curDecStep:Float = 0;
-	private var curDecBeat:Float = 0;
+	var curDecStep:Float = 0;
+	var curDecBeat:Float = 0;
 
 	var _psychCameraInitialized:Bool = false;
 
@@ -71,7 +71,7 @@ class MusicBeatState extends FlxUIState
 		super.destroy();
 	}
 
-    private function cleanMemory()
+    function cleanMemory()
     {
         Paths.clearEngineCache();
 
@@ -146,7 +146,7 @@ class MusicBeatState extends FlxUIState
 		super.update(elapsed);
 	}
 
-	private function updateSection():Void
+	function updateSection():Void
 	{
 		if(stepsToDo < 1) stepsToDo = Math.round(getBeatsOnSection() * 4);
 		while(curStep >= stepsToDo)
@@ -158,7 +158,7 @@ class MusicBeatState extends FlxUIState
 		}
 	}
 
-	private function rollbackSection():Void
+	function rollbackSection():Void
 	{
 		if(curStep < 0) return;
 
@@ -179,13 +179,13 @@ class MusicBeatState extends FlxUIState
 		if(curSection > lastSection) sectionHit();
 	}
 
-	private function updateBeat():Void
+	function updateBeat():Void
 	{
 		curBeat = Math.floor(curStep / 4);
 		curDecBeat = curDecStep/4;
 	}
 
-	private function updateCurStep():Void
+	function updateCurStep():Void
 	{
 		var lastChange = Conductor.getBPMFromSeconds(Conductor.songPosition);
 

@@ -11,8 +11,12 @@ import ale.ui.ALEUIUtils;
 
 import hxluajit.wrapper.LuaError;
 
+import funkin.debug.DebugCounter;
+
 class MainState extends MusicBeatState
 {
+	public static var debugCounter:DebugCounter;
+	
     #if mobile
     @:unreflective private static var showedModMenu:Bool = false;
     #end
@@ -75,6 +79,10 @@ class MainState extends MusicBeatState
         #end
 		
 		openalFix();
+		
+		debugCounter = new DebugCounter(Paths.json('debug').fields == null ? [] : cast Paths.json('debug').fields);
+		
+		FlxG.game.addChild(debugCounter);
 	}
 
     function openalFix()

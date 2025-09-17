@@ -13,6 +13,7 @@ typedef BPMChangeEvent =
 	@:optional var stepCrochet:Float;
 }
 
+@:access(core.backend.MusicBeatState)
 class Conductor
 {
 	public static var bpm(default, set):Float = 100;
@@ -142,4 +143,17 @@ class Conductor
 
 		return bpm = newBPM;
 	}
+
+	public static var curStep(get, never):Int;
+	static function get_curStep():Int
+		return MusicBeatState.instance == null ? 0 : MusicBeatState.instance.curStep;
+
+	public static var curBeat(get, never):Int;
+	static function get_curBeat():Int
+		return MusicBeatState.instance == null ? 0 : MusicBeatState.instance.curBeat;
+
+	public static var curSection(get, never):Int;
+	static function get_curSection():Int
+		return MusicBeatState.instance == null ? 0 : MusicBeatState.instance.curSection;
+
 }

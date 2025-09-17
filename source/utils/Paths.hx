@@ -347,7 +347,7 @@ class Paths
 
     // JSON
 
-    public static function json(file:String, ?missingPrint:Bool = true)
+    public static function json(file:String, ?missingPrint:Bool = true):Dynamic
     {
         var path:String = file + '.json';
 

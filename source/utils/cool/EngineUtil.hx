@@ -10,6 +10,13 @@ class EngineUtil
 {
 	public static function resetEngine():Void
 	{
+		if (MainState.debugCounter != null)
+		{
+			MainState.debugCounter.destroy();
+
+			FlxG.game.removeChild(MainState.debugCounter);
+		}
+
 		DiscordRPC.shutdown();
 
 		CoolVars.skipTransIn = CoolVars.skipTransOut = true;
