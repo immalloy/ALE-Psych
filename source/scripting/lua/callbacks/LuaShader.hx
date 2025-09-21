@@ -15,6 +15,19 @@ class LuaShader extends LuaPresetBase
             setTag(tag, CoolUtil.createRuntimeShader(name));
         });
 
+        set('setCameraShaders', function(camera:String, shaderTags:Array<String>)
+            {
+                var procShaders:Array<ALERuntimeShader> = [];
+
+                for (tag in shaderTags)
+                    if (tagIs(tag, ALERuntimeShader))
+                        procShaders.push(getTag(tag));
+
+                if (tagIs(camera, FlxCamera))
+                    CoolUtil.setCameraShaders(getTag(camera), procShaders);
+            }
+        );
+
         set('setSpriteShader', function(tag:String, name:String)
         {
             if (tagIs(tag, FlxSprite) && tagIs(name, ALERuntimeShader))
