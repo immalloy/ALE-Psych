@@ -10,6 +10,8 @@
 
 	<set name="SWF_VERSION" value="11.8"/>
 	
+	<app preloader="flixel.system.FlxPreloader" />
+	
 	<!-- _____________________________ ALE Defines _______________________________ -->
 
 	<define name="MODS_ALLOWED" if="cpp"/>
