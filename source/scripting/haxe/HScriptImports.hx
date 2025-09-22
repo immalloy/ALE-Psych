@@ -6,6 +6,8 @@ import scripting.haxe.imports.FlixelImports;
 
 import scripting.haxe.imports.FlixelAddonsImports;
 
+import scripting.haxe.imports.Flx3DImports;
+
 import scripting.haxe.imports.HaxeImports;
 
 import scripting.haxe.imports.SysImports;
