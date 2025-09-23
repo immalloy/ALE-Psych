@@ -13,6 +13,9 @@ import flixel.graphics.*;
 import flixel.addons.ui.*;
 import flixel.addons.display.*;
 
+import openfl.display.Sprite;
+import openfl.text.TextField;
+
 import scripting.lua.LuaPresetBase;
 
 private typedef FlxDrawItem = flixel.graphics.tile.FlxDrawQuadsItem;
@@ -48,3 +51,9 @@ class ScriptRuntimeShader extends FlxRuntimeShader implements RuleScriptedClass 
 class ScriptCamera extends FlxCamera implements RuleScriptedClass {}
 
 class ScriptLuaPresetBase extends LuaPresetBase implements RuleScriptedClass {}
+
+@:forceOverride
+class ScriptOpenFLSprite extends Sprite implements RuleScriptedClass {}
+
+@:forceOverride
+class SciptOpenFLTextField extends TextField implements RuleScriptedClass {}
