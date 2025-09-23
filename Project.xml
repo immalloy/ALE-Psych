@@ -78,6 +78,8 @@
 	<haxelib name="hxvlc" if="VIDEOS_ALLOWED"/>
 
 	<haxelib name="ale-ui"/>
+	
+	<haxelib name="flixel-away3d"/>
 
 	<haxelib name="extension-androidtools" if="android"/>
 

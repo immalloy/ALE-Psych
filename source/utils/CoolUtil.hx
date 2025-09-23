@@ -13,7 +13,8 @@ import flixel.input.keyboard.FlxKey;
 		'utils.cool.ShaderUtil',
 		'utils.cool.StateUtil',
 		'utils.cool.StringUtil',
-		'utils.cool.SystemUtil'
+		'utils.cool.SystemUtil',
+		'flixel.away3d.Flx3DUtil'
 	]
 ))
 class CoolUtil
