@@ -10,7 +10,7 @@ class LuaStringTools extends LuaPresetBase
     {
         super(lua);
 
-        set('stringStartsWith', function(str:String, start:String)
+        set('stringStartsWith', function(str:String, start:String):Bool
         {
             return str.startsWith(start);
         });

@@ -30,6 +30,7 @@ typedef DocsFunction = {
     var name:String;
     var args:Array<String>;
     var instructions:Array<DocsInstruction>;
+    @:optional var ret:String;
 }
 
 typedef DocsPath = {
@@ -179,13 +180,17 @@ class LuaDocs
                 {
                     var regex:EReg = ~/[\(\)'",]|function/g;
 
-                    var splitLine:Array<String> = regex.replace(line.trim().substring(4), '').split(' ');
+                    var splitLine:Array<String> = regex.replace(line.trim().substring(4), ' ').split(' ').filter(function (str) return str.trim().length > 0);
 
                     var data:DocsFunction = {
                         name: splitLine[0],
                         args: [for (i in 1...(splitLine.length)) splitLine[i]],
-                        instructions: inst
+                        instructions: inst,
+                        ret: null
                     };
+
+                    if (data.args[data.args.length - 1].startsWith(':'))
+                        data.ret = data.args.pop();
 
                     instructions.push(data);
                 }
@@ -246,7 +251,7 @@ class LuaDocs
 
         for (instruction in instructions)
         {
-            finalText += '---\n\n### > `' + instruction.name + '(' + instruction.args.join(', ') + ')`\n\n';
+            finalText += '---\n\n### > `' + instruction.name + '(' + instruction.args.join(', ') + ')' + (instruction.ret ?? '') + '`\n\n';
 
             for (inst in instruction.instructions)
             {
@@ -268,8 +273,6 @@ class LuaDocs
             return;
 
         finalText = '# ' + name + finalText.substring(3, finalText.length);
-
-        Sys.println(finalText);
         
         if (!FileSystem.exists(GEN_PATH + '/' + folder))
             FileSystem.createDirectory(GEN_PATH + '/' + folder);
