@@ -42,8 +42,30 @@ class LuaDocs
 {
     static final GEN_PATH:String = 'docs/lua';
 
+    static function deleteFolderRecursive(path:String)
+    {
+        if (!FileSystem.exists(path))
+            return;
+
+        var files = FileSystem.readDirectory(path);
+
+        for (file in files)
+        {
+            var fullPath = path + "/" + file;
+
+            if (FileSystem.isDirectory(fullPath))
+                deleteFolderRecursive(fullPath);
+            else
+                FileSystem.deleteFile(fullPath);
+        }
+
+        FileSystem.deleteDirectory(path);
+    }
+
     public static function main(?base:String, ?path:String)
     {
+        deleteFolderRecursive(GEN_PATH);
+
         var fullPath:String = (base.length > 0 ? base + '/' : '') + path;
 
         if (!FileSystem.exists(fullPath))
