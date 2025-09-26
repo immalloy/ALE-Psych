@@ -13,11 +13,11 @@ class LuaColor extends LuaPresetBase
         super(lua);
 
         /**
-         * Obtiene un color desde su nombre
+         * Gets a color from its name
          * 
-         * @param name Nombre del color. Véase [FlxColor](https://api.haxeflixel.com/flixel/util/FlxColor.html)
+         * @param name Name of the color. See [FlxColor](https://api.haxeflixel.com/flixel/util/FlxColor.html)
          * 
-         * @return Color obtenido
+         * @return Obtained color
          */
         set('getColorFromName', function(name:String):Int
         {
@@ -57,11 +57,11 @@ class LuaColor extends LuaPresetBase
         });
 
         /**
-         * Obtiene un color desde un String que contenga su código en HEX
+         * Gets a color from a String containing its HEX code
          * 
-         * @param str String con el código HEX
+         * @param str String with the HEX code
          * 
-         * @return Color obtenido
+         * @return Obtained color
          */
         set('getColorFromString', function(str:String):Int
         {
