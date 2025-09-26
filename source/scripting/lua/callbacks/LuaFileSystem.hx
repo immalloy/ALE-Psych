@@ -12,11 +12,11 @@ class LuaFileSystem extends LuaPresetBase
         super(lua);
         
         /**
-         * Verifica si un archivo existe, sea en `assets` o en la carpeta del mod
+         * Checks if a file exists, either in `assets` or in the mod folder
          * 
-         * @param name Ruta del archivo
+         * @param name File path
          * 
-         * @return Si el archivo existe
+         * @return Whether the file exists
          */
         set('checkFileExists', function(name:String):Bool
         {
@@ -24,10 +24,10 @@ class LuaFileSystem extends LuaPresetBase
         });
 
         /**
-         * Guarda un archivo en la carpeta del mod
+         * Saves a file in the mod folder
          * 
-         * @param name Ruta del archivo
-         * @param content Contenido del archivo
+         * @param name File path
+         * @param content File content
          */
         set('saveFile', function(name:String, content:String)
         {
@@ -35,9 +35,9 @@ class LuaFileSystem extends LuaPresetBase
         });
 
         /**
-         * Elimina un archivo en la carpeta del mod
+         * Deletes a file in the mod folder
          * 
-         * @param name Ruta del archivo
+         * @param name File path
          */
         set('deleteFile', function(name:String)
         {
@@ -45,11 +45,11 @@ class LuaFileSystem extends LuaPresetBase
         });
         
         /**
-         * Obtiene el contenido del archivo en string
+         * Gets the file content as a string
          * 
-         * @param name Ruta del archivo
+         * @param name File path
          * 
-         * @return Contenido del archivo
+         * @return File content
          */
         set('getTextFromFile', function(name:String):String
         {
@@ -57,11 +57,11 @@ class LuaFileSystem extends LuaPresetBase
         });
 
         /**
-         * Obtiene una lista de los archivos en una carpeta
+         * Gets a list of files in a folder
          * 
-         * @param name Ruta de la carpeta
+         * @param name Folder path
          * 
-         * @return Lista de archivos de la carpeta
+         * @return List of files in the folder
          */
         set('directoryFileList', function(name:String)
         {
