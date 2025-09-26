@@ -37,6 +37,7 @@
 - For testing or experimenting, use the GitHub Actions builds above.  
 
 See the [Getting Started Guide](https://github.com/ALE-Psych-Crew/ALE-Psych/wiki) for setup instructions.  
+-  Look at Our Unique [Lua API documentation](docs/lua/Home.md) for scripting reference.
 
 **For players:** press **Ctrl + Shift + M** to open the Mods menu.  
 
@@ -46,9 +47,6 @@ See the [Getting Started Guide](https://github.com/ALE-Psych-Crew/ALE-Psych/wiki
 **ALE Psych** is a fork of **Psych Engine 0.7.3**, created to replace **ALE Engine**, fix long-standing issues, and add new features.  
 
 The goal is simple: give developers the tools to build complete mods **without touching the source code**, while keeping the comfort and flexibility that Psych Engine provided.  
-
-# NEW 
-- [Lua API documentation](docs/lua/Home.md) for scripting reference.
 
 ---
 
