@@ -119,7 +119,7 @@ class LuaDocs
         homePage += '### Table of Contents:\n\n';
 
         for (file in list)
-            homePage += '- [' + file + '](' + path + '/' + file + ')\n';
+            homePage += '- [' + file + '](' + path + '/' + file + '.md)\n';
 
         File.saveContent(GEN_PATH + '/Home.md', homePage);
 
