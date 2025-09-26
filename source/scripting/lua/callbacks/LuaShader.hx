@@ -11,10 +11,10 @@ class LuaShader extends LuaPresetBase
         super(lua);
 
         /**
-         * Crea un `ALERuntimeShader`
+         * Creates an `ALERuntimeShader`
          * 
-         * @param tag ID del shader
-         * @param name Nombre del archivo
+         * @param tag Shader ID
+         * @param name File name
          */
         set('initLuaShader', function(tag:String, name:String)
         {
@@ -22,10 +22,10 @@ class LuaShader extends LuaPresetBase
         });
 
         /**
-         * Aplica shaders a una cámara
+         * Applies shaders to a camera
          * 
-         * @param camera ID de la cámara
-         * @param shaderTags Lista de IDs de los shaders
+         * @param camera Camera ID
+         * @param shaderTags List of shader IDs
          */
         set('setCameraShaders', function(camera:String, shaderTags:Array<String>)
             {
@@ -41,10 +41,10 @@ class LuaShader extends LuaPresetBase
         );
 
         /**
-         * Aplica un shader a un sprite
+         * Applies a shader to a sprite
          * 
-         * @param tag ID del sprite
-         * @param name ID del shader
+         * @param tag Sprite ID
+         * @param name Shader ID
          */
         set('setSpriteShader', function(tag:String, name:String)
         {
@@ -53,11 +53,11 @@ class LuaShader extends LuaPresetBase
         });
 
         /**
-         * Define un entero a un shader
+         * Sets an integer on a shader
          * 
-         * @param tag ID del shader
-         * @param id ID del entero
-         * @param int Valor del entero
+         * @param tag Shader ID
+         * @param id Integer ID
+         * @param int Integer value
          */
         set('setShaderInt', function(tag:String, id:String, int:Int)
             {
@@ -67,12 +67,12 @@ class LuaShader extends LuaPresetBase
         );
 
         /**
-         * Obtiene un entero de un shader
+         * Gets an integer from a shader
          * 
-         * @param tag ID del shader
-         * @param id ID del entero
+         * @param tag Shader ID
+         * @param id Integer ID
          * 
-         * @return Valor del entero
+         * @return Integer value
          */
         set('getShaderInt', function(tag:String, id:String):Null<Int>
             {
@@ -84,11 +84,11 @@ class LuaShader extends LuaPresetBase
         );
 
         /**
-         * Define una lista de enteros a un shader
+         * Sets a list of integers on a shader
          * 
-         * @param tag ID del shader
-         * @param id ID de la lista de enteros
-         * @param ints Lista de enteros
+         * @param tag Shader ID
+         * @param id Integer list ID
+         * @param ints List of integers
          */
         set('setShaderIntArray', function(tag:String, id:String, ints:Array<Int>)
             {
@@ -98,12 +98,12 @@ class LuaShader extends LuaPresetBase
         );
 
         /**
-         * Obtiene una lista de enteros de un shader
+         * Gets a list of integers from a shader
          * 
-         * @param tag ID del shader
-         * @param id ID de la lista de enteros
+         * @param tag Shader ID
+         * @param id Integer list ID
          * 
-         * @return Lista de enteros
+         * @return List of integers
          */
         set('getShaderIntArray', function(tag:String, id:String):Null<Array<Int>>
             {
@@ -115,11 +115,11 @@ class LuaShader extends LuaPresetBase
         );
 
         /**
-         * Define un decimal a un shader
+         * Sets a float on a shader
          * 
-         * @param tag ID del shader
-         * @param id ID del decimal
-         * @param float Valor del decimal
+         * @param tag Shader ID
+         * @param id Float ID
+         * @param float Float value
          */
         set('setShaderFloat', function(tag:String, id:String, float:Float)
             {
@@ -129,12 +129,12 @@ class LuaShader extends LuaPresetBase
         );
 
         /**
-         * Obtiene un decimal de un shader
+         * Gets a float from a shader
          * 
-         * @param tag ID del shader
-         * @param id ID del decimal
+         * @param tag Shader ID
+         * @param id Float ID
          * 
-         * @return Valor del decimal
+         * @return Float value
          */
         set('getShaderFloat', function(tag:String, id:String):Null<Float>
             {
@@ -146,11 +146,11 @@ class LuaShader extends LuaPresetBase
         );
 
         /**
-         * Define una lista de decimales a un shader
+         * Sets a list of floats on a shader
          * 
-         * @param tag ID del shader
-         * @param id ID de la lista de decimales
-         * @param float Lista de decimales
+         * @param tag Shader ID
+         * @param id Float list ID
+         * @param float List of floats
          */
         set('setShaderFloatArray', function(tag:String, id:String, floats:Array<Float>)
             {
@@ -160,12 +160,12 @@ class LuaShader extends LuaPresetBase
         );
 
         /**
-         * Obtiene una lista de decimales de un shader
+         * Gets a list of floats from a shader
          * 
-         * @param tag ID del shader
-         * @param id ID de la lista de decimales
+         * @param tag Shader ID
+         * @param id Float list ID
          * 
-         * @return Lista de decimales
+         * @return List of floats
          */
         set('getShaderFloatArray', function(tag:String, id:String):Null<Array<Float>>
             {
@@ -177,11 +177,11 @@ class LuaShader extends LuaPresetBase
         );
 
         /**
-         * Define un booleano a un shader
+         * Sets a boolean on a shader
          * 
-         * @param tag ID del shader
-         * @param id ID del booleano
-         * @param float Valor del booleano
+         * @param tag Shader ID
+         * @param id Boolean ID
+         * @param float Boolean value
          */
         set('setShaderBool', function(tag:String, id:String, bool:Bool)
             {
@@ -191,12 +191,12 @@ class LuaShader extends LuaPresetBase
         );
 
         /**
-         * Obtiene un booleano de un shader
+         * Gets a boolean from a shader
          * 
-         * @param tag ID del shader
-         * @param id ID del booleano
+         * @param tag Shader ID
+         * @param id Boolean ID
          * 
-         * @return Valor del booleano
+         * @return Boolean value
          */
         set('getShaderBool', function(tag:String, id:String):Null<Bool>
             {
@@ -208,11 +208,11 @@ class LuaShader extends LuaPresetBase
         );
 
         /**
-         * Define una lista de booleanos a un shader
+         * Sets a list of booleans on a shader
          * 
-         * @param tag ID del shader
-         * @param id ID de la lista de booleanos
-         * @param float Lista de booleanos
+         * @param tag Shader ID
+         * @param id Boolean list ID
+         * @param float List of booleans
          */
         set('setShaderBoolArray', function(tag:String, id:String, bools:Array<Bool>)
             {
@@ -222,12 +222,12 @@ class LuaShader extends LuaPresetBase
         );
 
         /**
-         * Obtiene una lista de booleanos de un shader
+         * Gets a list of booleans from a shader
          * 
-         * @param tag ID del shader
-         * @param id ID de la lista de booleanos
+         * @param tag Shader ID
+         * @param id Boolean list ID
          * 
-         * @return Lista de booleanos
+         * @return List of booleans
          */
         set('getShaderBoolArray', function(tag:String, id:String):Null<Array<Bool>>
             {
@@ -239,11 +239,11 @@ class LuaShader extends LuaPresetBase
         );
 
         /**
-         * Define un sampler2D a un shader
+         * Sets a sampler2D on a shader
          * 
-         * @param tag ID del shader
-         * @param id ID del sampler2D
-         * @param path Ruta de la imagen
+         * @param tag Shader ID
+         * @param id sampler2D ID
+         * @param path Image path
          */
         set('setShaderSample2D', function(tag:String, id:String, path:String)
         {
