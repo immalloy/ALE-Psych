@@ -11,11 +11,11 @@ class LuaKeyManager extends LuaPresetBase
         super(lua);
     
         /**
-         * Define si una tecla ha sido presionada
+         * Defines if a key has been pressed
          * 
-         * @param name Nombre de la tecla
+         * @param name Key name
          * 
-         * @return Si la tecla ha sido presionada
+         * @return Whether the key has been pressed
          */
         set('keyboardJustPressed', function(name:String)
         {
@@ -23,11 +23,11 @@ class LuaKeyManager extends LuaPresetBase
         });
     
         /**
-         * Define si una tecla está siendo presionada
+         * Defines if a key is being held down
          * 
-         * @param name Nombre de la tecla
+         * @param name Key name
          * 
-         * @return Si la tecla está siendo presionada
+         * @return Whether the key is being held down
          */
         set('keyboardPressed', function(name:String)
         {
@@ -35,11 +35,11 @@ class LuaKeyManager extends LuaPresetBase
         });
     
         /**
-         * Define si una tecla ha sido soltada
+         * Defines if a key has been released
          * 
-         * @param name Nombre de la tecla
+         * @param name Key name
          * 
-         * @return Si la tecla ha sido soltada
+         * @return Whether the key has been released
          */
         set('keyboardReleased', function(name:String)
         {
@@ -47,12 +47,12 @@ class LuaKeyManager extends LuaPresetBase
         });
 
         /**
-         * Define si una tecla de las opciones ha sido presionada. Véase [ClientPrefs](https://github.com/ALE-Psych-Crew/ALE-Psych/blob/main/source/core/config/ClientPrefs.hx)
+         * Defines if a key from the options has been pressed. See [ClientPrefs](https://github.com/ALE-Psych-Crew/ALE-Psych/blob/main/source/core/config/ClientPrefs.hx)
          * 
-         * @param group Grupo de la tecla
-         * @param group ID de la tecla
+         * @param group Key group
+         * @param name Key ID
          * 
-         * @return Si la tecla ha sido presionada
+         * @return Whether the key has been pressed
          */
         set('keyJustPressed', function(group:String, name:String)
         {
@@ -60,12 +60,12 @@ class LuaKeyManager extends LuaPresetBase
         });
 
         /**
-         * Define si una tecla de las opciones está siendo presionada. Véase [ClientPrefs](https://github.com/ALE-Psych-Crew/ALE-Psych/blob/main/source/core/config/ClientPrefs.hx)
+         * Defines if a key from the options is being held down. See [ClientPrefs](https://github.com/ALE-Psych-Crew/ALE-Psych/blob/main/source/core/config/ClientPrefs.hx)
          * 
-         * @param group Grupo de la tecla
-         * @param group ID de la tecla
+         * @param group Key group
+         * @param name Key ID
          * 
-         * @return Si la tecla está siendo presionada
+         * @return Whether the key is being held down
          */
         set('keyPressed', function(group:String, name:String)
         {
@@ -73,12 +73,12 @@ class LuaKeyManager extends LuaPresetBase
         });
 
         /**
-         * Define si una tecla de las opciones ha sido soltada. Véase [ClientPrefs](https://github.com/ALE-Psych-Crew/ALE-Psych/blob/main/source/core/config/ClientPrefs.hx)
+         * Defines if a key from the options has been released. See [ClientPrefs](https://github.com/ALE-Psych-Crew/ALE-Psych/blob/main/source/core/config/ClientPrefs.hx)
          * 
-         * @param group Grupo de la tecla
-         * @param group ID de la tecla
+         * @param group Key group
+         * @param name Key ID
          * 
-         * @return Si la tecla ha sido soltada
+         * @return Whether the key has been released
          */
         set('keyReleased', function(group:String, name:String)
         {
