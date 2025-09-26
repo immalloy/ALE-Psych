@@ -11,9 +11,9 @@ class LuaGlobal extends LuaPresetBase
         super(lua);
 
         /**
-         * Añade un objeto al juego
+         * Adds an object to the game
          * 
-         * @param tag ID del objeto
+         * @param tag ID of the object
          */
         set('add', function(tag:String)
         {
@@ -25,10 +25,10 @@ class LuaGlobal extends LuaPresetBase
         });
 
         /**
-         * Remueve un objeto del juego
+         * Removes an object from the game
          * 
-         * @param tag ID del objeto
-         * @param destroy Define si el objeto debe ser o no destruido
+         * @param tag ID of the object
+         * @param destroy Defines whether the object should be destroyed
          */
         set('remove', function(tag:String, ?destroy:Bool)
         {
@@ -40,10 +40,10 @@ class LuaGlobal extends LuaPresetBase
         });
 
         /**
-         * Inserta un objeto en el juego
+         * Inserts an object into the game
          * 
-         * @param position Posición en la que el objeto será insertado
-         * @param tag ID del objeto
+         * @param position Position where the object will be inserted
+         * @param tag ID of the object
          */
         set('insert', function(position:Int, tag:String)
         {
@@ -55,11 +55,11 @@ class LuaGlobal extends LuaPresetBase
         });
 
         /**
-         * Obtiene la posición de un objeto en el juego
+         * Gets the position of an object in the game
          * 
-         * @param tag ID del objeto
+         * @param tag ID of the object
          * 
-         * @return Posicion del objeto
+         * @return Object position
          */
         set('getObjectOrder', function(tag:String)
         {
@@ -67,10 +67,10 @@ class LuaGlobal extends LuaPresetBase
         });
 
         /**
-         * Remueve e inserta un objeto del juego en una posición distinta
+         * Removes and reinserts an object in a different position
          * 
-         * @param tag ID del objeto
-         * @param position Nueva posición
+         * @param tag ID of the object
+         * @param position New position
          */
         set('setObjectOrder', function(tag:String, position:Int)
         {
@@ -90,13 +90,13 @@ class LuaGlobal extends LuaPresetBase
         });
 
         /**
-         * Obtiene un entero aleatorio
+         * Gets a random integer
          * 
-         * @param min Entero más pequeño
-         * @param max Entero mas grande
-         * @param excludes Enteros que no serán usados
+         * @param min Smallest integer
+         * @param max Largest integer
+         * @param excludes Integers that will not be used
          * 
-         * @return Entero obtenido
+         * @return Obtained integer
          */
         set('getRandomInt', function(?min:Int, ?max:Int, ?excludes:Array<Int>)
         {
@@ -104,13 +104,13 @@ class LuaGlobal extends LuaPresetBase
         });
 
         /**
-         * Obtiene un decimal aleatorio
+         * Gets a random float
          * 
-         * @param min Decimal más pequeño
-         * @param max Decimal mas grande
-         * @param excludes Decimales que no serán usados
+         * @param min Smallest float
+         * @param max Largest float
+         * @param excludes Floats that will not be used
          * 
-         * @return Decimal obtenido
+         * @return Obtained float
          */
         set('getRandomFloat', function(?min:Float, ?max:Float, ?excludes:Array<Float>)
         {
@@ -118,11 +118,11 @@ class LuaGlobal extends LuaPresetBase
         });
 
         /**
-         * Obtiene un booleano aleatorio
+         * Gets a random boolean
          * 
-         * @param chance Probabilidad de que el valor sea `true` (del 0 al 100)
+         * @param chance Probability that the value is `true` (from 0 to 100)
          * 
-         * @return Booleano obtenido
+         * @return Obtained boolean
          */
         set('getRandomBool', function(?chance:Float)
         {
