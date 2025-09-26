@@ -9,11 +9,11 @@ class LuaSound extends LuaPresetBase
         super(lua);
         
         /**
-         * Reproduce música en el juego
+         * Plays music in the game
          * 
-         * @param sound Ruta del audio
-         * @param volume Volumen de la música (de 0 a 1)
-         * @param loop Define si la música está en bucle o no
+         * @param sound Audio path
+         * @param volume Music volume (from 0 to 1)
+         * @param loop Defines whether the music loops
          */
         set('playMusic', function(sound:String, ?volume:Float, ?loop:Bool)
         {
@@ -21,12 +21,12 @@ class LuaSound extends LuaPresetBase
         });
 
         /**
-         * Reproduce un sonido
+         * Plays a sound
          * 
-         * @param sound Ruta del audio
-         * @param volume Volumen del sonido (de 0 a 1)
-         * @param tag ID del sonido
-         * @param loop Define si el sonido estará en bucle o no
+         * @param sound Audio path
+         * @param volume Sound volume (from 0 to 1)
+         * @param tag Sound ID
+         * @param loop Defines whether the sound loops
          */
         set('playSound', function(sound:String, ?volume:Float, ?tag:String, ?loop:Bool)
         {
@@ -37,9 +37,9 @@ class LuaSound extends LuaPresetBase
         });
 
         /**
-         * Detiene un sondio
+         * Stops a sound
          * 
-         * @param tag ID del sonido
+         * @param tag Sound ID
          */
         set('stopSound', function(tag:String)
         {
@@ -48,9 +48,9 @@ class LuaSound extends LuaPresetBase
         });
 
         /**
-         * Pausa un sonido
+         * Pauses a sound
          * 
-         * @param tag ID del sonido
+         * @param tag Sound ID
          */
         set('pauseSound', function(tag:String)
         {
@@ -59,9 +59,9 @@ class LuaSound extends LuaPresetBase
         });
 
         /**
-         * Despausa un sonido
+         * Resumes a sound
          * 
-         * @param tag ID del sonido
+         * @param tag Sound ID
          */
         set('resumeSound', function(tag:String)
         {
@@ -70,12 +70,12 @@ class LuaSound extends LuaPresetBase
         });
 
         /**
-         * Cambia el volumen de un sonido en un tiempo determinado
+         * Changes a sound's volume over a set time
          * 
-         * @param tag ID del sonido
-         * @param duration Duración del cambio
-         * @param fromValue Volumen inicial
-         * @param toValue Volumen final
+         * @param tag Sound ID
+         * @param duration Duration of the change
+         * @param fromValue Starting volume
+         * @param toValue Ending volume
          */
         set('soundFadeIn', function(tag:String, ?duration:Float, ?fromValue:Float, ?toValue:Float)
         {
@@ -86,11 +86,11 @@ class LuaSound extends LuaPresetBase
         });
 
         /**
-         * Cambia el volumen de un sonido en un tiempo determinado
+         * Changes a sound's volume over a set time
          * 
-         * @param tag ID del sonido
-         * @param duration Duracion del cambio
-         * @param toValue Volumen final
+         * @param tag Sound ID
+         * @param duration Duration of the change
+         * @param toValue Ending volume
          */
         set('soundFadeOut', function(tag:String, ?duration:Float, ?toValue:Float)
         {
@@ -101,9 +101,9 @@ class LuaSound extends LuaPresetBase
         });
 
         /**
-         * Detiene el cambio de volumen de un sonido
+         * Stops a sound's volume change
          * 
-         * @param tag ID del sonido
+         * @param tag Sound ID
          */
         set('soundFadeCancel', function(tag:String)
         {
