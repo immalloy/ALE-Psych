@@ -9,14 +9,14 @@ class LuaDiscord extends LuaPresetBase
         super(lua);
         
         /**
-         * Cambia los detalles del RPC de Discord
+         * Changes the Discord RPC details
          * 
-         * @param details Titulo del RPC
-         * @param state Subtitulo del RPC
-         * @param largeImage Icono Principañ del RPC
-         * @param smallImage Icono secundario del RPC
-         * @param usesTime Muestra un contador de tiempo en el RPC
-         * @param endTime Tiempo de inicio de la cuenta hacia atrás (se debe poner en milisegundos)
+         * @param details Title of the RPC
+         * @param state Subtitle of the RPC
+         * @param largeImage Main icon of the RPC
+         * @param smallImage Secondary icon of the RPC
+         * @param usesTime Shows a timer counter in the RPC
+         * @param endTime Start time of the countdown (must be in milliseconds)
          */
         set('changeDiscordPresence', function(details:String, ?state:String, ?largeImage:String, ?smallImage:String, ?usesTime:Bool, ?endTime:Float)
         {
@@ -24,9 +24,9 @@ class LuaDiscord extends LuaPresetBase
         });
 
         /**
-         * Cambia el ID del RPC de Discord
+         * Changes the Discord RPC client ID
          * 
-         * @param id Nuevo ID
+         * @param id New ID
          */
         set('changeDiscordClientID', (id:String) -> {
             DiscordRPC.shutdown();
