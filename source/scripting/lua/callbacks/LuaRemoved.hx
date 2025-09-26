@@ -60,3 +60,5 @@ class LuaRemoved extends LuaPresetBase
 			set(name, () -> { errorPrint('"' + name + '" function was removed'); });
     }
 }
+
+							 //labubu skibidi toilet
