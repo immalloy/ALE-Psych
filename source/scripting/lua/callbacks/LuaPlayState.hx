@@ -93,7 +93,7 @@ class LuaPlayState extends LuaPresetBase
         set('startCountdown', game.startCountdown);
 
         /**
-         * Termina la canción
+         * Ends the song
          */
         set('endSong', function()
         {
@@ -103,7 +103,7 @@ class LuaPlayState extends LuaPresetBase
         });
 
         /**
-         * Reinicia la canción
+         * Restarts the song
          */
         set('restartSong', function()
         {
@@ -118,7 +118,7 @@ class LuaPlayState extends LuaPresetBase
         });
 
         /**
-         * Sale de la canción hacia el menú correspondiente
+         * Exits the song to the corresponding menu
          */
         set('exitSong', function()
         {
@@ -138,9 +138,9 @@ class LuaPlayState extends LuaPresetBase
         });
 
         /**
-         * Define el objetivo de la cámara del juego
+         * Sets the game camera target
          * 
-         * @param target Objetivo de la cámara. Puede ser `gf`/`girlfriend`, `dad`/`opponent` o `bf`/`boyfriend`
+         * @param target Camera target. Can be `gf`/`girlfriend`, `dad`/`opponent` or `bf`/`boyfriend`
          */
         set('cameraSetTarget', function(target:String)
         {
@@ -156,11 +156,11 @@ class LuaPlayState extends LuaPresetBase
         });
 
         /**
-         * Ejecuta un evento en la canción
+         * Triggers an event in the song
          * 
-         * @param name Nombre del evento
-         * @param arg1 Primer argumento del evento
-         * @param arg2 Segundo argumento del evento
+         * @param name Event name
+         * @param arg1 First event argument
+         * @param arg2 Second event argument
          */
         set('triggerEvent', function(name:String, arg1:Dynamic, arg2:Dynamic)
         {
@@ -168,9 +168,9 @@ class LuaPlayState extends LuaPresetBase
         });
 
         /**
-         * Ejecuta la lógica del baile a un personaje
+         * Executes dance logic on a character
          * 
-         * @param character Personaje que se usará. Puede ser `gf`/`girlfriend`, `dad`/`opponent` o `bf`/`boyfriend`
+         * @param character Character to use. Can be `gf`/`girlfriend`, `dad`/`opponent` or `bf`/`boyfriend`
          */
         set('characterDance', function(character:String)
         {
@@ -187,10 +187,10 @@ class LuaPlayState extends LuaPresetBase
         });
         
         /**
-         * Inicia el diálogo de la canción
+         * Starts the song dialogue
          * 
-         * @param dialogueFile Archivo que contiene el diálogo
-         * @param music Ruta del audio que se reproducirá como música
+         * @param dialogueFile File that contains the dialogue
+         * @param music Path of the audio that will play as music
          */
         set('startDialogue', function(dialogueFile:String, ?music:String)
         {
@@ -206,13 +206,13 @@ class LuaPlayState extends LuaPresetBase
         });
 
         /**
-         * Realiza un tween sobre una nota
+         * Performs a tween on a note
          * 
-         * @param tag ID del tween
-         * @param note Posición de la nota en el strumLine
-         * @param props Tabla de variables que se van a modificar
-         * @param time Duración del tween
-         * @param options Opciones del tween. Véase [TweenOptions](https://api.haxeflixel.com/flixel/tweens/TweenOptions.html)
+         * @param tag Tween ID
+         * @param note Note position in the strumLine
+         * @param props Table of variables to modify
+         * @param time Tween duration
+         * @param options Tween options. See [TweenOptions](https://api.haxeflixel.com/flixel/tweens/TweenOptions.html)
          */
         set('noteTween', function(tag:String, note:Int, props:Dynamic, ?time:Float, ?options:Dynamic)
         {
@@ -220,15 +220,15 @@ class LuaPlayState extends LuaPresetBase
         });
 
         /**
-         * Realiza un tween sobre la variable `x` de una nota
+         * Performs a tween on the `x` variable of a note
          * 
-         * @param tag ID del tween
-         * @param note Posición de la nota en el strumLine
-         * @param value Valor de la variable
-         * @param duration Duración del tween
-         * @param ease Ease del tween
+         * @param tag Tween ID
+         * @param note Note position in the strumLine
+         * @param value Variable value
+         * @param duration Tween duration
+         * @param ease Tween ease
          * 
-         * @deprecated Use `noteTween` en su lugar
+         * @deprecated Use `noteTween` instead
          */
         set('noteTweenX', function(tag:String, note:Int, value:Dynamic, duration:Float, ease:String)
         {
@@ -238,15 +238,15 @@ class LuaPlayState extends LuaPresetBase
         });
 
         /**
-         * Realiza un tween sobre la variable `y` de una nota
+         * Performs a tween on the `y` variable of a note
          * 
-         * @param tag ID del tween
-         * @param note Posición de la nota en el strumLine
-         * @param value Valor de la variable
-         * @param duration Duración del tween
-         * @param ease Ease del tween
+         * @param tag Tween ID
+         * @param note Note position in the strumLine
+         * @param value Variable value
+         * @param duration Tween duration
+         * @param ease Tween ease
          * 
-         * @deprecated Use `noteTween` en su lugar
+         * @deprecated Use `noteTween` instead
          */
         set('noteTweenY', function(tag:String, note:Int, value:Dynamic, duration:Float, ease:String)
         {
@@ -256,15 +256,15 @@ class LuaPlayState extends LuaPresetBase
         });
 
         /**
-         * Realiza un tween sobre la variable `angle` de una nota
+         * Performs a tween on the `angle` variable of a note
          * 
-         * @param tag ID del tween
-         * @param note Posición de la nota en el strumLine
-         * @param value Valor de la variable
-         * @param duration Duración del tween
-         * @param ease Ease del tween
+         * @param tag Tween ID
+         * @param note Note position in the strumLine
+         * @param value Variable value
+         * @param duration Tween duration
+         * @param ease Tween ease
          * 
-         * @deprecated Use `noteTween` en su lugar
+         * @deprecated Use `noteTween` instead
          */
         set('noteTweenAngle', function(tag:String, note:Int, value:Dynamic, duration:Float, ease:String)
         {
@@ -274,15 +274,15 @@ class LuaPlayState extends LuaPresetBase
         });
 
         /**
-         * Realiza un tween sobre la variable `direction` de una nota
+         * Performs a tween on the `direction` variable of a note
          * 
-         * @param tag ID del tween
-         * @param note Posición de la nota en el strumLine
-         * @param value Valor de la variable
-         * @param duration Duración del tween
-         * @param ease Ease del tween
+         * @param tag Tween ID
+         * @param note Note position in the strumLine
+         * @param value Variable value
+         * @param duration Tween duration
+         * @param ease Tween ease
          * 
-         * @deprecated Use `noteTween` en su lugar
+         * @deprecated Use `noteTween` instead
          */
         set('noteTweenDirection', function(tag:String, note:Int, value:Dynamic, duration:Float, ease:String)
         {
@@ -292,15 +292,15 @@ class LuaPlayState extends LuaPresetBase
         });
 
         /**
-         * Realiza un tween sobre la variable `alpha` de una nota
+         * Performs a tween on the `alpha` variable of a note
          * 
-         * @param tag ID del tween
-         * @param note Posición de la nota en el strumLine
-         * @param value Valor de la variable
-         * @param duration Duración del tween
-         * @param ease Ease del tween
+         * @param tag Tween ID
+         * @param note Note position in the strumLine
+         * @param value Variable value
+         * @param duration Tween duration
+         * @param ease Tween ease
          * 
-         * @deprecated Use `noteTween` en su lugar
+         * @deprecated Use `noteTween` instead
          */
         set('noteTweenAlpha', function(tag:String, note:Int, value:Dynamic, duration:Float, ease:String)
         {
@@ -310,9 +310,9 @@ class LuaPlayState extends LuaPresetBase
         });
 		
         /**
-         * Añade un objeto al juego detrás de la entidad Girlfriend
+         * Adds an object to the game behind the Girlfriend entity
          * 
-         * @param obj ID del objeto
+         * @param obj Object ID
          */
         set('addBehindGF', function(obj:String)
         {
@@ -320,9 +320,9 @@ class LuaPlayState extends LuaPresetBase
         });
         
         /**
-         * Añade un objeto al juego detrás de la entidad Boyfriend
+         * Adds an object to the game behind the Boyfriend entity
          * 
-         * @param obj ID del objeto
+         * @param obj Object ID
          */
         set('addBehindBF', function(obj:String)
         {
@@ -330,9 +330,9 @@ class LuaPlayState extends LuaPresetBase
         });
         
         /**
-         * Añade un objeto al juego detrás de la entidad Dad
+         * Adds an object to the game behind the Dad entity
          * 
-         * @param obj ID del objeto
+         * @param obj Object ID
          */
         set('addBehindDad', function(obj:String)
         {

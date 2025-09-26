@@ -18,11 +18,11 @@ class LuaCoolUtil extends LuaPresetBase
         super(lua);
 
         /**
-         * Obtiene un color desde un String que contenga su código en HEX
+         * Gets a color from a String that contains its HEX code
          * 
-         * @param str String con el código HEX
+         * @param str String with the HEX code
          * 
-         * @return Color obtenido
+         * @return Obtained color
          */
         set('colorFromString', function(str:String):FlxColor
         {
@@ -30,11 +30,11 @@ class LuaCoolUtil extends LuaPresetBase
         });
 
         /**
-         * Obtiene el color que más aparece en un sprite
+         * Gets the most frequent color in a sprite
          * 
-         * @param tag ID del sprite
+         * @param tag ID of the sprite
          * 
-         * @return Color más frecuente
+         * @return Most frequent color
          */
         set('getDominantColor', function(tag:String):FlxColor
         {
@@ -45,11 +45,11 @@ class LuaCoolUtil extends LuaPresetBase
         });
 
         /**
-         * Obtiene un color desde una lista
+         * Gets a color from a list
          * 
-         * @param arr Lista con el color en RGB
+         * @param arr List with the color in RGB
          * 
-         * @return Color obtenido
+         * @return Obtained color
          */
         set('colorFromArray', function(arr:Array<Int>):FlxColor
         {
@@ -58,7 +58,7 @@ class LuaCoolUtil extends LuaPresetBase
 
 
         /**
-         * Reinicia el motor y algunas de sus variables
+         * Resets the engine and some of its variables
          */
         set('resetEngine', function()
         {
@@ -66,7 +66,7 @@ class LuaCoolUtil extends LuaPresetBase
         });
 
         /**
-         * Recarga los metadatos del motor que se encuentran en `data.json`
+         * Reloads the engine metadata found in `data.json`
          */
         set('reloadGameMetadata', function()
         {
@@ -74,11 +74,11 @@ class LuaCoolUtil extends LuaPresetBase
         });
         
         /**
-         * Cambia el tamaño de la ventana y el juego
+         * Changes the window and game size
          * 
-         * @param width Ancho del juego
-         * @param height Alto del juego
-         * @param centerWindow Define si se debe centrar el juego en la pantalla o no
+         * @param width Game width
+         * @param height Game height
+         * @param centerWindow Defines whether to center the game on screen or not
          */
         set('resizeGame', function(width:Int, height:Int, ?centerWindow:Bool)
         {
@@ -87,12 +87,12 @@ class LuaCoolUtil extends LuaPresetBase
 
 
         /**
-         * Busca la ruta de un archivo ignorando espacios y mayúsculas, siendo más flexible
+         * Searches for a file path ignoring spaces and case, being more flexible
          * 
-         * @param path Ruta del archivo
-         * @param missingPrint Define si se debe dar un aviso o no en caso de que el archivo no exista
+         * @param path File path
+         * @param missingPrint Defines whether to warn if the file does not exist
          * 
-         * @return Ruta real del archivo
+         * @return Real file path
          */
         set('searchComplexFile', function(path:String, ?missingPrint:Bool):String
         {
@@ -100,12 +100,12 @@ class LuaCoolUtil extends LuaPresetBase
         });
 
         /**
-         * Busca la ruta de un archivo dentro de una carpeta ignorando espacios y mayúsculas
+         * Searches for a file path within a folder ignoring spaces and case
          * 
-         * @param parent Carpeta donde se busca
-         * @param file Archivo que se busca
+         * @param parent Folder where it is searched
+         * @param file File being searched
          * 
-         * @return Ruta real del archivo
+         * @return Real file path
          */
         set('searchFile', function(parent:String, file:String):String
         {
@@ -113,10 +113,10 @@ class LuaCoolUtil extends LuaPresetBase
         });
 
         /**
-         * Abre el explorador de archivos en una carpeta específica
+         * Opens the file explorer at a specific folder
          * 
-         * @param folder Carpeta donde se abrirá
-         * @param absolute Define si se tendrá en cuenta a partir de la carpeta raíz del computador o desde la carpeta del juego
+         * @param folder Folder to open
+         * @param absolute Defines whether to resolve from the computer root or from the game folder
          */
         set('openFolder', function(folder:String, ?absolute:Bool)
         {
@@ -124,11 +124,11 @@ class LuaCoolUtil extends LuaPresetBase
         });
 
         /**
-         * Pasa un string a minúsculas y cambia los espacios por guiones
+         * Lowercases a string and replaces spaces with hyphens
          * 
-         * @param str String a procesar
+         * @param str String to process
          * 
-         * @return String procesado
+         * @return Processed string
          */
         set('formatToSongPath', function(str:String):String
         {
@@ -137,12 +137,12 @@ class LuaCoolUtil extends LuaPresetBase
 
 
         /**
-         * Imprime un texto que incluye la hora en la que fue impreso y algunos colores que ayudan a distinguir entre la información mostrada
+         * Prints text that includes the time it was printed and colors to help distinguish the displayed information
          * 
-         * @param text Texto que se desea mostrar
-         * @param type Tipo de texto que se desea mostrar. Puede ser `error`, `warning`, `deprecated`, `trace`, `hscript`, `lua`, `missing_file`, `missing_folder`, `custom` o `pop-up`,
-         * @param customType Asigna un tipo personalizado de texto
-         * @param customColor Asigna un color personalizado del texto
+         * @param text Text to display
+         * @param type Type of text to display. Can be `error`, `warning`, `deprecated`, `trace`, `hscript`, `lua`, `missing_file`, `missing_folder`, `custom` or `pop-up`,
+         * @param customType Assigns a custom text type
+         * @param customColor Assigns a custom text color
          */
         set('debugTrace', function(text:Dynamic, ?type:PrintType, ?customType:String = '', ?customColor:FlxColor)
         {
@@ -150,12 +150,12 @@ class LuaCoolUtil extends LuaPresetBase
         });
 
         /**
-         * Ayuda a obtener un texto el cual al ser impreso en la consola tendrá el color indicado
+         * Helps obtain a string which, when printed to the console, will have the indicated color
          * 
-         * @param str Texto a colorear
-         * @param color Color a aplicar
+         * @param str Text to color
+         * @param color Color to apply
          * 
-         * @return Texto coloreado
+         * @return Colored text
          */
         set('ansiColorString', function(str:String, color:FlxColor):String
         {
@@ -164,12 +164,12 @@ class LuaCoolUtil extends LuaPresetBase
 
 
         /**
-         * Redondea un número decimal, pero permitiendo que se muestren cierta cantidad de decimales
+         * Rounds a decimal number but allows showing a certain number of decimals
          * 
-         * @param num Número a redondear
-         * @param decimals Cantidad máxima de decimales que se mostrarán
+         * @param num Number to round
+         * @param decimals Maximum number of decimals to show
          * 
-         * @return Número redondeado con sus decimales
+         * @return Rounded number with its decimals
          */
         set('floorDecimal', function(num:Float, decimals:Int):Float
         {
@@ -177,12 +177,12 @@ class LuaCoolUtil extends LuaPresetBase
         });
 
         /**
-         * Ajusta un número a una rejilla
+         * Snaps a number to a grid
          * 
-         * @param f Valor original
-         * @param snap Cantidad de divisiones o pasos
+         * @param f Original value
+         * @param snap Number of divisions or steps
          * 
-         * @return Valor cuantizado al múltiplo más cercano de 1/snap
+         * @return Value quantized to the nearest multiple of 1/snap
          */
         set('quantize', function(f:Float, snap:Float):Float
         {
@@ -190,12 +190,12 @@ class LuaCoolUtil extends LuaPresetBase
         });
 
         /**
-         * Genera una lista de números
+         * Generates a list of numbers
          * 
-         * @param max Numero maximo de la lista
-         * @param min Numero minimo de la lista
+         * @param max Maximum number of the list
+         * @param min Minimum number of the list
          * 
-         * @return Lista de numeros
+         * @return List of numbers
          */
         set('numberArray', function(max:Int, ?min:Int):Array<Int>
         {
@@ -203,13 +203,13 @@ class LuaCoolUtil extends LuaPresetBase
         });
 
         /**
-         * Interpola entre dos valores tomando en cuenta los FPS
+         * Interpolates between two values taking FPS into account
          * 
-         * @param v1 Valor inicial
-         * @param v2 Valor final
-         * @param ratio Proporción de interpolación (0 a 1)
+         * @param v1 Start value
+         * @param v2 End value
+         * @param ratio Interpolation ratio (0 to 1)
          * 
-         * @return Valor interpolado ajustado a la tasa de FPS
+         * @return Interpolated value adjusted to the FPS rate
          */
         set('fpsLerp', function(v1:Float, v2:Float, ratio:Float):Float
         {
@@ -217,11 +217,11 @@ class LuaCoolUtil extends LuaPresetBase
         });
 
         /**
-         * Ajusta un ratio en función del tiempo transcurrido y lo limita entre 0 y 1
+         * Adjusts a ratio based on elapsed time and clamps it between 0 and 1
          * 
-         * @param ratio Proporción base
+         * @param ratio Base ratio
          * 
-         * @return Proporción corregida según los FPS
+         * @return Ratio corrected according to FPS
          */
         set('fpsRatio', function(ratio:Float):Float
         {
@@ -230,12 +230,12 @@ class LuaCoolUtil extends LuaPresetBase
 
 
         /**
-         * Precarga el JSON de una canción en PlayState
+         * Preloads a song JSON in PlayState
          * 
-         * @param name Nombre de la canción
-         * @param difficulty Dificultad de la canción
+         * @param name Song name
+         * @param difficulty Song difficulty
          * 
-         * @return Tabla con la ruta de la canción (`.route`) y el JSON cargado (`.json`)
+         * @return Table with the song path (`.route`) and the loaded JSON (`.json`)
          */
         set('loadPlayStateSong', function(name:String, difficulty:String):PlayStateJSONData
         {
@@ -243,11 +243,11 @@ class LuaCoolUtil extends LuaPresetBase
         });
         
         /**
-         * Carga una canción
+         * Loads a song
          * 
-         * @param name Nombre de la canción
-         * @param difficulty Dificultad de la canción
-         * @param goToPlayState Define si el juego se tiene que dirigir o no a PlayState
+         * @param name Song name
+         * @param difficulty Song difficulty
+         * @param goToPlayState Defines whether the game should go to PlayState
          */
         set('loadSong', function(name:String, difficulty:String, ?goToPlayState)
         {
@@ -255,12 +255,12 @@ class LuaCoolUtil extends LuaPresetBase
         });
 
         /**
-         * Carga una week
+         * Loads a week
          * 
-         * @param weekName Nombre de la week
-         * @param names Lista con los nombres de las canciones
-         * @param difficulty Dificultad de la week
-         * @param goToPlayState Define si el juego se tiene que dirigir o no a PlayState
+         * @param weekName Week name
+         * @param names List with the song names
+         * @param difficulty Week difficulty
+         * @param goToPlayState Defines whether the game should go to PlayState
          */
         set('loadWeek', function(weekName:String, names:Array<String>, difficulty:String, ?goToPlayState:Bool)
         {
@@ -269,7 +269,7 @@ class LuaCoolUtil extends LuaPresetBase
 
         
         /**
-         * Reinicial el estado actual
+         * Reinitializes the current state
          */
         set('resetState', function()
         {
@@ -277,12 +277,12 @@ class LuaCoolUtil extends LuaPresetBase
         });
 
         /**
-         * Dirige el juego a un state
+         * Switches the game to a state
          * 
-         * @param state Ruta de la clase del estado
-         * @param args Argumentos de la instancia de la clase
-         * @param skipTransIn Define si la transición de entrada será mostrada o no
-         * @param skipTransOut Defina si la transición de salida será mostrada o no
+         * @param state Class path of the state
+         * @param args Arguments for the class instance
+         * @param skipTransIn Defines whether the entry transition will be shown
+         * @param skipTransOut Defines whether the exit transition will be shown
          */
         set('switchState', function(state:String, ?args:Array<Dynamic>, ?skipTransIn:Bool, ?skipTransOut:Bool)
         {
@@ -295,10 +295,10 @@ class LuaCoolUtil extends LuaPresetBase
         });
 
         /**
-         * Abre un sub-estado
+         * Opens a sub-state
          * 
-         * @param substate Ruta de la clase del subestado
-         * @param args Argumentos de la instancia de la clase
+         * @param substate Class path of the substate
+         * @param args Arguments for the class instance
          */
         set('openSubState', function(substate:String, ?args:Array<Dynamic>)
         {
@@ -312,11 +312,11 @@ class LuaCoolUtil extends LuaPresetBase
 
 
         /**
-         * Capitaliza un texto
+         * Capitalizes a string
          * 
-         * @param str String a capitalizar
+         * @param str String to capitalize
          * 
-         * @return String capitalizado
+         * @return Capitalized string
          */
         set('capitalizeString', function(str:String):String
         {
@@ -324,11 +324,11 @@ class LuaCoolUtil extends LuaPresetBase
         });
 
         /**
-         * Extrae una lista basada en los saltos de línea de un string
+         * Extracts a list based on the line breaks of a string
          * 
-         * @param str String a procesar
+         * @param str String to process
          * 
-         * @return Lista de línease
+         * @return List of lines
          */
         set('listFromString', function(str:String):Array<String>
         {
@@ -337,9 +337,9 @@ class LuaCoolUtil extends LuaPresetBase
 
 
         /**
-         * Abre una URL en el navegador
+         * Opens a URL in the browser
          * 
-         * @param site URL del Sitio
+         * @param site Site URL
          */
         set('browserLoad', function(site:String)
         {
@@ -347,9 +347,9 @@ class LuaCoolUtil extends LuaPresetBase
         });
 
         /**
-         * Obtiene el target al que fue compilado el motor
+         * Gets the target the engine was compiled for
          * 
-         * @return Target obtenido
+         * @return Obtained target
          */
         set('getBuildTarget', function():String
         {

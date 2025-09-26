@@ -11,12 +11,12 @@ class LuaStringTools extends LuaPresetBase
         super(lua);
 
         /**
-         * Verifica sin un `String` inicia con el contenido de otro
+         * Checks if a `String` starts with the content of another
          * 
-         * @param str `String` a analizar
-         * @param start Contenido para verificar
+         * @param str `String` to analyze
+         * @param start Content to check
          * 
-         * @return Si `str` empieza con `start`
+         * @return Whether `str` starts with `start`
          */
         set('stringStartsWith', function(str:String, start:String):Bool
         {
@@ -24,12 +24,12 @@ class LuaStringTools extends LuaPresetBase
         });
 
         /**
-         * Verifica sin un `String` termina con el contenido de otro
+         * Checks if a `String` ends with the content of another
          * 
-         * @param str `String` a analizar
-         * @param end Contenido para verificar
+         * @param str `String` to analyze
+         * @param end Content to check
          * 
-         * @return Si `str` empieza con `end`
+         * @return Whether `str` ends with `end`
          */
         set('stringEndsWith', function(str:String, end:String):Bool
         {
@@ -37,12 +37,12 @@ class LuaStringTools extends LuaPresetBase
         });
 
         /**
-         * Corta un `String` en varias partes
+         * Splits a `String` into several parts
          * 
-         * @param str `String` a cortar
-         * @param split Separador de los cortes
+         * @param str `String` to split
+         * @param split Separator for the splits
          * 
-         * @return Lista con las partes del `String`
+         * @return List with the parts of the `String`
          */
         set('stringSplit', function(str:String, split:String):Array<String>
         {
@@ -50,11 +50,11 @@ class LuaStringTools extends LuaPresetBase
         });
 
         /**
-         * Elimina los espacios al inicio y al final de un `String`
+         * Removes spaces at the beginning and end of a `String`
          * 
-         * @param str `String` a procesar
+         * @param str `String` to process
          * 
-         * @return `String` procesado
+         * @return Processed `String`
          */
         set('stringTrim', function(str:String):String
         {

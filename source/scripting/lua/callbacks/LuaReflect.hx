@@ -15,11 +15,11 @@ class LuaReflect extends LuaPresetBase
         super(lua);
 
         /**
-         * Obtiene un valor de un objeto
+         * Gets a value from an object
          * 
-         * @param tag Variable que se busca
+         * @param tag Variable being searched
          * 
-         * @return Valor de la variable
+         * @return Variable value
          */
         set('getProperty', function(tag:String):Dynamic
         {
@@ -27,13 +27,13 @@ class LuaReflect extends LuaPresetBase
         });
 
         /**
-         * Obtiene un valor de un objeto en un grupo
+         * Gets a value from an object in a group
          * 
-         * @param tag ID del grupo
-         * @param index Posición del objeto en el grupo
-         * @param prop Variable que se busca
+         * @param tag Group ID
+         * @param index Object position in the group
+         * @param prop Variable being searched
          * 
-         * @return Valor de la variable
+         * @return Variable value
          */
         set('getPropertyFromGroup', function(tag:String, index:Int, prop:String):Dynamic
         {
@@ -44,12 +44,12 @@ class LuaReflect extends LuaPresetBase
         });
 
         /**
-         * Obtiene un valor de un objeto en un grupo
+         * Gets a value from a class object
          * 
-         * @param path Ruta de la clase
-         * @param prop Variable que se busca
+         * @param path Class path
+         * @param prop Variable being searched
          * 
-         * @return Valor de la variable
+         * @return Variable value
          */
         set('getPropertyFromClass', function(path:String, prop:String):Dynamic
         {
@@ -62,10 +62,10 @@ class LuaReflect extends LuaPresetBase
         });
 
         /**
-         * Define un valor a una variable en un objeto
+         * Sets a value to a variable on an object
          * 
-         * @param tag ID del objeto
-         * @param value Valor de la variable
+         * @param tag Object ID
+         * @param value Variable value
          */
         set('setProperty', function(tag:String, value:Dynamic)
         {
@@ -77,12 +77,12 @@ class LuaReflect extends LuaPresetBase
         });
 
         /**
-         * Define un valor a una variable de un objeto de un grupo
+         * Sets a value to a variable of an object in a group
          * 
-         * @param tag ID del grupo
-         * @param index Posicion del objeto en el grupo
-         * @param prop Variable del objeto
-         * @param value Valor de la variable
+         * @param tag Group ID
+         * @param index Object position in the group
+         * @param prop Object variable
+         * @param value Variable value
          */
         set('setPropertyFromGroup', function(tag:String, index:Int, prop:String, value:Dynamic)
         {
@@ -91,11 +91,11 @@ class LuaReflect extends LuaPresetBase
         });
 
         /**
-         * Define un valor a una variable en una clase
+         * Sets a value to a variable in a class
          * 
-         * @param path Ruta de la Clase
-         * @param prop Variable que se busca
-         * @param value Valor de la variable
+         * @param path Class path
+         * @param prop Variable being searched
+         * @param value Variable value
          */
         set('setPropertyFromClass', function(path:String, prop:String, value:Dynamic)
         {
@@ -112,10 +112,10 @@ class LuaReflect extends LuaPresetBase
         });
 
         /**
-         * Define varias propiedades de un objeto
+         * Sets multiple properties of an object
          * 
-         * @param tag ID del objeto
-         * @param props Table de variables del objeto
+         * @param tag Object ID
+         * @param props Table of object variables
          */
         set('setProperties', function(tag:String, props:Any)
         {
@@ -123,11 +123,11 @@ class LuaReflect extends LuaPresetBase
         });
 
         /**
-         * Define varias propiedades de un objeto en un grupo
+         * Sets multiple properties of an object in a group
          * 
-         * @param tag ID del grupo
-         * @param index Posicion del objeto en el grupo
-         * @param props Tabla de variables del objeto
+         * @param tag Group ID
+         * @param index Object position in the group
+         * @param props Table of object variables
          */
         set('setPropertiesFromGroup', function(tag:String, index:Int, props:Any)
         {
@@ -136,10 +136,10 @@ class LuaReflect extends LuaPresetBase
         });
 
         /**
-         * Define varias propiedades de una clase
+         * Sets multiple properties of a class
          * 
-         * @param path Ruta de la Clase
-         * @param props Tabla de variables de la clase
+         * @param path Class path
+         * @param props Table of class variables
          */
         set('setPropertiesFromClass', function(path:String, props:Any)
         {
@@ -152,12 +152,12 @@ class LuaReflect extends LuaPresetBase
         });
 
         /**
-         * Llama una función de un objeto
+         * Calls a function of an object
          * 
-         * @param tag Nombre de la función
-         * @param args Argumentos de la función
+         * @param tag Function name
+         * @param args Function arguments
          * 
-         * @return Devuelve el valor que devuelve la función
+         * @return Returns the function's return value
          */
         set('callMethod', function(tag:String, ?args:Array<Dynamic>):Dynamic
         {
@@ -165,13 +165,13 @@ class LuaReflect extends LuaPresetBase
         });
 
         /**
-         * Llama una función de una clase
+         * Calls a function of a class
          * 
-         * @param path Ruta de la clase
-         * @param func Nombre de la función
-         * @param args Argumentos de la función
+         * @param path Class path
+         * @param func Function name
+         * @param args Function arguments
          * 
-         * @return Devuelve el valor que devuelve la función
+         * @return Returns the function's return value
          */
         set('callMethodFromClass', function(path:String, func:String, ?args:Array<Dynamic>):Dynamic
         {
@@ -184,11 +184,11 @@ class LuaReflect extends LuaPresetBase
         });
 
         /**
-         * Crea una instancia en una clase
+         * Creates an instance of a class
          * 
-         * @param tag ID de la instancia
-         * @param path Ruta de la clase
-         * @param args Argumentos de la instancia
+         * @param tag Instance ID
+         * @param path Class path
+         * @param args Instance arguments
          */
         set('createInstance', function(tag:String, path:String, ?args:Array<Dynamic>)
         {
@@ -201,11 +201,11 @@ class LuaReflect extends LuaPresetBase
         });
 
         /**
-         * Añade una instancia al juego
+         * Adds an instance to the game
          * 
-         * @param tag ID de la instancia
+         * @param tag Instance ID
          * 
-         * @deprecated Use `add` en su lugar
+         * @deprecated Use `add` instead
          */
         set('addInstance', function(tag:String)
         {

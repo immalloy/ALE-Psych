@@ -11,11 +11,11 @@ class LuaMouse extends LuaPresetBase
         super(lua);
         
         /**
-         * Obtiene si una tecla ha sido presionada
+         * Gets whether a mouse button has been clicked
          * 
-         * @param button Botón del cual se obtendrá la información. Puede ser `left`, `middle`, `right`
+         * @param button Button to check. Can be `left`, `middle`, `right`
          * 
-         * @return Si la tecla ha sido presionada o no
+         * @return Whether the button has been clicked
          */
         set('mouseClicked', function(?button:String):Bool
         {
@@ -31,11 +31,11 @@ class LuaMouse extends LuaPresetBase
         });
 
         /**
-         * Obtiene si una tecla está siendo presionada
+         * Gets whether a mouse button is being pressed
          * 
-         * @param button Botón del cual se obtendrá la información. Puede ser `left`, `middle`, `right`
+         * @param button Button to check. Can be `left`, `middle`, `right`
          * 
-         * @return Si la tecla está siendo presionada o no
+         * @return Whether the button is being pressed
          */
         set('mousePressed', function(?button:String):Bool
         {
@@ -51,11 +51,11 @@ class LuaMouse extends LuaPresetBase
         });
 
         /**
-         * Obtiene si una tecla ha sido soltada
+         * Gets whether a mouse button has been released
          * 
-         * @param button Botón del cual se obtendrá la información. Puede ser `left`, `middle`, `right`
+         * @param button Button to check. Can be `left`, `middle`, `right`
          * 
-         * @return Si la tecla ha sido soltada o no
+         * @return Whether the button has been released
          */
         set('mouseReleased', function(?button:String):Bool
         {
@@ -71,11 +71,11 @@ class LuaMouse extends LuaPresetBase
         });
 
         /**
-         * Obtiene la posición en `x` del mouse en una cámara
+         * Gets the mouse `x` position in a camera
          * 
-         * @param camera ID de la cámara
+         * @param camera ID of the camera
          * 
-         * @return Posición en `x`
+         * @return `x` position
          */
         set('getMouseX', function(camera:String):Float
         {
@@ -86,11 +86,11 @@ class LuaMouse extends LuaPresetBase
         });
 
         /**
-         * Obtiene la posición en `y` del mouse en una cámara
+         * Gets the mouse `y` position in a camera
          * 
-         * @param camera ID de la cámara
+         * @param camera ID of the camera
          * 
-         * @return Posición en `y`
+         * @return `y` position
          */
         set('getMouseY', function(camera:String):Float
         {

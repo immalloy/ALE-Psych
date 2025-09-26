@@ -13,9 +13,9 @@ class LuaSave extends LuaPresetBase
         super(lua);
 
         /**
-         * Guarda los archivos de guardado
+         * Saves the save files
          * 
-         * @param name ID del archivo de guardado. Puede ser `preferences`, `score`, `custom`, `controls`
+         * @param name Save file ID. Can be `preferences`, `score`, `custom`, `controls`
          */
         set('flushSaveData', function(name:String)
         {
@@ -23,12 +23,12 @@ class LuaSave extends LuaPresetBase
         });
 
         /**
-         * Obtiene un valor de un archivo de guardado
+         * Gets a value from a save file
          * 
-         * @param name ID del archivo de guardado. Puede ser `preferences`, `score`, `custom`, `controls`
-         * @param variable Variable que se busca
+         * @param name Save file ID. Can be `preferences`, `score`, `custom`, `controls`
+         * @param variable Variable to look up
          * 
-         * @return Valor de la variable
+         * @return Variable value
          */
         set('getDataFromSave', function(name:String, variable:String):Dynamic
         {
@@ -43,10 +43,10 @@ class LuaSave extends LuaPresetBase
         });
 
         /**
-         * Define un valor en un archivo de guardado
+         * Sets a value in a save file
          * 
-         * @param name ID del archivo de guardado. Puede ser `preferences`, `score`, `custom`, `controls`
-         * @param values Tabla de variables que serán definidas o modifcadas
+         * @param name Save file ID. Can be `preferences`, `score`, `custom`, `controls`
+         * @param values Table of variables to set or modify
          */
         set('setDataFromSave', function(name:String, values:Any)
         {
@@ -54,9 +54,9 @@ class LuaSave extends LuaPresetBase
         });
 
         /**
-         * Elimina los datos de un archivo de guardado
+         * Deletes the data of a save file
          * 
-         * @param name ID del archivo de guardado. Puede ser `preferences`, `score`, `custom`, `controls`
+         * @param name Save file ID. Can be `preferences`, `score`, `custom`, `controls`
          */
         set('eraseSaveData', function(name:String)
         {

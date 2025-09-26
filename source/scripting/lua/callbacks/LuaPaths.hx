@@ -13,10 +13,10 @@ class LuaPaths extends LuaPresetBase
         super(lua);
 		
 		/**
-		 * Precarga un sonido
+		 * Preloads a sound
          * 
-         * @param file Ruta del audio
-         * @param missingPrint Define si se debe mostrar un aviso en caso de que el archivo no exista
+         * @param file Path of the audio
+         * @param missingPrint Defines whether to show a warning if the file does not exist
 		 */
 		set('precacheSound', function(file:String, ?missingPrint:Bool)
         {
@@ -24,10 +24,10 @@ class LuaPaths extends LuaPresetBase
         });
 
 		/**
-		 * Precarga música
+		 * Preloads music
          * 
-         * @param file Ruta del audio
-         * @param missingPrint Define si se debe mostrar un aviso en caso de que el archivo no exista
+         * @param file Path of the audio
+         * @param missingPrint Defines whether to show a warning if the file does not exist
 		 */
 		set('precacheMusic', function(file:String, ?missingPrint:Bool)
         {

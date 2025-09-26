@@ -13,14 +13,14 @@ class LuaCamera extends LuaPresetBase
         super(lua);
         
         /**
-         * Sacude una cámara
+         * Shakes a camera
          * 
-         * @param camera ID de la cámara
-         * @param tag ID del shake
-         * @param intensity Intensidad del shake
-         * @param duration Duración del shake
-         * @param force Define si se forzará el shake
-         * @param axes Define los ejes en los que se sacudirá la cámara. Puede ser `0x00`, `0x01`, `0x11` o `0x10`
+         * @param camera ID of the camera
+         * @param tag ID of the shake
+         * @param intensity Intensity of the shake
+         * @param duration Duration of the shake
+         * @param force Defines if the shake will be forced
+         * @param axes Defines the axes in which the camera will shake. Can be `0x00`, `0x01`, `0x11` or `0x10`
          */
         set('cameraShake', function(camera:String, tag:String, ?intensity:Float, ?duration:Float, ?force:Bool, ?axes:FlxAxes)
         {

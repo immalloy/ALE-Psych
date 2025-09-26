@@ -11,12 +11,12 @@ class LuaAnimate extends LuaPresetBase
         super(lua);
 
         /**
-         * Crea un FlxAnimate
+         * Creates a FlxAnimate
          * 
-         * @param tag ID del animate
-         * @param x Posición en `x`
-         * @param y Posición en `y`
-         * @param loadFolder Ruta del atlas
+         * @param tag ID of the animate
+         * @param x Position on `x`
+         * @param y Position on `y`
+         * @param loadFolder Path of the atlas
          */
         set('makeFlxAnimateSprite', function(tag:String, ?x:Float, ?y:Float, ?loadFolder:String)
         {
@@ -29,12 +29,12 @@ class LuaAnimate extends LuaPresetBase
         });
         
         /**
-         * Carga un atlas a un animate
+         * Loads an atlas into an animate
          * 
-         * @param tag ID del animate
-         * @param folderOrImg Ruta del spritemap
-         * @param spriteJson Ruta del JSON del spritemap
-         * @param animationJson Ruta del JSON de la animación
+         * @param tag ID of the animate
+         * @param folderOrImg Path of the spritemap
+         * @param spriteJson Path of the spritemap JSON
+         * @param animationJson Path of the animation JSON
          */
         set('loadAnimateAtlas', function(tag:String, folderOrImg:Dynamic, ?spriteJson:Dynamic, ?animationJson:Dynamic)
         {
@@ -43,16 +43,16 @@ class LuaAnimate extends LuaPresetBase
         });
 
         /**
-         * Añade una animación por su símbolo a un animate
+         * Adds an animation by its symbol to an animate
          * 
-         * @param tag ID del animate
-         * @param name Nombre de la animación
-         * @param symbol Nombre del símbolo en Adobe Animate
-         * @param indices Indices que indican qué frames y en qué orden se reproducen
-         * @param framerate Velocidad de la animación en frames
-         * @param loop Define si la animación debería o no estar en bucle
-         * @param matX Offset del matrix en `x`
-         * @param matY Offset del matrix en `y`
+         * @param tag ID of the animate
+         * @param name Name of the animation
+         * @param symbol Symbol name in Adobe Animate
+         * @param indices Indices that indicate which frames and in what order they play
+         * @param framerate Animation speed in frames
+         * @param loop Defines whether the animation should loop or not
+         * @param matX Matrix offset on `x`
+         * @param matY Matrix offset on `y`
          */
         set('addAnimationBySymbolIndices', function(tag:String, name:String, symbol:String, indices:Any, ?framerate:Float, ?loop:Bool, ?matX:Float, ?matY:Float)
         {

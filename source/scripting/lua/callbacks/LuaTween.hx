@@ -11,13 +11,13 @@ class LuaTween extends LuaPresetBase
         super(lua);
         
         /**
-         * Crea e inicia un `FlxTween`
+         * Creates and starts a `FlxTween`
          * 
-         * @param tag ID del tween
-         * @param obj ID del objeto sobre el que actuará el tween
-         * @param props Tabla de variables del objeto que serán modificadas
-         * @param time Duración del tween
-         * @param options Opciones del tween. Véase [TweenOptions](https://api.haxeflixel.com/flixel/tweens/TweenOptions.html)
+         * @param tag Tween ID
+         * @param obj ID of the object the tween will act on
+         * @param props Table of object variables that will be modified
+         * @param time Tween duration
+         * @param options Tween options. See [TweenOptions](https://api.haxeflixel.com/flixel/tweens/TweenOptions.html)
          */
         set('tween', function(tag:String, obj:String, props:Dynamic, ?time:Float, ?options:Dynamic)
         {
@@ -25,15 +25,15 @@ class LuaTween extends LuaPresetBase
         });
         
         /**
-         * Crea e inicia un tween sobre un objeto y su variable `x`
+         * Creates and starts a tween on an object and its `x` variable
          * 
-         * @param tag ID del tween
-         * @param obj ID del objeto
-         * @param value Valor en `x`
-         * @param time Duración del tween
-         * @param ease Ease del tween
+         * @param tag Tween ID
+         * @param obj Object ID
+         * @param value Value for `x`
+         * @param time Tween duration
+         * @param ease Tween ease
          * 
-         * @deprecated Use `tween` en su lugar
+         * @deprecated Use `tween` instead
          */
         set('doTweenX', function(tag:String, obj:String, value:Dynamic, ?time:Float, ?ease:String)
         {
@@ -43,15 +43,15 @@ class LuaTween extends LuaPresetBase
         });
         
         /**
-         * Crea e inicia un tween sobre un objeto y su variable `y`
+         * Creates and starts a tween on an object and its `y` variable
          * 
-         * @param tag ID del tween
-         * @param obj ID del objeto
-         * @param value Valor en `y`
-         * @param time Duración del tween
-         * @param ease Ease del tween
+         * @param tag Tween ID
+         * @param obj Object ID
+         * @param value Value for `y`
+         * @param time Tween duration
+         * @param ease Tween ease
          * 
-         * @deprecated Use `tween` en su lugar
+         * @deprecated Use `tween` instead
          */
         set('doTweenY', function(tag:String, obj:String, value:Dynamic, ?time:Float, ?ease:String)
         {
@@ -61,15 +61,15 @@ class LuaTween extends LuaPresetBase
         });
         
         /**
-         * Crea e inicia un tween sobre un objeto y su variable `angle`
+         * Creates and starts a tween on an object and its `angle` variable
          * 
-         * @param tag ID del tween
-         * @param obj ID del objeto
-         * @param value Valor en `angle`
-         * @param time Duración del tween
-         * @param ease Ease del tween
+         * @param tag Tween ID
+         * @param obj Object ID
+         * @param value Value for `angle`
+         * @param time Tween duration
+         * @param ease Tween ease
          * 
-         * @deprecated Use `tween` en su lugar
+         * @deprecated Use `tween` instead
          */
         set('doTweenAngle', function(tag:String, obj:String, value:Dynamic, ?time:Float, ?ease:String)
         {
@@ -79,15 +79,15 @@ class LuaTween extends LuaPresetBase
         });
         
         /**
-         * Crea e inicia un tween sobre un objeto y su variable `alpha`
+         * Creates and starts a tween on an object and its `alpha` variable
          * 
-         * @param tag ID del tween
-         * @param obj ID del objeto
-         * @param value Valor en `alpha`
-         * @param time Duración del tween
-         * @param ease Ease del tween
+         * @param tag Tween ID
+         * @param obj Object ID
+         * @param value Value for `alpha`
+         * @param time Tween duration
+         * @param ease Tween ease
          * 
-         * @deprecated Use `tween` en su lugar
+         * @deprecated Use `tween` instead
          */
         set('doTweenAlpha', function(tag:String, obj:String, value:Dynamic, ?time:Float, ?ease:String)
         {
@@ -97,15 +97,15 @@ class LuaTween extends LuaPresetBase
         });
         
         /**
-         * Crea e inicia un tween sobre un objeto y su variable `zoom`
+         * Creates and starts a tween on an object and its `zoom` variable
          * 
-         * @param tag ID del tween
-         * @param obj ID del objeto
-         * @param value Valor en `zoom`
-         * @param time Duración del tween
-         * @param ease Ease del tween
+         * @param tag Tween ID
+         * @param obj Object ID
+         * @param value Value for `zoom`
+         * @param time Tween duration
+         * @param ease Tween ease
          * 
-         * @deprecated Use `tween` en su lugar
+         * @deprecated Use `tween` instead
          */
         set('doTweenZoom', function(tag:String, obj:String, value:Dynamic, ?time:Float, ?ease:String)
         {
@@ -115,15 +115,15 @@ class LuaTween extends LuaPresetBase
         });
         
         /**
-         * Crea e inicia un tween sobre un objeto y su variable `color`
+         * Creates and starts a tween on an object and its `color` variable
          * 
-         * @param tag ID del tween
-         * @param obj ID del objeto
-         * @param value Valor en `color`
-         * @param time Duración del tween
-         * @param ease Ease del tween
+         * @param tag Tween ID
+         * @param obj Object ID
+         * @param value Value for `color`
+         * @param time Tween duration
+         * @param ease Tween ease
          * 
-         * @deprecated Use `tween` en su lugar
+         * @deprecated Use `tween` instead
          */
         set('doTweenColor', function(tag:String, obj:String, value:Dynamic, ?time:Float, ?ease:String)
         {
@@ -133,14 +133,14 @@ class LuaTween extends LuaPresetBase
         });
 
         /**
-         * Crea e inicia un tween que cambiará el color de un objeto
+         * Creates and starts a tween that will change an object's color
          * 
-         * @param tag ID del tween
-         * @param obj ID del objeto
-         * @param time Duración del tween
-         * @param from Color inicial
-         * @param to Color final
-         * @param options Opciones del tween. Véase [TweenOptions](https://api.haxeflixel.com/flixel/tweens/TweenOptions.html)
+         * @param tag Tween ID
+         * @param obj Object ID
+         * @param time Tween duration
+         * @param from Starting color
+         * @param to Ending color
+         * @param options Tween options. See [TweenOptions](https://api.haxeflixel.com/flixel/tweens/TweenOptions.html)
          */
         set('colorTween', function(tag:String, obj:String, ?time:Float, ?from:FlxColor, ?to:FlxColor, ?options:Dynamic)
         {
@@ -148,9 +148,9 @@ class LuaTween extends LuaPresetBase
         });
 
         /**
-         * Cancela un tween
+         * Cancels a tween
          * 
-         * @param tag ID del tween
+         * @param tag Tween ID
          */
         set('cancelTween', function(tag:String)
         {

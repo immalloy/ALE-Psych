@@ -9,11 +9,11 @@ class LuaJson extends LuaPresetBase
         super(lua);
         
         /**
-         * Parsea un string en formato JSON
+         * Parses a string in JSON format
          * 
-         * @param str String en JSON
+         * @param str JSON string
          * 
-         * @return Tabla del JSON Parseado
+         * @return Parsed JSON table
          */
         set('parseJson', function(str:String)
         {
@@ -21,11 +21,11 @@ class LuaJson extends LuaPresetBase
         });
 
         /**
-         * Parsea un archivo en formato JSON
+         * Parses a file in JSON format
          * 
-         * @param path Ruta del archivo
+         * @param path File path
          * 
-         * @return Tabla del JSON Parseado
+         * @return Parsed JSON table
          */
         set('parseJsonFile', function(path:String)
         {
@@ -33,12 +33,12 @@ class LuaJson extends LuaPresetBase
         });
 
         /**
-         * Pasa una Tabla a un string en formato JSON
+         * Converts a table to a JSON string
          * 
-         * @param object Tabla
-         * @param space Espacio de identación
+         * @param object Table
+         * @param space Indentation space
          * 
-         * @return String en formato JSON
+         * @return JSON formatted string
          */
         set('stringifyJson', function(object:Dynamic, ?space:String)
         {
