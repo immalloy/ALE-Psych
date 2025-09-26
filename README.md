@@ -47,9 +47,13 @@ See the [Getting Started Guide](https://github.com/ALE-Psych-Crew/ALE-Psych/wiki
 
 The goal is simple: give developers the tools to build complete mods **without touching the source code**, while keeping the comfort and flexibility that Psych Engine provided.  
 
+# NEW 
+- [Lua API documentation](docs/lua/Home.md) for scripting reference.
+
 ---
 
 ## Key Differences from Psych
+
 - Scripted **menus and submenus** (Lua and HScript).  
 - Support for **custom classes**.  
 - Support for 3D Objects.
