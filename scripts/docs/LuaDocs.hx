@@ -63,6 +63,12 @@ class LuaDocs
         FileSystem.deleteDirectory(path);
     }
 
+    static var generated:Int = 0;
+
+    static var functions:Int = 0;
+
+    static var list:Array<String> = [];
+
     public static function main(?base:String, ?path:String)
     {
         deleteFolderRecursive(GEN_PATH);
@@ -96,9 +102,23 @@ class LuaDocs
                 }
             );
         }
+        
+        generated = 0;
 
-        for (file in toGen)
-            generate(read(File.getContent(file.path)), file.folder, file.name);   
+        functions = 0;
+
+        list = [];
+
+        for (index => file in toGen)
+            generate(read(File.getContent(file.path)), file.folder, file.name);
+        
+        Sys.println('');
+        Sys.println('---- [ALE Psych\'s Lua Docs] ----');
+        Sys.println('');
+        Sys.println('Files Found: ' + toGen.length);
+        Sys.println('Files Generated: ' + generated);
+        Sys.println('Functions Found: ' + functions);
+        Sys.println('Files Generated List: ' + list.join(' - '));
     }
 
     static function metaToString(str:String)
@@ -178,6 +198,8 @@ class LuaDocs
             {
                 if (line.trim().startsWith('set('))
                 {
+                    functions++;
+
                     var regex:EReg = ~/[\(\)'",]|function/g;
 
                     var splitLine:Array<String> = regex.replace(line.trim().substring(4), ' ').split(' ').filter(function (str) return str.trim().length > 0);
@@ -189,8 +211,9 @@ class LuaDocs
                         ret: null
                     };
 
-                    if (data.args[data.args.length - 1].startsWith(':'))
-                        data.ret = data.args.pop();
+                    if (data.args.length > 0)
+                        if (data.args[data.args.length - 1].startsWith(':'))
+                            data.ret = data.args.pop();
 
                     instructions.push(data);
                 }
@@ -249,8 +272,12 @@ class LuaDocs
     {
         var finalText:String = '';
 
-        for (instruction in instructions)
+        var col = 0;
+
+        for (co => instruction in instructions)
         {
+            col++;
+
             finalText += '---\n\n### > `' + instruction.name + '(' + instruction.args.join(', ') + ')' + (instruction.ret ?? '') + '`\n\n';
 
             for (inst in instruction.instructions)
@@ -271,6 +298,10 @@ class LuaDocs
 
         if (finalText.trim().length <= 0)
             return;
+
+        generated++;
+
+        list.push(name);
 
         finalText = '# ' + name + finalText.substring(3, finalText.length);
         

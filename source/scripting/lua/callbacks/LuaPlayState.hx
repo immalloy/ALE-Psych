@@ -92,14 +92,20 @@ class LuaPlayState extends LuaPresetBase
 
         set('startCountdown', game.startCountdown);
 
-        set('endSong', function ()
+        /**
+         * Termina la canción
+         */
+        set('endSong', function()
         {
             game.KillNotes();
 
             game.endSong();
         });
 
-        set('restartSong', function ()
+        /**
+         * Reinicia la canción
+         */
+        set('restartSong', function()
         {
             game.paused = true;
             game.vocals.volume = 0;
@@ -111,7 +117,10 @@ class LuaPlayState extends LuaPresetBase
             CoolUtil.resetState();
         });
 
-        set('exitSong', function ()
+        /**
+         * Sale de la canción hacia el menú correspondiente
+         */
+        set('exitSong', function()
         {
             game.vocals.volume = 0;
 
@@ -128,7 +137,12 @@ class LuaPlayState extends LuaPresetBase
             CoolUtil.switchState(new CustomState(PlayState.isStoryMode ? CoolVars.data.storyMenuState : CoolVars.data.freeplayState));
         });
 
-        set('cameraSetTarget', function (target:String)
+        /**
+         * Define el objetivo de la cámara del juego
+         * 
+         * @param target Objetivo de la cámara. Puede ser `gf`/`girlfriend`, `dad`/`opponent` o `bf`/`boyfriend`
+         */
+        set('cameraSetTarget', function(target:String)
         {
 			switch(target.trim().toLowerCase())
 			{
@@ -141,16 +155,28 @@ class LuaPlayState extends LuaPresetBase
 			}
         });
 
-        set('triggerEvent', function (name:String, arg1:Dynamic, arg2:Dynamic)
+        /**
+         * Ejecuta un evento en la canción
+         * 
+         * @param name Nombre del evento
+         * @param arg1 Primer argumento del evento
+         * @param arg2 Segundo argumento del evento
+         */
+        set('triggerEvent', function(name:String, arg1:Dynamic, arg2:Dynamic)
         {
 			game.triggerEvent(name, arg1, arg2, Conductor.songPosition);
         });
 
-        set('characterDance', function (character:String)
+        /**
+         * Ejecuta la lógica del baile a un personaje
+         * 
+         * @param character Personaje que se usará. Puede ser `gf`/`girlfriend`, `dad`/`opponent` o `bf`/`boyfriend`
+         */
+        set('characterDance', function(character:String)
         {
 			switch (character.toLowerCase())
             {
-				case 'dad':
+				case 'dad', 'opponent':
                     game.dad.dance();
 				case 'gf' | 'girlfriend':
                     if (game.gf != null)
@@ -160,7 +186,13 @@ class LuaPlayState extends LuaPresetBase
 			}
         });
         
-        set('startDialogue', function (dialogueFile:String, music:String = null)
+        /**
+         * Inicia el diálogo de la canción
+         * 
+         * @param dialogueFile Archivo que contiene el diálogo
+         * @param music Ruta del audio que se reproducirá como música
+         */
+        set('startDialogue', function(dialogueFile:String, ?music:String)
         {
             var path:String = CoolUtil.searchComplexFile(PlayState.songRoute + '/' + dialogueFile);
 
@@ -173,56 +205,135 @@ class LuaPlayState extends LuaPresetBase
 			}
         });
 
-        set('noteTween', function (tag:String, note:Int, props:Dynamic, ?time:Float, ?options:Dynamic)
+        /**
+         * Realiza un tween sobre una nota
+         * 
+         * @param tag ID del tween
+         * @param note Posición de la nota en el strumLine
+         * @param props Tabla de variables que se van a modificar
+         * @param time Duración del tween
+         * @param options Opciones del tween. Véase [TweenOptions](https://api.haxeflixel.com/flixel/tweens/TweenOptions.html)
+         */
+        set('noteTween', function(tag:String, note:Int, props:Dynamic, ?time:Float, ?options:Dynamic)
         {
             setTag(tag, LuaPresetUtils.complexTween(lua, tag, game.strumLineNotes.members[note], props, time, options));
         });
 
-        set('noteTweenX', function (tag:String, note:Int, value:Dynamic, duration:Float, ease:String)
+        /**
+         * Realiza un tween sobre la variable `x` de una nota
+         * 
+         * @param tag ID del tween
+         * @param note Posición de la nota en el strumLine
+         * @param value Valor de la variable
+         * @param duration Duración del tween
+         * @param ease Ease del tween
+         * 
+         * @deprecated Use `noteTween` en su lugar
+         */
+        set('noteTweenX', function(tag:String, note:Int, value:Dynamic, duration:Float, ease:String)
         {
             deprecatedPrint('Use "noteTween" instead of "noteTweenX"');
 
             setTag(tag, LuaPresetUtils.complexTween(lua, tag, game.strumLineNotes.members[note], {x: value}, duration, {ease: ease}));
         });
 
-        set('noteTweenY', function (tag:String, note:Int, value:Dynamic, duration:Float, ease:String)
+        /**
+         * Realiza un tween sobre la variable `y` de una nota
+         * 
+         * @param tag ID del tween
+         * @param note Posición de la nota en el strumLine
+         * @param value Valor de la variable
+         * @param duration Duración del tween
+         * @param ease Ease del tween
+         * 
+         * @deprecated Use `noteTween` en su lugar
+         */
+        set('noteTweenY', function(tag:String, note:Int, value:Dynamic, duration:Float, ease:String)
         {
             deprecatedPrint('Use "noteTween" instead of "noteTweenY"');
 
             setTag(tag, LuaPresetUtils.complexTween(lua, tag, game.strumLineNotes.members[note], {y: value}, duration, {ease: ease}));
         });
 
-        set('noteTweenAngle', function (tag:String, note:Int, value:Dynamic, duration:Float, ease:String)
+        /**
+         * Realiza un tween sobre la variable `angle` de una nota
+         * 
+         * @param tag ID del tween
+         * @param note Posición de la nota en el strumLine
+         * @param value Valor de la variable
+         * @param duration Duración del tween
+         * @param ease Ease del tween
+         * 
+         * @deprecated Use `noteTween` en su lugar
+         */
+        set('noteTweenAngle', function(tag:String, note:Int, value:Dynamic, duration:Float, ease:String)
         {
             deprecatedPrint('Use "noteTween" instead of "noteTweenAngle"');
 
             setTag(tag, LuaPresetUtils.complexTween(lua, tag, game.strumLineNotes.members[note], {angle: value}, duration, {ease: ease}));
         });
 
-        set('noteTweenDirection', function (tag:String, note:Int, value:Dynamic, duration:Float, ease:String)
+        /**
+         * Realiza un tween sobre la variable `direction` de una nota
+         * 
+         * @param tag ID del tween
+         * @param note Posición de la nota en el strumLine
+         * @param value Valor de la variable
+         * @param duration Duración del tween
+         * @param ease Ease del tween
+         * 
+         * @deprecated Use `noteTween` en su lugar
+         */
+        set('noteTweenDirection', function(tag:String, note:Int, value:Dynamic, duration:Float, ease:String)
         {
             deprecatedPrint('Use "noteTween" instead of "noteTweenDirection"');
 
             setTag(tag, LuaPresetUtils.complexTween(lua, tag, game.strumLineNotes.members[note], {direction: value}, duration, {ease: ease}));
         });
 
-        set('noteTweenAlpha', function (tag:String, note:Int, value:Dynamic, duration:Float, ease:String)
+        /**
+         * Realiza un tween sobre la variable `alpha` de una nota
+         * 
+         * @param tag ID del tween
+         * @param note Posición de la nota en el strumLine
+         * @param value Valor de la variable
+         * @param duration Duración del tween
+         * @param ease Ease del tween
+         * 
+         * @deprecated Use `noteTween` en su lugar
+         */
+        set('noteTweenAlpha', function(tag:String, note:Int, value:Dynamic, duration:Float, ease:String)
         {
             deprecatedPrint('Use "noteTween" instead of "noteTweenAlpha"');
 
             setTag(tag, LuaPresetUtils.complexTween(lua, tag, game.strumLineNotes.members[note], {alpha: value}, duration, {ease: ease}));
         });
 		
+        /**
+         * Añade un objeto al juego detrás de la entidad Girlfriend
+         * 
+         * @param obj ID del objeto
+         */
         set('addBehindGF', function(obj:String)
         {
             game.insert(game.members.indexOf(game.gfGroup), getTag(obj));
         });
         
+        /**
+         * Añade un objeto al juego detrás de la entidad Boyfriend
+         * 
+         * @param obj ID del objeto
+         */
         set('addBehindBF', function(obj:String)
         {
             game.insert(game.members.indexOf(game.boyfriendGroup), getTag(obj));
         });
         
+        /**
+         * Añade un objeto al juego detrás de la entidad Dad
+         * 
+         * @param obj ID del objeto
+         */
         set('addBehindDad', function(obj:String)
         {
             game.insert(game.members.indexOf(game.dadGroup), getTag(obj));
