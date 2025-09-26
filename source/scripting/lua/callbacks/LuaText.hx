@@ -13,13 +13,13 @@ class LuaText extends LuaPresetBase
         super(lua);
 		
 		/**
-		 * Crea un `FlxText`
+		 * Creates a `FlxText`
 		 * 
-		 * @param tag ID del texto
-		 * @param text Texto que se mostrara
-		 * @param width Ancho máximo del texto
-		 * @param x Posicion `x`
-		 * @param y Posicion `y`
+		 * @param tag ID of the text
+		 * @param text Text to display
+		 * @param width Maximum text width
+		 * @param x Position `x`
+		 * @param y Position `y`
 		 */
 		set('makeLuaText', function(tag:String, text:String, width:Int, x:Float, y:Float)
 		{
@@ -27,12 +27,12 @@ class LuaText extends LuaPresetBase
 		});
 
 		/**
-		 * Aplica un contorno a un texto
+		 * Applies a border to text
 		 * 
-		 * @param tag ID del texto
-		 * @param size Grosor del contorno
-		 * @param color Color del contorno
-		 * @param style Estilo del contorno. Puede ser `shadow`, `outline`, `outline_fast` o `none`
+		 * @param tag ID of the text
+		 * @param size Border thickness
+		 * @param color Border color
+		 * @param style Border style. Can be `shadow`, `outline`, `outline_fast` or `none`
 		 */
 		set('setTextBorder', function(tag:String, size:Float, color:FlxColor, ?style:String)
 		{
@@ -56,10 +56,10 @@ class LuaText extends LuaPresetBase
 		});
 
 		/**
-		 * Aplica un font a un texto
+		 * Applies a font to text
 		 * 
-		 * @param tag ID del texto
-		 * @param newFont Font a aplicar
+		 * @param tag ID of the text
+		 * @param newFont Font to apply
 		 */
 		set('setTextFont', function(tag:String, newFont:String)
 		{
@@ -72,11 +72,11 @@ class LuaText extends LuaPresetBase
 		});
 
         /**
-         * Añade un texto al juego
+         * Adds a text to the game
 		 * 
-		 * @param tag ID del texto
+		 * @param tag ID of the text
 		 * 
-		 * @deprecated Use `add` en su lugar
+		 * @deprecated Use `add` instead
          */
         set('addLuaText', function(tag:String)
         {
@@ -90,12 +90,12 @@ class LuaText extends LuaPresetBase
         });
 
         /**
-         * Remueve un texto del juego
+         * Removes a text from the game
 		 * 
-		 * @param tag ID del texto
-		 * @param destroy Define si se debe destruir o no el texto
+		 * @param tag ID of the text
+		 * @param destroy Defines whether the text should be destroyed
 		 * 
-		 * @deprecated Use `remove` en su lugar
+		 * @deprecated Use `remove` instead
          */
         set('removeLuaText', function(tag:String, ?destroy:Bool)
         {
