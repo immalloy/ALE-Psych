@@ -2,49 +2,49 @@
 
 ### > `mouseClicked(?button:String):Bool`
 
-#### Obtiene si una tecla ha sido presionada 
+#### Gets whether a mouse button has been clicked 
 
-- `button`: Botón del cual se obtendrá la información. Puede ser `left`, `middle`, `right` 
+- `button`: Button to check. Can be `left`, `middle`, `right` 
 
-#### `RETURN`: Si la tecla ha sido presionada o no 
+#### `RETURN`: Whether the button has been clicked 
 
 ---
 
 ### > `mousePressed(?button:String):Bool`
 
-#### Obtiene si una tecla está siendo presionada 
+#### Gets whether a mouse button is being pressed 
 
-- `button`: Botón del cual se obtendrá la información. Puede ser `left`, `middle`, `right` 
+- `button`: Button to check. Can be `left`, `middle`, `right` 
 
-#### `RETURN`: Si la tecla está siendo presionada o no 
+#### `RETURN`: Whether the button is being pressed 
 
 ---
 
 ### > `mouseReleased(?button:String):Bool`
 
-#### Obtiene si una tecla ha sido soltada 
+#### Gets whether a mouse button has been released 
 
-- `button`: Botón del cual se obtendrá la información. Puede ser `left`, `middle`, `right` 
+- `button`: Button to check. Can be `left`, `middle`, `right` 
 
-#### `RETURN`: Si la tecla ha sido soltada o no 
+#### `RETURN`: Whether the button has been released 
 
 ---
 
 ### > `getMouseX(camera:String):Float`
 
-#### Obtiene la posición en `x` del mouse en una cámara 
+#### Gets the mouse `x` position in a camera 
 
-- `camera`: ID de la cámara 
+- `camera`: ID of the camera 
 
-#### `RETURN`: Posición en `x` 
+#### `RETURN`: `x` position 
 
 ---
 
 ### > `getMouseY(camera:String):Float`
 
-#### Obtiene la posición en `y` del mouse en una cámara 
+#### Gets the mouse `y` position in a camera 
 
-- `camera`: ID de la cámara 
+- `camera`: ID of the camera 
 
-#### `RETURN`: Posición en `y` 
+#### `RETURN`: `y` position 
 

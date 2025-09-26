@@ -2,287 +2,287 @@
 
 ### > `colorFromString(str:String):FlxColor`
 
-#### Obtiene un color desde un String que contenga su código en HEX 
+#### Gets a color from a String that contains its HEX code 
 
-- `str`: String con el código HEX 
+- `str`: String with the HEX code 
 
-#### `RETURN`: Color obtenido 
+#### `RETURN`: Obtained color 
 
 ---
 
 ### > `getDominantColor(tag:String):FlxColor`
 
-#### Obtiene el color que más aparece en un sprite 
+#### Gets the most frequent color in a sprite 
 
-- `tag`: ID del sprite 
+- `tag`: ID of the sprite 
 
-#### `RETURN`: Color más frecuente 
+#### `RETURN`: Most frequent color 
 
 ---
 
 ### > `colorFromArray(arr:Array<Int>):FlxColor`
 
-#### Obtiene un color desde una lista 
+#### Gets a color from a list 
 
-- `arr`: Lista con el color en RGB 
+- `arr`: List with the color in RGB 
 
-#### `RETURN`: Color obtenido 
+#### `RETURN`: Obtained color 
 
 ---
 
 ### > `resetEngine()`
 
-#### Reinicia el motor y algunas de sus variables 
+#### Resets the engine and some of its variables 
 
 ---
 
 ### > `reloadGameMetadata()`
 
-#### Recarga los metadatos del motor que se encuentran en `data.json` 
+#### Reloads the engine metadata found in `data.json` 
 
 ---
 
 ### > `resizeGame(width:Int, height:Int, ?centerWindow:Bool)`
 
-#### Cambia el tamaño de la ventana y el juego 
+#### Changes the window and game size 
 
-- `width`: Ancho del juego 
+- `width`: Game width 
 
-- `height`: Alto del juego 
+- `height`: Game height 
 
-- `centerWindow`: Define si se debe centrar el juego en la pantalla o no 
+- `centerWindow`: Defines whether to center the game on screen or not 
 
 ---
 
 ### > `searchComplexFile(path:String, ?missingPrint:Bool):String`
 
-#### Busca la ruta de un archivo ignorando espacios y mayúsculas, siendo más flexible 
+#### Searches for a file path ignoring spaces and case, being more flexible 
 
-- `path`: Ruta del archivo 
+- `path`: File path 
 
-- `missingPrint`: Define si se debe dar un aviso o no en caso de que el archivo no exista 
+- `missingPrint`: Defines whether to warn if the file does not exist 
 
-#### `RETURN`: Ruta real del archivo 
+#### `RETURN`: Real file path 
 
 ---
 
 ### > `searchFile(parent:String, file:String):String`
 
-#### Busca la ruta de un archivo dentro de una carpeta ignorando espacios y mayúsculas 
+#### Searches for a file path within a folder ignoring spaces and case 
 
-- `parent`: Carpeta donde se busca 
+- `parent`: Folder where it is searched 
 
-- `file`: Archivo que se busca 
+- `file`: File being searched 
 
-#### `RETURN`: Ruta real del archivo 
+#### `RETURN`: Real file path 
 
 ---
 
 ### > `openFolder(folder:String, ?absolute:Bool)`
 
-#### Abre el explorador de archivos en una carpeta específica 
+#### Opens the file explorer at a specific folder 
 
-- `folder`: Carpeta donde se abrirá 
+- `folder`: Folder to open 
 
-- `absolute`: Define si se tendrá en cuenta a partir de la carpeta raíz del computador o desde la carpeta del juego 
+- `absolute`: Defines whether to resolve from the computer root or from the game folder 
 
 ---
 
 ### > `formatToSongPath(str:String):String`
 
-#### Pasa un string a minúsculas y cambia los espacios por guiones 
+#### Lowercases a string and replaces spaces with hyphens 
 
-- `str`: String a procesar 
+- `str`: String to process 
 
-#### `RETURN`: String procesado 
+#### `RETURN`: Processed string 
 
 ---
 
 ### > `debugTrace(text:Dynamic, ?type:PrintType, ?customType:String, =, ?customColor:FlxColor)`
 
-#### Imprime un texto que incluye la hora en la que fue impreso y algunos colores que ayudan a distinguir entre la información mostrada 
+#### Prints text that includes the time it was printed and colors to help distinguish the displayed information 
 
-- `text`: Texto que se desea mostrar 
+- `text`: Text to display 
 
-- `type`: Tipo de texto que se desea mostrar. Puede ser `error`, `warning`, `deprecated`, `trace`, `hscript`, `lua`, `missing_file`, `missing_folder`, `custom` o `pop-up`, 
+- `type`: Type of text to display. Can be `error`, `warning`, `deprecated`, `trace`, `hscript`, `lua`, `missing_file`, `missing_folder`, `custom` or `pop-up`, 
 
-- `customType`: Asigna un tipo personalizado de texto 
+- `customType`: Assigns a custom text type 
 
-- `customColor`: Asigna un color personalizado del texto 
+- `customColor`: Assigns a custom text color 
 
 ---
 
 ### > `ansiColorString(str:String, color:FlxColor):String`
 
-#### Ayuda a obtener un texto el cual al ser impreso en la consola tendrá el color indicado 
+#### Helps obtain a string which, when printed to the console, will have the indicated color 
 
-- `str`: Texto a colorear 
+- `str`: Text to color 
 
-- `color`: Color a aplicar 
+- `color`: Color to apply 
 
-#### `RETURN`: Texto coloreado 
+#### `RETURN`: Colored text 
 
 ---
 
 ### > `floorDecimal(num:Float, decimals:Int):Float`
 
-#### Redondea un número decimal, pero permitiendo que se muestren cierta cantidad de decimales 
+#### Rounds a decimal number but allows showing a certain number of decimals 
 
-- `num`: Número a redondear 
+- `num`: Number to round 
 
-- `decimals`: Cantidad máxima de decimales que se mostrarán 
+- `decimals`: Maximum number of decimals to show 
 
-#### `RETURN`: Número redondeado con sus decimales 
+#### `RETURN`: Rounded number with its decimals 
 
 ---
 
 ### > `quantize(f:Float, snap:Float):Float`
 
-#### Ajusta un número a una rejilla 
+#### Snaps a number to a grid 
 
-- `f`: Valor original 
+- `f`: Original value 
 
-- `snap`: Cantidad de divisiones o pasos 
+- `snap`: Number of divisions or steps 
 
-#### `RETURN`: Valor cuantizado al múltiplo más cercano de 1/snap 
+#### `RETURN`: Value quantized to the nearest multiple of 1/snap 
 
 ---
 
 ### > `numberArray(max:Int, ?min:Int):Array<Int>`
 
-#### Genera una lista de números 
+#### Generates a list of numbers 
 
-- `max`: Numero maximo de la lista 
+- `max`: Maximum number of the list 
 
-- `min`: Numero minimo de la lista 
+- `min`: Minimum number of the list 
 
-#### `RETURN`: Lista de numeros 
+#### `RETURN`: List of numbers 
 
 ---
 
 ### > `fpsLerp(v1:Float, v2:Float, ratio:Float):Float`
 
-#### Interpola entre dos valores tomando en cuenta los FPS 
+#### Interpolates between two values taking FPS into account 
 
-- `v1`: Valor inicial 
+- `v1`: Start value 
 
-- `v2`: Valor final 
+- `v2`: End value 
 
-- `ratio`: Proporción de interpolación (0 a 1) 
+- `ratio`: Interpolation ratio (0 to 1) 
 
-#### `RETURN`: Valor interpolado ajustado a la tasa de FPS 
+#### `RETURN`: Interpolated value adjusted to the FPS rate 
 
 ---
 
 ### > `fpsRatio(ratio:Float):Float`
 
-#### Ajusta un ratio en función del tiempo transcurrido y lo limita entre 0 y 1 
+#### Adjusts a ratio based on elapsed time and clamps it between 0 and 1 
 
-- `ratio`: Proporción base 
+- `ratio`: Base ratio 
 
-#### `RETURN`: Proporción corregida según los FPS 
+#### `RETURN`: Ratio corrected according to FPS 
 
 ---
 
 ### > `loadPlayStateSong(name:String, difficulty:String):PlayStateJSONData`
 
-#### Precarga el JSON de una canción en PlayState 
+#### Preloads a song JSON in PlayState 
 
-- `name`: Nombre de la canción 
+- `name`: Song name 
 
-- `difficulty`: Dificultad de la canción 
+- `difficulty`: Song difficulty 
 
-#### `RETURN`: Tabla con la ruta de la canción (`.route`) y el JSON cargado (`.json`) 
+#### `RETURN`: Table with the song path (`.route`) and the loaded JSON (`.json`) 
 
 ---
 
 ### > `loadSong(name:String, difficulty:String, ?goToPlayState)`
 
-#### Carga una canción 
+#### Loads a song 
 
-- `name`: Nombre de la canción 
+- `name`: Song name 
 
-- `difficulty`: Dificultad de la canción 
+- `difficulty`: Song difficulty 
 
-- `goToPlayState`: Define si el juego se tiene que dirigir o no a PlayState 
+- `goToPlayState`: Defines whether the game should go to PlayState 
 
 ---
 
 ### > `loadWeek(weekName:String, names:Array<String>, difficulty:String, ?goToPlayState:Bool)`
 
-#### Carga una week 
+#### Loads a week 
 
-- `weekName`: Nombre de la week 
+- `weekName`: Week name 
 
-- `names`: Lista con los nombres de las canciones 
+- `names`: List with the song names 
 
-- `difficulty`: Dificultad de la week 
+- `difficulty`: Week difficulty 
 
-- `goToPlayState`: Define si el juego se tiene que dirigir o no a PlayState 
+- `goToPlayState`: Defines whether the game should go to PlayState 
 
 ---
 
 ### > `resetState()`
 
-#### Reinicial el estado actual 
+#### Reinitializes the current state 
 
 ---
 
 ### > `switchState(state:String, ?args:Array<Dynamic>, ?skipTransIn:Bool, ?skipTransOut:Bool)`
 
-#### Dirige el juego a un state 
+#### Switches the game to a state 
 
-- `state`: Ruta de la clase del estado 
+- `state`: Class path of the state 
 
-- `args`: Argumentos de la instancia de la clase 
+- `args`: Arguments for the class instance 
 
-- `skipTransIn`: Define si la transición de entrada será mostrada o no 
+- `skipTransIn`: Defines whether the entry transition will be shown 
 
-- `skipTransOut`: Defina si la transición de salida será mostrada o no 
+- `skipTransOut`: Defines whether the exit transition will be shown 
 
 ---
 
 ### > `openSubState(substate:String, ?args:Array<Dynamic>)`
 
-#### Abre un sub-estado 
+#### Opens a sub-state 
 
-- `substate`: Ruta de la clase del subestado 
+- `substate`: Class path of the substate 
 
-- `args`: Argumentos de la instancia de la clase 
+- `args`: Arguments for the class instance 
 
 ---
 
 ### > `capitalizeString(str:String):String`
 
-#### Capitaliza un texto 
+#### Capitalizes a string 
 
-- `str`: String a capitalizar 
+- `str`: String to capitalize 
 
-#### `RETURN`: String capitalizado 
+#### `RETURN`: Capitalized string 
 
 ---
 
 ### > `listFromString(str:String):Array<String>`
 
-#### Extrae una lista basada en los saltos de línea de un string 
+#### Extracts a list based on the line breaks of a string 
 
-- `str`: String a procesar 
+- `str`: String to process 
 
-#### `RETURN`: Lista de línease 
+#### `RETURN`: List of lines 
 
 ---
 
 ### > `browserLoad(site:String)`
 
-#### Abre una URL en el navegador 
+#### Opens a URL in the browser 
 
-- `site`: URL del Sitio 
+- `site`: Site URL 
 
 ---
 
 ### > `getBuildTarget():String`
 
-#### Obtiene el target al que fue compilado el motor 
+#### Gets the target the engine was compiled for 
 
-#### `RETURN`: Target obtenido 
+#### `RETURN`: Obtained target 
 

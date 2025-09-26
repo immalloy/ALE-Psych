@@ -2,65 +2,65 @@
 
 ### > `keyboardJustPressed(name:String)`
 
-#### Define si una tecla ha sido presionada 
+#### Defines if a key has been pressed 
 
-- `name`: Nombre de la tecla 
+- `name`: Key name 
 
-#### `RETURN`: Si la tecla ha sido presionada 
+#### `RETURN`: Whether the key has been pressed 
 
 ---
 
 ### > `keyboardPressed(name:String)`
 
-#### Define si una tecla está siendo presionada 
+#### Defines if a key is being held down 
 
-- `name`: Nombre de la tecla 
+- `name`: Key name 
 
-#### `RETURN`: Si la tecla está siendo presionada 
+#### `RETURN`: Whether the key is being held down 
 
 ---
 
 ### > `keyboardReleased(name:String)`
 
-#### Define si una tecla ha sido soltada 
+#### Defines if a key has been released 
 
-- `name`: Nombre de la tecla 
+- `name`: Key name 
 
-#### `RETURN`: Si la tecla ha sido soltada 
+#### `RETURN`: Whether the key has been released 
 
 ---
 
 ### > `keyJustPressed(group:String, name:String)`
 
-#### Define si una tecla de las opciones ha sido presionada. Véase [ClientPrefs](https://github.com/ALE-Psych-Crew/ALE-Psych/blob/main/source/core/config/ClientPrefs.hx) 
+#### Defines if a key from the options has been pressed. See [ClientPrefs](https://github.com/ALE-Psych-Crew/ALE-Psych/blob/main/source/core/config/ClientPrefs.hx) 
 
-- `group`: Grupo de la tecla 
+- `group`: Key group 
 
-- `group`: ID de la tecla 
+- `name`: Key ID 
 
-#### `RETURN`: Si la tecla ha sido presionada 
+#### `RETURN`: Whether the key has been pressed 
 
 ---
 
 ### > `keyPressed(group:String, name:String)`
 
-#### Define si una tecla de las opciones está siendo presionada. Véase [ClientPrefs](https://github.com/ALE-Psych-Crew/ALE-Psych/blob/main/source/core/config/ClientPrefs.hx) 
+#### Defines if a key from the options is being held down. See [ClientPrefs](https://github.com/ALE-Psych-Crew/ALE-Psych/blob/main/source/core/config/ClientPrefs.hx) 
 
-- `group`: Grupo de la tecla 
+- `group`: Key group 
 
-- `group`: ID de la tecla 
+- `name`: Key ID 
 
-#### `RETURN`: Si la tecla está siendo presionada 
+#### `RETURN`: Whether the key is being held down 
 
 ---
 
 ### > `keyReleased(group:String, name:String)`
 
-#### Define si una tecla de las opciones ha sido soltada. Véase [ClientPrefs](https://github.com/ALE-Psych-Crew/ALE-Psych/blob/main/source/core/config/ClientPrefs.hx) 
+#### Defines if a key from the options has been released. See [ClientPrefs](https://github.com/ALE-Psych-Crew/ALE-Psych/blob/main/source/core/config/ClientPrefs.hx) 
 
-- `group`: Grupo de la tecla 
+- `group`: Key group 
 
-- `group`: ID de la tecla 
+- `name`: Key ID 
 
-#### `RETURN`: Si la tecla ha sido soltada 
+#### `RETURN`: Whether the key has been released 
 

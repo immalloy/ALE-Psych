@@ -2,185 +2,185 @@
 
 ### > `endSong()`
 
-#### Termina la canción 
+#### Ends the song 
 
 ---
 
 ### > `restartSong()`
 
-#### Reinicia la canción 
+#### Restarts the song 
 
 ---
 
 ### > `exitSong()`
 
-#### Sale de la canción hacia el menú correspondiente 
+#### Exits the song to the corresponding menu 
 
 ---
 
 ### > `cameraSetTarget(target:String)`
 
-#### Define el objetivo de la cámara del juego 
+#### Sets the game camera target 
 
-- `target`: Objetivo de la cámara. Puede ser `gf`/`girlfriend`, `dad`/`opponent` o `bf`/`boyfriend` 
+- `target`: Camera target. Can be `gf`/`girlfriend`, `dad`/`opponent` or `bf`/`boyfriend` 
 
 ---
 
 ### > `triggerEvent(name:String, arg1:Dynamic, arg2:Dynamic)`
 
-#### Ejecuta un evento en la canción 
+#### Triggers an event in the song 
 
-- `name`: Nombre del evento 
+- `name`: Event name 
 
-- `arg1`: Primer argumento del evento 
+- `arg1`: First event argument 
 
-- `arg2`: Segundo argumento del evento 
+- `arg2`: Second event argument 
 
 ---
 
 ### > `characterDance(character:String)`
 
-#### Ejecuta la lógica del baile a un personaje 
+#### Executes dance logic on a character 
 
-- `character`: Personaje que se usará. Puede ser `gf`/`girlfriend`, `dad`/`opponent` o `bf`/`boyfriend` 
+- `character`: Character to use. Can be `gf`/`girlfriend`, `dad`/`opponent` or `bf`/`boyfriend` 
 
 ---
 
 ### > `startDialogue(dialogueFile:String, ?music:String)`
 
-#### Inicia el diálogo de la canción 
+#### Starts the song dialogue 
 
-- `dialogueFile`: Archivo que contiene el diálogo 
+- `dialogueFile`: File that contains the dialogue 
 
-- `music`: Ruta del audio que se reproducirá como música 
+- `music`: Path of the audio that will play as music 
 
 ---
 
 ### > `noteTween(tag:String, note:Int, props:Dynamic, ?time:Float, ?options:Dynamic)`
 
-#### Realiza un tween sobre una nota 
+#### Performs a tween on a note 
 
-- `tag`: ID del tween 
+- `tag`: Tween ID 
 
-- `note`: Posición de la nota en el strumLine 
+- `note`: Note position in the strumLine 
 
-- `props`: Tabla de variables que se van a modificar 
+- `props`: Table of variables to modify 
 
-- `time`: Duración del tween 
+- `time`: Tween duration 
 
-- `options`: Opciones del tween. Véase [TweenOptions](https://api.haxeflixel.com/flixel/tweens/TweenOptions.html) 
+- `options`: Tween options. See [TweenOptions](https://api.haxeflixel.com/flixel/tweens/TweenOptions.html) 
 
 ---
 
 ### > `noteTweenX(tag:String, note:Int, value:Dynamic, duration:Float, ease:String)`
 
-#### Realiza un tween sobre la variable `x` de una nota 
+#### Performs a tween on the `x` variable of a note 
 
-- `tag`: ID del tween 
+- `tag`: Tween ID 
 
-- `note`: Posición de la nota en el strumLine 
+- `note`: Note position in the strumLine 
 
-- `value`: Valor de la variable 
+- `value`: Variable value 
 
-- `duration`: Duración del tween 
+- `duration`: Tween duration 
 
-- `ease`: Ease del tween 
+- `ease`: Tween ease 
 
-###### `DEPRECATED`: Use `noteTween` en su lugar 
+###### `DEPRECATED`: Use `noteTween` instead 
 
 ---
 
 ### > `noteTweenY(tag:String, note:Int, value:Dynamic, duration:Float, ease:String)`
 
-#### Realiza un tween sobre la variable `y` de una nota 
+#### Performs a tween on the `y` variable of a note 
 
-- `tag`: ID del tween 
+- `tag`: Tween ID 
 
-- `note`: Posición de la nota en el strumLine 
+- `note`: Note position in the strumLine 
 
-- `value`: Valor de la variable 
+- `value`: Variable value 
 
-- `duration`: Duración del tween 
+- `duration`: Tween duration 
 
-- `ease`: Ease del tween 
+- `ease`: Tween ease 
 
-###### `DEPRECATED`: Use `noteTween` en su lugar 
+###### `DEPRECATED`: Use `noteTween` instead 
 
 ---
 
 ### > `noteTweenAngle(tag:String, note:Int, value:Dynamic, duration:Float, ease:String)`
 
-#### Realiza un tween sobre la variable `angle` de una nota 
+#### Performs a tween on the `angle` variable of a note 
 
-- `tag`: ID del tween 
+- `tag`: Tween ID 
 
-- `note`: Posición de la nota en el strumLine 
+- `note`: Note position in the strumLine 
 
-- `value`: Valor de la variable 
+- `value`: Variable value 
 
-- `duration`: Duración del tween 
+- `duration`: Tween duration 
 
-- `ease`: Ease del tween 
+- `ease`: Tween ease 
 
-###### `DEPRECATED`: Use `noteTween` en su lugar 
+###### `DEPRECATED`: Use `noteTween` instead 
 
 ---
 
 ### > `noteTweenDirection(tag:String, note:Int, value:Dynamic, duration:Float, ease:String)`
 
-#### Realiza un tween sobre la variable `direction` de una nota 
+#### Performs a tween on the `direction` variable of a note 
 
-- `tag`: ID del tween 
+- `tag`: Tween ID 
 
-- `note`: Posición de la nota en el strumLine 
+- `note`: Note position in the strumLine 
 
-- `value`: Valor de la variable 
+- `value`: Variable value 
 
-- `duration`: Duración del tween 
+- `duration`: Tween duration 
 
-- `ease`: Ease del tween 
+- `ease`: Tween ease 
 
-###### `DEPRECATED`: Use `noteTween` en su lugar 
+###### `DEPRECATED`: Use `noteTween` instead 
 
 ---
 
 ### > `noteTweenAlpha(tag:String, note:Int, value:Dynamic, duration:Float, ease:String)`
 
-#### Realiza un tween sobre la variable `alpha` de una nota 
+#### Performs a tween on the `alpha` variable of a note 
 
-- `tag`: ID del tween 
+- `tag`: Tween ID 
 
-- `note`: Posición de la nota en el strumLine 
+- `note`: Note position in the strumLine 
 
-- `value`: Valor de la variable 
+- `value`: Variable value 
 
-- `duration`: Duración del tween 
+- `duration`: Tween duration 
 
-- `ease`: Ease del tween 
+- `ease`: Tween ease 
 
-###### `DEPRECATED`: Use `noteTween` en su lugar 
+###### `DEPRECATED`: Use `noteTween` instead 
 
 ---
 
 ### > `addBehindGF(obj:String)`
 
-#### Añade un objeto al juego detrás de la entidad Girlfriend 
+#### Adds an object to the game behind the Girlfriend entity 
 
-- `obj`: ID del objeto 
+- `obj`: Object ID 
 
 ---
 
 ### > `addBehindBF(obj:String)`
 
-#### Añade un objeto al juego detrás de la entidad Boyfriend 
+#### Adds an object to the game behind the Boyfriend entity 
 
-- `obj`: ID del objeto 
+- `obj`: Object ID 
 
 ---
 
 ### > `addBehindDad(obj:String)`
 
-#### Añade un objeto al juego detrás de la entidad Dad 
+#### Adds an object to the game behind the Dad entity 
 
-- `obj`: ID del objeto 
+- `obj`: Object ID 
 

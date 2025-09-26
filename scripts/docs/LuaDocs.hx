@@ -112,6 +112,17 @@ class LuaDocs
         for (index => file in toGen)
             generate(read(File.getContent(file.path)), file.folder, file.name);
         
+        var homePage:String = '';
+
+        homePage += '# ALE Psych Lua API\n\n';
+        homePage += '## Home Page\n\n';
+        homePage += '### Table of Contents:\n\n';
+
+        for (file in list)
+            homePage += '- [' + file + '](' + path + '/' + file + ')\n';
+
+        File.saveContent(GEN_PATH + '/Home.md', homePage);
+
         Sys.println('');
         Sys.println('---- [ALE Psych\'s Lua Docs] ----');
         Sys.println('');

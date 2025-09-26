@@ -2,185 +2,185 @@
 
 ### > `initLuaShader(tag:String, name:String)`
 
-#### Crea un `ALERuntimeShader` 
+#### Creates an `ALERuntimeShader` 
 
-- `tag`: ID del shader 
+- `tag`: Shader ID 
 
-- `name`: Nombre del archivo 
+- `name`: File name 
 
 ---
 
 ### > `setCameraShaders(camera:String, shaderTags:Array<String>)`
 
-#### Aplica shaders a una cámara 
+#### Applies shaders to a camera 
 
-- `camera`: ID de la cámara 
+- `camera`: Camera ID 
 
-- `shaderTags`: Lista de IDs de los shaders 
+- `shaderTags`: List of shader IDs 
 
 ---
 
 ### > `setSpriteShader(tag:String, name:String)`
 
-#### Aplica un shader a un sprite 
+#### Applies a shader to a sprite 
 
-- `tag`: ID del sprite 
+- `tag`: Sprite ID 
 
-- `name`: ID del shader 
+- `name`: Shader ID 
 
 ---
 
 ### > `setShaderInt(tag:String, id:String, int:Int)`
 
-#### Define un entero a un shader 
+#### Sets an integer on a shader 
 
-- `tag`: ID del shader 
+- `tag`: Shader ID 
 
-- `id`: ID del entero 
+- `id`: Integer ID 
 
-- `int`: Valor del entero 
+- `int`: Integer value 
 
 ---
 
 ### > `getShaderInt(tag:String, id:String):Null<Int>`
 
-#### Obtiene un entero de un shader 
+#### Gets an integer from a shader 
 
-- `tag`: ID del shader 
+- `tag`: Shader ID 
 
-- `id`: ID del entero 
+- `id`: Integer ID 
 
-#### `RETURN`: Valor del entero 
+#### `RETURN`: Integer value 
 
 ---
 
 ### > `setShaderIntArray(tag:String, id:String, ints:Array<Int>)`
 
-#### Define una lista de enteros a un shader 
+#### Sets a list of integers on a shader 
 
-- `tag`: ID del shader 
+- `tag`: Shader ID 
 
-- `id`: ID de la lista de enteros 
+- `id`: Integer list ID 
 
-- `ints`: Lista de enteros 
+- `ints`: List of integers 
 
 ---
 
 ### > `getShaderIntArray(tag:String, id:String):Null<Array<Int>>`
 
-#### Obtiene una lista de enteros de un shader 
+#### Gets a list of integers from a shader 
 
-- `tag`: ID del shader 
+- `tag`: Shader ID 
 
-- `id`: ID de la lista de enteros 
+- `id`: Integer list ID 
 
-#### `RETURN`: Lista de enteros 
+#### `RETURN`: List of integers 
 
 ---
 
 ### > `setShaderFloat(tag:String, id:String, float:Float)`
 
-#### Define un decimal a un shader 
+#### Sets a float on a shader 
 
-- `tag`: ID del shader 
+- `tag`: Shader ID 
 
-- `id`: ID del decimal 
+- `id`: Float ID 
 
-- `float`: Valor del decimal 
+- `float`: Float value 
 
 ---
 
 ### > `getShaderFloat(tag:String, id:String):Null<Float>`
 
-#### Obtiene un decimal de un shader 
+#### Gets a float from a shader 
 
-- `tag`: ID del shader 
+- `tag`: Shader ID 
 
-- `id`: ID del decimal 
+- `id`: Float ID 
 
-#### `RETURN`: Valor del decimal 
+#### `RETURN`: Float value 
 
 ---
 
 ### > `setShaderFloatArray(tag:String, id:String, floats:Array<Float>)`
 
-#### Define una lista de decimales a un shader 
+#### Sets a list of floats on a shader 
 
-- `tag`: ID del shader 
+- `tag`: Shader ID 
 
-- `id`: ID de la lista de decimales 
+- `id`: Float list ID 
 
-- `float`: Lista de decimales 
+- `float`: List of floats 
 
 ---
 
 ### > `getShaderFloatArray(tag:String, id:String):Null<Array<Float>>`
 
-#### Obtiene una lista de decimales de un shader 
+#### Gets a list of floats from a shader 
 
-- `tag`: ID del shader 
+- `tag`: Shader ID 
 
-- `id`: ID de la lista de decimales 
+- `id`: Float list ID 
 
-#### `RETURN`: Lista de decimales 
+#### `RETURN`: List of floats 
 
 ---
 
 ### > `setShaderBool(tag:String, id:String, bool:Bool)`
 
-#### Define un booleano a un shader 
+#### Sets a boolean on a shader 
 
-- `tag`: ID del shader 
+- `tag`: Shader ID 
 
-- `id`: ID del booleano 
+- `id`: Boolean ID 
 
-- `float`: Valor del booleano 
+- `float`: Boolean value 
 
 ---
 
 ### > `getShaderBool(tag:String, id:String):Null<Bool>`
 
-#### Obtiene un booleano de un shader 
+#### Gets a boolean from a shader 
 
-- `tag`: ID del shader 
+- `tag`: Shader ID 
 
-- `id`: ID del booleano 
+- `id`: Boolean ID 
 
-#### `RETURN`: Valor del booleano 
+#### `RETURN`: Boolean value 
 
 ---
 
 ### > `setShaderBoolArray(tag:String, id:String, bools:Array<Bool>)`
 
-#### Define una lista de booleanos a un shader 
+#### Sets a list of booleans on a shader 
 
-- `tag`: ID del shader 
+- `tag`: Shader ID 
 
-- `id`: ID de la lista de booleanos 
+- `id`: Boolean list ID 
 
-- `float`: Lista de booleanos 
+- `float`: List of booleans 
 
 ---
 
 ### > `getShaderBoolArray(tag:String, id:String):Null<Array<Bool>>`
 
-#### Obtiene una lista de booleanos de un shader 
+#### Gets a list of booleans from a shader 
 
-- `tag`: ID del shader 
+- `tag`: Shader ID 
 
-- `id`: ID de la lista de booleanos 
+- `id`: Boolean list ID 
 
-#### `RETURN`: Lista de booleanos 
+#### `RETURN`: List of booleans 
 
 ---
 
 ### > `setShaderSample2D(tag:String, id:String, path:String)`
 
-#### Define un sampler2D a un shader 
+#### Sets a sampler2D on a shader 
 
-- `tag`: ID del shader 
+- `tag`: Shader ID 
 
-- `id`: ID del sampler2D 
+- `id`: sampler2D ID 
 
-- `path`: Ruta de la imagen 
+- `path`: Image path 
 

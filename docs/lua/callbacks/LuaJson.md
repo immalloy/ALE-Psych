@@ -2,31 +2,31 @@
 
 ### > `parseJson(str:String)`
 
-#### Parsea un string en formato JSON 
+#### Parses a string in JSON format 
 
-- `str`: String en JSON 
+- `str`: JSON string 
 
-#### `RETURN`: Tabla del JSON Parseado 
+#### `RETURN`: Parsed JSON table 
 
 ---
 
 ### > `parseJsonFile(path:String)`
 
-#### Parsea un archivo en formato JSON 
+#### Parses a file in JSON format 
 
-- `path`: Ruta del archivo 
+- `path`: File path 
 
-#### `RETURN`: Tabla del JSON Parseado 
+#### `RETURN`: Parsed JSON table 
 
 ---
 
 ### > `stringifyJson(object:Dynamic, ?space:String)`
 
-#### Pasa una Tabla a un string en formato JSON 
+#### Converts a table to a JSON string 
 
-- `object`: Tabla 
+- `object`: Table 
 
-- `space`: Espacio de identación 
+- `space`: Indentation space 
 
-#### `RETURN`: String en formato JSON 
+#### `RETURN`: JSON formatted string 
 

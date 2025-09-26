@@ -2,47 +2,47 @@
 
 ### > `checkFileExists(name:String):Bool`
 
-#### Verifica si un archivo existe, sea en `assets` o en la carpeta del mod 
+#### Checks if a file exists, either in `assets` or in the mod folder 
 
-- `name`: Ruta del archivo 
+- `name`: File path 
 
-#### `RETURN`: Si el archivo existe 
+#### `RETURN`: Whether the file exists 
 
 ---
 
 ### > `saveFile(name:String, content:String)`
 
-#### Guarda un archivo en la carpeta del mod 
+#### Saves a file in the mod folder 
 
-- `name`: Ruta del archivo 
+- `name`: File path 
 
-- `content`: Contenido del archivo 
+- `content`: File content 
 
 ---
 
 ### > `deleteFile(name:String)`
 
-#### Elimina un archivo en la carpeta del mod 
+#### Deletes a file in the mod folder 
 
-- `name`: Ruta del archivo 
+- `name`: File path 
 
 ---
 
 ### > `getTextFromFile(name:String):String`
 
-#### Obtiene el contenido del archivo en string 
+#### Gets the file content as a string 
 
-- `name`: Ruta del archivo 
+- `name`: File path 
 
-#### `RETURN`: Contenido del archivo 
+#### `RETURN`: File content 
 
 ---
 
 ### > `directoryFileList(name:String)`
 
-#### Obtiene una lista de los archivos en una carpeta 
+#### Gets a list of files in a folder 
 
-- `name`: Ruta de la carpeta 
+- `name`: Folder path 
 
-#### `RETURN`: Lista de archivos de la carpeta 
+#### `RETURN`: List of files in the folder 
 

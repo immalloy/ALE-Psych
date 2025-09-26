@@ -2,37 +2,37 @@
 
 ### > `flushSaveData(name:String)`
 
-#### Guarda los archivos de guardado 
+#### Saves the save files 
 
-- `name`: ID del archivo de guardado. Puede ser `preferences`, `score`, `custom`, `controls` 
+- `name`: Save file ID. Can be `preferences`, `score`, `custom`, `controls` 
 
 ---
 
 ### > `getDataFromSave(name:String, variable:String):Dynamic`
 
-#### Obtiene un valor de un archivo de guardado 
+#### Gets a value from a save file 
 
-- `name`: ID del archivo de guardado. Puede ser `preferences`, `score`, `custom`, `controls` 
+- `name`: Save file ID. Can be `preferences`, `score`, `custom`, `controls` 
 
-- `variable`: Variable que se busca 
+- `variable`: Variable to look up 
 
-#### `RETURN`: Valor de la variable 
+#### `RETURN`: Variable value 
 
 ---
 
 ### > `setDataFromSave(name:String, values:Any)`
 
-#### Define un valor en un archivo de guardado 
+#### Sets a value in a save file 
 
-- `name`: ID del archivo de guardado. Puede ser `preferences`, `score`, `custom`, `controls` 
+- `name`: Save file ID. Can be `preferences`, `score`, `custom`, `controls` 
 
-- `values`: Tabla de variables que serán definidas o modifcadas 
+- `values`: Table of variables to set or modify 
 
 ---
 
 ### > `eraseSaveData(name:String)`
 
-#### Elimina los datos de un archivo de guardado 
+#### Deletes the data of a save file 
 
-- `name`: ID del archivo de guardado. Puede ser `preferences`, `score`, `custom`, `controls` 
+- `name`: Save file ID. Can be `preferences`, `score`, `custom`, `controls` 
 

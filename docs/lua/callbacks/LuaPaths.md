@@ -2,19 +2,19 @@
 
 ### > `precacheSound(file:String, ?missingPrint:Bool)`
 
-#### Precarga un sonido 
+#### Preloads a sound 
 
-- `file`: Ruta del audio 
+- `file`: Path of the audio 
 
-- `missingPrint`: Define si se debe mostrar un aviso en caso de que el archivo no exista 
+- `missingPrint`: Defines whether to show a warning if the file does not exist 
 
 ---
 
 ### > `precacheMusic(file:String, ?missingPrint:Bool)`
 
-#### Precarga música 
+#### Preloads music 
 
-- `file`: Ruta del audio 
+- `file`: Path of the audio 
 
-- `missingPrint`: Define si se debe mostrar un aviso en caso de que el archivo no exista 
+- `missingPrint`: Defines whether to show a warning if the file does not exist 
 

@@ -2,151 +2,151 @@
 
 ### > `getProperty(tag:String):Dynamic`
 
-#### Obtiene un valor de un objeto 
+#### Gets a value from an object 
 
-- `tag`: Variable que se busca 
+- `tag`: Variable being searched 
 
-#### `RETURN`: Valor de la variable 
+#### `RETURN`: Variable value 
 
 ---
 
 ### > `getPropertyFromGroup(tag:String, index:Int, prop:String):Dynamic`
 
-#### Obtiene un valor de un objeto en un grupo 
+#### Gets a value from an object in a group 
 
-- `tag`: ID del grupo 
+- `tag`: Group ID 
 
-- `index`: Posición del objeto en el grupo 
+- `index`: Object position in the group 
 
-- `prop`: Variable que se busca 
+- `prop`: Variable being searched 
 
-#### `RETURN`: Valor de la variable 
+#### `RETURN`: Variable value 
 
 ---
 
 ### > `getPropertyFromClass(path:String, prop:String):Dynamic`
 
-#### Obtiene un valor de un objeto en un grupo 
+#### Gets a value from a class object 
 
-- `path`: Ruta de la clase 
+- `path`: Class path 
 
-- `prop`: Variable que se busca 
+- `prop`: Variable being searched 
 
-#### `RETURN`: Valor de la variable 
+#### `RETURN`: Variable value 
 
 ---
 
 ### > `setProperty(tag:String, value:Dynamic)`
 
-#### Define un valor a una variable en un objeto 
+#### Sets a value to a variable on an object 
 
-- `tag`: ID del objeto 
+- `tag`: Object ID 
 
-- `value`: Valor de la variable 
+- `value`: Variable value 
 
 ---
 
 ### > `setPropertyFromGroup(tag:String, index:Int, prop:String, value:Dynamic)`
 
-#### Define un valor a una variable de un objeto de un grupo 
+#### Sets a value to a variable of an object in a group 
 
-- `tag`: ID del grupo 
+- `tag`: Group ID 
 
-- `index`: Posicion del objeto en el grupo 
+- `index`: Object position in the group 
 
-- `prop`: Variable del objeto 
+- `prop`: Object variable 
 
-- `value`: Valor de la variable 
+- `value`: Variable value 
 
 ---
 
 ### > `setPropertyFromClass(path:String, prop:String, value:Dynamic)`
 
-#### Define un valor a una variable en una clase 
+#### Sets a value to a variable in a class 
 
-- `path`: Ruta de la Clase 
+- `path`: Class path 
 
-- `prop`: Variable que se busca 
+- `prop`: Variable being searched 
 
-- `value`: Valor de la variable 
+- `value`: Variable value 
 
 ---
 
 ### > `setProperties(tag:String, props:Any)`
 
-#### Define varias propiedades de un objeto 
+#### Sets multiple properties of an object 
 
-- `tag`: ID del objeto 
+- `tag`: Object ID 
 
-- `props`: Table de variables del objeto 
+- `props`: Table of object variables 
 
 ---
 
 ### > `setPropertiesFromGroup(tag:String, index:Int, props:Any)`
 
-#### Define varias propiedades de un objeto en un grupo 
+#### Sets multiple properties of an object in a group 
 
-- `tag`: ID del grupo 
+- `tag`: Group ID 
 
-- `index`: Posicion del objeto en el grupo 
+- `index`: Object position in the group 
 
-- `props`: Tabla de variables del objeto 
+- `props`: Table of object variables 
 
 ---
 
 ### > `setPropertiesFromClass(path:String, props:Any)`
 
-#### Define varias propiedades de una clase 
+#### Sets multiple properties of a class 
 
-- `path`: Ruta de la Clase 
+- `path`: Class path 
 
-- `props`: Tabla de variables de la clase 
+- `props`: Table of class variables 
 
 ---
 
 ### > `callMethod(tag:String, ?args:Array<Dynamic>):Dynamic`
 
-#### Llama una función de un objeto 
+#### Calls a function of an object 
 
-- `tag`: Nombre de la función 
+- `tag`: Function name 
 
-- `args`: Argumentos de la función 
+- `args`: Function arguments 
 
-#### `RETURN`: Devuelve el valor que devuelve la función 
+#### `RETURN`: Returns the function's return value 
 
 ---
 
 ### > `callMethodFromClass(path:String, func:String, ?args:Array<Dynamic>):Dynamic`
 
-#### Llama una función de una clase 
+#### Calls a function of a class 
 
-- `path`: Ruta de la clase 
+- `path`: Class path 
 
-- `func`: Nombre de la función 
+- `func`: Function name 
 
-- `args`: Argumentos de la función 
+- `args`: Function arguments 
 
-#### `RETURN`: Devuelve el valor que devuelve la función 
+#### `RETURN`: Returns the function's return value 
 
 ---
 
 ### > `createInstance(tag:String, path:String, ?args:Array<Dynamic>)`
 
-#### Crea una instancia en una clase 
+#### Creates an instance of a class 
 
-- `tag`: ID de la instancia 
+- `tag`: Instance ID 
 
-- `path`: Ruta de la clase 
+- `path`: Class path 
 
-- `args`: Argumentos de la instancia 
+- `args`: Instance arguments 
 
 ---
 
 ### > `addInstance(tag:String)`
 
-#### Añade una instancia al juego 
+#### Adds an instance to the game 
 
-- `tag`: ID de la instancia 
+- `tag`: Instance ID 
 
-###### `DEPRECATED`: Use `add` en su lugar 
+###### `DEPRECATED`: Use `add` instead 
 

@@ -2,61 +2,61 @@
 
 ### > `makeLuaText(tag:String, text:String, width:Int, x:Float, y:Float)`
 
-#### Crea un `FlxText` 
+#### Creates a `FlxText` 
 
-- `tag`: ID del texto 
+- `tag`: ID of the text 
 
-- `text`: Texto que se mostrara 
+- `text`: Text to display 
 
-- `width`: Ancho máximo del texto 
+- `width`: Maximum text width 
 
-- `x`: Posicion `x` 
+- `x`: Position `x` 
 
-- `y`: Posicion `y` 
+- `y`: Position `y` 
 
 ---
 
 ### > `setTextBorder(tag:String, size:Float, color:FlxColor, ?style:String)`
 
-#### Aplica un contorno a un texto 
+#### Applies a border to text 
 
-- `tag`: ID del texto 
+- `tag`: ID of the text 
 
-- `size`: Grosor del contorno 
+- `size`: Border thickness 
 
-- `color`: Color del contorno 
+- `color`: Border color 
 
-- `style`: Estilo del contorno. Puede ser `shadow`, `outline`, `outline_fast` o `none` 
+- `style`: Border style. Can be `shadow`, `outline`, `outline_fast` or `none` 
 
 ---
 
 ### > `setTextFont(tag:String, newFont:String)`
 
-#### Aplica un font a un texto 
+#### Applies a font to text 
 
-- `tag`: ID del texto 
+- `tag`: ID of the text 
 
-- `newFont`: Font a aplicar 
+- `newFont`: Font to apply 
 
 ---
 
 ### > `addLuaText(tag:String)`
 
-#### Añade un texto al juego 
+#### Adds a text to the game 
 
-- `tag`: ID del texto 
+- `tag`: ID of the text 
 
-###### `DEPRECATED`: Use `add` en su lugar 
+###### `DEPRECATED`: Use `add` instead 
 
 ---
 
 ### > `removeLuaText(tag:String, ?destroy:Bool)`
 
-#### Remueve un texto del juego 
+#### Removes a text from the game 
 
-- `tag`: ID del texto 
+- `tag`: ID of the text 
 
-- `destroy`: Define si se debe destruir o no el texto 
+- `destroy`: Defines whether the text should be destroyed 
 
-###### `DEPRECATED`: Use `remove` en su lugar 
+###### `DEPRECATED`: Use `remove` instead 
 

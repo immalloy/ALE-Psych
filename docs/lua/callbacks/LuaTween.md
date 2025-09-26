@@ -2,149 +2,149 @@
 
 ### > `tween(tag:String, obj:String, props:Dynamic, ?time:Float, ?options:Dynamic)`
 
-#### Crea e inicia un `FlxTween` 
+#### Creates and starts a `FlxTween` 
 
-- `tag`: ID del tween 
+- `tag`: Tween ID 
 
-- `obj`: ID del objeto sobre el que actuará el tween 
+- `obj`: ID of the object the tween will act on 
 
-- `props`: Tabla de variables del objeto que serán modificadas 
+- `props`: Table of object variables that will be modified 
 
-- `time`: Duración del tween 
+- `time`: Tween duration 
 
-- `options`: Opciones del tween. Véase [TweenOptions](https://api.haxeflixel.com/flixel/tweens/TweenOptions.html) 
+- `options`: Tween options. See [TweenOptions](https://api.haxeflixel.com/flixel/tweens/TweenOptions.html) 
 
 ---
 
 ### > `doTweenX(tag:String, obj:String, value:Dynamic, ?time:Float, ?ease:String)`
 
-#### Crea e inicia un tween sobre un objeto y su variable `x` 
+#### Creates and starts a tween on an object and its `x` variable 
 
-- `tag`: ID del tween 
+- `tag`: Tween ID 
 
-- `obj`: ID del objeto 
+- `obj`: Object ID 
 
-- `value`: Valor en `x` 
+- `value`: Value for `x` 
 
-- `time`: Duración del tween 
+- `time`: Tween duration 
 
-- `ease`: Ease del tween 
+- `ease`: Tween ease 
 
-###### `DEPRECATED`: Use `tween` en su lugar 
+###### `DEPRECATED`: Use `tween` instead 
 
 ---
 
 ### > `doTweenY(tag:String, obj:String, value:Dynamic, ?time:Float, ?ease:String)`
 
-#### Crea e inicia un tween sobre un objeto y su variable `y` 
+#### Creates and starts a tween on an object and its `y` variable 
 
-- `tag`: ID del tween 
+- `tag`: Tween ID 
 
-- `obj`: ID del objeto 
+- `obj`: Object ID 
 
-- `value`: Valor en `y` 
+- `value`: Value for `y` 
 
-- `time`: Duración del tween 
+- `time`: Tween duration 
 
-- `ease`: Ease del tween 
+- `ease`: Tween ease 
 
-###### `DEPRECATED`: Use `tween` en su lugar 
+###### `DEPRECATED`: Use `tween` instead 
 
 ---
 
 ### > `doTweenAngle(tag:String, obj:String, value:Dynamic, ?time:Float, ?ease:String)`
 
-#### Crea e inicia un tween sobre un objeto y su variable `angle` 
+#### Creates and starts a tween on an object and its `angle` variable 
 
-- `tag`: ID del tween 
+- `tag`: Tween ID 
 
-- `obj`: ID del objeto 
+- `obj`: Object ID 
 
-- `value`: Valor en `angle` 
+- `value`: Value for `angle` 
 
-- `time`: Duración del tween 
+- `time`: Tween duration 
 
-- `ease`: Ease del tween 
+- `ease`: Tween ease 
 
-###### `DEPRECATED`: Use `tween` en su lugar 
+###### `DEPRECATED`: Use `tween` instead 
 
 ---
 
 ### > `doTweenAlpha(tag:String, obj:String, value:Dynamic, ?time:Float, ?ease:String)`
 
-#### Crea e inicia un tween sobre un objeto y su variable `alpha` 
+#### Creates and starts a tween on an object and its `alpha` variable 
 
-- `tag`: ID del tween 
+- `tag`: Tween ID 
 
-- `obj`: ID del objeto 
+- `obj`: Object ID 
 
-- `value`: Valor en `alpha` 
+- `value`: Value for `alpha` 
 
-- `time`: Duración del tween 
+- `time`: Tween duration 
 
-- `ease`: Ease del tween 
+- `ease`: Tween ease 
 
-###### `DEPRECATED`: Use `tween` en su lugar 
+###### `DEPRECATED`: Use `tween` instead 
 
 ---
 
 ### > `doTweenZoom(tag:String, obj:String, value:Dynamic, ?time:Float, ?ease:String)`
 
-#### Crea e inicia un tween sobre un objeto y su variable `zoom` 
+#### Creates and starts a tween on an object and its `zoom` variable 
 
-- `tag`: ID del tween 
+- `tag`: Tween ID 
 
-- `obj`: ID del objeto 
+- `obj`: Object ID 
 
-- `value`: Valor en `zoom` 
+- `value`: Value for `zoom` 
 
-- `time`: Duración del tween 
+- `time`: Tween duration 
 
-- `ease`: Ease del tween 
+- `ease`: Tween ease 
 
-###### `DEPRECATED`: Use `tween` en su lugar 
+###### `DEPRECATED`: Use `tween` instead 
 
 ---
 
 ### > `doTweenColor(tag:String, obj:String, value:Dynamic, ?time:Float, ?ease:String)`
 
-#### Crea e inicia un tween sobre un objeto y su variable `color` 
+#### Creates and starts a tween on an object and its `color` variable 
 
-- `tag`: ID del tween 
+- `tag`: Tween ID 
 
-- `obj`: ID del objeto 
+- `obj`: Object ID 
 
-- `value`: Valor en `color` 
+- `value`: Value for `color` 
 
-- `time`: Duración del tween 
+- `time`: Tween duration 
 
-- `ease`: Ease del tween 
+- `ease`: Tween ease 
 
-###### `DEPRECATED`: Use `tween` en su lugar 
+###### `DEPRECATED`: Use `tween` instead 
 
 ---
 
 ### > `colorTween(tag:String, obj:String, ?time:Float, ?from:FlxColor, ?to:FlxColor, ?options:Dynamic)`
 
-#### Crea e inicia un tween que cambiará el color de un objeto 
+#### Creates and starts a tween that will change an object's color 
 
-- `tag`: ID del tween 
+- `tag`: Tween ID 
 
-- `obj`: ID del objeto 
+- `obj`: Object ID 
 
-- `time`: Duración del tween 
+- `time`: Tween duration 
 
-- `from`: Color inicial 
+- `from`: Starting color 
 
-- `to`: Color final 
+- `to`: Ending color 
 
-- `options`: Opciones del tween. Véase [TweenOptions](https://api.haxeflixel.com/flixel/tweens/TweenOptions.html) 
+- `options`: Tween options. See [TweenOptions](https://api.haxeflixel.com/flixel/tweens/TweenOptions.html) 
 
 ---
 
 ### > `cancelTween(tag:String)`
 
-#### Cancela un tween 
+#### Cancels a tween 
 
-- `tag`: ID del tween 
+- `tag`: Tween ID 
 

@@ -2,19 +2,19 @@
 
 ### > `runTimer(tag:String, ?time:Float, ?loops:Int)`
 
-#### Inicia y ejecuta un `FlxTimer` 
+#### Starts and runs a `FlxTimer` 
 
-- `tag`: ID del timer 
+- `tag`: Timer ID 
 
-- `time`: Duración del timer 
+- `time`: Timer duration 
 
-- `loops`: Cantidad de repeticiones del timer 
+- `loops`: Number of repetitions of the timer 
 
 ---
 
 ### > `cancelTimer(tag:String)`
 
-#### Cancela un timer 
+#### Cancels a timer 
 
-- `tag`: ID del timer 
+- `tag`: Timer ID 
 

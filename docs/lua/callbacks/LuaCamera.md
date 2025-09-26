@@ -2,17 +2,17 @@
 
 ### > `cameraShake(camera:String, tag:String, ?intensity:Float, ?duration:Float, ?force:Bool, ?axes:FlxAxes)`
 
-#### Sacude una cámara 
+#### Shakes a camera 
 
-- `camera`: ID de la cámara 
+- `camera`: ID of the camera 
 
-- `tag`: ID del shake 
+- `tag`: ID of the shake 
 
-- `intensity`: Intensidad del shake 
+- `intensity`: Intensity of the shake 
 
-- `duration`: Duración del shake 
+- `duration`: Duration of the shake 
 
-- `force`: Define si se forzará el shake 
+- `force`: Defines if the shake will be forced 
 
-- `axes`: Define los ejes en los que se sacudirá la cámara. Puede ser `0x00`, `0x01`, `0x11` o `0x10` 
+- `axes`: Defines the axes in which the camera will shake. Can be `0x00`, `0x01`, `0x11` or `0x10` 
 

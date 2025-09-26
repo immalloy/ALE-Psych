@@ -2,25 +2,25 @@
 
 ### > `changeDiscordPresence(details:String, ?state:String, ?largeImage:String, ?smallImage:String, ?usesTime:Bool, ?endTime:Float)`
 
-#### Cambia los detalles del RPC de Discord 
+#### Changes the Discord RPC details 
 
-- `details`: Titulo del RPC 
+- `details`: Title of the RPC 
 
-- `state`: Subtitulo del RPC 
+- `state`: Subtitle of the RPC 
 
-- `largeImage`: Icono Principañ del RPC 
+- `largeImage`: Main icon of the RPC 
 
-- `smallImage`: Icono secundario del RPC 
+- `smallImage`: Secondary icon of the RPC 
 
-- `usesTime`: Muestra un contador de tiempo en el RPC 
+- `usesTime`: Shows a timer counter in the RPC 
 
-- `endTime`: Tiempo de inicio de la cuenta hacia atrás (se debe poner en milisegundos) 
+- `endTime`: Start time of the countdown (must be in milliseconds) 
 
 ---
 
 ### > `changeDiscordClientID(id:String, ->, {)`
 
-#### Cambia el ID del RPC de Discord 
+#### Changes the Discord RPC client ID 
 
-- `id`: Nuevo ID 
+- `id`: New ID 
 

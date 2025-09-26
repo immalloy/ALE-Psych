@@ -2,33 +2,33 @@
 
 ### > `setObjectCamera(tag:String, camera:String)`
 
-#### Define la cámara en las que se dibujará un objeto 
+#### Sets the camera in which an object will be drawn 
 
-- `tag`: ID del objeto 
+- `tag`: ID of the object 
 
-- `camera`: ID de la cámara 
+- `camera`: ID of the camera 
 
-###### `DEPRECATED`: Use `setObjectCameras` en su lugar 
+###### `DEPRECATED`: Use `setObjectCameras` instead 
 
 ---
 
 ### > `setObjectCameras(tag:String, cameras:Array<String>)`
 
-#### Define las cámaras en las que se dibujará un objeto 
+#### Sets the cameras in which an object will be drawn 
 
-- `tag`: ID del objeto 
+- `tag`: ID of the object 
 
-- `cameras`: Lista de IDs de las cámaras 
+- `cameras`: List of camera IDs 
 
 ---
 
 ### > `objectsOverlap(tag0:String, tag1:String):Bool`
 
-#### Muestra si un objeto está tocando a otro 
+#### Shows if one object is touching another 
 
-- `tag0`: ID del primer objeto 
+- `tag0`: ID of the first object 
 
-- `tag1`: ID del segundo objeto 
+- `tag1`: ID of the second object 
 
-#### `RETURN`: Si los objetos se están tocando 
+#### `RETURN`: Whether the objects are overlapping 
 

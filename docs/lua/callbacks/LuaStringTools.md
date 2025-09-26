@@ -2,45 +2,45 @@
 
 ### > `stringStartsWith(str:String, start:String):Bool`
 
-#### Verifica sin un `String` inicia con el contenido de otro 
+#### Checks if a `String` starts with the content of another 
 
-- `str`: `String` a analizar 
+- `str`: `String` to analyze 
 
-- `start`: Contenido para verificar 
+- `start`: Content to check 
 
-#### `RETURN`: Si `str` empieza con `start` 
+#### `RETURN`: Whether `str` starts with `start` 
 
 ---
 
 ### > `stringEndsWith(str:String, end:String):Bool`
 
-#### Verifica sin un `String` termina con el contenido de otro 
+#### Checks if a `String` ends with the content of another 
 
-- `str`: `String` a analizar 
+- `str`: `String` to analyze 
 
-- `end`: Contenido para verificar 
+- `end`: Content to check 
 
-#### `RETURN`: Si `str` empieza con `end` 
+#### `RETURN`: Whether `str` ends with `end` 
 
 ---
 
 ### > `stringSplit(str:String, split:String):Array<String>`
 
-#### Corta un `String` en varias partes 
+#### Splits a `String` into several parts 
 
-- `str`: `String` a cortar 
+- `str`: `String` to split 
 
-- `split`: Separador de los cortes 
+- `split`: Separator for the splits 
 
-#### `RETURN`: Lista con las partes del `String` 
+#### `RETURN`: List with the parts of the `String` 
 
 ---
 
 ### > `stringTrim(str:String):String`
 
-#### Elimina los espacios al inicio y al final de un `String` 
+#### Removes spaces at the beginning and end of a `String` 
 
-- `str`: `String` a procesar 
+- `str`: `String` to process 
 
-#### `RETURN`: `String` procesado 
+#### `RETURN`: Processed `String` 
 

@@ -2,19 +2,19 @@
 
 ### > `getColorFromName(name:String):Int`
 
-#### Obtiene un color desde su nombre 
+#### Gets a color from its name 
 
-- `name`: Nombre del color. Véase [FlxColor](https://api.haxeflixel.com/flixel/util/FlxColor.html) 
+- `name`: Name of the color. See [FlxColor](https://api.haxeflixel.com/flixel/util/FlxColor.html) 
 
-#### `RETURN`: Color obtenido 
+#### `RETURN`: Obtained color 
 
 ---
 
 ### > `getColorFromString(str:String):Int`
 
-#### Obtiene un color desde un String que contenga su código en HEX 
+#### Gets a color from a String containing its HEX code 
 
-- `str`: String con el código HEX 
+- `str`: String with the HEX code 
 
-#### `RETURN`: Color obtenido 
+#### `RETURN`: Obtained color 
 

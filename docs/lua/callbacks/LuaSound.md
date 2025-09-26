@@ -2,83 +2,83 @@
 
 ### > `playMusic(sound:String, ?volume:Float, ?loop:Bool)`
 
-#### Reproduce música en el juego 
+#### Plays music in the game 
 
-- `sound`: Ruta del audio 
+- `sound`: Audio path 
 
-- `volume`: Volumen de la música (de 0 a 1) 
+- `volume`: Music volume (from 0 to 1) 
 
-- `loop`: Define si la música está en bucle o no 
+- `loop`: Defines whether the music loops 
 
 ---
 
 ### > `playSound(sound:String, ?volume:Float, ?tag:String, ?loop:Bool)`
 
-#### Reproduce un sonido 
+#### Plays a sound 
 
-- `sound`: Ruta del audio 
+- `sound`: Audio path 
 
-- `volume`: Volumen del sonido (de 0 a 1) 
+- `volume`: Sound volume (from 0 to 1) 
 
-- `tag`: ID del sonido 
+- `tag`: Sound ID 
 
-- `loop`: Define si el sonido estará en bucle o no 
+- `loop`: Defines whether the sound loops 
 
 ---
 
 ### > `stopSound(tag:String)`
 
-#### Detiene un sondio 
+#### Stops a sound 
 
-- `tag`: ID del sonido 
+- `tag`: Sound ID 
 
 ---
 
 ### > `pauseSound(tag:String)`
 
-#### Pausa un sonido 
+#### Pauses a sound 
 
-- `tag`: ID del sonido 
+- `tag`: Sound ID 
 
 ---
 
 ### > `resumeSound(tag:String)`
 
-#### Despausa un sonido 
+#### Resumes a sound 
 
-- `tag`: ID del sonido 
+- `tag`: Sound ID 
 
 ---
 
 ### > `soundFadeIn(tag:String, ?duration:Float, ?fromValue:Float, ?toValue:Float)`
 
-#### Cambia el volumen de un sonido en un tiempo determinado 
+#### Changes a sound's volume over a set time 
 
-- `tag`: ID del sonido 
+- `tag`: Sound ID 
 
-- `duration`: Duración del cambio 
+- `duration`: Duration of the change 
 
-- `fromValue`: Volumen inicial 
+- `fromValue`: Starting volume 
 
-- `toValue`: Volumen final 
+- `toValue`: Ending volume 
 
 ---
 
 ### > `soundFadeOut(tag:String, ?duration:Float, ?toValue:Float)`
 
-#### Cambia el volumen de un sonido en un tiempo determinado 
+#### Changes a sound's volume over a set time 
 
-- `tag`: ID del sonido 
+- `tag`: Sound ID 
 
-- `duration`: Duracion del cambio 
+- `duration`: Duration of the change 
 
-- `toValue`: Volumen final 
+- `toValue`: Ending volume 
 
 ---
 
 ### > `soundFadeCancel(tag:String)`
 
-#### Detiene el cambio de volumen de un sonido 
+#### Stops a sound's volume change 
 
-- `tag`: ID del sonido 
+- `tag`: Sound ID 
 

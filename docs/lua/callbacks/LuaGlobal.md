@@ -2,85 +2,85 @@
 
 ### > `add(tag:String)`
 
-#### Añade un objeto al juego 
+#### Adds an object to the game 
 
-- `tag`: ID del objeto 
+- `tag`: ID of the object 
 
 ---
 
 ### > `remove(tag:String, ?destroy:Bool)`
 
-#### Remueve un objeto del juego 
+#### Removes an object from the game 
 
-- `tag`: ID del objeto 
+- `tag`: ID of the object 
 
-- `destroy`: Define si el objeto debe ser o no destruido 
+- `destroy`: Defines whether the object should be destroyed 
 
 ---
 
 ### > `insert(position:Int, tag:String)`
 
-#### Inserta un objeto en el juego 
+#### Inserts an object into the game 
 
-- `position`: Posición en la que el objeto será insertado 
+- `position`: Position where the object will be inserted 
 
-- `tag`: ID del objeto 
+- `tag`: ID of the object 
 
 ---
 
 ### > `getObjectOrder(tag:String)`
 
-#### Obtiene la posición de un objeto en el juego 
+#### Gets the position of an object in the game 
 
-- `tag`: ID del objeto 
+- `tag`: ID of the object 
 
-#### `RETURN`: Posicion del objeto 
+#### `RETURN`: Object position 
 
 ---
 
 ### > `setObjectOrder(tag:String, position:Int)`
 
-#### Remueve e inserta un objeto del juego en una posición distinta 
+#### Removes and reinserts an object in a different position 
 
-- `tag`: ID del objeto 
+- `tag`: ID of the object 
 
-- `position`: Nueva posición 
+- `position`: New position 
 
 ---
 
 ### > `getRandomInt(?min:Int, ?max:Int, ?excludes:Array<Int>)`
 
-#### Obtiene un entero aleatorio 
+#### Gets a random integer 
 
-- `min`: Entero más pequeño 
+- `min`: Smallest integer 
 
-- `max`: Entero mas grande 
+- `max`: Largest integer 
 
-- `excludes`: Enteros que no serán usados 
+- `excludes`: Integers that will not be used 
 
-#### `RETURN`: Entero obtenido 
+#### `RETURN`: Obtained integer 
 
 ---
 
 ### > `getRandomFloat(?min:Float, ?max:Float, ?excludes:Array<Float>)`
 
-#### Obtiene un decimal aleatorio 
+#### Gets a random float 
 
-- `min`: Decimal más pequeño 
+- `min`: Smallest float 
 
-- `max`: Decimal mas grande 
+- `max`: Largest float 
 
-- `excludes`: Decimales que no serán usados 
+- `excludes`: Floats that will not be used 
 
-#### `RETURN`: Decimal obtenido 
+#### `RETURN`: Obtained float 
 
 ---
 
 ### > `getRandomBool(?chance:Float)`
 
-#### Obtiene un booleano aleatorio 
+#### Gets a random boolean 
 
-- `chance`: Probabilidad de que el valor sea `true` (del 0 al 100) 
+- `chance`: Probability that the value is `true` (from 0 to 100) 
 
-#### `RETURN`: Booleano obtenido 
+#### `RETURN`: Obtained boolean 
 

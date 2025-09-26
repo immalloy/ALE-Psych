@@ -2,241 +2,241 @@
 
 ### > `makeLuaSprite(tag:String, ?image:String, ?x:Float, ?y:Float)`
 
-#### Crea un `FlxSprite` 
+#### Creates a `FlxSprite` 
 
-- `tag`: ID del sprite 
+- `tag`: Sprite ID 
 
-- `image`: Ruta de la imagen 
+- `image`: Image path 
 
-- `x`: Posicion en `x` 
+- `x`: Position on `x` 
 
-- `y`: Posicion en `y` 
+- `y`: Position on `y` 
 
 ---
 
 ### > `loadGraphic(tag:String, sprite:String, ?gridX:Int, =, 0, ?gridY:Int, =, 0)`
 
-#### Carga un grafico a un sprite 
+#### Loads a graphic into a sprite 
 
-- `tag`: ID del sprite 
+- `tag`: Sprite ID 
 
-- `sprite`: Ruta de la imagen 
+- `sprite`: Image path 
 
-- `gridX`: Ancho maximo del grafico 
+- `gridX`: Maximum graphic width 
 
-- `gridY`: Alto maximo del grafico 
+- `gridY`: Maximum graphic height 
 
 ---
 
 ### > `makeGraphic(tag:String, x:Float, y:Float, ?color:FlxColor)`
 
-#### Crea un grafico cuadrado y lo carga a un sprite 
+#### Creates a square graphic and loads it into a sprite 
 
-- `tag`: ID del sprite 
+- `tag`: Sprite ID 
 
-- `x`: Ancho del grafico 
+- `x`: Graphic width 
 
-- `y`: Alto del grafico 
+- `y`: Graphic height 
 
-- `color`: Color del grafico 
+- `color`: Graphic color 
 
 ---
 
 ### > `loadFrames(tag:String, sprite:String, ?spriteType:String)`
 
-#### Carga un grafico animado a un sprite 
+#### Loads an animated graphic into a sprite 
 
-- `tag`: ID del sprite 
+- `tag`: Sprite ID 
 
-- `sprite`: Ruta de la imagen 
+- `sprite`: Image path 
 
-- `spriteType`: Tipo de grafico. Puede ser `sparrow`, `packer`, `aseprite` 
+- `spriteType`: Graphic type. Can be `sparrow`, `packer`, `aseprite` 
 
 ---
 
 ### > `addAnimationByPrefix(tag:String, name:String, prefix:String, ?framerate:Int, ?loop:Bool)`
 
-#### Añade una animación al sprite 
+#### Adds an animation to the sprite 
 
-- `tag`: ID del sprite 
+- `tag`: Sprite ID 
 
-- `name`: Nombre de la animación 
+- `name`: Animation name 
 
-- `prefix`: Prefijo de la animación en el atlas 
+- `prefix`: Animation prefix in the atlas 
 
-- `framerate`: Velocidad de la animación en frames 
+- `framerate`: Animation speed in frames 
 
-- `loop`: Define si la animación debe o no repetirse en bucle 
+- `loop`: Defines whether the animation should loop 
 
 ---
 
 ### > `addAnimation(tag:String, name:String, frames:Array<Int>, ?framerate:Int, ?loop:Bool)`
 
-#### Añade una animación al sprite 
+#### Adds an animation to the sprite 
 
-- `tag`: ID del sprite 
+- `tag`: Sprite ID 
 
-- `name`: Nombre de la animación 
+- `name`: Animation name 
 
-- `frames`: Indices que indican qué fotogramas se deben reproducir y en qué orden 
+- `frames`: Indices that indicate which frames to play and in what order 
 
-- `framerate`: Velocidad de la animación en frames 
+- `framerate`: Animation speed in frames 
 
-- `loop`: Define si la animación debe o no repetirse en bucle 
+- `loop`: Defines whether the animation should loop 
 
 ---
 
 ### > `addAnimationByIndices(tag:String, name:String, prefix:String, indices:Array<Int>, ?framerate:Int, ?loop:Bool)`
 
-#### Añade una animación al sprite 
+#### Adds an animation to the sprite 
 
-- `tag`: ID del sprite 
+- `tag`: Sprite ID 
 
-- `name`: Nombre de la animación 
+- `name`: Animation name 
 
-- `prefix`: Prefijo de la animación en el atlas 
+- `prefix`: Animation prefix in the atlas 
 
-- `indices`: Indices que indican qué fotogramas se deben reproducir y en qué orden 
+- `indices`: Indices that indicate which frames to play and in what order 
 
-- `framerate`: Velocidad de la animación en frames 
+- `framerate`: Animation speed in frames 
 
-- `loop`: Define si la animación debe o no repetirse en bucle 
+- `loop`: Defines whether the animation should loop 
 
 ---
 
 ### > `playAnim(tag:String, name:String, ?forced:Bool, ?reversed:Bool, ?startFrame:Int)`
 
-#### Reproduce una animación del sprite 
+#### Plays a sprite animation 
 
-- `tag`: ID del sprite 
+- `tag`: Sprite ID 
 
-- `name`: Nombre de la animación 
+- `name`: Animation name 
 
-- `forced`: Fuerza a que se reproduzca la animación 
+- `forced`: Forces the animation to play 
 
 ---
 
 ### > `setGraphicSize(tag:String, w:Int, h:Int)`
 
-#### Define el tamaño del sprite en píxeles 
+#### Sets the sprite size in pixels 
 
-- `tag`: ID del sprite 
+- `tag`: Sprite ID 
 
-- `w`: Ancho del sprite 
+- `w`: Sprite width 
 
-- `h`: Alto del sprite 
+- `h`: Sprite height 
 
 ---
 
 ### > `updateHitbox(tag:String)`
 
-#### Actualiza la hitbox del sprite 
+#### Updates the sprite hitbox 
 
-- `tag`: ID del sprite 
+- `tag`: Sprite ID 
 
 ---
 
 ### > `setBlendMode(tag:String, mode:String)`
 
-#### Cambia la forma en la que se mezclan los colores de un sprite con otros 
+#### Changes how a sprite's colors blend with others 
 
-- `tag`: ID del sprite 
+- `tag`: Sprite ID 
 
-- `mode`: Define el modo de mezcla de color. Puede ser `add`,`alpha`,`darken`,`difference`,`erase`,`hardlight`,`invert`,`layer`,`lighten`,`multiply`,`normal`,`overlay`,`screen`,`shader` o `subtract` 
+- `mode`: Defines the color blend mode. Can be `add`,`alpha`,`darken`,`difference`,`erase`,`hardlight`,`invert`,`layer`,`lighten`,`multiply`,`normal`,`overlay`,`screen`,`shader` or `subtract` 
 
 ---
 
 ### > `getPixelColor(tag:String, x:Int, y:Int):Int`
 
-#### Obtiene el color de un pixel en un sprite 
+#### Gets the color of a pixel in a sprite 
 
-- `tag`: ID del sprite 
+- `tag`: Sprite ID 
 
-- `x`: Posición en `x` del pixel 
+- `x`: Pixel `x` position 
 
-- `y`: Posición en `y` del pixel 
+- `y`: Pixel `y` position 
 
-#### `RETURN`: Color del pixel 
+#### `RETURN`: Pixel color 
 
 ---
 
 ### > `addLuaSprite(tag:String)`
 
-#### Añade un sprite al juego 
+#### Adds a sprite to the game 
 
-- `tag`: ID del Sprite 
+- `tag`: Sprite ID 
 
-###### `DEPRECATED`: Use `add` en su lugar 
+###### `DEPRECATED`: Use `add` instead 
 
 ---
 
 ### > `removeLuaSprite(tag:String, ?destroy:Bool)`
 
-#### Remueve un sprite del juego 
+#### Removes a sprite from the game 
 
-- `tag`: ID del sprite 
+- `tag`: Sprite ID 
 
-- `destroy`: Define si se debe destruir o no el sprite 
+- `destroy`: Defines whether the sprite should be destroyed 
 
-###### `DEPRECATED`: Use `remove` en su lugar 
+###### `DEPRECATED`: Use `remove` instead 
 
 ---
 
 ### > `getMidpointX(tag:String):Float`
 
-#### Obtiene la coordenada `x` del punto medio del sprite 
+#### Gets the `x` coordinate of the sprite midpoint 
 
-- `tag`: ID del sprite 
+- `tag`: Sprite ID 
 
-#### `RETURN`: `x` del punto medio del sprite 
+#### `RETURN`: `x` of the sprite midpoint 
 
 ---
 
 ### > `getMidpointY(tag:String):Float`
 
-#### Obtiene la coordenada `y` del punto medio del sprite 
+#### Gets the `y` coordinate of the sprite midpoint 
 
-- `tag`: ID del sprite 
+- `tag`: Sprite ID 
 
-#### `RETURN`: `y` del punto medio del sprite 
+#### `RETURN`: `y` of the sprite midpoint 
 
 ---
 
 ### > `getGraphicMidpointX(tag:String):Float`
 
-#### Obtiene la coordenada `x` del punto medio del gráfico sprite 
+#### Gets the `x` coordinate of the sprite graphic midpoint 
 
-- `tag`: ID del sprite 
+- `tag`: Sprite ID 
 
-#### `RETURN`: `x` del punto medio del gráfico sprite 
+#### `RETURN`: `x` of the sprite graphic midpoint 
 
 ---
 
 ### > `getGraphicMidpointY(tag:String):Float`
 
-#### Obtiene la coordenada `y` del punto medio del gráfico sprite 
+#### Gets the `y` coordinate of the sprite graphic midpoint 
 
-- `tag`: ID del sprite 
+- `tag`: Sprite ID 
 
-#### `RETURN`: `y` del punto medio del gráfico sprite 
+#### `RETURN`: `y` of the sprite graphic midpoint 
 
 ---
 
 ### > `getScreenPositionX(tag:String):Float`
 
-#### Obtiene la posición en `x` del sprite en la pantalla 
+#### Gets the sprite screen `x` position 
 
-- `tag`: ID del sprite 
+- `tag`: Sprite ID 
 
-#### `RETURN`: Posición en `x` del sprite en la pantalla 
+#### `RETURN`: Sprite screen `x` position 
 
 ---
 
 ### > `getScreenPositionY(tag:String):Float`
 
-#### Obtiene la posición en `y` del sprite en la pantalla 
+#### Gets the sprite screen `y` position 
 
-- `tag`: ID del sprite 
+- `tag`: Sprite ID 
 
-#### `RETURN`: Posición en `y` del sprite en la pantalla 
+#### `RETURN`: Sprite screen `y` position 
 

@@ -2,49 +2,49 @@
 
 ### > `makeFlxAnimateSprite(tag:String, ?x:Float, ?y:Float, ?loadFolder:String)`
 
-#### Crea un FlxAnimate 
+#### Creates a FlxAnimate 
 
-- `tag`: ID del animate 
+- `tag`: ID of the animate 
 
-- `x`: Posición en `x` 
+- `x`: Position on `x` 
 
-- `y`: Posición en `y` 
+- `y`: Position on `y` 
 
-- `loadFolder`: Ruta del atlas 
+- `loadFolder`: Path of the atlas 
 
 ---
 
 ### > `loadAnimateAtlas(tag:String, folderOrImg:Dynamic, ?spriteJson:Dynamic, ?animationJson:Dynamic)`
 
-#### Carga un atlas a un animate 
+#### Loads an atlas into an animate 
 
-- `tag`: ID del animate 
+- `tag`: ID of the animate 
 
-- `folderOrImg`: Ruta del spritemap 
+- `folderOrImg`: Path of the spritemap 
 
-- `spriteJson`: Ruta del JSON del spritemap 
+- `spriteJson`: Path of the spritemap JSON 
 
-- `animationJson`: Ruta del JSON de la animación 
+- `animationJson`: Path of the animation JSON 
 
 ---
 
 ### > `addAnimationBySymbolIndices(tag:String, name:String, symbol:String, indices:Any, ?framerate:Float, ?loop:Bool, ?matX:Float, ?matY:Float)`
 
-#### Añade una animación por su símbolo a un animate 
+#### Adds an animation by its symbol to an animate 
 
-- `tag`: ID del animate 
+- `tag`: ID of the animate 
 
-- `name`: Nombre de la animación 
+- `name`: Name of the animation 
 
-- `symbol`: Nombre del símbolo en Adobe Animate 
+- `symbol`: Symbol name in Adobe Animate 
 
-- `indices`: Indices que indican qué frames y en qué orden se reproducen 
+- `indices`: Indices that indicate which frames and in what order they play 
 
-- `framerate`: Velocidad de la animación en frames 
+- `framerate`: Animation speed in frames 
 
-- `loop`: Define si la animación debería o no estar en bucle 
+- `loop`: Defines whether the animation should loop or not 
 
-- `matX`: Offset del matrix en `x` 
+- `matX`: Matrix offset on `x` 
 
-- `matY`: Offset del matrix en `y` 
+- `matY`: Matrix offset on `y` 
 
