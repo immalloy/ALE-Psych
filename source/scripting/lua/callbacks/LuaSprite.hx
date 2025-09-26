@@ -16,12 +16,12 @@ class LuaSprite extends LuaPresetBase
         super(lua);
 
         /**
-         * Crea un `FlxSprite`
+         * Creates a `FlxSprite`
          * 
-         * @param tag ID del sprite
-         * @param image Ruta de la imagen
-         * @param x Posicion en `x`
-         * @param y Posicion en `y`
+         * @param tag Sprite ID
+         * @param image Image path
+         * @param x Position on `x`
+         * @param y Position on `y`
          */
         set('makeLuaSprite', function(tag:String, ?image:String, ?x:Float, ?y:Float)
         {
@@ -39,12 +39,12 @@ class LuaSprite extends LuaPresetBase
         });
 
         /**
-         * Carga un grafico a un sprite
+         * Loads a graphic into a sprite
          * 
-         * @param tag ID del sprite
-         * @param sprite Ruta de la imagen
-         * @param gridX Ancho maximo del grafico
-         * @param gridY Alto maximo del grafico
+         * @param tag Sprite ID
+         * @param sprite Image path
+         * @param gridX Maximum graphic width
+         * @param gridY Maximum graphic height
          */
         set('loadGraphic', function(tag:String, sprite:String, ?gridX:Int = 0, ?gridY:Int = 0)
         {
@@ -53,12 +53,12 @@ class LuaSprite extends LuaPresetBase
         });
 
         /**
-         * Crea un grafico cuadrado y lo carga a un sprite
+         * Creates a square graphic and loads it into a sprite
          * 
-         * @param tag ID del sprite
-         * @param x Ancho del grafico
-         * @param y Alto del grafico
-         * @param color Color del grafico
+         * @param tag Sprite ID
+         * @param x Graphic width
+         * @param y Graphic height
+         * @param color Graphic color
          */
         set('makeGraphic', function(tag:String, x:Float, y:Float, ?color:FlxColor)
         {
@@ -67,11 +67,11 @@ class LuaSprite extends LuaPresetBase
         });
 
         /**
-         * Carga un grafico animado a un sprite
+         * Loads an animated graphic into a sprite
          * 
-         * @param tag ID del sprite
-         * @param sprite Ruta de la imagen
-         * @param spriteType Tipo de grafico. Puede ser `sparrow`, `packer`, `aseprite`
+         * @param tag Sprite ID
+         * @param sprite Image path
+         * @param spriteType Graphic type. Can be `sparrow`, `packer`, `aseprite`
          */
         set('loadFrames', function(tag:String, sprite:String, ?spriteType:String)
         {
@@ -90,13 +90,13 @@ class LuaSprite extends LuaPresetBase
         });
 
         /**
-         * Añade una animación al sprite
+         * Adds an animation to the sprite
          * 
-         * @param tag ID del sprite
-         * @param name Nombre de la animación
-         * @param prefix Prefijo de la animación en el atlas
-         * @param framerate Velocidad de la animación en frames
-         * @param loop Define si la animación debe o no repetirse en bucle
+         * @param tag Sprite ID
+         * @param name Animation name
+         * @param prefix Animation prefix in the atlas
+         * @param framerate Animation speed in frames
+         * @param loop Defines whether the animation should loop
          */
         set('addAnimationByPrefix', function(tag:String, name:String, prefix:String, ?framerate:Int, ?loop:Bool)
         {
@@ -105,13 +105,13 @@ class LuaSprite extends LuaPresetBase
         });
 
         /**
-         * Añade una animación al sprite
+         * Adds an animation to the sprite
          * 
-         * @param tag ID del sprite
-         * @param name Nombre de la animación
-         * @param frames Indices que indican qué fotogramas se deben reproducir y en qué orden
-         * @param framerate Velocidad de la animación en frames
-         * @param loop Define si la animación debe o no repetirse en bucle
+         * @param tag Sprite ID
+         * @param name Animation name
+         * @param frames Indices that indicate which frames to play and in what order
+         * @param framerate Animation speed in frames
+         * @param loop Defines whether the animation should loop
          */
         set('addAnimation', function(tag:String, name:String, frames:Array<Int>, ?framerate:Int, ?loop:Bool)
         {
@@ -120,14 +120,14 @@ class LuaSprite extends LuaPresetBase
         });
 
         /**
-         * Añade una animación al sprite
+         * Adds an animation to the sprite
          * 
-         * @param tag ID del sprite
-         * @param name Nombre de la animación
-         * @param prefix Prefijo de la animación en el atlas
-         * @param indices Indices que indican qué fotogramas se deben reproducir y en qué orden
-         * @param framerate Velocidad de la animación en frames
-         * @param loop Define si la animación debe o no repetirse en bucle
+         * @param tag Sprite ID
+         * @param name Animation name
+         * @param prefix Animation prefix in the atlas
+         * @param indices Indices that indicate which frames to play and in what order
+         * @param framerate Animation speed in frames
+         * @param loop Defines whether the animation should loop
          */
         set('addAnimationByIndices', function(tag:String, name:String, prefix:String, indices:Array<Int>, ?framerate:Int, ?loop:Bool)
         {
@@ -136,11 +136,11 @@ class LuaSprite extends LuaPresetBase
         });
 
         /**
-         * Reproduce una animación del sprite
+         * Plays a sprite animation
          * 
-         * @param tag ID del sprite
-         * @param name Nombre de la animación
-         * @param forced Fuerza a que se reproduzca la animación
+         * @param tag Sprite ID
+         * @param name Animation name
+         * @param forced Forces the animation to play
          */
         set('playAnim', function(tag:String, name:String, ?forced:Bool, ?reversed:Bool, ?startFrame:Int)
         {
@@ -149,11 +149,11 @@ class LuaSprite extends LuaPresetBase
         });
 
         /**
-         * Define el tamaño del sprite en píxeles
+         * Sets the sprite size in pixels
          * 
-         * @param tag ID del sprite
-         * @param w Ancho del sprite
-         * @param h Alto del sprite
+         * @param tag Sprite ID
+         * @param w Sprite width
+         * @param h Sprite height
          */
         set('setGraphicSize', function(tag:String, w:Int, h:Int)
         {
@@ -162,9 +162,9 @@ class LuaSprite extends LuaPresetBase
         });
 
         /**
-         * Actualiza la hitbox del sprite
+         * Updates the sprite hitbox
          * 
-         * @param tag ID del sprite
+         * @param tag Sprite ID
          */
         set('updateHitbox', function(tag:String)
         {
@@ -173,10 +173,10 @@ class LuaSprite extends LuaPresetBase
         });
 
         /**
-         * Cambia la forma en la que se mezclan los colores de un sprite con otros
+         * Changes how a sprite's colors blend with others
          * 
-         * @param tag ID del sprite
-         * @param mode Define el modo de mezcla de color. Puede ser `add`,`alpha`,`darken`,`difference`,`erase`,`hardlight`,`invert`,`layer`,`lighten`,`multiply`,`normal`,`overlay`,`screen`,`shader` o `subtract`
+         * @param tag Sprite ID
+         * @param mode Defines the color blend mode. Can be `add`,`alpha`,`darken`,`difference`,`erase`,`hardlight`,`invert`,`layer`,`lighten`,`multiply`,`normal`,`overlay`,`screen`,`shader` or `subtract`
          */
         set('setBlendMode', function(tag:String, mode:String)
         {
@@ -185,13 +185,13 @@ class LuaSprite extends LuaPresetBase
         });
 
         /**
-         * Obtiene el color de un pixel en un sprite
+         * Gets the color of a pixel in a sprite
          * 
-         * @param tag ID del sprite
-         * @param x Posición en `x` del pixel
-         * @param y Posición en `y` del pixel
+         * @param tag Sprite ID
+         * @param x Pixel `x` position
+         * @param y Pixel `y` position
          * 
-         * @return Color del pixel
+         * @return Pixel color
          */
         set('getPixelColor', function(tag:String, x:Int, y:Int):Int
         {
@@ -202,11 +202,11 @@ class LuaSprite extends LuaPresetBase
         });
 
         /**
-         * Añade un sprite al juego
+         * Adds a sprite to the game
          * 
-         * @param tag ID del Sprite
+         * @param tag Sprite ID
          * 
-         * @deprecated Use `add` en su lugar
+         * @deprecated Use `add` instead
          */
         set('addLuaSprite', function(tag:String)
         {
@@ -220,12 +220,12 @@ class LuaSprite extends LuaPresetBase
         });
 
         /**
-         * Remueve un sprite del juego
+         * Removes a sprite from the game
 		 * 
-		 * @param tag ID del sprite
-		 * @param destroy Define si se debe destruir o no el sprite
+		 * @param tag Sprite ID
+		 * @param destroy Defines whether the sprite should be destroyed
 		 * 
-		 * @deprecated Use `remove` en su lugar
+		 * @deprecated Use `remove` instead
          */
         set('removeLuaSprite', function(tag:String, ?destroy:Bool)
         {
@@ -239,11 +239,11 @@ class LuaSprite extends LuaPresetBase
         });
 
         /**
-         * Obtiene la coordenada `x` del punto medio del sprite
+         * Gets the `x` coordinate of the sprite midpoint
          * 
-         * @param tag ID del sprite
+         * @param tag Sprite ID
          * 
-         * @return `x` del punto medio del sprite
+         * @return `x` of the sprite midpoint
          */
         set('getMidpointX', function(tag:String):Float
         {
@@ -254,11 +254,11 @@ class LuaSprite extends LuaPresetBase
         });
 
         /**
-         * Obtiene la coordenada `y` del punto medio del sprite
+         * Gets the `y` coordinate of the sprite midpoint
          * 
-         * @param tag ID del sprite
+         * @param tag Sprite ID
          * 
-         * @return `y` del punto medio del sprite
+         * @return `y` of the sprite midpoint
          */
         set('getMidpointY', function(tag:String):Float
         {
@@ -269,11 +269,11 @@ class LuaSprite extends LuaPresetBase
         });
 
         /**
-         * Obtiene la coordenada `x` del punto medio del gráfico sprite
+         * Gets the `x` coordinate of the sprite graphic midpoint
          * 
-         * @param tag ID del sprite
+         * @param tag Sprite ID
          * 
-         * @return `x` del punto medio del gráfico sprite
+         * @return `x` of the sprite graphic midpoint
          */
         set('getGraphicMidpointX', function(tag:String):Float
         {
@@ -284,11 +284,11 @@ class LuaSprite extends LuaPresetBase
         });
 
         /**
-         * Obtiene la coordenada `y` del punto medio del gráfico sprite
+         * Gets the `y` coordinate of the sprite graphic midpoint
          * 
-         * @param tag ID del sprite
+         * @param tag Sprite ID
          * 
-         * @return `y` del punto medio del gráfico sprite
+         * @return `y` of the sprite graphic midpoint
          */
         set('getGraphicMidpointY', function(tag:String):Float
         {
@@ -299,11 +299,11 @@ class LuaSprite extends LuaPresetBase
         });
 
         /**
-         * Obtiene la posición en `x` del sprite en la pantalla
+         * Gets the sprite screen `x` position
          * 
-         * @param tag ID del sprite
+         * @param tag Sprite ID
          * 
-         * @return Posición en `x` del sprite en la pantalla
+         * @return Sprite screen `x` position
          */
         set('getScreenPositionX', function(tag:String):Float
         {
@@ -314,11 +314,11 @@ class LuaSprite extends LuaPresetBase
         });
 
         /**
-         * Obtiene la posición en `y` del sprite en la pantalla
+         * Gets the sprite screen `y` position
          * 
-         * @param tag ID del sprite
+         * @param tag Sprite ID
          * 
-         * @return Posición en `y` del sprite en la pantalla
+         * @return Sprite screen `y` position
          */
         set('getScreenPositionY', function(tag:String):Float
         {
