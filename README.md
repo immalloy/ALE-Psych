@@ -52,6 +52,7 @@ The goal is simple: give developers the tools to build complete mods **without t
 ## Key Differences from Psych
 - Scripted **menus and submenus** (Lua and HScript).  
 - Support for **custom classes**.  
+- Support for 3D Objects.
 - Configurable **data.json** for engine/game properties.  
 - JSON-based **options and credits**.  
 - Integration with **RuleScript** for advanced HScript features.  

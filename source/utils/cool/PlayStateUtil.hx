@@ -49,7 +49,7 @@ class PlayStateUtil
 		return cast json;
 	}
 
-	public static function loadPlayStateSong(name:String, difficulty:String, setSongRoute:Bool = true):PlayStateJSONData
+	public static function loadPlayStateSong(name:String, difficulty:String):PlayStateJSONData
 	{
 		var jsonData:SwagSong = null;
 

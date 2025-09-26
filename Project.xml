@@ -10,6 +10,8 @@
 
 	<set name="SWF_VERSION" value="11.8"/>
 	
+	<app preloader="flixel.system.FlxPreloader" />
+	
 	<!-- _____________________________ ALE Defines _______________________________ -->
 
 	<define name="MODS_ALLOWED" if="cpp"/>
@@ -56,6 +58,8 @@
 	<haxelib name="flixel-ui"/>
 	<haxelib name="flixel-addons"/>
 
+	<haxelib name="away3d"/>
+
 	<haxelib name="hxluajit" if="LUA_ALLOWED"/>
 	<haxelib name="hxluajit-wrapper" if="LUA_ALLOWED"/>
 
@@ -74,6 +78,8 @@
 	<haxelib name="hxvlc" if="VIDEOS_ALLOWED"/>
 
 	<haxelib name="ale-ui"/>
+	
+	<haxelib name="flixel-away3d"/>
 
 	<haxelib name="extension-androidtools" if="android"/>
 

@@ -93,12 +93,14 @@ class Main extends Sprite
 	{
 		super();
 
-		#if ios
-		Sys.setCwd(lime.system.System.applicationStorageDirectory);
+		#if android
+		requestPermissions();
+
+		Sys.setCwd(Path.addTrailingSlash(AndroidContext.getObbDir()));
 		#end
 
-		#if android
-		Sys.setCwd(Path.addTrailingSlash(AndroidContext.getExternalFilesDir()));
+		#if ios
+		Sys.setCwd(lime.system.System.applicationStorageDirectory);
 		#end
 
 		#if (windows && cpp)
@@ -118,40 +120,37 @@ class Main extends Sprite
 	}
 	
 	#if android
-	public static function requestPermissions():Void
+	@:unreflective static function requestPermissions():Void
 	{
-		var isAPI33 = AndroidVersion.SDK_INT >= AndroidVersionCode.TIRAMISU;
-
-		debugTrace("Check Permissions...", CUSTOM, 'ANDROID', FlxColor.LIME);
-		
-		if (!isAPI33)
-		{
-			debugTrace('Requesting EXTERNAL_STORAGE...', CUSTOM, 'ANDROID', FlxColor.LIME);
-
-			AndroidPermissions.requestPermissions(['READ_EXTERNAL_STORAGE', 'WRITE_EXTERNAL_STORAGE']);
-		}
-
-		if (!AndroidEnvironment.isExternalStorageManager())
-			AndroidSettings.requestSetting('MANAGE_APP_ALL_FILES_ACCESS_PERMISSION');
-
-		var has_MANAGE_EXTERNAL_STORAGE = AndroidEnvironment.isExternalStorageManager();
-
-		var has_READ_EXTERNAL_STORAGE = AndroidPermissions.getGrantedPermissions().contains('android.permission.READ_EXTERNAL_STORAGE');
-		
-		if ((isAPI33 && !has_MANAGE_EXTERNAL_STORAGE) || (!isAPI33 && !has_READ_EXTERNAL_STORAGE))
-			CoolUtil.showPopUp('Notice', 'If you accepted the permissions you are all good!' + '\nIf you didn\'t then expect a crash' + '\nPress OK to see what happens');
-
-		debugTrace('Checking Game Directory...', CUSTOM, 'ANDROID', FlxColor.LIME);
+		if (false && AndroidVersion.SDK_INT >= AndroidVersionCode.M)
+			checkPermissions();
 
 		try
 		{
-			if (!FileSystem.exists(Context.getExternalFilesDir()))
-				FileSystem.createDirectory(Context.getExternalFilesDir());
+			if (!FileSystem.exists(Context.getObbDir()))
+				FileSystem.createDirectory(Context.getObbDir());
 		} catch (e:Dynamic) {
-			CoolUtil.showPopUp('Error', 'Please create directory to\n' + Context.getExternalFilesDir() + '\nPress OK to close the game');
+			CoolUtil.showPopUp('Error', 'Please create directory to\n' + Context.getObbDir() + '\nPress OK to close the game');
 
 			LimeSystem.exit(1);
 		}
+	}
+
+	@:unreflective static function checkPermissions()
+	{
+		var isAPI33 = AndroidVersion.SDK_INT >= AndroidVersionCode.TIRAMISU;
+
+		if (!isAPI33)
+			AndroidPermissions.requestPermissions(['READ_EXTERNAL_STORAGE', 'WRITE_EXTERNAL_STORAGE']);
+
+		AndroidSettings.requestSetting('MANAGE_APP_ALL_FILES_ACCESS_PERMISSION');
+
+		var hasManageExternal = AndroidEnvironment.isExternalStorageManager();
+		
+		var hasReadExternal = AndroidPermissions.getGrantedPermissions().contains('READ_EXTERNAL_STORAGE');
+
+		if ((isAPI33 && !hasManageExternal) || (!isAPI33 && !hasReadExternal))
+			CoolUtil.showPopUp('Notice', 'If you accepted the permissions you are all good!' + '\nIf you didn\'t then expect a crash' + '\nPress OK to see what happens');
 	}
 	#end
 

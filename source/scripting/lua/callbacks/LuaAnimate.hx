@@ -10,6 +10,14 @@ class LuaAnimate extends LuaPresetBase
     {
         super(lua);
 
+        /**
+         * Crea un FlxAnimate
+         * 
+         * @param tag ID del animate
+         * @param x Posición en `x`
+         * @param y Posición en `y`
+         * @param loadFolder Ruta del atlas
+         */
         set('makeFlxAnimateSprite', function(tag:String, ?x:Float, ?y:Float, ?loadFolder:String)
         {
             var sprite:PsychFlxAnimate = new PsychFlxAnimate(x, y);
@@ -20,12 +28,32 @@ class LuaAnimate extends LuaPresetBase
             setTag(tag, sprite);
         });
         
+        /**
+         * Carga un atlas a un animate
+         * 
+         * @param tag ID del animate
+         * @param folderOrImg Ruta del spritemap
+         * @param spriteJson Ruta del JSON del spritemap
+         * @param animationJson Ruta del JSON de la animación
+         */
         set('loadAnimateAtlas', function(tag:String, folderOrImg:Dynamic, ?spriteJson:Dynamic, ?animationJson:Dynamic)
         {
             if (tagIs(tag, PsychFlxAnimate))
                 Paths.loadAnimateAtlas(getTag(tag), folderOrImg, spriteJson, animationJson);
         });
 
+        /**
+         * Añade una animación por su símbolo a un animate
+         * 
+         * @param tag ID del animate
+         * @param name Nombre de la animación
+         * @param symbol Nombre del símbolo en Adobe Animate
+         * @param indices Indices que indican qué frames y en qué orden se reproducen
+         * @param framerate Velocidad de la animación en frames
+         * @param loop Define si la animación debería o no estar en bucle
+         * @param matX Offset del matrix en `x`
+         * @param matY Offset del matrix en `y`
+         */
         set('addAnimationBySymbolIndices', function(tag:String, name:String, symbol:String, indices:Any, ?framerate:Float, ?loop:Bool, ?matX:Float, ?matY:Float)
         {
             if (!tagIs(tag, PsychFlxAnimate))

@@ -12,6 +12,14 @@ class LuaBasic extends LuaPresetBase
     {
         super(lua);
 
+        /**
+         * Define la cámara en las que se dibujará un objeto
+         * 
+         * @param tag ID del objeto
+         * @param camera ID de la cámara
+         * 
+         * @deprecated Use `setObjectCameras` en su lugar
+         */
         set('setObjectCamera', function(tag:String, camera:String)
         {
             deprecatedPrint('Use "setObjectCameras" instead of "setObjectCamera"');
@@ -20,6 +28,12 @@ class LuaBasic extends LuaPresetBase
                 getTag(tag).cameras = [getTag(camera)];
         });
 
+        /**
+         * Define las cámaras en las que se dibujará un objeto
+         * 
+         * @param tag ID del objeto
+         * @param cameras Lista de IDs de las cámaras
+         */
         set('setObjectCameras', function(tag:String, cameras:Array<String>)
         {
             var theCameras:Array<FlxCamera> = [];
@@ -32,10 +46,20 @@ class LuaBasic extends LuaPresetBase
                 cast(getTag(tag), FlxBasic).cameras = theCameras;
         });
 
-        set('objectsOverlap', function(tag0:String, tag1:String)
+        /**
+         * Muestra si un objeto está tocando a otro
+         * 
+         * @param tag0 ID del primer objeto
+         * @param tag1 ID del segundo objeto
+         * 
+         * @return Si los objetos se están tocando
+         */
+        set('objectsOverlap', function(tag0:String, tag1:String):Bool
         {
             if (tagIs(tag0, FlxBasic) && tagIs(tag0, FlxBasic))
-                FlxG.overlap(getTag(tag0), getTag(tag1));
+                return FlxG.overlap(getTag(tag0), getTag(tag1));
+
+            return false;
         });
     }
 }

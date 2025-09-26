@@ -15,6 +15,7 @@ haxelib install flixel-addons 3.3.2
 haxelib install flixel-ui 2.6.4
 haxelib install flixel-tools 1.5.1
 haxelib install tjson 1.4.0
+haxelib git away3d https://github.com/ALE-Psych-Crew/away3d --skip-dependencies
 haxelib install extension-androidtools 2.2.2 --skip-dependencies
 haxelib git hxcpp https://github.com/AlejoGDOfficial/MobilePorting-hxcpp --skip-dependencies
 haxelib git flxanimate https://github.com/Dot-Stuff/flxanimate 7da385ca7fd8d8067aac03bc39798d37c5598e45
@@ -25,6 +26,7 @@ haxelib install hxvlc 2.2.2 --skip-dependencies
 haxelib git rulescript https://github.com/Kriptel/RuleScript f98bd260202ccafb150d698933158d2d4d3b8e3c --skip-dependencies
 haxelib git hscript https://github.com/HaxeFoundation/hscript 92ffe9c519bbccf783df0b3400698c5b3cc645ef
 haxelib git ale-ui https://github.com/ALE-Psych-Crew/ALE-UI --skip-dependencies
+haxelib git flixel-away3d https://github.com/ALE-Psych-Crew/Flixel-Away-3D --skip-dependencies
 haxelib install sl-windows-api 1.1.0
 
 echo Finished!

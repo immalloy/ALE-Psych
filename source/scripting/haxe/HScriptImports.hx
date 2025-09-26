@@ -6,11 +6,15 @@ import scripting.haxe.imports.FlixelImports;
 
 import scripting.haxe.imports.FlixelAddonsImports;
 
+import scripting.haxe.imports.FlixelAway3DImports;
+
 import scripting.haxe.imports.HaxeImports;
 
 import scripting.haxe.imports.SysImports;
 
 import scripting.haxe.imports.OpenFLImports;
+
+import scripting.haxe.imports.Away3DImports;
 
 #end
 
