@@ -86,7 +86,7 @@
 	<!-- ______________________________ Haxe Defines _____________________________ -->
 
 	<haxedef name="DISCORD_DISABLE_IO_THREAD" if="hxdiscord_rpc"/>
-	<haxedef name="NO_PRECOMPILED_HEADERS" if="linux"/>
+	<haxedef name="NO_PRECOMPILED_HEADERS" if="android"/>
 
 	<haxedef name="HXC_LIBVLC_LOGGING" if="VIDEOS_ALLOWED debug"/>
 	
@@ -133,10 +133,11 @@
 		<assets path="alsoft.txt" rename="plugins/alsoft.conf" type="text" unless="windows"/>
 	</section>
 
-	<!-- ______________________________ Android Config ______________________________ -->
+	<!-- ______________________________ Android Configs _____________________________ -->
 
-	<config:android permission="android.permission.READ_EXTERNAL_STORAGE" if="android"/>
-	<config:android permission="android.permission.WRITE_EXTERNAL_STORAGE" if="android"/>
-	<config:android gradle-version="7.5.1" />
-	<config:android gradle-plugin="7.3.1" />
+	<config type="android" gradle-version="8.10.2" gradle-plugin="8.8.0" ndkVersion="27.0"  minimum-sdk-version="26" target-sdk-version="35" />
+
+	<config:android permission="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
+	<certificate path="key.keystore" password="aleenginepass" alias="ale-engine" alias-password="aleenginepass" if="android"/>
 </project>
