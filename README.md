@@ -37,6 +37,7 @@
 - For testing or experimenting, use the GitHub Actions builds above.  
 
 See the [Getting Started Guide](https://github.com/ALE-Psych-Crew/ALE-Psych/wiki) for setup instructions.  
+-  Look at Our Unique [Lua API documentation](docs/lua/Home.md) for scripting reference.
 
 **For players:** press **Ctrl + Shift + M** to open the Mods menu.  
 
@@ -50,6 +51,7 @@ The goal is simple: give developers the tools to build complete mods **without t
 ---
 
 ## Key Differences from Psych
+
 - Scripted **menus and submenus** (Lua and HScript).  
 - Support for **custom classes**.  
 - Support for 3D Objects.
