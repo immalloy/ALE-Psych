@@ -50,7 +50,7 @@
 
 	<assets path="assets"/>
 
-	<assets path="mods" embed="false"/>
+	<assets path="mods" embed="false" unless="mobile"/>
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
@@ -80,8 +80,6 @@
 	<haxelib name="ale-ui"/>
 	
 	<haxelib name="flixel-away3d"/>
-
-	<haxelib name="extension-androidtools" if="android"/>
 
 	<!-- ______________________________ Haxe Defines _____________________________ -->
 
@@ -138,6 +136,10 @@
 	<config type="android" gradle-version="8.10.2" gradle-plugin="8.8.0" ndkVersion="27.0"  minimum-sdk-version="26" target-sdk-version="35" />
 
 	<config:android permission="android.permission.MANAGE_EXTERNAL_STORAGE" />
+	<config:android permission="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+	<config:android permission="android.permission.INTERNET" />
+	<config:android permission="android.permission.ACCESS_NETWORK_STATE" />
 
 	<certificate path="key.keystore" password="aleenginepass" alias="ale-engine" alias-password="aleenginepass" if="android"/>
 </project>

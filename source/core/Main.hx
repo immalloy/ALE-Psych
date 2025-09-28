@@ -1,9 +1,5 @@
 package core;
 
-#if android
-import extension.androidtools.content.Context;
-#end
-
 import flixel.graphics.FlxGraphic;
 import flixel.FlxGame;
 import flixel.FlxState;
@@ -36,12 +32,12 @@ import openfl.events.KeyboardEvent;
 import openfl.ui.Keyboard;
 
 #if android
-import extension.androidtools.content.Context as AndroidContext;
-import extension.androidtools.os.Environment as AndroidEnvironment;
-import extension.androidtools.Permissions as AndroidPermissions;
-import extension.androidtools.os.Build.VERSION as AndroidVersion;
-import extension.androidtools.Settings as AndroidSettings;
-import extension.androidtools.os.Build.VERSION_CODES as AndroidVersionCode;
+import android.content.Context as AndroidContext;
+import android.os.Environment as AndroidEnvironment;
+import android.Permissions as AndroidPermissions;
+import android.os.Build.VERSION as AndroidVersion;
+import android.Settings as AndroidSettings;
+import android.os.Build.VERSION_CODES as AndroidVersionCode;
 
 import lime.system.System as LimeSystem;
 
@@ -127,10 +123,10 @@ class Main extends Sprite
 
 		try
 		{
-			if (!FileSystem.exists(Context.getObbDir()))
-				FileSystem.createDirectory(Context.getObbDir());
+			if (!FileSystem.exists(AndroidContext.getObbDir()))
+				FileSystem.createDirectory(AndroidContext.getObbDir());
 		} catch (e:Dynamic) {
-			CoolUtil.showPopUp('Error', 'Please create directory to\n' + Context.getObbDir() + '\nPress OK to close the game');
+			CoolUtil.showPopUp('Error', 'Please create directory to\n' + AndroidContext.getObbDir() + '\nPress OK to close the game');
 
 			LimeSystem.exit(1);
 		}

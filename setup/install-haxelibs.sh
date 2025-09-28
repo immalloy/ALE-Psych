@@ -6,7 +6,7 @@ mkdir ~/haxelib && haxelib setup ~/haxelib
 
 echo "Installing dependencies..."
 
-haxelib git lime https://github.com/ALE-Psych-Crew/lime
+haxelib git lime https://github.com/AlejoGDOfficial/Lime
 haxelib run lime setup
 haxelib install openfl 9.4.1
 haxelib install flixel 6.1.0
@@ -15,7 +15,6 @@ haxelib install flixel-ui 2.6.4
 haxelib install flixel-tools 1.5.1
 haxelib install tjson 1.4.0
 haxelib git away3d https://github.com/ALE-Psych-Crew/away3d --skip-dependencies
-haxelib install extension-androidtools 2.2.2 --skip-dependencies
 haxelib git hxcpp https://github.com/AlejoGDOfficial/MobilePorting-hxcpp --skip-dependencies
 haxelib git flxanimate https://github.com/Dot-Stuff/flxanimate 7da385ca7fd8d8067aac03bc39798d37c5598e45
 haxelib install hxluajit 1.0.5 --skip-dependencies
