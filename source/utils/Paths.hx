@@ -20,6 +20,8 @@ import funkin.visuals.objects.PsychFlxAnimate;
 import openfl.display.BitmapData;
 import openfl.display3D.textures.RectangleTexture;
 
+import lime.media.AudioBuffer;
+
 import core.backend.Mods;
 
 import openfl.media.Sound;
@@ -172,7 +174,7 @@ class Paths
         if (cachedGraphics.exists(path))
             return cachedGraphics.get(path);
         else if (exists(path))
-            bitmap = BitmapData.fromFile(getPath(path));
+            bitmap = BitmapData.fromBytes(getBytes(path));
 
         if (bitmap != null)
         {
@@ -463,7 +465,7 @@ class Paths
 		if (bitmap == null)
 		{
 			if (FileSystem.exists(file))
-				bitmap = BitmapData.fromFile(file);
+				bitmap = BitmapData.fromBytes(File.getBytes(file));
             
 			if (bitmap == null)
                 return null;
@@ -494,7 +496,7 @@ class Paths
         if (sound == null)
         {
             if (FileSystem.exists(file))
-                sound = Sound.fromFile(file);
+                sound = Sound.fromAudioBuffer(AudioBuffer.fromBytes(File.getBytes(file)));
 
             if (sound == null)
                 return null;
@@ -514,7 +516,7 @@ class Paths
         if (cachedSounds.exists(path))
             return cachedSounds.get(path);
         else if (exists(path))
-            sound = Sound.fromFile(getPath(path));
+            sound = Sound.fromAudioBuffer(AudioBuffer.fromBytes(getBytes(path)));
 
         if (sound != null)
         {

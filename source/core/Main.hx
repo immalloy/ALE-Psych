@@ -122,6 +122,9 @@ class Main extends Sprite
 	#if android
 	@:unreflective static function requestPermissions():Void
 	{
+		if (AndroidVersion.SDK_INT >= AndroidVersionCode.M)
+			checkPermissions();
+
 		try
 		{
 			if (!FileSystem.exists(Context.getObbDir()))
@@ -131,6 +134,23 @@ class Main extends Sprite
 
 			LimeSystem.exit(1);
 		}
+	}
+
+	@:unreflective static function checkPermissions()
+	{
+		var isAPI33 = AndroidVersion.SDK_INT >= AndroidVersionCode.TIRAMISU;
+
+		if (!isAPI33)
+			AndroidPermissions.requestPermissions(['READ_EXTERNAL_STORAGE', 'WRITE_EXTERNAL_STORAGE']);
+
+		AndroidSettings.requestSetting('MANAGE_APP_ALL_FILES_ACCESS_PERMISSION');
+
+		var hasManageExternal = AndroidEnvironment.isExternalStorageManager();
+		
+		var hasReadExternal = AndroidPermissions.getGrantedPermissions().contains('READ_EXTERNAL_STORAGE');
+
+		if ((isAPI33 && !hasManageExternal) || (!isAPI33 && !hasReadExternal))
+			CoolUtil.showPopUp('Notice', 'If you accepted the permissions you are all good!' + '\nIf you didn\'t then expect a crash' + '\nPress OK to see what happens');
 	}
 	#end
 
