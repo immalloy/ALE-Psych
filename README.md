@@ -25,10 +25,6 @@
 ## Downloads
 
 <p align="center">
-  <a href="https://github.com/ALE-Psych-Crew/ALE-Psych/actions/runs/17804508136/artifacts/4037104941"><img alt="Download Windows x64" src="https://img.shields.io/badge/Windows%20x64-download-2ea44f.svg"></a> <a href="https://github.com/ALE-Psych-Crew/ALE-Psych/actions/runs/17804508112/artifacts/4037108675"><img alt="Download Windows 32-bit" src="https://img.shields.io/badge/Windows%2032--bit-download-2ea44f.svg"></a> <a href="https://github.com/ALE-Psych-Crew/ALE-Psych/actions/runs/17804508108/artifacts/4037285682"><img alt="Download Android APK" src="https://img.shields.io/badge/Android%20APK-download-2ea44f.svg"></a>
-</p>
-
-<p align="center">
   <a href="https://github.com/ALE-Psych-Crew/ALE-Psych/actions?query=branch%3Amain+is%3Asuccess"><img alt="Latest successful run" src="https://img.shields.io/badge/Latest%20successful%20run-view-0366d6.svg"></a>
 </p>
 
