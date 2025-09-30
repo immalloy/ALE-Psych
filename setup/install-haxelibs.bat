@@ -7,7 +7,7 @@ echo Installing dependencies
 
 echo Installing dependencies...
 
-haxelib git lime https://github.com/AlejoGDOfficial/Lime
+haxelib git lime https://github.com/AlejoGDOfficial/Lime --skip-dependencies
 haxelib run lime setup
 haxelib install openfl 9.4.1
 haxelib install flixel 6.1.0
