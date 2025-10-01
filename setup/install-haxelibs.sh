@@ -7,9 +7,8 @@ mkdir ~/haxelib && haxelib setup ~/haxelib
 echo "Installing dependencies..."
 
 haxelib git lime https://github.com/AlejoGDOfficial/Lime
-haxelib run lime setup
 haxelib install openfl 9.4.1
-haxelib install flixel 6.1.0
+haxelib install flixel 6.1.0 --skip-dependencies
 haxelib install flixel-addons 3.3.2
 haxelib install flixel-ui 2.6.4
 haxelib install flixel-tools 1.5.1
