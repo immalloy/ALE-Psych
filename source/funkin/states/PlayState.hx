@@ -477,7 +477,7 @@ class PlayState extends ScriptState
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
 
 		for (i in 1...4) Paths.sound('missnote$i');
-		Paths.image('alphabet');
+		Paths.image('ui/alphabet');
 
 		resetRPC();
 
@@ -639,7 +639,7 @@ class PlayState extends ScriptState
 		var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
 		var introImagesArray:Array<String> = switch(stageUI) {
 			case "pixel": ['${stageUI}UI/ready-pixel', '${stageUI}UI/set-pixel', '${stageUI}UI/date-pixel'];
-			case "normal": ["ready", "set" ,"go"];
+			case "normal": ["countdown/ready", "countdown/set" ,"countdown/go"];
 			default: ['${stageUI}UI/ready', '${stageUI}UI/set', '${stageUI}UI/go'];
 		}
 		introAssets.set(stageUI, introImagesArray);
@@ -700,7 +700,7 @@ class PlayState extends ScriptState
 				var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
 				var introImagesArray:Array<String> = switch(stageUI) {
 					case "pixel": ['${stageUI}UI/ready-pixel', '${stageUI}UI/set-pixel', '${stageUI}UI/date-pixel'];
-					case "normal": ["ready", "set" ,"go"];
+					case "normal": ["countdown/ready", "countdown/set" ,"countdown/go"];
 					default: ['${stageUI}UI/ready', '${stageUI}UI/set', '${stageUI}UI/go'];
 				}
 				introAssets.set(stageUI, introImagesArray);
@@ -2020,7 +2020,7 @@ class PlayState extends ScriptState
 
 	private function cachePopUpScore()
 	{
-		var uiPrefix:String = '';
+		var uiPrefix:String = 'rating/';
 		var uiSuffix:String = '';
 		if (stageUI != "normal")
 		{
@@ -2075,10 +2075,15 @@ class PlayState extends ScriptState
 		var uiSuffix:String = '';
 		var antialias:Bool = ClientPrefs.data.antialiasing;
 
-		if (stageUI != "normal")
+		if (stageUI == "normal")
 		{
+			uiPrefix = 'rating/';
+		} else {
 			uiPrefix = '${stageUI}UI/';
-			if (PlayState.isPixelStage) uiSuffix = '-pixel';
+
+			if (PlayState.isPixelStage)
+				uiSuffix = '-pixel';
+
 			antialias = !isPixelStage;
 		}
 

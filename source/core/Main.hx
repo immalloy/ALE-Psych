@@ -158,6 +158,12 @@ class Main extends Sprite
 		setupGame();
 		
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPressed);
+
+		Lib.application.window.onClose.add(function()
+			{
+				CoolUtil.save?.save();		
+			}
+		);
 	}
 
 	private function setupGame():Void

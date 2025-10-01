@@ -31,7 +31,7 @@ var diffSelInt:Int = CoolUtil.save.custom.data.freeplayDifficulty ?? 2;
 
 function onCreate()
 {
-    bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+    bg = new FlxSprite().loadGraphic(Paths.image('ui/menuBG'));
     add(bg);
     bg.scale.x = bg.scale.y = 1.25;
     bg.scrollFactor.set();

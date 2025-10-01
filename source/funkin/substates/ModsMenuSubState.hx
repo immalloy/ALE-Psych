@@ -119,6 +119,8 @@ class ModsMenuSubState extends MusicBeatSubState
 
             close();
 
+            CoolUtil.save?.save();		
+        
             CoolUtil.resetEngine();
         }
 
