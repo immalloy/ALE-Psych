@@ -152,7 +152,7 @@ function getTankman():RunningTankman
 
 function postCreate()
 {
-	if (showRunningTankmans)
+	if (!showRunningTankmans)
 		return;
 
 	animationNotes = game.gf.animationNotes;

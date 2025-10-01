@@ -10,7 +10,6 @@ import openfl.utils.Assets;
 
 import utils.Song;
 import utils.Section;
-import funkin.visuals.stages.objects.TankmenBG;
 
 import funkin.visuals.objects.PsychFlxAnimate;
 
@@ -395,7 +394,6 @@ class Character extends FlxSprite
 					animationNotes.push(songNotes);
 				}
 			}
-			TankmenBG.animationNotes = animationNotes;
 			animationNotes.sort(sortAnims);
 		} catch(e:Dynamic) {}
 	}

@@ -41,6 +41,8 @@ import scripting.lua.*;
 
 import funkin.editors.*;
 
+import core.enums.Countdown;
+
 class PlayState extends ScriptState
 {
 	public function new()
@@ -321,19 +323,6 @@ class PlayState extends ScriptState
 		dadGroup = new FlxSpriteGroup(DAD_X, DAD_Y);
 		gfGroup = new FlxSpriteGroup(GF_X, GF_Y);
 
-		switch (curStage)
-		{
-			case 'stage': new funkin.visuals.stages.StageWeek1(); 
-			case 'spooky': new funkin.visuals.stages.Spooky(); 
-			case 'philly': new funkin.visuals.stages.Philly(); 
-			case 'limo': new funkin.visuals.stages.Limo(); 
-			case 'mall': new funkin.visuals.stages.Mall(); 
-			case 'mallEvil': new funkin.visuals.stages.MallEvil(); 
-			case 'school': new funkin.visuals.stages.School(); 
-			case 'schoolEvil': new funkin.visuals.stages.SchoolEvil(); 
-			case 'tank': new funkin.visuals.stages.Tank(); 
-		}
-
 		if(isPixelStage) {
 			introSoundsSuffix = '-pixel';
 		}
@@ -389,8 +378,7 @@ class PlayState extends ScriptState
 			if(gf != null)
 				gf.visible = false;
 		}
-		stagesFunc(function(stage:BaseStage) stage.createPost());
-
+		
 		comboGroup = new FlxSpriteGroup();
 		add(comboGroup);
 		noteGroup = new FlxTypedGroup<FlxBasic>();
@@ -750,7 +738,6 @@ class PlayState extends ScriptState
 					}
 				});
 
-				stagesFunc(function(stage:BaseStage) stage.countdownTick(tick, swagCounter));
 				callOnLuaScripts('onCountdownTick', [swagCounter]);
 				callOnHScripts('onCountdownTick', [tick, swagCounter]);
 
@@ -1109,7 +1096,6 @@ class PlayState extends ScriptState
 			return;
 		}
 
-		stagesFunc(function(stage:BaseStage) stage.eventPushed(event));
 		eventsPushed.push(event.event);
 	}
 
@@ -1134,7 +1120,6 @@ class PlayState extends ScriptState
 			case 'Play Sound':
 				Paths.sound(event.value1); 
 		}
-		stagesFunc(function(stage:BaseStage) stage.eventPushedUnique(event));
 	}
 
 	function eventEarlyTrigger(event:EventNote):Float {
@@ -1191,8 +1176,6 @@ class PlayState extends ScriptState
 
 	override function openSubState(SubState:FlxSubState)
 	{
-		stagesFunc(function(stage:BaseStage) stage.openSubState(SubState));
-
 		if (paused)
 		{
 			if (FlxG.sound.music != null)
@@ -1221,8 +1204,6 @@ class PlayState extends ScriptState
 
         callOnScripts('onCloseSubState');
 		
-		stagesFunc(function(stage:BaseStage) stage.closeSubState());
-
 		if (paused)
 		{
 			if (FlxG.sound.music != null && !startingSong)
@@ -1862,7 +1843,6 @@ class PlayState extends ScriptState
 				FlxG.sound.play(Paths.sound(value1), flValue2);
 		}
 
-		stagesFunc(function(stage:BaseStage) stage.eventCalled(eventName, value1, value2, flValue1, flValue2, strumTime));
 		callOnScripts('onEvent', [eventName, value1, value2, strumTime]);
 	}
 

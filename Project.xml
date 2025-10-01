@@ -83,6 +83,8 @@
 
 	<!-- ______________________________ Haxe Defines _____________________________ -->
 
+	<haxedef name='lime_disable_assets_version'/>	
+
 	<haxedef name="DISCORD_DISABLE_IO_THREAD" if="hxdiscord_rpc"/>
 	<haxedef name="NO_PRECOMPILED_HEADERS" if="android"/>
 

@@ -1041,10 +1041,12 @@ class CharacterEditorState extends MusicBeatState
 
 	inline function loadBG()
 	{
-		var bg:BGSprite = new BGSprite('week1/stageback', -600, -200, 0.9, 0.9);
+		var bg:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.image('stages/stage/stageback'));
+		bg.scrollFactor.set(0.9, 0.9);
 		add(bg);
 
-		var stageFront:BGSprite = new BGSprite('week1/stagefront', -650, 600, 0.9, 0.9);
+		var stageFront:FlxSprite = new FlxSprite(-650, 600).loadGraphic(Paths.image('stages/stage/stagefront'));
+		stageFront.scrollFactor.set(0.9, 0.9);
 		stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
 		stageFront.updateHitbox();
 		add(stageFront);

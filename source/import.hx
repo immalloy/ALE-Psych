@@ -15,8 +15,6 @@ import funkin.substates.CustomSubState;
 
 import core.config.ClientPrefs;
 
-import funkin.visuals.stages.BaseStage;
-
 import utils.CoolUtil;
 import utils.CoolVars;
 import utils.Paths;
@@ -25,7 +23,6 @@ import utils.ALEJson as Json;
 import utils.cool.LogUtil.debugTrace;
 
 import funkin.visuals.objects.Alphabet;
-import funkin.visuals.stages.BGSprite;
 
 import funkin.states.PlayState;
 
