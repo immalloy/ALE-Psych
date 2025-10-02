@@ -6,3 +6,4 @@ flixel.text.FlxText.FlxTextAlign
 flixel.util.FlxDirectionFlags
 openfl.display.BlendMode
 flixel.util.FlxAxes
+flixel.math.FlxPoint
